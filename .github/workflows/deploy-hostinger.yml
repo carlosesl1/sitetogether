@@ -80,7 +80,7 @@ jobs:
           port: ${{ env.HOSTINGER_FTP_PORT }}
           local-dir: ./out/
           server-dir: ${{ env.HOSTINGER_FTP_SERVER_DIR }}
-          state-name: .ftp-deploy-sync-state-static-site-v2.json
+          state-name: .ftp-deploy-sync-state-static-site-v3.json
           dry-run: ${{ env.HOSTINGER_DRY_RUN }}
           log-level: standard
           exclude: |
