@@ -61,7 +61,7 @@ jobs:
           HOSTINGER_FTP_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           HOSTINGER_FTP_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
 
-      - name: Inspect Hostinger FTP paths
+      - name: Inspect Hostinger FTP paths before deploy
         run: |
           python - <<'PY'
           import os
@@ -147,3 +147,68 @@ jobs:
             **/license.txt
             **/readme.html
             **/.user.ini
+
+      - name: Verify uploaded files over FTP
+        run: |
+          python - <<'PY'
+          import hashlib
+          import os
+          import re
+          from ftplib import FTP, error_perm
+
+          ftp = FTP(os.environ["HOSTINGER_FTP_SERVER"], timeout=20)
+          ftp.login(os.environ["HOSTINGER_FTP_USERNAME"], os.environ["HOSTINGER_FTP_PASSWORD"])
+
+          paths = [
+              ".",
+              "public_html",
+              "public_html/public_html",
+              "domains/togetherprivacy.tech/public_html",
+          ]
+
+          targets = [
+              "blog.html",
+              "data/blog-sync.json",
+              "blog/caso-claro-serasa-anpd-compartilhamento-dados.html",
+              "codex-deploy-marker.txt",
+          ]
+
+          def fetch(path, target):
+              ftp.cwd("/")
+              ftp.cwd(path)
+              chunks = []
+              ftp.retrbinary(f"RETR {target}", chunks.append)
+              return b"".join(chunks)
+
+          for path in paths:
+              print(f"--- FTP verify path: {path}")
+              try:
+                  for target in targets:
+                      try:
+                          data = fetch(path, target)
+                          text = data[:200000].decode("utf-8", errors="ignore")
+                          digest = hashlib.sha256(data).hexdigest()[:16]
+                          build = re.search(r"<!DOCTYPE html><!--([^>]+)--><html", text)
+                          details = [
+                              f"bytes={len(data)}",
+                              f"sha256={digest}",
+                              f"has_caso={'caso-claro-serasa-anpd-compartilhamento-dados' in text}",
+                          ]
+                          if build:
+                              details.append(f"build_id={build.group(1)}")
+                          if target == "codex-deploy-marker.txt":
+                              details.append(f"content={text.strip()}")
+                          print(f"{target}: " + " ".join(details))
+                      except Exception as exc:
+                          print(f"{target}: missing ({exc.__class__.__name__})")
+              except error_perm as exc:
+                  print(f"unavailable: {exc}")
+              except Exception as exc:
+                  print(f"error: {exc.__class__.__name__}: {exc}")
+
+          ftp.quit()
+          PY
+        env:
+          HOSTINGER_FTP_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          HOSTINGER_FTP_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          HOSTINGER_FTP_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
