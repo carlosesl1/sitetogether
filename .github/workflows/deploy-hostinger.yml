@@ -23,7 +23,13 @@ jobs:
   build-and-deploy:
     name: Build and deploy
     runs-on: ubuntu-latest
+    environment: hostinger
     timeout-minutes: 30
+    env:
+      HOSTINGER_FTP_PROTOCOL: ${{ secrets.HOSTINGER_FTP_PROTOCOL || vars.HOSTINGER_FTP_PROTOCOL || 'ftp' }}
+      HOSTINGER_FTP_PORT: ${{ secrets.HOSTINGER_FTP_PORT || vars.HOSTINGER_FTP_PORT || 21 }}
+      HOSTINGER_FTP_SERVER_DIR: ${{ secrets.HOSTINGER_FTP_SERVER_DIR || vars.HOSTINGER_FTP_SERVER_DIR || './public_html/' }}
+      HOSTINGER_DRY_RUN: ${{ secrets.HOSTINGER_DRY_RUN || vars.HOSTINGER_DRY_RUN || 'true' }}
 
     steps:
       - name: Checkout repository
@@ -40,7 +46,7 @@ jobs:
           missing=0
           for name in HOSTINGER_FTP_SERVER HOSTINGER_FTP_USERNAME HOSTINGER_FTP_PASSWORD; do
             if [ -z "${!name}" ]; then
-              echo "::error::${name} is not configured in GitHub Actions repository secrets."
+              echo "::error::${name} is not configured in GitHub Actions secrets for the hostinger environment."
               missing=1
             fi
           done
@@ -70,12 +76,12 @@ jobs:
           server: ${{ secrets.HOSTINGER_FTP_SERVER }}
           username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          protocol: ${{ vars.HOSTINGER_FTP_PROTOCOL || 'ftp' }}
-          port: ${{ vars.HOSTINGER_FTP_PORT || 21 }}
+          protocol: ${{ env.HOSTINGER_FTP_PROTOCOL }}
+          port: ${{ env.HOSTINGER_FTP_PORT }}
           local-dir: ./out/
-          server-dir: ${{ vars.HOSTINGER_FTP_SERVER_DIR || './public_html/' }}
+          server-dir: ${{ env.HOSTINGER_FTP_SERVER_DIR }}
           state-name: .ftp-deploy-sync-state-static-site.json
-          dry-run: ${{ vars.HOSTINGER_DRY_RUN || 'true' }}
+          dry-run: ${{ env.HOSTINGER_DRY_RUN }}
           log-level: minimal
           exclude: |
             **/.git*

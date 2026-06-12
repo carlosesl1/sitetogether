@@ -56,7 +56,7 @@ Ele roda quando:
 No repositorio do GitHub, configure em `Settings > Secrets and variables >
 Actions`:
 
-Secrets:
+Environment secrets:
 
 ```txt
 HOSTINGER_FTP_SERVER=ftp.seu-dominio.com
@@ -64,7 +64,13 @@ HOSTINGER_FTP_USERNAME=usuario_ftp
 HOSTINGER_FTP_PASSWORD=senha_ftp
 ```
 
-Variables:
+Esses 3 secrets devem ficar no environment `hostinger`, porque o workflow usa:
+
+```yaml
+environment: hostinger
+```
+
+Repository variables ou repository secrets:
 
 ```txt
 HOSTINGER_FTP_SERVER_DIR=./public_html/
