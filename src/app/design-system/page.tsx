@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -12,16 +13,18 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
-import { Hero } from "@/components/ui/hero";
 import { CTASection } from "@/components/ui/cta-section";
 import { CheckCircle2, AlertCircle, Info, FileText, Lock, Shield, Zap } from "lucide-react";
 
 export default function DesignSystemPage() {
+    if (process.env.NODE_ENV === "production") {
+        notFound();
+    }
+
     return (
         <div className="min-h-screen bg-neutral-50 font-sans">
             <Navbar />
 
-            <Hero />
 
             <main className="container py-12 space-y-16">
 

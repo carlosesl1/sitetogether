@@ -3,7 +3,7 @@ import { CheckCircle2, Shield, Activity, Lock } from "lucide-react";
 
 export function Hero() {
     return (
-        <section className="w-full pt-12 pb-16 lg:pt-20 lg:pb-24 bg-white relative overflow-hidden">
+        <section className="w-full pt-12 pb-16 lg:pt-20 lg:pb-24 bg-[#FcFcFc] relative overflow-hidden">
             {/* Crisp Grid Background */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
 
@@ -14,39 +14,30 @@ export function Hero() {
                     <div className="flex flex-col space-y-8 max-w-2xl">
                         <div className="inline-flex items-center rounded-full border border-neutral-200 bg-white px-3 py-1 text-sm font-medium text-neutral-600 shadow-sm w-fit">
                             <span className="flex h-2 w-2 rounded-full bg-brand-400 mr-2"></span>
-                            DPO as a Service
+                            DPO As A Service
                         </div>
 
-                        <h1 className="text-5xl font-bold tracking-tight sm:text-6xl xl:text-7xl text-neutral-900 leading-[1.1]">
-                            Foque no seu <br />
-                            <span className="relative inline-block">
-                                negócio
-                                <svg className="absolute w-full h-4 -bottom-1 left-0 text-brand-400/30 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                    <path d="M0 5 Q 50 15 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
-                                </svg>
-                            </span> enquanto cuidamos da <span className="text-brand-500">conformidade.</span>
+                        <h1 className="text-5xl font-bold tracking-tight sm:text-6xl xl:text-6xl text-neutral-900 leading-[1.1]">
+                            Privacidade gerida por <span className="text-brand-500">quem entende de dados</span>.
                         </h1>
 
                         <p className="text-xl text-neutral-500 leading-relaxed max-w-[600px]">
-                            Tenha um time completo operando sua privacidade enquanto você escala vendas e conquista novos clientes.
+                            Desenvolvemos o braço operacional e jurídico que sua empresa precisa para operar com segurança total em um mundo orientado a dados.
                         </p>
+
+
 
                         <div className="flex flex-col sm:flex-row gap-4 pt-4">
                             <Button size="lg" className="text-base font-bold shadow-xl shadow-brand-400/20">
-                                Falar com Especialista
+                                Conhecer Soluções
                             </Button>
                             <Button size="lg" variant="outline" className="text-base font-medium">
-                                Ver Como Funciona
+                                Ver Escopo de Atuação ↓
                             </Button>
                         </div>
 
-                        <div className="flex items-center gap-4 text-sm text-neutral-400 pt-4">
-                            <div className="flex -space-x-2">
-                                {[1, 2, 3].map(i => (
-                                    <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-neutral-100" />
-                                ))}
-                            </div>
-                            <p>Trusted by 500+ companies</p>
+                        <div className="flex items-center gap-4 text-sm text-neutral-400 pt-2">
+                            <p>💡 Diagnóstico empresarial sem compromisso.</p>
                         </div>
                     </div>
 
@@ -81,7 +72,7 @@ export function Hero() {
                             </div>
                             <div>
                                 <p className="text-xs text-neutral-400 font-bold uppercase">Status</p>
-                                <p className="text-sm font-bold text-neutral-900">100% Compliant</p>
+                                <p className="text-sm font-bold text-neutral-900">Em Conformidade</p>
                             </div>
                         </div>
 
@@ -91,8 +82,8 @@ export function Hero() {
                                 <Shield className="w-6 h-6" />
                             </div>
                             <div>
-                                <p className="text-xs text-neutral-400 font-bold uppercase">Protection</p>
-                                <p className="text-sm font-bold text-neutral-900">Active Monitoring</p>
+                                <p className="text-xs text-neutral-400 font-bold uppercase">Proteção</p>
+                                <p className="text-sm font-bold text-neutral-900">Monitoramento Ativo</p>
                             </div>
                         </div>
 

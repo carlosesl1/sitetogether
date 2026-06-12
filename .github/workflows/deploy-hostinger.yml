@@ -1,0 +1,72 @@
+name: Deploy static site to Hostinger
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - wordpress_content_changed
+  schedule:
+    # Daily fallback in case the WordPress dispatch fails.
+    - cron: "17 8 * * *"
+
+concurrency:
+  group: hostinger-static-site-deploy
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static export
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://togetherprivacy.tech
+          WORDPRESS_API_URL: https://togetherprivacy.tech/wp-json/wp/v2
+
+      - name: Deploy out directory to Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          protocol: ${{ vars.HOSTINGER_FTP_PROTOCOL || 'ftps' }}
+          port: ${{ vars.HOSTINGER_FTP_PORT || 21 }}
+          local-dir: ./out/
+          server-dir: ${{ vars.HOSTINGER_FTP_SERVER_DIR || './public_html/' }}
+          state-name: .ftp-deploy-sync-state-static-site.json
+          log-level: minimal
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/wp-admin/**
+            **/wp-content/**
+            **/wp-includes/**
+            **/index.php
+            **/wp-config.php
+            **/wp-*.php
+            **/xmlrpc.php
+            **/license.txt
+            **/readme.html
+            **/.user.ini

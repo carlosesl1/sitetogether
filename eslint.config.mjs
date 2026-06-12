@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "src/components/unused_sections/**",
+    "src/components/ui/backgrounds/beams.tsx",
+    "src/components/ui/backgrounds/floating-cubes.tsx",
+    "src/components/ui/backgrounds/gradient-blinds.tsx",
+    "src/components/ui/backgrounds/silk.tsx",
   ]),
 ]);
 

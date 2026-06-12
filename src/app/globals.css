@@ -1,9 +1,14 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --color-brand-100: #FFFBE6;
-  --color-brand-400: #FFD600;
-  --color-brand-500: #E6C200;
+  --color-brand-200: #FFF0B3;
+  --color-brand-300: #FFE375;
+  --color-brand-400: #FFD637;
+  --color-brand-500: #F5C000;
+  --color-brand-600: #D9A800;
+  --color-brand-700: #B38A00;
 
   --color-neutral-white: #FFFFFF;
   --color-neutral-50: #F8F9FA;
@@ -48,6 +53,7 @@
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
 
+  /* Accordion Animations */
   @keyframes accordion-down {
     from {
       height: 0;
@@ -68,9 +74,49 @@
     }
   }
 
+  /* Marquee Animation */
+  --animate-marquee: marquee 30s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* Aurora Animation */
+  --animate-aurora: aurora 60s linear infinite;
+
+  @keyframes aurora {
+    from {
+      background-position: 50% 50%, 50% 50%;
+    }
+
+    to {
+      background-position: 350% 50%, 350% 50%;
+    }
+  }
+
   /* Default container centering */
   --container-center: true;
   --container-padding: 2rem;
+}
+
+@keyframes translation-progress {
+  0% {
+    transform: translateX(-130%);
+  }
+
+  55% {
+    transform: translateX(70%);
+  }
+
+  100% {
+    transform: translateX(230%);
+  }
 }
 
 @utility container {
@@ -78,13 +124,22 @@
   padding-inline: 2rem;
 }
 
+.container {
+  width: 100% !important;
+  max-width: 1536px !important;
+}
+
 :root {
   --font-jakarta: var(--font-jakarta);
 
   /* Colors */
-  --brand-yellow-400: #FFD600;
-  --brand-yellow-500: #E6C200;
   --brand-yellow-100: #FFFBE6;
+  --brand-yellow-200: #FFF0B3;
+  --brand-yellow-300: #FFE375;
+  --brand-yellow-400: #FFD637;
+  --brand-yellow-500: #F5C000;
+  --brand-yellow-600: #D9A800;
+  --brand-yellow-700: #B38A00;
 
   --neutral-white: #FFFFFF;
   --neutral-50: #F8F9FA;
@@ -133,4 +188,68 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-jakarta);
+}
+
+html,
+body {
+  max-width: 100%;
+}
+
+html.lenis,
+html.lenis body {
+  overflow: visible;
+}
+
+@media (max-width: 767px) {
+  [data-section="proposal-comparison"] [data-comparison-overlay] {
+    opacity: var(--together-mobile-overlay-opacity, 0) !important;
+    transform: translateY(var(--together-mobile-overlay-y, 14px)) !important;
+  }
+
+  [data-section="proposal-comparison"] [data-comparison-risk] {
+    filter: blur(var(--together-mobile-risk-blur, 0px)) !important;
+  }
+}
+
+.blog-dpo-cta-button {
+  display: inline-flex;
+  min-height: 4rem;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  background-color: var(--brand-yellow-400);
+  padding: 1rem 1.25rem;
+  color: var(--neutral-900);
+  font-size: 0.6875rem;
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
+  transition:
+    transform 200ms ease,
+    background-color 200ms ease;
+}
+
+.blog-dpo-cta-button > span {
+  display: block;
+  max-width: 100%;
+}
+
+.blog-dpo-cta-button:hover {
+  transform: translateY(-0.125rem);
+  background-color: var(--neutral-white);
+}
+
+.blog-dpo-cta-button:focus-visible {
+  outline: 2px solid var(--brand-yellow-400);
+  outline-offset: 2px;
+}
+
+@media (min-width: 640px) {
+  .blog-dpo-cta-button {
+    font-size: 0.75rem;
+  }
 }

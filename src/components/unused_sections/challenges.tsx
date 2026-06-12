@@ -46,7 +46,7 @@ export function Challenges() {
 
                     {/* Card 3 */}
                     <div className="flex flex-col p-8 bg-white rounded-2xl shadow-sm border border-neutral-200 hover:shadow-md transition-shadow">
-                        <div className="h-14 w-14 rounded-xl bg-yellow-100 flex items-center justify-center text-yellow-600 mb-6">
+                        <div className="h-14 w-14 rounded-xl bg-brand-100 flex items-center justify-center text-brand-600 mb-6">
                             <Clock className="w-8 h-8" />
                         </div>
                         <h3 className="text-xl font-bold text-neutral-900 mb-3">Bomba Relógio Ativa</h3>
@@ -54,7 +54,7 @@ export function Challenges() {
                             Você sabe que está exposto a incidentes de dados. Tratamento inadequado. Processos frágeis. Mas continua "torcendo para dar certo".
                         </p>
                         <div className="pt-6 border-t border-neutral-100">
-                            <p className="text-sm font-semibold text-yellow-600">
+                            <p className="text-sm font-semibold text-brand-600">
                                 ⚠️ Um incidente de dados custa em média R$ 1.8M + reputação
                             </p>
                         </div>
