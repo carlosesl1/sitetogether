@@ -77,10 +77,11 @@ HOSTINGER_FTP_PROTOCOL=ftp
 HOSTINGER_FTP_PORT=21
 ```
 
-O usuario FTP atual da Hostinger abre na home da hospedagem, onde existe a
-pasta `public_html`, entao o workflow fixa o diretorio remoto como
-`./public_html/`. Nao configure `HOSTINGER_FTP_SERVER_DIR` como secret ou
-variable para evitar publicar na home errada do FTP.
+O usuario FTP atual da Hostinger usado pelo deploy ja inicia dentro do webroot
+publico. Por isso o workflow fixa o diretorio remoto como `./`. Nao configure
+`HOSTINGER_FTP_SERVER_DIR` como secret ou variable: usar `./public_html/` nesta
+conta cria uma pasta duplicada `public_html/public_html` e o dominio continua
+servindo o build antigo.
 
 O workflow publica de verdade (`dry-run: false`) depois do teste inicial de
 conexao ter passado.
