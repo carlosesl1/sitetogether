@@ -28,7 +28,7 @@ jobs:
     env:
       HOSTINGER_FTP_PROTOCOL: ${{ secrets.HOSTINGER_FTP_PROTOCOL || vars.HOSTINGER_FTP_PROTOCOL || 'ftp' }}
       HOSTINGER_FTP_PORT: ${{ secrets.HOSTINGER_FTP_PORT || vars.HOSTINGER_FTP_PORT || 21 }}
-      HOSTINGER_FTP_SERVER_DIR: "./public_html/"
+      HOSTINGER_FTP_SERVER_DIR: "./"
       HOSTINGER_DRY_RUN: "false"
 
     steps:
@@ -130,7 +130,7 @@ jobs:
           port: ${{ env.HOSTINGER_FTP_PORT }}
           local-dir: ./out/
           server-dir: ${{ env.HOSTINGER_FTP_SERVER_DIR }}
-          state-name: .ftp-deploy-sync-state-static-site-v3.json
+          state-name: .ftp-deploy-sync-state-static-site-webroot-v1.json
           dry-run: ${{ env.HOSTINGER_DRY_RUN }}
           log-level: standard
           exclude: |
@@ -147,6 +147,19 @@ jobs:
             **/license.txt
             **/readme.html
             **/.user.ini
+            **/public_html/**
+            **/public_html
+            **/domains/**
+            **/domains
+            **/.ssh/**
+            **/.ssh
+            **/.logs/**
+            **/.logs
+            **/.wp-cli/**
+            **/.wp-cli
+            **/.api_token
+            **/.profile
+            **/.filebrowser
 
       - name: Verify uploaded files over FTP
         run: |
