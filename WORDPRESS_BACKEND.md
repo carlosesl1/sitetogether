@@ -67,13 +67,18 @@ HOSTINGER_FTP_PASSWORD=senha_ftp
 Variables:
 
 ```txt
-HOSTINGER_FTP_SERVER_DIR=./public_html/
-HOSTINGER_FTP_PROTOCOL=ftps
+HOSTINGER_FTP_SERVER_DIR=./
+HOSTINGER_FTP_PROTOCOL=ftp
 HOSTINGER_FTP_PORT=21
+HOSTINGER_DRY_RUN=true
 ```
 
-Se o usuario FTP da Hostinger ja abrir diretamente dentro da pasta publica, use
-`HOSTINGER_FTP_SERVER_DIR=./`.
+O usuario FTP atual da Hostinger ja abre dentro de `public_html`, entao o
+diretorio remoto correto e `./`.
+
+Mantenha `HOSTINGER_DRY_RUN=true` no primeiro teste. O workflow vai montar o
+build e listar a sincronizacao sem alterar arquivos no servidor. Depois de
+conferir o log, troque para `HOSTINGER_DRY_RUN=false` para publicar de verdade.
 
 O workflow publica apenas a pasta `out/` e exclui arquivos/pastas do WordPress
 como `wp-admin/`, `wp-content/`, `wp-includes/`, `wp-config.php`, `wp-*.php`,
