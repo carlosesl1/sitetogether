@@ -53,7 +53,7 @@ jobs:
           protocol: ${{ vars.HOSTINGER_FTP_PROTOCOL || 'ftp' }}
           port: ${{ vars.HOSTINGER_FTP_PORT || 21 }}
           local-dir: ./out/
-          server-dir: ${{ vars.HOSTINGER_FTP_SERVER_DIR || './' }}
+          server-dir: ${{ vars.HOSTINGER_FTP_SERVER_DIR || './public_html/' }}
           state-name: .ftp-deploy-sync-state-static-site.json
           dry-run: ${{ vars.HOSTINGER_DRY_RUN || 'true' }}
           log-level: minimal
