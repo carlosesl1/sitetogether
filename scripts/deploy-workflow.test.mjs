@@ -19,9 +19,9 @@ function sectionBetween(startMarker, endMarker) {
   return workflow.slice(startIndex, endIndex);
 }
 
-test("Hostinger transfer defaults to SFTP on the Hostinger hosting port", () => {
-  assert.match(workflow, /HOSTINGER_FTP_PROTOCOL:\s*sftp/);
-  assert.match(workflow, /HOSTINGER_FTP_PORT:\s*65002/);
+test("Hostinger transfer uses the FTP Access defaults shown in hPanel", () => {
+  assert.match(workflow, /HOSTINGER_FTP_PROTOCOL:\s*ftp/);
+  assert.match(workflow, /HOSTINGER_FTP_PORT:\s*21/);
   assert.doesNotMatch(workflow, /secrets\.HOSTINGER_FTP_PROTOCOL/);
   assert.doesNotMatch(workflow, /secrets\.HOSTINGER_FTP_PORT/);
   assert.doesNotMatch(workflow, /vars\.HOSTINGER_FTP_PROTOCOL/);
@@ -37,30 +37,31 @@ test("FTP inspection honors configured protocol and port without blocking deploy
   assert.match(inspectStep, /continue-on-error:\s*true/);
   assert.match(inspectStep, /HOSTINGER_FTP_PROTOCOL:\s*\$\{\{\s*env\.HOSTINGER_FTP_PROTOCOL\s*\}\}/);
   assert.match(inspectStep, /HOSTINGER_FTP_PORT:\s*\$\{\{\s*env\.HOSTINGER_FTP_PORT\s*\}\}/);
-  assert.match(inspectStep, /if protocol == "sftp":/);
+  assert.match(inspectStep, /def normalize_host\(value\):/);
+  assert.match(inspectStep, /server = normalize_host\(os\.environ\["HOSTINGER_FTP_SERVER"\]\)/);
 });
 
 test("FTP diagnostic scripts support FTP_TLS and connect to the configured port", () => {
   assert.match(workflow, /from ftplib import FTP,\s*FTP_TLS,\s*error_perm/);
-  assert.match(workflow, /port = int\(os\.environ\.get\("HOSTINGER_FTP_PORT", "65002"\)\)/);
-  assert.match(workflow, /ftp\.connect\(os\.environ\["HOSTINGER_FTP_SERVER"\], port\)/);
+  assert.match(workflow, /port = int\(os\.environ\.get\("HOSTINGER_FTP_PORT", "21"\)\)/);
+  assert.match(workflow, /ftp\.connect\(server, port\)/);
   assert.match(workflow, /ftp\.prot_p\(\)/);
 });
 
-test("Hostinger deploy uses lftp with SFTP support instead of the FTP-only action", () => {
+test("Hostinger deploy uses lftp and normalizes copied hPanel FTP hostnames", () => {
   const deployStep = sectionBetween(
     "- name: Deploy out directory to Hostinger",
     "- name: Verify uploaded files over lftp",
   );
 
   assert.doesNotMatch(workflow, /SamKirkland\/FTP-Deploy-Action/);
-  assert.match(workflow, /sudo apt-get install -y lftp openssh-client/);
+  assert.match(workflow, /sudo apt-get install -y lftp/);
   assert.match(deployStep, /ftp\|ftps\|ftps-legacy\|sftp/);
-  assert.match(deployStep, /ssh-keyscan -p "\$HOSTINGER_FTP_PORT" "\$HOSTINGER_FTP_SERVER"/);
-  assert.doesNotMatch(deployStep, /sftp:connect-program/);
+  assert.match(deployStep, /normalize_host\(\)/);
+  assert.match(deployStep, /transfer_host="\$\(normalize_host "\$HOSTINGER_FTP_SERVER"\)"/);
   assert.match(deployStep, /timeout 10m lftp -u/);
   assert.match(deployStep, /mirror --reverse --delete/);
-  assert.match(deployStep, /Hostinger SFTP deploy failed/);
+  assert.match(deployStep, /Hostinger FTP deploy failed/);
   assert.match(deployStep, /HOSTINGER_FTP_PROTOCOL:\s*\$\{\{\s*env\.HOSTINGER_FTP_PROTOCOL\s*\}\}/);
   assert.match(deployStep, /HOSTINGER_FTP_PORT:\s*\$\{\{\s*env\.HOSTINGER_FTP_PORT\s*\}\}/);
 });

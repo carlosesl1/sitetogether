@@ -26,8 +26,8 @@ jobs:
     environment: hostinger
     timeout-minutes: 30
     env:
-      HOSTINGER_FTP_PROTOCOL: sftp
-      HOSTINGER_FTP_PORT: 65002
+      HOSTINGER_FTP_PROTOCOL: ftp
+      HOSTINGER_FTP_PORT: 21
       HOSTINGER_FTP_SERVER_DIR: "./"
       HOSTINGER_DRY_RUN: "false"
 
@@ -68,17 +68,28 @@ jobs:
           import os
           from ftplib import FTP, FTP_TLS, error_perm
 
-          protocol = os.environ.get("HOSTINGER_FTP_PROTOCOL", "sftp").lower()
-          port = int(os.environ.get("HOSTINGER_FTP_PORT", "65002"))
+          protocol = os.environ.get("HOSTINGER_FTP_PROTOCOL", "ftp").lower()
+          port = int(os.environ.get("HOSTINGER_FTP_PORT", "21"))
 
           if protocol == "sftp":
               print("Skipping FTP path inspection because HOSTINGER_FTP_PROTOCOL=sftp. The lftp deploy step will use SFTP.")
               raise SystemExit(0)
 
+          def normalize_host(value):
+              host = value.strip()
+              if "://" in host:
+                  host = host.split("://", 1)[1]
+              host = host.split("/", 1)[0]
+              if host.count(":") == 1:
+                  host = host.rsplit(":", 1)[0]
+              return host
+
+          server = normalize_host(os.environ["HOSTINGER_FTP_SERVER"])
+
           def connect():
               ftp_cls = FTP_TLS if protocol.startswith("ftps") else FTP
               ftp = ftp_cls(timeout=30)
-              ftp.connect(os.environ["HOSTINGER_FTP_SERVER"], port)
+              ftp.connect(server, port)
               ftp.login(os.environ["HOSTINGER_FTP_USERNAME"], os.environ["HOSTINGER_FTP_PASSWORD"])
               if isinstance(ftp, FTP_TLS):
                   ftp.prot_p()
@@ -141,7 +152,7 @@ jobs:
       - name: Install lftp
         run: |
           sudo apt-get update
-          sudo apt-get install -y lftp openssh-client
+          sudo apt-get install -y lftp
 
       - name: Deploy out directory to Hostinger
         shell: bash
@@ -172,7 +183,20 @@ jobs:
             *) lftp_protocol="$protocol" ;;
           esac
 
-          lftp_url="${lftp_protocol}://${HOSTINGER_FTP_SERVER}:${HOSTINGER_FTP_PORT}"
+          normalize_host() {
+            local host="$1"
+            host="${host#ftp://}"
+            host="${host#ftps://}"
+            host="${host#sftp://}"
+            host="${host%%/*}"
+            host="${host%%:*}"
+            printf '%s' "$host"
+          }
+
+          transfer_host="$(normalize_host "$HOSTINGER_FTP_SERVER")"
+          export HOSTINGER_TRANSFER_HOST="$transfer_host"
+
+          lftp_url="${lftp_protocol}://${transfer_host}:${HOSTINGER_FTP_PORT}"
           lftp_settings=$'set cmd:fail-exit yes\nset net:timeout 30\nset net:max-retries 2\nset net:reconnect-interval-base 5\nset ftp:passive-mode true\nset sftp:auto-confirm yes'
 
           case "$protocol" in
@@ -219,8 +243,6 @@ jobs:
           mirror_command+=" ./out/ \"$remote_dir\""
 
           echo "Deploying ./out/ to Hostinger over ${protocol} on port ${HOSTINGER_FTP_PORT}."
-          mkdir -p ~/.ssh
-          ssh-keyscan -p "$HOSTINGER_FTP_PORT" "$HOSTINGER_FTP_SERVER" >> ~/.ssh/known_hosts 2>/dev/null || true
           deploy_log="$(mktemp)"
           set +e
           timeout 10m lftp -u "$HOSTINGER_FTP_USERNAME","$HOSTINGER_FTP_PASSWORD" "$lftp_url" -e "$lftp_settings"$'\n'"$mirror_command"$'\n'"bye" >"$deploy_log" 2>&1
@@ -235,7 +257,7 @@ jobs:
 
           log_path = Path(sys.argv[1])
           text = log_path.read_text(encoding="utf-8", errors="replace")
-          for name in ("HOSTINGER_FTP_SERVER", "HOSTINGER_FTP_USERNAME", "HOSTINGER_FTP_PASSWORD"):
+          for name in ("HOSTINGER_FTP_SERVER", "HOSTINGER_TRANSFER_HOST", "HOSTINGER_FTP_USERNAME", "HOSTINGER_FTP_PASSWORD"):
               value = os.environ.get(name)
               if value:
                   text = text.replace(value, "***")
@@ -250,7 +272,7 @@ jobs:
 
           annotation = text[-1800:].strip()
           annotation = annotation.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
-          print(f"::error title=Hostinger SFTP deploy failed::{annotation}")
+          print(f"::error title=Hostinger FTP deploy failed::{annotation}")
           PY
             rm -f "$deploy_log"
             exit "$deploy_status"
@@ -290,7 +312,18 @@ jobs:
             *) lftp_protocol="$protocol" ;;
           esac
 
-          lftp_url="${lftp_protocol}://${HOSTINGER_FTP_SERVER}:${HOSTINGER_FTP_PORT}"
+          normalize_host() {
+            local host="$1"
+            host="${host#ftp://}"
+            host="${host#ftps://}"
+            host="${host#sftp://}"
+            host="${host%%/*}"
+            host="${host%%:*}"
+            printf '%s' "$host"
+          }
+
+          transfer_host="$(normalize_host "$HOSTINGER_FTP_SERVER")"
+          lftp_url="${lftp_protocol}://${transfer_host}:${HOSTINGER_FTP_PORT}"
           lftp_settings=$'set cmd:fail-exit yes\nset net:timeout 30\nset net:max-retries 2\nset net:reconnect-interval-base 5\nset ftp:passive-mode true\nset sftp:auto-confirm yes'
 
           case "$protocol" in
