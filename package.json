@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "redirects:blog": "node scripts/update-legacy-blog-redirects.mjs",
     "sync:wordpress": "node scripts/sync-wordpress-posts.mjs",
-    "build": "npm run sync:wordpress && next build",
+    "build": "npm run sync:wordpress && npm run redirects:blog && next build",
     "start": "next start",
     "lint": "eslint"
   },
