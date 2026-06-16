@@ -341,6 +341,7 @@ jobs:
 
           for target in "${targets[@]}"; do
             local_file="$(mktemp)"
+            rm -f "$local_file"
             timeout 2m lftp -u "$HOSTINGER_FTP_USERNAME","$HOSTINGER_FTP_PASSWORD" "$lftp_url" -e "$lftp_settings"$'\n'"cd $remote_dir"$'\n'"get $target -o $local_file"$'\n'"bye"
             python - "$target" "$local_file" <<'PY'
           import hashlib

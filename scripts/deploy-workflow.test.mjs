@@ -93,6 +93,7 @@ test("lftp verification uses the same protocol and port environment as deploy", 
   );
 
   assert.match(verifyStep, /lftp -u/);
+  assert.match(verifyStep, /rm -f "\$local_file"/);
   assert.match(verifyStep, /HOSTINGER_FTP_PROTOCOL:\s*\$\{\{\s*env\.HOSTINGER_FTP_PROTOCOL\s*\}\}/);
   assert.match(verifyStep, /HOSTINGER_FTP_PORT:\s*\$\{\{\s*env\.HOSTINGER_FTP_PORT\s*\}\}/);
 });
