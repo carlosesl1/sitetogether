@@ -26,8 +26,8 @@ jobs:
     environment: hostinger
     timeout-minutes: 30
     env:
-      HOSTINGER_FTP_PROTOCOL: ${{ secrets.HOSTINGER_FTP_PROTOCOL || vars.HOSTINGER_FTP_PROTOCOL || 'ftp' }}
-      HOSTINGER_FTP_PORT: ${{ secrets.HOSTINGER_FTP_PORT || vars.HOSTINGER_FTP_PORT || 21 }}
+      HOSTINGER_FTP_PROTOCOL: ${{ secrets.HOSTINGER_FTP_PROTOCOL || vars.HOSTINGER_FTP_PROTOCOL || 'sftp' }}
+      HOSTINGER_FTP_PORT: ${{ secrets.HOSTINGER_FTP_PORT || vars.HOSTINGER_FTP_PORT || 65002 }}
       HOSTINGER_FTP_SERVER_DIR: "./"
       HOSTINGER_DRY_RUN: "false"
 
@@ -68,8 +68,12 @@ jobs:
           import os
           from ftplib import FTP, FTP_TLS, error_perm
 
-          protocol = os.environ.get("HOSTINGER_FTP_PROTOCOL", "ftp").lower()
-          port = int(os.environ.get("HOSTINGER_FTP_PORT", "21"))
+          protocol = os.environ.get("HOSTINGER_FTP_PROTOCOL", "sftp").lower()
+          port = int(os.environ.get("HOSTINGER_FTP_PORT", "65002"))
+
+          if protocol == "sftp":
+              print("Skipping FTP path inspection because HOSTINGER_FTP_PROTOCOL=sftp. The lftp deploy step will use SFTP.")
+              raise SystemExit(0)
 
           def connect():
               ftp_cls = FTP_TLS if protocol.startswith("ftps") else FTP
@@ -134,121 +138,177 @@ jobs:
           NEXT_PUBLIC_SITE_URL: https://togetherprivacy.tech
           WORDPRESS_API_URL: https://togetherprivacy.tech/wp-json/wp/v2
 
-      - name: Deploy out directory to Hostinger
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
-        with:
-          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
-          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
-          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          protocol: ${{ env.HOSTINGER_FTP_PROTOCOL }}
-          port: ${{ env.HOSTINGER_FTP_PORT }}
-          local-dir: ./out/
-          server-dir: ${{ env.HOSTINGER_FTP_SERVER_DIR }}
-          state-name: .ftp-deploy-sync-state-static-site-webroot-v1.json
-          dry-run: ${{ env.HOSTINGER_DRY_RUN }}
-          log-level: standard
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/wp-admin/**
-            **/wp-content/**
-            **/wp-includes/**
-            **/index.php
-            **/wp-config.php
-            **/wp-*.php
-            **/xmlrpc.php
-            **/license.txt
-            **/readme.html
-            **/.user.ini
-            **/public_html/**
-            **/public_html
-            **/domains/**
-            **/domains
-            **/.ssh/**
-            **/.ssh
-            **/.logs/**
-            **/.logs
-            **/.wp-cli/**
-            **/.wp-cli
-            **/.api_token
-            **/.profile
-            **/.filebrowser
-
-      - name: Verify uploaded files over FTP
+      - name: Install lftp
         run: |
-          python - <<'PY'
-          import hashlib
-          import os
-          import re
-          from ftplib import FTP, FTP_TLS, error_perm
+          sudo apt-get update
+          sudo apt-get install -y lftp
 
-          protocol = os.environ.get("HOSTINGER_FTP_PROTOCOL", "ftp").lower()
-          port = int(os.environ.get("HOSTINGER_FTP_PORT", "21"))
+      - name: Deploy out directory to Hostinger
+        shell: bash
+        run: |
+          set -euo pipefail
 
-          def connect():
-              ftp_cls = FTP_TLS if protocol.startswith("ftps") else FTP
-              ftp = ftp_cls(timeout=30)
-              ftp.connect(os.environ["HOSTINGER_FTP_SERVER"], port)
-              ftp.login(os.environ["HOSTINGER_FTP_USERNAME"], os.environ["HOSTINGER_FTP_PASSWORD"])
-              if isinstance(ftp, FTP_TLS):
-                  ftp.prot_p()
-              return ftp
+          protocol="${HOSTINGER_FTP_PROTOCOL,,}"
+          remote_dir="${HOSTINGER_FTP_SERVER_DIR%/}"
+          if [ -z "$remote_dir" ]; then
+            remote_dir="."
+          fi
 
-          ftp = connect()
+          case "$protocol" in
+            ftp|ftps|ftps-legacy|sftp) ;;
+            *)
+              echo "::error::Unsupported HOSTINGER_FTP_PROTOCOL '$HOSTINGER_FTP_PROTOCOL'. Use ftp, ftps, ftps-legacy, or sftp."
+              exit 1
+              ;;
+          esac
 
-          paths = [
-              ".",
-              "public_html",
-              "public_html/public_html",
-              "domains/togetherprivacy.tech/public_html",
-          ]
+          if [[ "$remote_dir" == *\"* ]]; then
+            echo "::error::HOSTINGER_FTP_SERVER_DIR cannot contain double quotes."
+            exit 1
+          fi
 
-          targets = [
-              "blog.html",
-              "data/blog-sync.json",
-              "blog/caso-claro-serasa-anpd-compartilhamento-dados.html",
-              "codex-deploy-marker.txt",
-          ]
+          case "$protocol" in
+            ftps-legacy) lftp_protocol="ftps" ;;
+            *) lftp_protocol="$protocol" ;;
+          esac
 
-          def fetch(path, target):
-              ftp.cwd("/")
-              ftp.cwd(path)
-              chunks = []
-              ftp.retrbinary(f"RETR {target}", chunks.append)
-              return b"".join(chunks)
+          lftp_url="${lftp_protocol}://${HOSTINGER_FTP_SERVER}:${HOSTINGER_FTP_PORT}"
+          lftp_settings=$'set cmd:fail-exit yes\nset net:timeout 30\nset net:max-retries 2\nset net:reconnect-interval-base 5\nset ftp:passive-mode true\nset sftp:auto-confirm yes'
 
-          for path in paths:
-              print(f"--- FTP verify path: {path}")
-              try:
-                  for target in targets:
-                      try:
-                          data = fetch(path, target)
-                          text = data[:200000].decode("utf-8", errors="ignore")
-                          digest = hashlib.sha256(data).hexdigest()[:16]
-                          build = re.search(r"<!DOCTYPE html><!--([^>]+)--><html", text)
-                          details = [
-                              f"bytes={len(data)}",
-                              f"sha256={digest}",
-                              f"has_caso={'caso-claro-serasa-anpd-compartilhamento-dados' in text}",
-                          ]
-                          if build:
-                              details.append(f"build_id={build.group(1)}")
-                          if target == "codex-deploy-marker.txt":
-                              details.append(f"content={text.strip()}")
-                          print(f"{target}: " + " ".join(details))
-                      except Exception as exc:
-                          print(f"{target}: missing ({exc.__class__.__name__})")
-              except error_perm as exc:
-                  print(f"unavailable: {exc}")
-              except Exception as exc:
-                  print(f"error: {exc.__class__.__name__}: {exc}")
+          case "$protocol" in
+            ftp)
+              lftp_settings+=$'\nset ftp:ssl-allow false'
+              ;;
+            ftps|ftps-legacy)
+              lftp_settings+=$'\nset ftp:ssl-force true\nset ftp:ssl-protect-data true'
+              ;;
+          esac
 
-          ftp.quit()
-          PY
+          dry_run_flag=""
+          if [ "$HOSTINGER_DRY_RUN" = "true" ]; then
+            dry_run_flag="--dry-run"
+          fi
+
+          mirror_command="mirror --reverse --delete --verbose=1 --parallel=3 $dry_run_flag"
+          mirror_command+=" --exclude-glob '.git*'"
+          mirror_command+=" --exclude-glob '.git*/**'"
+          mirror_command+=" --exclude-glob 'node_modules/**'"
+          mirror_command+=" --exclude-glob 'wp-admin/**'"
+          mirror_command+=" --exclude-glob 'wp-content/**'"
+          mirror_command+=" --exclude-glob 'wp-includes/**'"
+          mirror_command+=" --exclude-glob 'index.php'"
+          mirror_command+=" --exclude-glob 'wp-config.php'"
+          mirror_command+=" --exclude-glob 'wp-*.php'"
+          mirror_command+=" --exclude-glob 'xmlrpc.php'"
+          mirror_command+=" --exclude-glob 'license.txt'"
+          mirror_command+=" --exclude-glob 'readme.html'"
+          mirror_command+=" --exclude-glob '.user.ini'"
+          mirror_command+=" --exclude-glob 'public_html/**'"
+          mirror_command+=" --exclude-glob 'public_html'"
+          mirror_command+=" --exclude-glob 'domains/**'"
+          mirror_command+=" --exclude-glob 'domains'"
+          mirror_command+=" --exclude-glob '.ssh/**'"
+          mirror_command+=" --exclude-glob '.ssh'"
+          mirror_command+=" --exclude-glob '.logs/**'"
+          mirror_command+=" --exclude-glob '.logs'"
+          mirror_command+=" --exclude-glob '.wp-cli/**'"
+          mirror_command+=" --exclude-glob '.wp-cli'"
+          mirror_command+=" --exclude-glob '.api_token'"
+          mirror_command+=" --exclude-glob '.profile'"
+          mirror_command+=" --exclude-glob '.filebrowser'"
+          mirror_command+=" ./out/ \"$remote_dir\""
+
+          echo "Deploying ./out/ to Hostinger over ${protocol} on port ${HOSTINGER_FTP_PORT}."
+          lftp -u "$HOSTINGER_FTP_USERNAME","$HOSTINGER_FTP_PASSWORD" "$lftp_url" -e "$lftp_settings"$'\n'"$mirror_command"$'\n'"bye"
         env:
           HOSTINGER_FTP_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
           HOSTINGER_FTP_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           HOSTINGER_FTP_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
           HOSTINGER_FTP_PROTOCOL: ${{ env.HOSTINGER_FTP_PROTOCOL }}
           HOSTINGER_FTP_PORT: ${{ env.HOSTINGER_FTP_PORT }}
+          HOSTINGER_FTP_SERVER_DIR: ${{ env.HOSTINGER_FTP_SERVER_DIR }}
+          HOSTINGER_DRY_RUN: ${{ env.HOSTINGER_DRY_RUN }}
+
+      - name: Verify uploaded files over lftp
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          protocol="${HOSTINGER_FTP_PROTOCOL,,}"
+          remote_dir="${HOSTINGER_FTP_SERVER_DIR%/}"
+          if [ -z "$remote_dir" ]; then
+            remote_dir="."
+          fi
+
+          case "$protocol" in
+            ftp|ftps|ftps-legacy|sftp) ;;
+            *)
+              echo "::error::Unsupported HOSTINGER_FTP_PROTOCOL '$HOSTINGER_FTP_PROTOCOL'. Use ftp, ftps, ftps-legacy, or sftp."
+              exit 1
+              ;;
+          esac
+
+          case "$protocol" in
+            ftps-legacy) lftp_protocol="ftps" ;;
+            *) lftp_protocol="$protocol" ;;
+          esac
+
+          lftp_url="${lftp_protocol}://${HOSTINGER_FTP_SERVER}:${HOSTINGER_FTP_PORT}"
+          lftp_settings=$'set cmd:fail-exit yes\nset net:timeout 30\nset net:max-retries 2\nset net:reconnect-interval-base 5\nset ftp:passive-mode true\nset sftp:auto-confirm yes'
+
+          case "$protocol" in
+            ftp)
+              lftp_settings+=$'\nset ftp:ssl-allow false'
+              ;;
+            ftps|ftps-legacy)
+              lftp_settings+=$'\nset ftp:ssl-force true\nset ftp:ssl-protect-data true'
+              ;;
+          esac
+
+          remote_prefix=""
+          if [ "$remote_dir" != "." ]; then
+            remote_prefix="${remote_dir}/"
+          fi
+
+          targets=(
+            "blog.html"
+            "data/blog-sync.json"
+            "blog/caso-claro-serasa-anpd-compartilhamento-dados.html"
+            "codex-deploy-marker.txt"
+          )
+
+          for target in "${targets[@]}"; do
+            remote_path="${remote_prefix}${target}"
+            local_file="$(mktemp)"
+            lftp -u "$HOSTINGER_FTP_USERNAME","$HOSTINGER_FTP_PASSWORD" "$lftp_url" -e "$lftp_settings"$'\n'"get \"$remote_path\" -o \"$local_file\""$'\n'"bye"
+            python - "$target" "$local_file" <<'PY'
+          import hashlib
+          import re
+          import sys
+
+          target = sys.argv[1]
+          local_file = sys.argv[2]
+          data = open(local_file, "rb").read()
+          text = data[:200000].decode("utf-8", errors="ignore")
+          digest = hashlib.sha256(data).hexdigest()[:16]
+          build = re.search(r"<!DOCTYPE html><!--([^>]+)--><html", text)
+          details = [
+              f"bytes={len(data)}",
+              f"sha256={digest}",
+              f"has_caso={'caso-claro-serasa-anpd-compartilhamento-dados' in text}",
+          ]
+          if build:
+              details.append(f"build_id={build.group(1)}")
+          if target == "codex-deploy-marker.txt":
+              details.append(f"content={text.strip()}")
+          print(f"{target}: " + " ".join(details))
+          PY
+            rm -f "$local_file"
+          done
+        env:
+          HOSTINGER_FTP_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          HOSTINGER_FTP_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          HOSTINGER_FTP_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          HOSTINGER_FTP_PROTOCOL: ${{ env.HOSTINGER_FTP_PROTOCOL }}
+          HOSTINGER_FTP_PORT: ${{ env.HOSTINGER_FTP_PORT }}
+          HOSTINGER_FTP_SERVER_DIR: ${{ env.HOSTINGER_FTP_SERVER_DIR }}

@@ -73,15 +73,21 @@ environment: hostinger
 Repository variables ou repository secrets:
 
 ```txt
-HOSTINGER_FTP_PROTOCOL=ftp
-HOSTINGER_FTP_PORT=21
+HOSTINGER_FTP_PROTOCOL=sftp
+HOSTINGER_FTP_PORT=65002
 ```
 
-O usuario FTP atual da Hostinger usado pelo deploy ja inicia dentro do webroot
+Os nomes das variaveis continuam com `FTP` por compatibilidade com os secrets
+ja existentes, mas o deploy padrao usa SFTP. Na hospedagem Hostinger/hPanel, o
+SFTP normalmente usa a porta `65002`. Se a conta estiver configurada para FTP
+ou FTPS em vez de SFTP, ajuste `HOSTINGER_FTP_PROTOCOL` e
+`HOSTINGER_FTP_PORT` conforme os dados exibidos no painel da Hostinger.
+
+O usuario atual da Hostinger usado pelo deploy ja inicia dentro do webroot
 publico. Por isso o workflow fixa o diretorio remoto como `./`. Nao configure
-`HOSTINGER_FTP_SERVER_DIR` como secret ou variable: usar `./public_html/` nesta
-conta cria uma pasta duplicada `public_html/public_html` e o dominio continua
-servindo o build antigo.
+`HOSTINGER_FTP_SERVER_DIR` como secret ou variable sem validar o caminho remoto:
+usar `./public_html/` nesta conta cria uma pasta duplicada
+`public_html/public_html` e o dominio continua servindo o build antigo.
 
 O workflow publica de verdade (`dry-run: false`) depois do teste inicial de
 conexao ter passado.
