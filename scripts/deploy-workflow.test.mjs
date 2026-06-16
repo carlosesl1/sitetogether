@@ -22,7 +22,7 @@ function sectionBetween(startMarker, endMarker) {
 test("Hostinger transfer uses the FTP Access defaults shown in hPanel", () => {
   assert.match(workflow, /HOSTINGER_FTP_PROTOCOL:\s*ftp/);
   assert.match(workflow, /HOSTINGER_FTP_PORT:\s*21/);
-  assert.match(workflow, /HOSTINGER_FTP_SERVER_DIR:\s*"\/public_html\/"/);
+  assert.match(workflow, /HOSTINGER_FTP_SERVER_DIR:\s*"\."/);
   assert.doesNotMatch(workflow, /secrets\.HOSTINGER_FTP_PROTOCOL/);
   assert.doesNotMatch(workflow, /secrets\.HOSTINGER_FTP_PORT/);
   assert.doesNotMatch(workflow, /vars\.HOSTINGER_FTP_PROTOCOL/);
@@ -61,7 +61,10 @@ test("Hostinger deploy uses lftp and normalizes copied hPanel FTP hostnames", ()
   assert.match(deployStep, /normalize_host\(\)/);
   assert.match(deployStep, /transfer_host="\$\(normalize_host "\$HOSTINGER_FTP_SERVER"\)"/);
   assert.match(deployStep, /timeout 10m lftp -u/);
-  assert.ok(deployStep.includes('cd \\"$remote_dir\\"'));
+  assert.match(deployStep, /cd \$remote_dir/);
+  assert.match(deployStep, /cls -1 wp-admin/);
+  assert.match(deployStep, /cls -1 wp-content/);
+  assert.match(deployStep, /cls -1 wp-includes/);
   assert.match(deployStep, /mirror --reverse --verbose=1/);
   assert.doesNotMatch(deployStep, /mirror --reverse --delete/);
   assert.match(deployStep, /Hostinger FTP deploy failed/);

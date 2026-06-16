@@ -28,7 +28,7 @@ jobs:
     env:
       HOSTINGER_FTP_PROTOCOL: ftp
       HOSTINGER_FTP_PORT: 21
-      HOSTINGER_FTP_SERVER_DIR: "/public_html/"
+      HOSTINGER_FTP_SERVER_DIR: "."
       HOSTINGER_DRY_RUN: "false"
 
     steps:
@@ -239,10 +239,10 @@ jobs:
           mirror_command+=" --exclude-glob '.filebrowser'"
           mirror_command+=" ./out/ ."
 
-          echo "Deploying ./out/ to ${remote_dir} on Hostinger over ${protocol} on port ${HOSTINGER_FTP_PORT}."
+          echo "Deploying ./out/ to the current Hostinger webroot over ${protocol} on port ${HOSTINGER_FTP_PORT}."
           deploy_log="$(mktemp)"
           set +e
-          timeout 10m lftp -u "$HOSTINGER_FTP_USERNAME","$HOSTINGER_FTP_PASSWORD" "$lftp_url" -e "$lftp_settings"$'\n'"cd \"$remote_dir\""$'\n'"pwd"$'\n'"$mirror_command"$'\n'"bye" >"$deploy_log" 2>&1
+          timeout 10m lftp -u "$HOSTINGER_FTP_USERNAME","$HOSTINGER_FTP_PASSWORD" "$lftp_url" -e "$lftp_settings"$'\n'"cd $remote_dir"$'\n'"pwd"$'\n'"cls -1 wp-admin"$'\n'"cls -1 wp-content"$'\n'"cls -1 wp-includes"$'\n'"$mirror_command"$'\n'"bye" >"$deploy_log" 2>&1
           deploy_status=$?
           set -e
 
@@ -341,7 +341,7 @@ jobs:
 
           for target in "${targets[@]}"; do
             local_file="$(mktemp)"
-            timeout 2m lftp -u "$HOSTINGER_FTP_USERNAME","$HOSTINGER_FTP_PASSWORD" "$lftp_url" -e "$lftp_settings"$'\n'"cd \"$remote_dir\""$'\n'"get \"$target\" -o \"$local_file\""$'\n'"bye"
+            timeout 2m lftp -u "$HOSTINGER_FTP_USERNAME","$HOSTINGER_FTP_PASSWORD" "$lftp_url" -e "$lftp_settings"$'\n'"cd $remote_dir"$'\n'"get $target -o $local_file"$'\n'"bye"
             python - "$target" "$local_file" <<'PY'
           import hashlib
           import re
