@@ -76,8 +76,8 @@ test("Hostinger deploy keeps WordPress and private server-side paths out of the 
   assert.match(deployStep, /--exclude-glob 'wp-admin\/\*\*'/);
   assert.match(deployStep, /--exclude-glob 'wp-content\/\*\*'/);
   assert.match(deployStep, /--exclude-glob 'wp-includes\/\*\*'/);
-  assert.match(deployStep, /--exclude-glob 'public_html\/\*\*'/);
-  assert.match(deployStep, /--exclude-glob 'domains\/\*\*'/);
+  assert.doesNotMatch(deployStep, /--exclude-glob 'public_html/);
+  assert.doesNotMatch(deployStep, /--exclude-glob 'domains/);
   assert.match(deployStep, /--exclude-glob '\.ssh\/\*\*'/);
 });
 
