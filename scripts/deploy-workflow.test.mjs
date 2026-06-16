@@ -56,8 +56,10 @@ test("Hostinger deploy uses lftp with SFTP support instead of the FTP-only actio
   assert.doesNotMatch(workflow, /SamKirkland\/FTP-Deploy-Action/);
   assert.match(workflow, /sudo apt-get install -y lftp/);
   assert.match(deployStep, /ftp\|ftps\|ftps-legacy\|sftp/);
+  assert.match(deployStep, /StrictHostKeyChecking=no/);
   assert.match(deployStep, /timeout 10m lftp -u/);
   assert.match(deployStep, /mirror --reverse --delete/);
+  assert.match(deployStep, /Hostinger SFTP deploy failed/);
   assert.match(deployStep, /HOSTINGER_FTP_PROTOCOL:\s*\$\{\{\s*env\.HOSTINGER_FTP_PROTOCOL\s*\}\}/);
   assert.match(deployStep, /HOSTINGER_FTP_PORT:\s*\$\{\{\s*env\.HOSTINGER_FTP_PORT\s*\}\}/);
 });

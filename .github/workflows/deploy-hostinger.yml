@@ -174,6 +174,7 @@ jobs:
 
           lftp_url="${lftp_protocol}://${HOSTINGER_FTP_SERVER}:${HOSTINGER_FTP_PORT}"
           lftp_settings=$'set cmd:fail-exit yes\nset net:timeout 30\nset net:max-retries 2\nset net:reconnect-interval-base 5\nset ftp:passive-mode true\nset sftp:auto-confirm yes'
+          lftp_settings+=$'\nset sftp:connect-program "ssh -a -x -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"'
 
           case "$protocol" in
             ftp)
@@ -219,7 +220,42 @@ jobs:
           mirror_command+=" ./out/ \"$remote_dir\""
 
           echo "Deploying ./out/ to Hostinger over ${protocol} on port ${HOSTINGER_FTP_PORT}."
-          timeout 10m lftp -u "$HOSTINGER_FTP_USERNAME","$HOSTINGER_FTP_PASSWORD" "$lftp_url" -e "$lftp_settings"$'\n'"$mirror_command"$'\n'"bye"
+          deploy_log="$(mktemp)"
+          set +e
+          timeout 10m lftp -u "$HOSTINGER_FTP_USERNAME","$HOSTINGER_FTP_PASSWORD" "$lftp_url" -e "$lftp_settings"$'\n'"$mirror_command"$'\n'"bye" >"$deploy_log" 2>&1
+          deploy_status=$?
+          set -e
+
+          if [ "$deploy_status" -ne 0 ]; then
+            python - "$deploy_log" <<'PY'
+          import os
+          import sys
+          from pathlib import Path
+
+          log_path = Path(sys.argv[1])
+          text = log_path.read_text(encoding="utf-8", errors="replace")
+          for name in ("HOSTINGER_FTP_SERVER", "HOSTINGER_FTP_USERNAME", "HOSTINGER_FTP_PASSWORD"):
+              value = os.environ.get(name)
+              if value:
+                  text = text.replace(value, "***")
+
+          if not text.strip():
+              text = "lftp exited with a non-zero status and did not print output."
+
+          tail = text[-4000:]
+          print("::group::Sanitized lftp deploy output")
+          print(tail)
+          print("::endgroup::")
+
+          annotation = text[-1800:].strip()
+          annotation = annotation.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")
+          print(f"::error title=Hostinger SFTP deploy failed::{annotation}")
+          PY
+            rm -f "$deploy_log"
+            exit "$deploy_status"
+          fi
+
+          rm -f "$deploy_log"
         env:
           HOSTINGER_FTP_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
           HOSTINGER_FTP_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
@@ -255,6 +291,7 @@ jobs:
 
           lftp_url="${lftp_protocol}://${HOSTINGER_FTP_SERVER}:${HOSTINGER_FTP_PORT}"
           lftp_settings=$'set cmd:fail-exit yes\nset net:timeout 30\nset net:max-retries 2\nset net:reconnect-interval-base 5\nset ftp:passive-mode true\nset sftp:auto-confirm yes'
+          lftp_settings+=$'\nset sftp:connect-program "ssh -a -x -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"'
 
           case "$protocol" in
             ftp)
