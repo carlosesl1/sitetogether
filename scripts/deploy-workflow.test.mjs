@@ -20,8 +20,10 @@ function sectionBetween(startMarker, endMarker) {
 }
 
 test("Hostinger transfer defaults to SFTP on the Hostinger hosting port", () => {
-  assert.match(workflow, /HOSTINGER_FTP_PROTOCOL:\s*\$\{\{\s*secrets\.HOSTINGER_FTP_PROTOCOL\s*\|\|\s*'sftp'\s*\}\}/);
-  assert.match(workflow, /HOSTINGER_FTP_PORT:\s*\$\{\{\s*secrets\.HOSTINGER_FTP_PORT\s*\|\|\s*65002\s*\}\}/);
+  assert.match(workflow, /HOSTINGER_FTP_PROTOCOL:\s*sftp/);
+  assert.match(workflow, /HOSTINGER_FTP_PORT:\s*65002/);
+  assert.doesNotMatch(workflow, /secrets\.HOSTINGER_FTP_PROTOCOL/);
+  assert.doesNotMatch(workflow, /secrets\.HOSTINGER_FTP_PORT/);
   assert.doesNotMatch(workflow, /vars\.HOSTINGER_FTP_PROTOCOL/);
   assert.doesNotMatch(workflow, /vars\.HOSTINGER_FTP_PORT/);
 });
@@ -54,7 +56,7 @@ test("Hostinger deploy uses lftp with SFTP support instead of the FTP-only actio
   assert.doesNotMatch(workflow, /SamKirkland\/FTP-Deploy-Action/);
   assert.match(workflow, /sudo apt-get install -y lftp/);
   assert.match(deployStep, /ftp\|ftps\|ftps-legacy\|sftp/);
-  assert.match(deployStep, /lftp -u/);
+  assert.match(deployStep, /timeout 10m lftp -u/);
   assert.match(deployStep, /mirror --reverse --delete/);
   assert.match(deployStep, /HOSTINGER_FTP_PROTOCOL:\s*\$\{\{\s*env\.HOSTINGER_FTP_PROTOCOL\s*\}\}/);
   assert.match(deployStep, /HOSTINGER_FTP_PORT:\s*\$\{\{\s*env\.HOSTINGER_FTP_PORT\s*\}\}/);

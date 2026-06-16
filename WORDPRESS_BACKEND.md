@@ -70,21 +70,17 @@ Esses 3 secrets devem ficar no environment `hostinger`, porque o workflow usa:
 environment: hostinger
 ```
 
-O workflow usa SFTP por padrao. Estes secrets sao opcionais e so precisam ser
-criados se o painel da Hostinger mostrar outro protocolo ou outra porta:
+O workflow usa SFTP na porta padrao da Hostinger/hPanel:
 
 ```txt
 HOSTINGER_FTP_PROTOCOL=sftp
 HOSTINGER_FTP_PORT=65002
 ```
 
-Os nomes das variaveis continuam com `FTP` por compatibilidade com os secrets
-ja existentes, mas o deploy padrao usa SFTP. Na hospedagem Hostinger/hPanel, o
-SFTP normalmente usa a porta `65002`. O workflow ignora repository variables
-para protocolo/porta, porque uma variable antiga `ftp`/`21` faria o deploy
-voltar para o protocolo que falhou. Se a conta estiver configurada para FTP ou
-FTPS em vez de SFTP, ajuste `HOSTINGER_FTP_PROTOCOL` e `HOSTINGER_FTP_PORT`
-como environment secrets no environment `hostinger`.
+Os nomes internos continuam com `FTP` por compatibilidade com os secrets ja
+existentes, mas o deploy esta fixado em SFTP. O workflow ignora secrets e
+repository variables para protocolo/porta, porque uma configuracao antiga
+`ftp`/`21` faria o deploy voltar para o protocolo que falhou.
 
 O usuario atual da Hostinger usado pelo deploy ja inicia dentro do webroot
 publico. Por isso o workflow fixa o diretorio remoto como `./`. Nao configure
