@@ -387,11 +387,16 @@ function together_normalize_contact_phone(string $phone): string
     return '+55' . $digits;
 }
 
+function together_parse_contact_recipients(string $recipients): array
+{
+    return array_values(array_filter(array_map('trim', explode(',', $recipients))));
+}
+
 function together_get_contact_recipients(): array
 {
-    $recipients = [TOGETHER_DEFAULT_CONTACT_RECIPIENTS];
+    $recipients = together_parse_contact_recipients(TOGETHER_DEFAULT_CONTACT_RECIPIENTS);
     if (defined('TOGETHER_CONTACT_RECIPIENTS')) {
-        $configured = array_filter(array_map('trim', explode(',', TOGETHER_CONTACT_RECIPIENTS)));
+        $configured = together_parse_contact_recipients((string) TOGETHER_CONTACT_RECIPIENTS);
         if ($configured) {
             $recipients = $configured;
         }

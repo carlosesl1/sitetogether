@@ -6,10 +6,17 @@ import { BlogCard } from "@/components/blog/blog-card";
 import { ArticleToc } from "@/components/blog/article-toc";
 import { toBlogListPost } from "@/lib/blog-list-post";
 import { getAllPosts, getAllPostSlugs, getPostBySlug } from "@/lib/wordpress";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, User, ArrowLeft, Share2 } from "lucide-react";
 import { notFound } from "next/navigation";
+
+type PostPageProps = { params: Promise<{ slug: string }> };
+
+function stripHtml(value: string) {
+  return value.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+}
 
 // Optional helper to extract H2 for the Table of Contents dynamically
 function normalizePostLinks(html: string) {
@@ -74,7 +81,48 @@ export async function generateStaticParams() {
   return slugs.map((slug) => ({ slug }));
 }
 
-export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+
+  if (!post) {
+    return {
+      title: "Conteudo nao encontrado",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  const title = stripHtml(post.title.rendered);
+  const description = stripHtml(post.excerpt.rendered);
+  const canonicalPath = `/blog/${post.slug}`;
+  const featuredImage = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: canonicalPath,
+    },
+    openGraph: {
+      type: "article",
+      url: canonicalPath,
+      title,
+      description,
+      images: featuredImage ? [{ url: featuredImage, alt: title }] : undefined,
+    },
+    twitter: {
+      card: featuredImage ? "summary_large_image" : "summary",
+      title,
+      description,
+      images: featuredImage ? [featuredImage] : undefined,
+    },
+  };
+}
+
+export default async function PostPage({ params }: PostPageProps) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
 

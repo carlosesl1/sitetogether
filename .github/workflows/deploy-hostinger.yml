@@ -62,13 +62,25 @@ jobs:
           HOSTINGER_FTP_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
 
       - name: Inspect Hostinger FTP paths before deploy
+        continue-on-error: true
         run: |
           python - <<'PY'
           import os
-          from ftplib import FTP, error_perm
+          from ftplib import FTP, FTP_TLS, error_perm
 
-          ftp = FTP(os.environ["HOSTINGER_FTP_SERVER"], timeout=20)
-          ftp.login(os.environ["HOSTINGER_FTP_USERNAME"], os.environ["HOSTINGER_FTP_PASSWORD"])
+          protocol = os.environ.get("HOSTINGER_FTP_PROTOCOL", "ftp").lower()
+          port = int(os.environ.get("HOSTINGER_FTP_PORT", "21"))
+
+          def connect():
+              ftp_cls = FTP_TLS if protocol.startswith("ftps") else FTP
+              ftp = ftp_cls(timeout=30)
+              ftp.connect(os.environ["HOSTINGER_FTP_SERVER"], port)
+              ftp.login(os.environ["HOSTINGER_FTP_USERNAME"], os.environ["HOSTINGER_FTP_PASSWORD"])
+              if isinstance(ftp, FTP_TLS):
+                  ftp.prot_p()
+              return ftp
+
+          ftp = connect()
 
           paths = [
               ".",
@@ -110,6 +122,8 @@ jobs:
           HOSTINGER_FTP_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
           HOSTINGER_FTP_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           HOSTINGER_FTP_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          HOSTINGER_FTP_PROTOCOL: ${{ env.HOSTINGER_FTP_PROTOCOL }}
+          HOSTINGER_FTP_PORT: ${{ env.HOSTINGER_FTP_PORT }}
 
       - name: Install dependencies
         run: npm ci
@@ -167,10 +181,21 @@ jobs:
           import hashlib
           import os
           import re
-          from ftplib import FTP, error_perm
+          from ftplib import FTP, FTP_TLS, error_perm
 
-          ftp = FTP(os.environ["HOSTINGER_FTP_SERVER"], timeout=20)
-          ftp.login(os.environ["HOSTINGER_FTP_USERNAME"], os.environ["HOSTINGER_FTP_PASSWORD"])
+          protocol = os.environ.get("HOSTINGER_FTP_PROTOCOL", "ftp").lower()
+          port = int(os.environ.get("HOSTINGER_FTP_PORT", "21"))
+
+          def connect():
+              ftp_cls = FTP_TLS if protocol.startswith("ftps") else FTP
+              ftp = ftp_cls(timeout=30)
+              ftp.connect(os.environ["HOSTINGER_FTP_SERVER"], port)
+              ftp.login(os.environ["HOSTINGER_FTP_USERNAME"], os.environ["HOSTINGER_FTP_PASSWORD"])
+              if isinstance(ftp, FTP_TLS):
+                  ftp.prot_p()
+              return ftp
+
+          ftp = connect()
 
           paths = [
               ".",
@@ -225,3 +250,5 @@ jobs:
           HOSTINGER_FTP_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
           HOSTINGER_FTP_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           HOSTINGER_FTP_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          HOSTINGER_FTP_PROTOCOL: ${{ env.HOSTINGER_FTP_PROTOCOL }}
+          HOSTINGER_FTP_PORT: ${{ env.HOSTINGER_FTP_PORT }}
