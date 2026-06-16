@@ -82,11 +82,10 @@ variables para `HOSTINGER_FTP_PROTOCOL` e `HOSTINGER_FTP_PORT`. Se o valor de
 `HOSTINGER_FTP_SERVER` for copiado da Hostinger como `ftp://147.93.37.95`, o
 workflow remove esse prefixo antes de conectar.
 
-O usuario atual da Hostinger usado pelo deploy ja inicia dentro do webroot
-publico. Por isso o workflow fixa o diretorio remoto como `./`. Nao configure
-`HOSTINGER_FTP_SERVER_DIR` como secret ou variable sem validar o caminho remoto:
-usar `./public_html/` nesta conta cria uma pasta duplicada
-`public_html/public_html` e o dominio continua servindo o build antigo.
+O painel da Hostinger indica `public_html` como pasta de upload. Por isso o
+workflow fixa o diretorio remoto como `./public_html/`. Nao configure
+`HOSTINGER_FTP_SERVER_DIR` como secret ou variable: o caminho remoto deve seguir
+o valor exibido em **FTP Access**.
 
 O workflow publica de verdade (`dry-run: false`) depois do teste inicial de
 conexao ter passado.

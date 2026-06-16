@@ -22,6 +22,7 @@ function sectionBetween(startMarker, endMarker) {
 test("Hostinger transfer uses the FTP Access defaults shown in hPanel", () => {
   assert.match(workflow, /HOSTINGER_FTP_PROTOCOL:\s*ftp/);
   assert.match(workflow, /HOSTINGER_FTP_PORT:\s*21/);
+  assert.match(workflow, /HOSTINGER_FTP_SERVER_DIR:\s*"\.\/public_html\/"/);
   assert.doesNotMatch(workflow, /secrets\.HOSTINGER_FTP_PROTOCOL/);
   assert.doesNotMatch(workflow, /secrets\.HOSTINGER_FTP_PORT/);
   assert.doesNotMatch(workflow, /vars\.HOSTINGER_FTP_PROTOCOL/);
