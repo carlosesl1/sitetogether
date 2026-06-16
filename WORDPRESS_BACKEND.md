@@ -83,7 +83,7 @@ variables para `HOSTINGER_FTP_PROTOCOL` e `HOSTINGER_FTP_PORT`. Se o valor de
 workflow remove esse prefixo antes de conectar.
 
 O painel da Hostinger indica `public_html` como pasta de upload. Por isso o
-workflow fixa o diretorio remoto como `./public_html/`. Nao configure
+workflow entra no diretorio remoto `/public_html/` antes de enviar os arquivos. Nao configure
 `HOSTINGER_FTP_SERVER_DIR` como secret ou variable: o caminho remoto deve seguir
 o valor exibido em **FTP Access**.
 
