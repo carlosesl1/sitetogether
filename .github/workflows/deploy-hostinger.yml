@@ -26,8 +26,8 @@ jobs:
     environment: hostinger
     timeout-minutes: 30
     env:
-      HOSTINGER_FTP_PROTOCOL: ${{ secrets.HOSTINGER_FTP_PROTOCOL || vars.HOSTINGER_FTP_PROTOCOL || 'sftp' }}
-      HOSTINGER_FTP_PORT: ${{ secrets.HOSTINGER_FTP_PORT || vars.HOSTINGER_FTP_PORT || 65002 }}
+      HOSTINGER_FTP_PROTOCOL: ${{ secrets.HOSTINGER_FTP_PROTOCOL || 'sftp' }}
+      HOSTINGER_FTP_PORT: ${{ secrets.HOSTINGER_FTP_PORT || 65002 }}
       HOSTINGER_FTP_SERVER_DIR: "./"
       HOSTINGER_DRY_RUN: "false"
 

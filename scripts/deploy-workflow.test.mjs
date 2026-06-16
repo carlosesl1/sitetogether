@@ -20,8 +20,10 @@ function sectionBetween(startMarker, endMarker) {
 }
 
 test("Hostinger transfer defaults to SFTP on the Hostinger hosting port", () => {
-  assert.match(workflow, /HOSTINGER_FTP_PROTOCOL:\s*\$\{\{\s*secrets\.HOSTINGER_FTP_PROTOCOL\s*\|\|\s*vars\.HOSTINGER_FTP_PROTOCOL\s*\|\|\s*'sftp'\s*\}\}/);
-  assert.match(workflow, /HOSTINGER_FTP_PORT:\s*\$\{\{\s*secrets\.HOSTINGER_FTP_PORT\s*\|\|\s*vars\.HOSTINGER_FTP_PORT\s*\|\|\s*65002\s*\}\}/);
+  assert.match(workflow, /HOSTINGER_FTP_PROTOCOL:\s*\$\{\{\s*secrets\.HOSTINGER_FTP_PROTOCOL\s*\|\|\s*'sftp'\s*\}\}/);
+  assert.match(workflow, /HOSTINGER_FTP_PORT:\s*\$\{\{\s*secrets\.HOSTINGER_FTP_PORT\s*\|\|\s*65002\s*\}\}/);
+  assert.doesNotMatch(workflow, /vars\.HOSTINGER_FTP_PROTOCOL/);
+  assert.doesNotMatch(workflow, /vars\.HOSTINGER_FTP_PORT/);
 });
 
 test("FTP inspection honors configured protocol and port without blocking deploy", () => {
