@@ -24,7 +24,7 @@ jobs:
     name: Build and deploy
     runs-on: ubuntu-latest
     environment: hostinger
-    timeout-minutes: 30
+    timeout-minutes: 40
     env:
       HOSTINGER_FTP_PROTOCOL: ftp
       HOSTINGER_FTP_PORT: 21
@@ -241,10 +241,26 @@ jobs:
 
           echo "Deploying ./out/ to the current Hostinger webroot over ${protocol} on port ${HOSTINGER_FTP_PORT}."
           deploy_log="$(mktemp)"
-          set +e
-          timeout 10m lftp -u "$HOSTINGER_FTP_USERNAME","$HOSTINGER_FTP_PASSWORD" "$lftp_url" -e "$lftp_settings"$'\n'"cd $remote_dir"$'\n'"pwd"$'\n'"cls -1 wp-admin"$'\n'"cls -1 wp-content"$'\n'"cls -1 wp-includes"$'\n'"$mirror_command"$'\n'"bye" >"$deploy_log" 2>&1
-          deploy_status=$?
-          set -e
+          deploy_status=1
+          deploy_attempts=3
+
+          for attempt in $(seq 1 "$deploy_attempts"); do
+            : >"$deploy_log"
+            echo "Hostinger deploy attempt ${attempt}/${deploy_attempts}."
+            set +e
+            timeout 10m lftp -u "$HOSTINGER_FTP_USERNAME","$HOSTINGER_FTP_PASSWORD" "$lftp_url" -e "$lftp_settings"$'\n'"cd $remote_dir"$'\n'"pwd"$'\n'"cls -1 wp-admin"$'\n'"cls -1 wp-content"$'\n'"cls -1 wp-includes"$'\n'"$mirror_command"$'\n'"bye" >"$deploy_log" 2>&1
+            deploy_status=$?
+            set -e
+
+            if [ "$deploy_status" -eq 0 ]; then
+              break
+            fi
+
+            if [ "$attempt" -lt "$deploy_attempts" ]; then
+              echo "Hostinger deploy attempt ${attempt}/${deploy_attempts} failed with exit ${deploy_status}; retrying in 30 seconds."
+              sleep 30
+            fi
+          done
 
           if [ "$deploy_status" -ne 0 ]; then
             python - "$deploy_log" <<'PY'

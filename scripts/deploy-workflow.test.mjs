@@ -60,6 +60,11 @@ test("Hostinger deploy uses lftp and normalizes copied hPanel FTP hostnames", ()
   assert.match(deployStep, /ftp\|ftps\|ftps-legacy\|sftp/);
   assert.match(deployStep, /normalize_host\(\)/);
   assert.match(deployStep, /transfer_host="\$\(normalize_host "\$HOSTINGER_FTP_SERVER"\)"/);
+  assert.match(workflow, /timeout-minutes:\s*40/);
+  assert.match(deployStep, /deploy_attempts=3/);
+  assert.match(deployStep, /Hostinger deploy attempt \$\{attempt\}\/\$\{deploy_attempts\}/);
+  assert.match(deployStep, /retrying in 30 seconds/);
+  assert.match(deployStep, /sleep 30/);
   assert.match(deployStep, /timeout 10m lftp -u/);
   assert.match(deployStep, /cd \$remote_dir/);
   assert.match(deployStep, /cls -1 wp-admin/);
