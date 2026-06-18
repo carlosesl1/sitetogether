@@ -60,7 +60,7 @@ export function CTASection() {
 
                             <div className="space-y-4">
                                 {[
-                                    { label: "WhatsApp Estratégico", value: "(11) 98952-6265", icon: Phone },
+                                    { label: "WhatsApp Estratégico", value: "(11) 5178-3235", icon: Phone },
                                     { label: "E-mail Corporativo", value: "contato@togetherprivacy.com", icon: Mail },
                                     { label: "Sede de Operações", value: "Berrini, 1681 - SP", icon: MapPin }
                                 ].map((item, i) => (

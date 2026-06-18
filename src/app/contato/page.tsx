@@ -40,7 +40,7 @@ const contactHighlights = [
 ];
 
 const channels = [
-    { icon: Phone, label: "WhatsApp", value: "(11) 98952-6265" },
+    { icon: Phone, label: "WhatsApp", value: "(11) 5178-3235" },
     { icon: Mail, label: "E-mail", value: "contato@togetherprivacy.com" },
     { icon: MapPin, label: "Base", value: "São Paulo, Brasil" },
 ];
