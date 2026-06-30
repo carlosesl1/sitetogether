@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import Script from "next/script";
 import { LanguageProvider } from "@/components/i18n/language-provider";
 import { SmoothScrollProvider } from "@/components/ui/smooth-scroll-provider";
 import "lenis/dist/lenis.css";
@@ -48,6 +49,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
+      <Script id="leadster-neurolead" strategy="beforeInteractive">
+        {`(function(a,b,c,d){try{var e=b.head||b.getElementsByTagName("head")[0];var f=b.createElement("script");f.setAttribute("src",c);f.setAttribute("charset","UTF-8");f.defer=true;a.neuroleadId=d;e.appendChild(f)}catch(g){}})(window,document,"https://cdn.leadster.com.br/neurolead/neurolead.min.js","SdTbxs4BtXBoE0Bl0XDU5cUcz")`}
+      </Script>
       <body
         className={`${jakarta.variable} antialiased`}
       >
