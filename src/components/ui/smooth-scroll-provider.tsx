@@ -3,6 +3,22 @@
 import { createContext, useContext, useEffect, type ReactNode } from "react";
 import Lenis from "lenis";
 
+const thirdPartyScrollRootSelector = [
+  ".nld-chatbot",
+  ".nld-conversation",
+  ".nld-popup-container",
+  ".nld-chatbot-invite-container",
+  "#nld-event-bus",
+  "[class*='nld-']",
+  "[id*='nld']",
+  "[class*='leadster']",
+  "[id*='leadster']",
+].join(", ");
+
+function shouldPreventSmoothScroll(node: HTMLElement) {
+  return Boolean(node.closest(thirdPartyScrollRootSelector));
+}
+
 export const smoothScrollOptions = {
   duration: 1.2,
   easing: (t: number) => Math.min(1, 1.001 - 2 ** (-10 * t)),
@@ -12,6 +28,7 @@ export const smoothScrollOptions = {
   lerp: 0.1,
   syncTouch: true,
   syncTouchLerp: 0.075,
+  prevent: shouldPreventSmoothScroll,
 } as const;
 
 const mobileSmoothScrollOptions = {
