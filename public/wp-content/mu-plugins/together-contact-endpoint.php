@@ -407,7 +407,16 @@ function together_parse_contact_recipients(string $recipients): array
 function together_split_joined_contact_recipient_token(string $token): array
 {
     $token = trim($token);
-    if ($token === '' || substr_count($token, '@') <= 1) {
+    if ($token === '') {
+        return [$token];
+    }
+
+    if (substr_count($token, '@') === 1) {
+        $repaired = together_split_sanitized_joined_contact_recipient_token($token);
+        if (count($repaired) > 1) {
+            return $repaired;
+        }
+
         return [$token];
     }
 
@@ -422,6 +431,39 @@ function together_split_joined_contact_recipient_token(string $token): array
         }
 
         $nextAt = strpos($token, '@', $nextAt + 1);
+    }
+
+    return [$token];
+}
+
+function together_split_sanitized_joined_contact_recipient_token(string $token): array
+{
+    $firstAt = strpos($token, '@');
+    if ($firstAt === false) {
+        return [$token];
+    }
+
+    foreach (together_contact_recipient_domain_suffixes() as $suffix) {
+        $searchOffset = $firstAt + 1;
+        while (($suffixAt = stripos($token, $suffix, $searchOffset)) !== false) {
+            $split = $suffixAt + strlen($suffix);
+            if ($split >= strlen($token)) {
+                break;
+            }
+
+            $left = substr($token, 0, $split);
+            if (!is_email($left)) {
+                $searchOffset = $suffixAt + 1;
+                continue;
+            }
+
+            $right = together_repair_sanitized_contact_recipient_tail(substr($token, $split));
+            if ($right !== '' && is_email($right)) {
+                return array_merge([$left], together_split_joined_contact_recipient_token($right));
+            }
+
+            $searchOffset = $suffixAt + 1;
+        }
     }
 
     return [$token];
@@ -456,6 +498,33 @@ function together_find_joined_contact_recipient_split(string $token, int $nextAt
     return 0;
 }
 
+function together_repair_sanitized_contact_recipient_tail(string $tail): string
+{
+    $tail = trim($tail);
+    if ($tail === '' || strpos($tail, '@') !== false) {
+        return $tail;
+    }
+
+    foreach (together_contact_recipient_repair_domains() as $domain) {
+        $domainLength = strlen($domain);
+        if (strlen($tail) <= $domainLength) {
+            continue;
+        }
+
+        if (strcasecmp(substr($tail, -$domainLength), $domain) !== 0) {
+            continue;
+        }
+
+        $localPart = substr($tail, 0, -$domainLength);
+        $candidate = $localPart . '@' . $domain;
+        if (is_email($candidate)) {
+            return $candidate;
+        }
+    }
+
+    return '';
+}
+
 function together_contact_recipient_domain_suffixes(): array
 {
     return [
@@ -475,6 +544,41 @@ function together_contact_recipient_domain_suffixes(): array
         '.ai',
         '.br',
     ];
+}
+
+function together_contact_recipient_repair_domains(): array
+{
+    $sources = [TOGETHER_DEFAULT_CONTACT_RECIPIENTS];
+    if (defined('TOGETHER_CONTACT_RECIPIENTS')) {
+        $sources[] = (string) TOGETHER_CONTACT_RECIPIENTS;
+    }
+
+    $domains = [];
+    foreach ($sources as $source) {
+        $tokens = preg_split('/[\s,;]+/', (string) $source, -1, PREG_SPLIT_NO_EMPTY);
+        if (!is_array($tokens)) {
+            continue;
+        }
+
+        foreach ($tokens as $token) {
+            $atPosition = strrpos((string) $token, '@');
+            if ($atPosition === false) {
+                continue;
+            }
+
+            $domain = strtolower(trim(substr((string) $token, $atPosition + 1)));
+            if ($domain !== '' && preg_match('/^[a-z0-9.-]+\.[a-z]{2,}$/i', $domain) === 1) {
+                $domains[] = $domain;
+            }
+        }
+    }
+
+    $domains = array_values(array_unique($domains));
+    usort($domains, static function ($left, $right) {
+        return strlen($right) <=> strlen($left);
+    });
+
+    return $domains;
 }
 
 function together_get_contact_recipients(): array

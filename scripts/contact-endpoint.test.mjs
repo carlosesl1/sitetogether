@@ -19,6 +19,8 @@ const expectedRecipients = [
 ];
 const pastedTogetherRecipients =
   "contato@togetherprivacy.comcarlos.leite@noirdigital.com.br";
+const wordPressSanitizedJoinedRecipients =
+  "contato@togetherprivacy.comcarlos.leitenoirdigital.com.br";
 const commaSeparatedRecipients =
   "contato@togetherprivacy.com,carlos.leite@noirdigital.com.br";
 let phpProcessId = 1;
@@ -136,4 +138,89 @@ test("contact recipient parser returns separate addresses for pasted-together re
     pasted: expectedRecipients,
     comma: expectedRecipients,
   });
+});
+
+test("contact recipient parser repairs WordPress-sanitized joined recipients", async () => {
+  const code = `<?php
+define('ABSPATH', __DIR__);
+function add_action(...$args): void {}
+function add_filter(...$args): void {}
+function is_email($email): bool { return filter_var($email, FILTER_VALIDATE_EMAIL) !== false; }
+function sanitize_email($email): string { return is_email($email) ? $email : ''; }
+${pluginPhp}
+echo json_encode(together_parse_contact_recipients(${phpString(wordPressSanitizedJoinedRecipients)}));
+`;
+
+  const php = new PHP(
+    await loadNodeRuntime("8.3", {
+      emscriptenOptions: { processId: phpProcessId },
+    }),
+  );
+  phpProcessId += 1;
+
+  try {
+    const output = await php.runStream({ code });
+    const stderr = await output.stderrText;
+    assert.equal(stderr.trim(), "", stderr);
+
+    const stdout = (await output.stdoutText).trim();
+    assert.deepEqual(JSON.parse(stdout), expectedRecipients);
+  } finally {
+    php.exit();
+  }
+});
+
+test("contact email sender passes repaired recipients to wp_mail", async () => {
+  const lead = {
+    firstName: "Teste",
+    lastName: "Lead",
+    email: "teste@teste.com",
+    company: "Empresa",
+    phone: "+5577998453006",
+    message: "Mensagem",
+    pageUrl: "https://togetherprivacy.tech/contato",
+    source: "Formulario de contato",
+  };
+  const code = `<?php
+define('ABSPATH', __DIR__);
+define('TOGETHER_CONTACT_RECIPIENTS', ${phpString(wordPressSanitizedJoinedRecipients)});
+function add_action(...$args): void {}
+function add_filter(...$args): void {}
+function is_email($email): bool { return filter_var($email, FILTER_VALIDATE_EMAIL) !== false; }
+function sanitize_email($email): string { return is_email($email) ? $email : ''; }
+function wp_mail($to, $subject, $body, $headers): bool {
+    $GLOBALS['captured_mail_to'] = $to;
+    return true;
+}
+${pluginPhp}
+$lead = json_decode(${phpString(JSON.stringify(lead))}, true);
+$result = together_send_contact_email(123, $lead);
+echo json_encode([
+    'sent' => $result['sent'],
+    'recipients' => $result['recipients'],
+    'mailTo' => $GLOBALS['captured_mail_to'],
+]);
+`;
+
+  const php = new PHP(
+    await loadNodeRuntime("8.3", {
+      emscriptenOptions: { processId: phpProcessId },
+    }),
+  );
+  phpProcessId += 1;
+
+  try {
+    const output = await php.runStream({ code });
+    const stderr = await output.stderrText;
+    assert.equal(stderr.trim(), "", stderr);
+
+    const stdout = (await output.stdoutText).trim();
+    assert.deepEqual(JSON.parse(stdout), {
+      sent: true,
+      recipients: expectedRecipients,
+      mailTo: expectedRecipients,
+    });
+  } finally {
+    php.exit();
+  }
 });
