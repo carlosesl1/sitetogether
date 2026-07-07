@@ -8,6 +8,7 @@
     "sync:wordpress": "node scripts/sync-wordpress-posts.mjs",
     "build": "npm run sync:wordpress && npm run redirects:blog && next build",
     "start": "next start",
+    "test": "node --test scripts/contact-endpoint.test.mjs",
     "lint": "eslint"
   },
   "dependencies": {
@@ -38,6 +39,8 @@
     "three": "^0.182.0"
   },
   "devDependencies": {
+    "@php-wasm/node": "^3.1.44",
+    "@php-wasm/universal": "^3.1.44",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^20",

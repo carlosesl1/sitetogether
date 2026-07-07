@@ -3,6 +3,8 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
+import { PHP } from "@php-wasm/universal";
+import { loadNodeRuntime } from "@php-wasm/node";
 
 const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const pluginPath = resolve(
@@ -10,6 +12,16 @@ const pluginPath = resolve(
   "public/wp-content/mu-plugins/together-contact-endpoint.php",
 );
 const pluginSource = readFileSync(pluginPath, "utf8");
+const pluginPhp = pluginSource.replace(/^<\?php\s*/, "");
+const expectedRecipients = [
+  "contato@togetherprivacy.com",
+  "carlos.leite@noirdigital.com.br",
+];
+const pastedTogetherRecipients =
+  "contato@togetherprivacy.comcarlos.leite@noirdigital.com.br";
+const commaSeparatedRecipients =
+  "contato@togetherprivacy.com,carlos.leite@noirdigital.com.br";
+let phpProcessId = 1;
 
 function readStringConst(name) {
   const match = pluginSource.match(new RegExp(`const\\s+${name}\\s*=\\s*'([^']*)';`));
@@ -40,6 +52,47 @@ function extractPhpFunction(name) {
   }
 
   assert.fail(`Could not find end of PHP function ${name}`);
+}
+
+function phpString(value) {
+  return JSON.stringify(value);
+}
+
+async function executeRecipientParserCases() {
+  const code = `<?php
+define('ABSPATH', __DIR__);
+define('TOGETHER_CONTACT_RECIPIENTS', ${phpString(pastedTogetherRecipients)});
+function add_action(...$args): void {}
+function add_filter(...$args): void {}
+function is_email($email): bool { return filter_var($email, FILTER_VALIDATE_EMAIL) !== false; }
+function sanitize_email($email): string { return is_email($email) ? $email : ''; }
+${pluginPhp}
+echo json_encode([
+    'configured' => together_get_contact_recipients(),
+    'pasted' => together_parse_contact_recipients(${phpString(pastedTogetherRecipients)}),
+    'comma' => together_parse_contact_recipients(${phpString(commaSeparatedRecipients)}),
+]);
+`;
+
+  const php = new PHP(
+    await loadNodeRuntime("8.3", {
+      emscriptenOptions: { processId: phpProcessId },
+    }),
+  );
+  phpProcessId += 1;
+
+  try {
+    const output = await php.runStream({ code });
+    const stderr = await output.stderrText;
+    assert.equal(stderr.trim(), "", stderr);
+
+    const stdout = (await output.stdoutText).trim();
+    assert.notEqual(stdout, "", "PHP runtime did not emit parser output");
+
+    return JSON.parse(stdout);
+  } finally {
+    php.exit();
+  }
 }
 
 test("default contact recipients contain separate email addresses", () => {
@@ -73,4 +126,14 @@ test("configured contact recipients use the same parser as the fallback", () => 
     getRecipients,
     /together_parse_contact_recipients\(\(string\)\s*TOGETHER_CONTACT_RECIPIENTS\)/,
   );
+});
+
+test("contact recipient parser returns separate addresses for pasted-together recipients", async () => {
+  const parsed = await executeRecipientParserCases();
+
+  assert.deepEqual(parsed, {
+    configured: expectedRecipients,
+    pasted: expectedRecipients,
+    comma: expectedRecipients,
+  });
 });

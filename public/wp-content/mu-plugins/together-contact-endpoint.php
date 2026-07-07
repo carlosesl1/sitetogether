@@ -389,7 +389,92 @@ function together_normalize_contact_phone(string $phone): string
 
 function together_parse_contact_recipients(string $recipients): array
 {
-    return array_values(array_filter(array_map('trim', explode(',', $recipients))));
+    $tokens = preg_split('/[\s,;]+/', $recipients, -1, PREG_SPLIT_NO_EMPTY);
+    if (!is_array($tokens)) {
+        return [];
+    }
+
+    $parsedRecipients = [];
+    foreach ($tokens as $token) {
+        foreach (together_split_joined_contact_recipient_token((string) $token) as $recipient) {
+            $parsedRecipients[] = $recipient;
+        }
+    }
+
+    return array_values(array_filter(array_map('trim', $parsedRecipients)));
+}
+
+function together_split_joined_contact_recipient_token(string $token): array
+{
+    $token = trim($token);
+    if ($token === '' || substr_count($token, '@') <= 1) {
+        return [$token];
+    }
+
+    $nextAt = strpos($token, '@', strpos($token, '@') + 1);
+    while ($nextAt !== false) {
+        $split = together_find_joined_contact_recipient_split($token, $nextAt);
+        if ($split > 0) {
+            $left = substr($token, 0, $split);
+            $right = substr($token, $split);
+
+            return array_merge([$left], together_split_joined_contact_recipient_token($right));
+        }
+
+        $nextAt = strpos($token, '@', $nextAt + 1);
+    }
+
+    return [$token];
+}
+
+function together_find_joined_contact_recipient_split(string $token, int $nextAt): int
+{
+    $firstAt = strpos($token, '@');
+    if ($firstAt === false || $nextAt <= $firstAt) {
+        return 0;
+    }
+
+    $leftCandidate = substr($token, 0, $nextAt);
+    foreach (together_contact_recipient_domain_suffixes() as $suffix) {
+        $searchOffset = $firstAt + 1;
+        while (($suffixAt = stripos($leftCandidate, $suffix, $searchOffset)) !== false) {
+            $split = $suffixAt + strlen($suffix);
+            if ($split >= $nextAt) {
+                break;
+            }
+
+            $left = substr($token, 0, $split);
+            $right = substr($token, $split);
+            if (is_email($left) && is_email($right)) {
+                return $split;
+            }
+
+            $searchOffset = $suffixAt + 1;
+        }
+    }
+
+    return 0;
+}
+
+function together_contact_recipient_domain_suffixes(): array
+{
+    return [
+        '.com.br',
+        '.net.br',
+        '.org.br',
+        '.gov.br',
+        '.edu.br',
+        '.adv.br',
+        '.com',
+        '.net',
+        '.org',
+        '.tech',
+        '.digital',
+        '.io',
+        '.co',
+        '.ai',
+        '.br',
+    ];
 }
 
 function together_get_contact_recipients(): array
