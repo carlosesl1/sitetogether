@@ -8,7 +8,7 @@
     "sync:wordpress": "node scripts/sync-wordpress-posts.mjs",
     "build": "npm run sync:wordpress && npm run redirects:blog && next build",
     "start": "next start",
-    "test": "node --test scripts/contact-endpoint.test.mjs",
+    "test": "node --test scripts/*.test.mjs",
     "lint": "eslint"
   },
   "dependencies": {
