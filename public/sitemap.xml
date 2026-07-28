@@ -2,75 +2,143 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://togetherprivacy.tech</loc>
-    <lastmod>2026-06-16T14:45:17.741Z</lastmod>
+    <lastmod>2026-07-28T03:47:18.794Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/eca-digital</loc>
-    <lastmod>2026-06-16T14:45:17.741Z</lastmod>
+    <lastmod>2026-07-28T03:47:18.794Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog</loc>
-    <lastmod>2026-06-16T14:45:17.741Z</lastmod>
+    <lastmod>2026-07-28T03:47:18.794Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/contato</loc>
-    <lastmod>2026-06-16T14:45:17.741Z</lastmod>
+    <lastmod>2026-07-28T03:47:18.794Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/servicos/dpo-as-a-service</loc>
-    <lastmod>2026-06-16T14:45:17.741Z</lastmod>
+    <lastmod>2026-07-28T03:47:18.794Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/servicos/consultoria-adequacao</loc>
-    <lastmod>2026-06-16T14:45:17.741Z</lastmod>
+    <lastmod>2026-07-28T03:47:18.794Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/servicos/mentoria-e-cultura</loc>
-    <lastmod>2026-06-16T14:45:17.741Z</lastmod>
+    <lastmod>2026-07-28T03:47:18.794Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/cyber-resilience-act</loc>
+    <lastmod>2026-07-28T03:39:27.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/brinquedos-com-inteligencia-artificial</loc>
+    <lastmod>2026-07-28T03:39:20.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/governanca-de-agentes-de-ia</loc>
+    <lastmod>2026-07-28T03:39:13.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/web-scraping-ia</loc>
+    <lastmod>2026-07-28T03:39:05.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/apps-de-entrega-lgpd</loc>
+    <lastmod>2026-07-17T20:04:17.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/publicidade-infantil-lgpd</loc>
+    <lastmod>2026-07-17T20:04:11.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/dark-patterns-lgpd</loc>
+    <lastmod>2026-07-17T20:04:04.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/vazamento-de-dados-de-saude</loc>
+    <lastmod>2026-07-17T20:03:57.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/transparencia-lgpd-pedidos-informacao-dados-pessoais</loc>
+    <lastmod>2026-07-17T15:21:46.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/ia-no-judiciario-escritorios-juridicos-lgpd</loc>
+    <lastmod>2026-07-17T15:22:21.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/medidores-inteligentes-energia-lgpd-dados-consumo</loc>
+    <lastmod>2026-07-17T15:26:06.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/sandbox-ia-anpd-privacidade-by-design</loc>
+    <lastmod>2026-07-17T15:26:18.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/anpd-encarregado-dpo-canal-titulares-lgpd</loc>
+    <lastmod>2026-07-17T15:27:29.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/biometria-maternidade-lgpd-hospitais</loc>
+    <lastmod>2026-07-17T15:27:51.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/reconhecimento-facial-ia-lgpd-biometria</loc>
+    <lastmod>2026-07-17T15:32:27.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/mapa-instagram-localizacao-exata-lgpd</loc>
+    <lastmod>2026-07-17T15:34:37.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://togetherprivacy.tech/blog/anpd-verificacao-idade-online-eca-digital</loc>
+    <lastmod>2026-07-17T15:36:46.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/caso-claro-serasa-anpd-compartilhamento-dados</loc>
-    <lastmod>2026-06-12T17:38:46.000Z</lastmod>
+    <lastmod>2026-07-17T15:37:45.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/marco-civil-2026-regras-plataformas-fraudes-privacidade</loc>
-    <lastmod>2026-06-08T21:35:03.000Z</lastmod>
+    <lastmod>2026-07-17T15:38:21.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/vazamento-fornecedor-edtech-dados-estudantes-retencao-lgpd</loc>
-    <lastmod>2026-06-08T21:34:42.000Z</lastmod>
+    <lastmod>2026-07-17T15:38:36.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/agentes-ia-controle-acesso-dados-pessoais-lgpd</loc>
-    <lastmod>2026-06-08T21:34:19.000Z</lastmod>
+    <lastmod>2026-07-17T15:39:16.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/vazamento-dados-cemig-incidente-seguranca-lgpd</loc>
-    <lastmod>2026-05-25T15:27:52.000Z</lastmod>
+    <lastmod>2026-07-17T15:39:54.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/canal-lgpd-reclamacoes-direitos-titulares</loc>
-    <lastmod>2026-05-19T03:42:14.000Z</lastmod>
+    <lastmod>2026-07-17T15:40:23.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/deepfakes-lgpd-imagem-pessoal-ia-generativa</loc>
-    <lastmod>2026-05-19T03:42:08.000Z</lastmod>
+    <lastmod>2026-07-17T15:54:26.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/atendimento-cliente-lgpd-autenticacao-incidente-dados</loc>
-    <lastmod>2026-05-19T03:41:58.000Z</lastmod>
+    <lastmod>2026-07-17T15:56:09.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/ia-no-rh-triagem-automatica-lgpd</loc>
-    <lastmod>2026-05-19T03:41:49.000Z</lastmod>
+    <lastmod>2026-07-17T15:56:42.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/politica-privacidade-fiscalizacao-transparencia-lgpd</loc>
-    <lastmod>2026-05-19T03:41:39.000Z</lastmod>
+    <lastmod>2026-07-17T15:57:10.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/geolocalizacao-sensivel-kochava-lgpd</loc>
-    <lastmod>2026-05-15T07:12:11.000Z</lastmod>
+    <lastmod>2026-07-17T15:57:29.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/privacidade-infantil-age-assurance-lgpd</loc>
@@ -78,15 +146,15 @@
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/ripd-lgpd-template-europeu-dpia</loc>
-    <lastmod>2026-05-15T07:11:49.000Z</lastmod>
+    <lastmod>2026-07-17T16:00:31.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/transferencia-internacional-dados-shein-fornecedores</loc>
-    <lastmod>2026-05-15T07:11:39.000Z</lastmod>
+    <lastmod>2026-07-17T16:02:38.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/chatgpt-dados-pessoais-governanca-ia</loc>
-    <lastmod>2026-05-15T07:11:32.000Z</lastmod>
+    <lastmod>2026-07-17T16:03:15.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/lgpd-para-saas-e-microsaas-cuidados-antes-de-lancar-app</loc>
@@ -98,7 +166,7 @@
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/encarregado-dpo-lgpd-o-que-anpd-espera</loc>
-    <lastmod>2026-05-12T20:53:32.000Z</lastmod>
+    <lastmod>2026-07-17T15:28:25.000Z</lastmod>
   </url>
   <url>
     <loc>https://togetherprivacy.tech/blog/como-o-eca-digital-muda-a-responsabilidade-de-plataformas-e-apps</loc>
