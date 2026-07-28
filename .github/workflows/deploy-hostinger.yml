@@ -238,8 +238,12 @@ jobs:
           mirror_command+=" --exclude-glob '.profile'"
           mirror_command+=" --exclude-glob '.filebrowser'"
           mirror_command+=" ./out/ ."
+          contact_plugin_local="./public/wp-content/mu-plugins/together-contact-endpoint.php"
+          contact_plugin_remote="wp-content/mu-plugins/together-contact-endpoint.php"
+          test -f "$contact_plugin_local"
+          contact_plugin_upload_command="put $contact_plugin_local -o $contact_plugin_remote"
 
-          echo "Deploying ./out/ to the current Hostinger webroot over ${protocol} on port ${HOSTINGER_FTP_PORT}."
+          echo "Deploying ./out/ and the TOGETHER contact endpoint to the current Hostinger webroot over ${protocol} on port ${HOSTINGER_FTP_PORT}."
           deploy_log="$(mktemp)"
           deploy_status=1
           deploy_attempts=3
@@ -248,7 +252,7 @@ jobs:
             : >"$deploy_log"
             echo "Hostinger deploy attempt ${attempt}/${deploy_attempts}."
             set +e
-            timeout 10m lftp -u "$HOSTINGER_FTP_USERNAME","$HOSTINGER_FTP_PASSWORD" "$lftp_url" -e "$lftp_settings"$'\n'"cd $remote_dir"$'\n'"pwd"$'\n'"cls -1 wp-admin"$'\n'"cls -1 wp-content"$'\n'"cls -1 wp-includes"$'\n'"$mirror_command"$'\n'"bye" >"$deploy_log" 2>&1
+            timeout 10m lftp -u "$HOSTINGER_FTP_USERNAME","$HOSTINGER_FTP_PASSWORD" "$lftp_url" -e "$lftp_settings"$'\n'"cd $remote_dir"$'\n'"pwd"$'\n'"cls -1 wp-admin"$'\n'"cls -1 wp-content"$'\n'"cls -1 wp-includes"$'\n'"$mirror_command"$'\n'"$contact_plugin_upload_command"$'\n'"bye" >"$deploy_log" 2>&1
             deploy_status=$?
             set -e
 
@@ -353,12 +357,18 @@ jobs:
             "data/blog-sync.json"
             "blog/caso-claro-serasa-anpd-compartilhamento-dados.html"
             "codex-deploy-marker.txt"
+            "wp-content/mu-plugins/together-contact-endpoint.php"
           )
 
           for target in "${targets[@]}"; do
             local_file="$(mktemp)"
             rm -f "$local_file"
             timeout 2m lftp -u "$HOSTINGER_FTP_USERNAME","$HOSTINGER_FTP_PASSWORD" "$lftp_url" -e "$lftp_settings"$'\n'"cd $remote_dir"$'\n'"get $target -o $local_file"$'\n'"bye"
+            if [ "$target" = "wp-content/mu-plugins/together-contact-endpoint.php" ] && ! cmp -s "$local_file" "./public/$target"; then
+              echo "::error::The deployed contact endpoint does not match the repository version."
+              rm -f "$local_file"
+              exit 1
+            fi
             python - "$target" "$local_file" <<'PY'
           import hashlib
           import re

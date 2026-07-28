@@ -72,6 +72,10 @@ test("Hostinger deploy uses lftp and normalizes copied hPanel FTP hostnames", ()
   assert.match(deployStep, /cls -1 wp-includes/);
   assert.match(deployStep, /mirror --reverse --verbose=1/);
   assert.doesNotMatch(deployStep, /mirror --reverse --delete/);
+  assert.match(
+    deployStep,
+    /put \$contact_plugin_local -o \$contact_plugin_remote/,
+  );
   assert.match(deployStep, /Hostinger FTP deploy failed/);
   assert.match(deployStep, /HOSTINGER_FTP_PROTOCOL:\s*\$\{\{\s*env\.HOSTINGER_FTP_PROTOCOL\s*\}\}/);
   assert.match(deployStep, /HOSTINGER_FTP_PORT:\s*\$\{\{\s*env\.HOSTINGER_FTP_PORT\s*\}\}/);
@@ -99,6 +103,11 @@ test("lftp verification uses the same protocol and port environment as deploy", 
 
   assert.match(verifyStep, /lftp -u/);
   assert.match(verifyStep, /rm -f "\$local_file"/);
+  assert.match(
+    verifyStep,
+    /wp-content\/mu-plugins\/together-contact-endpoint\.php/,
+  );
+  assert.match(verifyStep, /cmp -s "\$local_file" "\.\/public\/\$target"/);
   assert.match(verifyStep, /HOSTINGER_FTP_PROTOCOL:\s*\$\{\{\s*env\.HOSTINGER_FTP_PROTOCOL\s*\}\}/);
   assert.match(verifyStep, /HOSTINGER_FTP_PORT:\s*\$\{\{\s*env\.HOSTINGER_FTP_PORT\s*\}\}/);
 });

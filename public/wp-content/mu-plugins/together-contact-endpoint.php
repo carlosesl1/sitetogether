@@ -13,7 +13,7 @@ const TOGETHER_REST_NAMESPACE = 'together/v1';
 const TOGETHER_CONTACT_ROUTE = '/together/v1/contact';
 const TOGETHER_BLOG_CACHE_CRON_HOOK = 'together_daily_blog_cache_sync';
 const TOGETHER_CONTACT_POST_TYPE = 'together_contact';
-const TOGETHER_DEFAULT_CONTACT_RECIPIENTS = 'contato@togetherprivacy.com,carlos.leite@noirdigital.com.br';
+const TOGETHER_DEFAULT_CONTACT_RECIPIENTS = 'contato@togetherprivacy.com,carlos.leite@noirdigital.com.br,gabriel.flavio@togetherprivacy.com';
 const TOGETHER_DEFAULT_MAIL_FROM_EMAIL = 'contato@togetherprivacy.tech';
 const TOGETHER_DEFAULT_MAIL_FROM_NAME = 'TOGETHER Privacy & Tech';
 const TOGETHER_DEFAULT_SMTP_HOST = 'smtp.hostinger.com';
@@ -587,7 +587,7 @@ function together_get_contact_recipients(): array
     if (defined('TOGETHER_CONTACT_RECIPIENTS')) {
         $configured = together_parse_contact_recipients((string) TOGETHER_CONTACT_RECIPIENTS);
         if ($configured) {
-            $recipients = $configured;
+            $recipients = array_merge($recipients, $configured);
         }
     }
 

@@ -13,10 +13,12 @@ const pluginPath = resolve(
 );
 const pluginSource = readFileSync(pluginPath, "utf8");
 const pluginPhp = pluginSource.replace(/^<\?php\s*/, "");
-const expectedRecipients = [
+const defaultRecipients = [
   "contato@togetherprivacy.com",
   "carlos.leite@noirdigital.com.br",
+  "gabriel.flavio@togetherprivacy.com",
 ];
+const expectedRecipients = defaultRecipients.slice(0, 2);
 const pastedTogetherRecipients =
   "contato@togetherprivacy.comcarlos.leite@noirdigital.com.br";
 const wordPressSanitizedJoinedRecipients =
@@ -98,14 +100,11 @@ echo json_encode([
 }
 
 test("default contact recipients contain separate email addresses", () => {
-  const defaultRecipients = readStringConst("TOGETHER_DEFAULT_CONTACT_RECIPIENTS")
+  const parsedDefaultRecipients = readStringConst("TOGETHER_DEFAULT_CONTACT_RECIPIENTS")
     .split(",")
     .map((email) => email.trim());
 
-  assert.deepEqual(defaultRecipients, [
-    "contato@togetherprivacy.com",
-    "carlos.leite@noirdigital.com.br",
-  ]);
+  assert.deepEqual(parsedDefaultRecipients, defaultRecipients);
 });
 
 test("contact recipient fallback parses the comma-separated default list", () => {
@@ -121,20 +120,21 @@ test("contact recipient fallback parses the comma-separated default list", () =>
   );
 });
 
-test("configured contact recipients use the same parser as the fallback", () => {
+test("configured contact recipients extend the defaults using the same parser", () => {
   const getRecipients = extractPhpFunction("together_get_contact_recipients");
 
   assert.match(
     getRecipients,
     /together_parse_contact_recipients\(\(string\)\s*TOGETHER_CONTACT_RECIPIENTS\)/,
   );
+  assert.match(getRecipients, /array_merge\(\$recipients,\s*\$configured\)/);
 });
 
 test("contact recipient parser returns separate addresses for pasted-together recipients", async () => {
   const parsed = await executeRecipientParserCases();
 
   assert.deepEqual(parsed, {
-    configured: expectedRecipients,
+    configured: defaultRecipients,
     pasted: expectedRecipients,
     comma: expectedRecipients,
   });
@@ -217,8 +217,8 @@ echo json_encode([
     const stdout = (await output.stdoutText).trim();
     assert.deepEqual(JSON.parse(stdout), {
       sent: true,
-      recipients: expectedRecipients,
-      mailTo: expectedRecipients,
+      recipients: defaultRecipients,
+      mailTo: defaultRecipients,
     });
   } finally {
     php.exit();

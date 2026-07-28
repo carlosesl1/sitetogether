@@ -13,7 +13,7 @@ O endpoint e configurado pelo mu-plugin:
 O plugin ja usa estes dados como padrao:
 
 ```php
-TOGETHER_CONTACT_RECIPIENTS = contato@togetherprivacy.com,carlos.leite@noirdigital.com.br
+TOGETHER_CONTACT_RECIPIENTS = contato@togetherprivacy.com,carlos.leite@noirdigital.com.br,gabriel.flavio@togetherprivacy.com
 TOGETHER_MAIL_FROM_EMAIL = contato@togetherprivacy.tech
 TOGETHER_MAIL_FROM_NAME = TOGETHER Privacy & Tech
 TOGETHER_SMTP_HOST = smtp.hostinger.com
@@ -29,8 +29,9 @@ No servidor, adicione apenas a senha no `wp-config.php`, antes da linha
 define('TOGETHER_SMTP_PASSWORD', 'COLE_A_SENHA_AQUI');
 ```
 
-Se quiser sobrescrever qualquer outro campo no futuro, tambem pode definir as
-constantes correspondentes no `wp-config.php`.
+Se definir `TOGETHER_CONTACT_RECIPIENTS` no `wp-config.php`, os enderecos
+informados serao adicionados aos destinatarios padrao. As demais constantes
+podem ser definidas para sobrescrever os campos correspondentes.
 
 Nunca coloque a senha no repositorio, no build estatico ou em arquivos publicos.
 
@@ -92,10 +93,12 @@ o valor exibido em **FTP Access**.
 O workflow publica de verdade (`dry-run: false`) depois do teste inicial de
 conexao ter passado.
 
-O workflow publica apenas a pasta `out/` e exclui arquivos/pastas do WordPress
-como `wp-admin/`, `wp-content/`, `wp-includes/`, `wp-config.php`, `wp-*.php`,
-`xmlrpc.php` e `index.php`. Isso permite hospedar o site estatico no mesmo
-`public_html` sem substituir a instalacao WordPress que atende o `/wp-json`.
+O workflow publica a pasta `out/` e exclui arquivos/pastas do WordPress como
+`wp-admin/`, `wp-content/`, `wp-includes/`, `wp-config.php`, `wp-*.php`,
+`xmlrpc.php` e `index.php`. A unica excecao e o mu-plugin versionado
+`wp-content/mu-plugins/together-contact-endpoint.php`, enviado e conferido
+separadamente. Isso permite hospedar o site estatico no mesmo `public_html` sem
+substituir a instalacao WordPress que atende o `/wp-json`.
 
 ### Token do GitHub no WordPress
 
