@@ -6,8 +6,8 @@
     "guid": {
       "rendered": "https://togetherprivacy.tech/blog/cyber-resilience-act/"
     },
-    "modified": "2026-07-28T00:39:27",
-    "modified_gmt": "2026-07-28T03:39:27",
+    "modified": "2026-07-28T01:08:41",
+    "modified_gmt": "2026-07-28T04:08:41",
     "slug": "cyber-resilience-act",
     "status": "publish",
     "type": "post",
@@ -24,7 +24,7 @@
       "protected": false
     },
     "author": 4,
-    "featured_media": 10698,
+    "featured_media": 10704,
     "comment_status": "closed",
     "ping_status": "closed",
     "sticky": false,
@@ -107,7 +107,7 @@
       "wp:featuredmedia": [
         {
           "embeddable": true,
-          "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10698"
+          "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10704"
         }
       ],
       "wp:attachment": [
@@ -170,11 +170,11 @@
       ],
       "wp:featuredmedia": [
         {
-          "id": 10698,
-          "date": "2026-07-28T00:39:25",
-          "slug": "cyber-resilience-act-titlecase-v2",
+          "id": 10704,
+          "date": "2026-07-28T01:08:39",
+          "slug": "cyber-resilience-act-regenerated-v3",
           "type": "attachment",
-          "link": "https://togetherprivacy.tech/cyber-resilience-act-titlecase-v2/",
+          "link": "https://togetherprivacy.tech/cyber-resilience-act-regenerated-v3/",
           "title": {
             "rendered": "Equipe técnica revisando Cyber Resilience Act para produto digital no mercado europeu."
           },
@@ -189,47 +189,47 @@
           "media_details": {
             "width": 1216,
             "height": 600,
-            "file": "2026/07/cyber-resilience-act-titlecase-v2.webp",
-            "filesize": 80126,
+            "file": "2026/07/cyber-resilience-act-regenerated-v3.webp",
+            "filesize": 110216,
             "sizes": {
               "medium": {
-                "file": "cyber-resilience-act-titlecase-v2-300x148.webp",
+                "file": "cyber-resilience-act-regenerated-v3-300x148.webp",
                 "width": 300,
                 "height": 148,
-                "filesize": 6912,
+                "filesize": 8172,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/cyber-resilience-act-titlecase-v2-300x148.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/cyber-resilience-act-regenerated-v3-300x148.webp"
               },
               "large": {
-                "file": "cyber-resilience-act-titlecase-v2-1024x505.webp",
+                "file": "cyber-resilience-act-regenerated-v3-1024x505.webp",
                 "width": 1024,
                 "height": 505,
-                "filesize": 42450,
+                "filesize": 47336,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/cyber-resilience-act-titlecase-v2-1024x505.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/cyber-resilience-act-regenerated-v3-1024x505.webp"
               },
               "thumbnail": {
-                "file": "cyber-resilience-act-titlecase-v2-150x150.webp",
+                "file": "cyber-resilience-act-regenerated-v3-150x150.webp",
                 "width": 150,
                 "height": 150,
-                "filesize": 2782,
+                "filesize": 4280,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/cyber-resilience-act-titlecase-v2-150x150.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/cyber-resilience-act-regenerated-v3-150x150.webp"
               },
               "medium_large": {
-                "file": "cyber-resilience-act-titlecase-v2-768x379.webp",
+                "file": "cyber-resilience-act-regenerated-v3-768x379.webp",
                 "width": 768,
                 "height": 379,
-                "filesize": 28084,
+                "filesize": 31588,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/cyber-resilience-act-titlecase-v2-768x379.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/cyber-resilience-act-regenerated-v3-768x379.webp"
               },
               "full": {
-                "file": "cyber-resilience-act-titlecase-v2.webp",
+                "file": "cyber-resilience-act-regenerated-v3.webp",
                 "width": 1216,
                 "height": 600,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/cyber-resilience-act-titlecase-v2.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/cyber-resilience-act-regenerated-v3.webp"
               }
             },
             "image_meta": {
@@ -248,11 +248,11 @@
               "alt": ""
             }
           },
-          "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/cyber-resilience-act-titlecase-v2.webp",
+          "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/cyber-resilience-act-regenerated-v3.webp",
           "_links": {
             "self": [
               {
-                "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10698",
+                "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10704",
                 "targetHints": {
                   "allow": [
                     "GET"
@@ -279,7 +279,7 @@
             "replies": [
               {
                 "embeddable": true,
-                "href": "https://togetherprivacy.tech/wp-json/wp/v2/comments?post=10698"
+                "href": "https://togetherprivacy.tech/wp-json/wp/v2/comments?post=10704"
               }
             ]
           }
@@ -546,8 +546,8 @@
     "guid": {
       "rendered": "https://togetherprivacy.tech/blog/brinquedos-com-inteligencia-artificial/"
     },
-    "modified": "2026-07-28T00:39:20",
-    "modified_gmt": "2026-07-28T03:39:20",
+    "modified": "2026-07-28T01:08:32",
+    "modified_gmt": "2026-07-28T04:08:32",
     "slug": "brinquedos-com-inteligencia-artificial",
     "status": "publish",
     "type": "post",
@@ -564,7 +564,7 @@
       "protected": false
     },
     "author": 4,
-    "featured_media": 10696,
+    "featured_media": 10703,
     "comment_status": "closed",
     "ping_status": "closed",
     "sticky": false,
@@ -647,7 +647,7 @@
       "wp:featuredmedia": [
         {
           "embeddable": true,
-          "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10696"
+          "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10703"
         }
       ],
       "wp:attachment": [
@@ -710,11 +710,11 @@
       ],
       "wp:featuredmedia": [
         {
-          "id": 10696,
-          "date": "2026-07-28T00:39:18",
-          "slug": "brinquedos-com-inteligencia-artificial-titlecase-v2",
+          "id": 10703,
+          "date": "2026-07-28T01:08:31",
+          "slug": "brinquedos-com-inteligencia-artificial-regenerated-v3",
           "type": "attachment",
-          "link": "https://togetherprivacy.tech/brinquedos-com-inteligencia-artificial-titlecase-v2/",
+          "link": "https://togetherprivacy.tech/brinquedos-com-inteligencia-artificial-regenerated-v3/",
           "title": {
             "rendered": "Avaliação de brinquedos com inteligência artificial com foco em privacidade infantil."
           },
@@ -729,47 +729,47 @@
           "media_details": {
             "width": 1216,
             "height": 600,
-            "file": "2026/07/brinquedos-com-inteligencia-artificial-titlecase-v2.webp",
-            "filesize": 56272,
+            "file": "2026/07/brinquedos-com-inteligencia-artificial-regenerated-v3.webp",
+            "filesize": 104454,
             "sizes": {
               "medium": {
-                "file": "brinquedos-com-inteligencia-artificial-titlecase-v2-300x148.webp",
+                "file": "brinquedos-com-inteligencia-artificial-regenerated-v3-300x148.webp",
                 "width": 300,
                 "height": 148,
-                "filesize": 5564,
+                "filesize": 7866,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/brinquedos-com-inteligencia-artificial-titlecase-v2-300x148.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/brinquedos-com-inteligencia-artificial-regenerated-v3-300x148.webp"
               },
               "large": {
-                "file": "brinquedos-com-inteligencia-artificial-titlecase-v2-1024x505.webp",
+                "file": "brinquedos-com-inteligencia-artificial-regenerated-v3-1024x505.webp",
                 "width": 1024,
                 "height": 505,
-                "filesize": 29048,
+                "filesize": 43498,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/brinquedos-com-inteligencia-artificial-titlecase-v2-1024x505.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/brinquedos-com-inteligencia-artificial-regenerated-v3-1024x505.webp"
               },
               "thumbnail": {
-                "file": "brinquedos-com-inteligencia-artificial-titlecase-v2-150x150.webp",
+                "file": "brinquedos-com-inteligencia-artificial-regenerated-v3-150x150.webp",
                 "width": 150,
                 "height": 150,
-                "filesize": 1826,
+                "filesize": 3790,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/brinquedos-com-inteligencia-artificial-titlecase-v2-150x150.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/brinquedos-com-inteligencia-artificial-regenerated-v3-150x150.webp"
               },
               "medium_large": {
-                "file": "brinquedos-com-inteligencia-artificial-titlecase-v2-768x379.webp",
+                "file": "brinquedos-com-inteligencia-artificial-regenerated-v3-768x379.webp",
                 "width": 768,
                 "height": 379,
-                "filesize": 20150,
+                "filesize": 28994,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/brinquedos-com-inteligencia-artificial-titlecase-v2-768x379.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/brinquedos-com-inteligencia-artificial-regenerated-v3-768x379.webp"
               },
               "full": {
-                "file": "brinquedos-com-inteligencia-artificial-titlecase-v2.webp",
+                "file": "brinquedos-com-inteligencia-artificial-regenerated-v3.webp",
                 "width": 1216,
                 "height": 600,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/brinquedos-com-inteligencia-artificial-titlecase-v2.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/brinquedos-com-inteligencia-artificial-regenerated-v3.webp"
               }
             },
             "image_meta": {
@@ -788,11 +788,11 @@
               "alt": ""
             }
           },
-          "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/brinquedos-com-inteligencia-artificial-titlecase-v2.webp",
+          "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/brinquedos-com-inteligencia-artificial-regenerated-v3.webp",
           "_links": {
             "self": [
               {
-                "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10696",
+                "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10703",
                 "targetHints": {
                   "allow": [
                     "GET"
@@ -819,7 +819,7 @@
             "replies": [
               {
                 "embeddable": true,
-                "href": "https://togetherprivacy.tech/wp-json/wp/v2/comments?post=10696"
+                "href": "https://togetherprivacy.tech/wp-json/wp/v2/comments?post=10703"
               }
             ]
           }
@@ -1086,8 +1086,8 @@
     "guid": {
       "rendered": "https://togetherprivacy.tech/blog/governanca-de-agentes-de-ia/"
     },
-    "modified": "2026-07-28T00:39:13",
-    "modified_gmt": "2026-07-28T03:39:13",
+    "modified": "2026-07-28T01:08:25",
+    "modified_gmt": "2026-07-28T04:08:25",
     "slug": "governanca-de-agentes-de-ia",
     "status": "publish",
     "type": "post",
@@ -1104,7 +1104,7 @@
       "protected": false
     },
     "author": 4,
-    "featured_media": 10694,
+    "featured_media": 10702,
     "comment_status": "closed",
     "ping_status": "closed",
     "sticky": false,
@@ -1187,7 +1187,7 @@
       "wp:featuredmedia": [
         {
           "embeddable": true,
-          "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10694"
+          "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10702"
         }
       ],
       "wp:attachment": [
@@ -1250,11 +1250,11 @@
       ],
       "wp:featuredmedia": [
         {
-          "id": 10694,
-          "date": "2026-07-28T00:39:11",
-          "slug": "governanca-de-agentes-de-ia-titlecase-v2",
+          "id": 10702,
+          "date": "2026-07-28T01:08:23",
+          "slug": "governanca-de-agentes-de-ia-regenerated-v3",
           "type": "attachment",
-          "link": "https://togetherprivacy.tech/governanca-de-agentes-de-ia-titlecase-v2/",
+          "link": "https://togetherprivacy.tech/governanca-de-agentes-de-ia-regenerated-v3/",
           "title": {
             "rendered": "Comitê revisando governança de agentes de IA com evidências e controles."
           },
@@ -1269,47 +1269,47 @@
           "media_details": {
             "width": 1216,
             "height": 600,
-            "file": "2026/07/governanca-de-agentes-de-ia-titlecase-v2.webp",
-            "filesize": 71354,
+            "file": "2026/07/governanca-de-agentes-de-ia-regenerated-v3.webp",
+            "filesize": 81198,
             "sizes": {
               "medium": {
-                "file": "governanca-de-agentes-de-ia-titlecase-v2-300x148.webp",
+                "file": "governanca-de-agentes-de-ia-regenerated-v3-300x148.webp",
                 "width": 300,
                 "height": 148,
-                "filesize": 6370,
+                "filesize": 6478,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/governanca-de-agentes-de-ia-titlecase-v2-300x148.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/governanca-de-agentes-de-ia-regenerated-v3-300x148.webp"
               },
               "large": {
-                "file": "governanca-de-agentes-de-ia-titlecase-v2-1024x505.webp",
+                "file": "governanca-de-agentes-de-ia-regenerated-v3-1024x505.webp",
                 "width": 1024,
                 "height": 505,
-                "filesize": 35328,
+                "filesize": 33842,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/governanca-de-agentes-de-ia-titlecase-v2-1024x505.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/governanca-de-agentes-de-ia-regenerated-v3-1024x505.webp"
               },
               "thumbnail": {
-                "file": "governanca-de-agentes-de-ia-titlecase-v2-150x150.webp",
+                "file": "governanca-de-agentes-de-ia-regenerated-v3-150x150.webp",
                 "width": 150,
                 "height": 150,
-                "filesize": 2576,
+                "filesize": 3188,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/governanca-de-agentes-de-ia-titlecase-v2-150x150.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/governanca-de-agentes-de-ia-regenerated-v3-150x150.webp"
               },
               "medium_large": {
-                "file": "governanca-de-agentes-de-ia-titlecase-v2-768x379.webp",
+                "file": "governanca-de-agentes-de-ia-regenerated-v3-768x379.webp",
                 "width": 768,
                 "height": 379,
-                "filesize": 23830,
+                "filesize": 23856,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/governanca-de-agentes-de-ia-titlecase-v2-768x379.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/governanca-de-agentes-de-ia-regenerated-v3-768x379.webp"
               },
               "full": {
-                "file": "governanca-de-agentes-de-ia-titlecase-v2.webp",
+                "file": "governanca-de-agentes-de-ia-regenerated-v3.webp",
                 "width": 1216,
                 "height": 600,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/governanca-de-agentes-de-ia-titlecase-v2.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/governanca-de-agentes-de-ia-regenerated-v3.webp"
               }
             },
             "image_meta": {
@@ -1328,11 +1328,11 @@
               "alt": ""
             }
           },
-          "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/governanca-de-agentes-de-ia-titlecase-v2.webp",
+          "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/governanca-de-agentes-de-ia-regenerated-v3.webp",
           "_links": {
             "self": [
               {
-                "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10694",
+                "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10702",
                 "targetHints": {
                   "allow": [
                     "GET"
@@ -1359,7 +1359,7 @@
             "replies": [
               {
                 "embeddable": true,
-                "href": "https://togetherprivacy.tech/wp-json/wp/v2/comments?post=10694"
+                "href": "https://togetherprivacy.tech/wp-json/wp/v2/comments?post=10702"
               }
             ]
           }
@@ -1626,8 +1626,8 @@
     "guid": {
       "rendered": "https://togetherprivacy.tech/blog/web-scraping-ia/"
     },
-    "modified": "2026-07-28T00:39:05",
-    "modified_gmt": "2026-07-28T03:39:05",
+    "modified": "2026-07-28T01:08:18",
+    "modified_gmt": "2026-07-28T04:08:18",
     "slug": "web-scraping-ia",
     "status": "publish",
     "type": "post",
@@ -1644,7 +1644,7 @@
       "protected": false
     },
     "author": 4,
-    "featured_media": 10692,
+    "featured_media": 10701,
     "comment_status": "closed",
     "ping_status": "closed",
     "sticky": false,
@@ -1727,7 +1727,7 @@
       "wp:featuredmedia": [
         {
           "embeddable": true,
-          "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10692"
+          "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10701"
         }
       ],
       "wp:attachment": [
@@ -1790,11 +1790,11 @@
       ],
       "wp:featuredmedia": [
         {
-          "id": 10692,
-          "date": "2026-07-28T00:39:03",
-          "slug": "web-scraping-ia-titlecase-v2",
+          "id": 10701,
+          "date": "2026-07-28T01:08:16",
+          "slug": "web-scraping-ia-regenerated-v3",
           "type": "attachment",
-          "link": "https://togetherprivacy.tech/web-scraping-ia-titlecase-v2/",
+          "link": "https://togetherprivacy.tech/web-scraping-ia-regenerated-v3/",
           "title": {
             "rendered": "Equipe avaliando web scraping para uso responsável de dados públicos em IA."
           },
@@ -1809,47 +1809,47 @@
           "media_details": {
             "width": 1216,
             "height": 600,
-            "file": "2026/07/web-scraping-ia-titlecase-v2.webp",
-            "filesize": 75668,
+            "file": "2026/07/web-scraping-ia-regenerated-v3.webp",
+            "filesize": 88836,
             "sizes": {
               "medium": {
-                "file": "web-scraping-ia-titlecase-v2-300x148.webp",
+                "file": "web-scraping-ia-regenerated-v3-300x148.webp",
                 "width": 300,
                 "height": 148,
-                "filesize": 5738,
+                "filesize": 7062,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/web-scraping-ia-titlecase-v2-300x148.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/web-scraping-ia-regenerated-v3-300x148.webp"
               },
               "large": {
-                "file": "web-scraping-ia-titlecase-v2-1024x505.webp",
+                "file": "web-scraping-ia-regenerated-v3-1024x505.webp",
                 "width": 1024,
                 "height": 505,
-                "filesize": 37964,
+                "filesize": 38530,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/web-scraping-ia-titlecase-v2-1024x505.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/web-scraping-ia-regenerated-v3-1024x505.webp"
               },
               "thumbnail": {
-                "file": "web-scraping-ia-titlecase-v2-150x150.webp",
+                "file": "web-scraping-ia-regenerated-v3-150x150.webp",
                 "width": 150,
                 "height": 150,
-                "filesize": 1634,
+                "filesize": 3288,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/web-scraping-ia-titlecase-v2-150x150.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/web-scraping-ia-regenerated-v3-150x150.webp"
               },
               "medium_large": {
-                "file": "web-scraping-ia-titlecase-v2-768x379.webp",
+                "file": "web-scraping-ia-regenerated-v3-768x379.webp",
                 "width": 768,
                 "height": 379,
-                "filesize": 24330,
+                "filesize": 26756,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/web-scraping-ia-titlecase-v2-768x379.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/web-scraping-ia-regenerated-v3-768x379.webp"
               },
               "full": {
-                "file": "web-scraping-ia-titlecase-v2.webp",
+                "file": "web-scraping-ia-regenerated-v3.webp",
                 "width": 1216,
                 "height": 600,
                 "mime_type": "image/webp",
-                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/web-scraping-ia-titlecase-v2.webp"
+                "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/web-scraping-ia-regenerated-v3.webp"
               }
             },
             "image_meta": {
@@ -1868,11 +1868,11 @@
               "alt": ""
             }
           },
-          "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/web-scraping-ia-titlecase-v2.webp",
+          "source_url": "https://togetherprivacy.tech/wp-content/uploads/2026/07/web-scraping-ia-regenerated-v3.webp",
           "_links": {
             "self": [
               {
-                "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10692",
+                "href": "https://togetherprivacy.tech/wp-json/wp/v2/media/10701",
                 "targetHints": {
                   "allow": [
                     "GET"
@@ -1899,7 +1899,7 @@
             "replies": [
               {
                 "embeddable": true,
-                "href": "https://togetherprivacy.tech/wp-json/wp/v2/comments?post=10692"
+                "href": "https://togetherprivacy.tech/wp-json/wp/v2/comments?post=10701"
               }
             ]
           }
