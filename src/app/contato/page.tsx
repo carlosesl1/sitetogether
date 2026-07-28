@@ -295,11 +295,24 @@ export default function ContactPage() {
                                         </Button>
                                     </div>
                                 ) : (
-                                    <form onSubmit={handleSubmit} className="relative z-10 space-y-7 xl:space-y-5">
+                                    <form
+                                        {...{
+                                            toolname: "request_privacy_consult",
+                                            tooldescription:
+                                                "Preenche uma solicitação de conversa com a TOGETHER sobre LGPD, DPO, privacidade ou ECA Digital. O usuário revisa e envia o formulário.",
+                                        }}
+                                        onSubmit={handleSubmit}
+                                        className="relative z-10 space-y-7 xl:space-y-5"
+                                    >
                                         <div className="hidden" aria-hidden="true">
                                             <label>
                                                 Website
-                                                <Input name="website" tabIndex={-1} autoComplete="off" />
+                                                <Input
+                                                    name="website"
+                                                    type="hidden"
+                                                    tabIndex={-1}
+                                                    autoComplete="off"
+                                                />
                                             </label>
                                         </div>
 

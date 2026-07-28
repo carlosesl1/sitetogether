@@ -126,7 +126,10 @@ export function Offers() {
                                     <div className="absolute top-0 left-0 right-0 h-1 bg-brand-400"></div>
                                     <div className="absolute top-8 right-8">
                                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-400 text-neutral-900 text-[9px] font-bold uppercase tracking-widest shadow-sm">
-                                            <span className="w-1 h-1 rounded-full bg-neutral-900 animate-pulse"></span>
+                                            <span
+                                                data-pause-offscreen-animation
+                                                className="w-1 h-1 rounded-full bg-neutral-900 animate-pulse"
+                                            ></span>
                                             Mais Procurado
                                         </span>
                                     </div>

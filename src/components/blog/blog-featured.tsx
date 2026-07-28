@@ -37,7 +37,10 @@ export function BlogFeatured({ post }: BlogFeaturedProps) {
 
           <div className="absolute top-4 left-4 md:top-8 md:left-8">
             <span className="inline-flex items-center gap-2 px-4 py-2 bg-brand-400 text-neutral-900 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">
-              <span className="w-1.5 h-1.5 rounded-full bg-neutral-900 animate-pulse"></span>
+              <span
+                data-pause-offscreen-animation
+                className="w-1.5 h-1.5 rounded-full bg-neutral-900 animate-pulse"
+              ></span>
               Em Destaque
             </span>
           </div>

@@ -190,6 +190,10 @@ body {
   font-family: var(--font-jakarta);
 }
 
+[data-animation-paused] {
+  animation-play-state: paused !important;
+}
+
 html,
 body {
   max-width: 100%;

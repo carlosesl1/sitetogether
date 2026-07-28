@@ -46,35 +46,35 @@ const logos = [
     },
     {
         name: "Bom Consorcio",
-        src: "/logos/partners/bomconsorcio.png",
+        src: "/logos/partners/bomconsorcio.webp",
         width: 622,
         height: 137,
         className: "h-9 lg:h-12 w-[180px] lg:w-[250px]",
     },
     {
         name: "Ideal",
-        src: "/logos/partners/ideal.png",
+        src: "/logos/partners/ideal.webp",
         width: 307,
         height: 88,
         className: "h-9 lg:h-12 w-[130px] lg:w-[170px]",
     },
     {
         name: "Parceiro",
-        src: "/logos/partners/partner-image-62.png",
+        src: "/logos/partners/partner-image-62.webp",
         width: 746,
         height: 46,
         className: "h-6 lg:h-8 w-[190px] lg:w-[260px]",
     },
     {
         name: "Parceiro",
-        src: "/logos/partners/partner-image-63.png",
+        src: "/logos/partners/partner-image-63.webp",
         width: 543,
         height: 141,
         className: "h-10 lg:h-12 w-[180px] lg:w-[240px]",
     },
     {
         name: "Parceiro",
-        src: "/logos/partners/partner-image-64.png",
+        src: "/logos/partners/partner-image-64.webp",
         width: 337,
         height: 132,
         className: "h-10 lg:h-12 w-[130px] lg:w-[180px]",
@@ -120,7 +120,10 @@ export function AuthorityStrip() {
                     <div className="z-10 bg-gradient-to-l from-white to-transparent w-12 lg:w-40 h-full absolute top-0 right-0"></div>
 
                     {/* Marquee Content */}
-                    <div className="flex w-max animate-marquee hover:[animation-play-state:paused]">
+                    <div
+                        data-pause-offscreen-animation
+                        className="flex w-max animate-marquee hover:[animation-play-state:paused]"
+                    >
                         <LogoMarqueeSet />
                         <LogoMarqueeSet duplicate />
                     </div>

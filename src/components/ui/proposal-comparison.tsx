@@ -189,7 +189,10 @@ function RiskCard({ item, blur }: { item: ComparisonItem; blur?: MotionValue<str
                 <ProblemIcon className="h-7 w-7 text-neutral-400 lg:h-8 lg:w-8" />
                 {SubIcon && (
                     <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full border border-red-100 bg-white shadow-sm lg:h-6 lg:w-6">
-                        <SubIcon className="h-3 w-3 animate-pulse text-red-400 lg:h-3.5 lg:w-3.5" />
+                        <SubIcon
+                            data-pause-offscreen-animation
+                            className="h-3 w-3 animate-pulse text-red-400 lg:h-3.5 lg:w-3.5"
+                        />
                     </span>
                 )}
             </div>

@@ -73,6 +73,32 @@ export function FlickeringGrid({
         let isRunning = false;
         const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+        const drawGrid = (fullRedraw = false) => {
+            if (fullRedraw) {
+                ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            }
+
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < columns; col++) {
+                    const index = row * columns + col;
+                    const shouldUpdate = fullRedraw || Math.random() < flickerChance;
+
+                    if (!shouldUpdate) continue;
+
+                    if (!fullRedraw) {
+                        ctx.clearRect(col * step, row * step, squareSize, squareSize);
+                        opacitiesRef.current[index] = Math.random() * maxOpacity;
+                    }
+
+                    const opacity = opacitiesRef.current[index];
+                    if (opacity < 0.015) continue;
+
+                    ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`;
+                    ctx.fillRect(col * step, row * step, squareSize, squareSize);
+                }
+            }
+        };
+
         const resize = () => {
             const dpr = window.devicePixelRatio || 1;
             canvasWidth = width ?? parent.clientWidth;
@@ -90,26 +116,7 @@ export function FlickeringGrid({
                 { length: columns * rows },
                 () => Math.random() * maxOpacity
             );
-        };
-
-        const drawGrid = () => {
-            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-            for (let row = 0; row < rows; row++) {
-                for (let col = 0; col < columns; col++) {
-                    const index = row * columns + col;
-
-                    if (Math.random() < flickerChance) {
-                        opacitiesRef.current[index] = Math.random() * maxOpacity;
-                    }
-
-                    const opacity = opacitiesRef.current[index];
-                    if (opacity < 0.015) continue;
-
-                    ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${opacity})`;
-                    ctx.fillRect(col * step, row * step, squareSize, squareSize);
-                }
-            }
+            drawGrid(true);
         };
 
         const stop = () => {
@@ -140,7 +147,7 @@ export function FlickeringGrid({
         const start = () => {
             if (!canAnimate()) {
                 stop();
-                drawGrid();
+                drawGrid(true);
                 return;
             }
 
@@ -171,7 +178,6 @@ export function FlickeringGrid({
         document.addEventListener("visibilitychange", handleVisibilityChange);
         reducedMotionQuery.addEventListener("change", start);
         observer.observe(canvas);
-        drawGrid();
         start();
 
         return () => {
