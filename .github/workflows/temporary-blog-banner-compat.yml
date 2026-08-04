@@ -2,6 +2,9 @@ name: Temporary compatibility replacement for 2026-08-04 blog banners
 
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types:
+      - replace_legacy_blog_banners
 
 permissions:
   contents: read
