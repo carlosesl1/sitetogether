@@ -1,0 +1,94 @@
+name: Temporary LiteSpeed cache purge bridge
+
+on:
+  repository_dispatch:
+    types:
+      - manage_temporary_cache_purge_bridge
+
+permissions:
+  contents: read
+
+jobs:
+  manage-bridge:
+    runs-on: ubuntu-latest
+    environment: hostinger
+    timeout-minutes: 10
+    env:
+      HOSTINGER_FTP_PROTOCOL: ftp
+      HOSTINGER_FTP_PORT: 21
+      HOSTINGER_FTP_SERVER_DIR: "."
+    steps:
+      - name: Install or remove temporary authenticated purge bridge
+        shell: bash
+        env:
+          HOSTINGER_FTP_SERVER: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          HOSTINGER_FTP_USERNAME: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          HOSTINGER_FTP_PASSWORD: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          BRIDGE_ACTION: ${{ github.event.client_payload.action }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import io
+          import os
+          from ftplib import FTP, FTP_TLS
+
+          protocol = os.environ.get("HOSTINGER_FTP_PROTOCOL", "ftp").lower()
+          port = int(os.environ.get("HOSTINGER_FTP_PORT", "21"))
+          root = os.environ.get("HOSTINGER_FTP_SERVER_DIR", ".").rstrip("/") or "."
+          action = os.environ.get("BRIDGE_ACTION", "")
+          if action not in {"install", "remove"}:
+              raise SystemExit("BRIDGE_ACTION must be install or remove")
+
+          def normalize_host(value):
+              host = value.strip()
+              if "://" in host:
+                  host = host.split("://", 1)[1]
+              host = host.split("/", 1)[0]
+              if host.count(":") == 1:
+                  host = host.rsplit(":", 1)[0]
+              return host
+
+          ftp_cls = FTP_TLS if protocol.startswith("ftps") else FTP
+          ftp = ftp_cls(timeout=45)
+          ftp.connect(normalize_host(os.environ["HOSTINGER_FTP_SERVER"]), port)
+          ftp.login(os.environ["HOSTINGER_FTP_USERNAME"], os.environ["HOSTINGER_FTP_PASSWORD"])
+          if isinstance(ftp, FTP_TLS):
+              ftp.prot_p()
+          remote = (f"{root}/" if root != "." else "") + "wp-content/mu-plugins/together-temporary-cache-purge.php"
+
+          if action == "install":
+              php = b'''<?php
+          /** Temporary authenticated LiteSpeed purge bridge. */
+          add_action('rest_api_init', function () {
+              register_rest_route('together/v1', '/temporary-purge-litespeed', [
+                  'methods' => 'POST',
+                  'permission_callback' => function () { return current_user_can('manage_options'); },
+                  'callback' => function () {
+                      do_action('litespeed_purge_all');
+                      $response = rest_ensure_response([
+                          'ok' => true,
+                          'action' => 'litespeed_purge_all',
+                          'temporary' => true,
+                      ]);
+                      $response->header('X-LiteSpeed-Purge', '*');
+                      return $response;
+                  },
+              ]);
+          });
+          '''
+              ftp.storbinary(f"STOR {remote}", io.BytesIO(php))
+              restored = io.BytesIO()
+              ftp.retrbinary(f"RETR {remote}", restored.write)
+              if restored.getvalue() != php:
+                  raise RuntimeError("bridge verification failed")
+              print("temporary purge bridge installed and verified")
+          else:
+              try:
+                  ftp.delete(remote)
+                  print("temporary purge bridge removed")
+              except Exception as exc:
+                  if "550" not in str(exc):
+                      raise
+                  print("temporary purge bridge already absent")
+          ftp.quit()
+          PY
