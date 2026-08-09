@@ -84,3 +84,21 @@ test("landing page reuses the incumbent TOGETHER visual primitives", () => {
     [...approvedRawColors].sort(),
   );
 });
+
+const sitemapSource = await readOptional("../public/sitemap.xml");
+const approvedCopy = `${contentSource}\n${pageSource}`;
+
+test("sitemap publishes the law-firm LGPD route", () => {
+  assert.match(
+    sitemapSource,
+    /https:\/\/togetherprivacy\.tech\/solucoes\/escritorios-de-advocacia/,
+  );
+});
+
+test("public copy avoids unapproved commercial promises", () => {
+  assert.doesNotMatch(approvedCopy, /white-label/i);
+  assert.doesNotMatch(approvedCopy, /exclusividade/i);
+  assert.doesNotMatch(approvedCopy, /não abordamos o cliente/i);
+  assert.doesNotMatch(approvedCopy, /advogado não (entende|domina)/i);
+  assert.doesNotMatch(approvedCopy, /garantia de resultado/i);
+});
