@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, MotionConfig } from "framer-motion";
 import { LockKeyhole } from "lucide-react";
 import { CoDeliveryMap } from "@/components/legal-partners/co-delivery-map";
 import { lawFirmLgpdContent } from "@/components/legal-partners/law-firm-lgpd-content";
@@ -71,7 +71,7 @@ export function LawFirmLgpdPage() {
   const content = lawFirmLgpdContent;
 
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       <Navbar showCtaArrow />
       <main className="min-h-screen overflow-x-hidden bg-white selection:bg-brand-400/30">
         <section className="relative overflow-hidden bg-white pb-24 pt-20 md:pb-32 md:pt-28">
@@ -415,6 +415,6 @@ export function LawFirmLgpdPage() {
         </section>
       </main>
       <Footer />
-    </>
+    </MotionConfig>
   );
 }

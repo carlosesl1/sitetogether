@@ -85,6 +85,11 @@ test("landing page reuses the incumbent TOGETHER visual primitives", () => {
   );
 });
 
+test("landing page honors the user's reduced-motion preference", () => {
+  assert.match(pageSource, /MotionConfig/);
+  assert.match(pageSource, /reducedMotion="user"/);
+});
+
 const sitemapSource = await readOptional("../public/sitemap.xml");
 const sitemapGeneratorSource = await readOptional("./sync-wordpress-posts.mjs");
 const approvedCopy = `${contentSource}\n${pageSource}`;
