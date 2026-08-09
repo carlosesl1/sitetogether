@@ -86,12 +86,20 @@ test("landing page reuses the incumbent TOGETHER visual primitives", () => {
 });
 
 const sitemapSource = await readOptional("../public/sitemap.xml");
+const sitemapGeneratorSource = await readOptional("./sync-wordpress-posts.mjs");
 const approvedCopy = `${contentSource}\n${pageSource}`;
 
 test("sitemap publishes the law-firm LGPD route", () => {
   assert.match(
     sitemapSource,
     /https:\/\/togetherprivacy\.tech\/solucoes\/escritorios-de-advocacia/,
+  );
+});
+
+test("WordPress sync preserves the law-firm LGPD route", () => {
+  assert.match(
+    sitemapGeneratorSource,
+    /"\/solucoes\/escritorios-de-advocacia"/,
   );
 });
 

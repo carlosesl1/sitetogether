@@ -79,6 +79,7 @@ function buildSitemap(posts) {
     "/eca-digital",
     "/blog",
     "/contato",
+    "/solucoes/escritorios-de-advocacia",
     "/servicos/dpo-as-a-service",
     "/servicos/consultoria-adequacao",
     "/servicos/mentoria-e-cultura",
