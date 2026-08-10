@@ -148,7 +148,7 @@ export function LawFirmLgpdPage() {
 
               <motion.h1
                 {...fadeUp}
-                className="max-w-4xl text-[2.55rem] font-bold leading-[0.98] tracking-tight text-neutral-900 sm:text-5xl md:text-6xl xl:text-[4rem]"
+                className="max-w-4xl text-[2.55rem] font-bold leading-[0.98] tracking-tight text-neutral-900 sm:text-5xl"
               >
                 {content.hero.title}{" "}
                 <span className="font-light italic text-brand-500">

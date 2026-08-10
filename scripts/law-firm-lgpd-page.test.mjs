@@ -19,6 +19,9 @@ const routeSource = await readOptional(
 const contentSource = await readOptional(
   "../src/components/legal-partners/law-firm-lgpd-content.ts",
 );
+const pageSource = await readOptional(
+  "../src/components/legal-partners/law-firm-lgpd-page.tsx",
+);
 
 test("law-firm LGPD route declares focused metadata and canonical", () => {
   assert.match(layoutSource, /LGPD para Escritórios de Advocacia/);
@@ -31,11 +34,33 @@ test("law-firm LGPD route delegates rendering to its page component", () => {
 });
 
 test("content preserves the approved role boundary", () => {
-  assert.match(contentSource, /Seu escritório mantém a condução jurídica/);
+  assert.match(contentSource, /Condução jurídica/);
   assert.match(contentSource, /Implementação e operação/);
   assert.match(contentSource, /estratégia e interpretação jurídica/i);
   assert.match(contentSource, /diagnóstico e mapeamento de dados/i);
   assert.match(contentSource, /confidencialidade/i);
+});
+
+test("annotated copy and hero scale match the approved refinement", () => {
+  assert.doesNotMatch(
+    contentSource,
+    /Seu escritório mantém a condução jurídica e o relacionamento comercial/,
+  );
+  assert.doesNotMatch(
+    contentSource,
+    /A solução é apresentada como uma Adequação TOGETHER/,
+  );
+  assert.match(
+    contentSource,
+    /Uma estrutura pronta para apoiar o seu escritório\./,
+  );
+
+  const heroSource =
+    pageSource.match(/<motion\.h1[\s\S]*?<\/motion\.h1>/)?.[0] ?? "";
+
+  assert.match(heroSource, /sm:text-5xl/);
+  assert.doesNotMatch(heroSource, /md:text-6xl/);
+  assert.doesNotMatch(heroSource, /xl:text-\[4rem\]/);
 });
 
 const mapSource = await readOptional(
@@ -54,9 +79,6 @@ test("responsibility map exposes the approved role boundary", () => {
   assert.match(mapSource, /initial=\{false\}/);
 });
 
-const pageSource = await readOptional(
-  "../src/components/legal-partners/law-firm-lgpd-page.tsx",
-);
 const capacitySource = await readOptional(
   "../src/components/legal-partners/partner-capacity-section.tsx",
 );

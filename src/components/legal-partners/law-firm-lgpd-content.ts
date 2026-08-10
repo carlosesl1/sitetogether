@@ -18,7 +18,6 @@ export const lawFirmLgpdContent = {
     accent: "com uma estrutura pronta para entregar LGPD.",
     paragraphs: [
       "Ofereça projetos de privacidade aos seus clientes com a metodologia e a capacidade especializada da TOGETHER.",
-      "Seu escritório mantém a condução jurídica e o relacionamento comercial. A estrutura necessária para cada projeto já está pronta para ser acionada.",
     ],
     image: {
       src: "/images/law-firm-lgpd-hero.webp",
@@ -31,7 +30,6 @@ export const lawFirmLgpdContent = {
     title: "Inclua serviços de privacidade e LGPD no portfólio do seu escritório.",
     paragraphs: [
       "Com a parceria, seu escritório pode oferecer projetos de adequação à LGPD sem manter internamente toda a estrutura necessária para a entrega.",
-      "A solução é apresentada como uma Adequação TOGETHER, acompanhada pelo selo de Escritório Parceiro TOGETHER.",
       "Seu escritório amplia o portfólio, mantém o relacionamento com o cliente e abre uma nova frente de faturamento. A TOGETHER disponibiliza a metodologia, os especialistas e a estrutura que sustentam a entrega.",
     ],
     flow: [
@@ -84,7 +82,7 @@ export const lawFirmLgpdContent = {
   ],
   capacity: {
     pill: "Estrutura TOGETHER",
-    title: "Uma estrutura pronta para entrar no projeto.",
+    title: "Uma estrutura pronta para apoiar o seu escritório.",
     text: "Especialistas, tecnologia e um catálogo amplo de atividades para sustentar projetos de diferentes portes e níveis de complexidade.",
     proofs: [
       { value: "+200", label: "atividades e entregáveis no catálogo de serviços" },
