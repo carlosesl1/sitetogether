@@ -21,8 +21,7 @@ export const lawFirmLgpdContent = {
       "Seu escritório mantém a condução jurídica e o relacionamento comercial. A estrutura necessária para cada projeto já está pronta para ser acionada.",
     ],
     image: {
-      src: "/dpo_hub.png",
-      alt: "Ilustração de uma operação conectada de privacidade",
+      src: "/images/law-firm-lgpd-hero.webp",
     },
     primary: { href: "/contato", label: "Conversar sobre uma parceria" },
     secondary: { href: "#modelo-de-parceria", label: "Entender como funciona" },

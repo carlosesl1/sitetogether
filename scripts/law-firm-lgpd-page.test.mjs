@@ -57,9 +57,6 @@ test("responsibility map exposes the approved role boundary", () => {
 const pageSource = await readOptional(
   "../src/components/legal-partners/law-firm-lgpd-page.tsx",
 );
-const portfolioOfferSource = await readOptional(
-  "../src/components/legal-partners/partner-portfolio-offer.tsx",
-);
 const capacitySource = await readOptional(
   "../src/components/legal-partners/partner-capacity-section.tsx",
 );
@@ -127,7 +124,8 @@ test("authority strip renders the supplied social-proof text without requiring a
 });
 
 test("hero and responsibility breakpoints remain usable from tablet upward", () => {
-  assert.match(pageSource, /xl:grid-cols-\[minmax\(0,1fr\)_minmax\(400px,0\.86fr\)\]/);
+  assert.match(pageSource, /sm:min-h-\[800px\]/);
+  assert.match(pageSource, /sm:object-\[72%_center\]/);
   assert.match(pageSource, /sm:grid-cols-2/);
   assert.match(pageSource, /sm:whitespace-normal/);
   assert.match(pageSource, /content\.hero\.pillShort/);
@@ -220,15 +218,20 @@ test("landing page leads with the partner revenue opportunity", () => {
   assert.doesNotMatch(contentSource, /garantia de faturamento/i);
 });
 
-test("hero uses configurable media and no longer contains the responsibility map", () => {
+test("hero uses a full-bleed decorative background", () => {
   const heroStart = pageSource.indexOf("content.hero");
   const heroEnd = pageSource.indexOf("</section>", heroStart);
   const heroSource = pageSource.slice(0, heroEnd);
 
+  assert.match(contentSource, /\/images\/law-firm-lgpd-hero\.webp/);
   assert.match(heroSource, /content\.hero\.image/);
-  assert.match(heroSource, /<Image/);
+  assert.match(heroSource, /absolute inset-0/);
+  assert.match(heroSource, /sizes="100vw"/);
+  assert.match(heroSource, /alt=""/);
+  assert.match(heroSource, /bg-gradient-to-r/);
+  assert.match(heroSource, /object-\[45%_center\]/);
+  assert.doesNotMatch(heroSource, /xl:grid-cols/);
   assert.doesNotMatch(heroSource, /<CoDeliveryMap/);
-  assert.ok(pageSource.indexOf("<CoDeliveryMap") > heroEnd);
 });
 
 test("page replaces repetitive service grids with distinct narrative sections", () => {

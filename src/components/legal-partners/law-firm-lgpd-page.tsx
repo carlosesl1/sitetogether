@@ -121,13 +121,24 @@ export function LawFirmLgpdPage() {
       <Navbar showCtaArrow />
 
       <main className="min-h-screen overflow-x-hidden bg-white selection:bg-brand-400/30">
-        <section className="relative overflow-hidden bg-white pb-20 pt-8 sm:pt-20 md:pb-24 md:pt-24 xl:pb-32">
-          <PixelDecor placement="topRight" mask="topRight" opacity={0.2} />
-          <PixelDecor placement="bottomLeft" mask="bottomLeft" opacity={0.1} />
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_14%,rgba(245,192,0,0.14),transparent_28%),radial-gradient(circle_at_80%_18%,rgba(0,0,0,0.035),transparent_24%)]" />
+        <section className="relative isolate flex min-h-[760px] items-center overflow-hidden bg-white pb-24 pt-16 sm:min-h-[800px] sm:pt-24 md:pb-28 xl:min-h-[840px]">
+          <div className="absolute inset-0 -z-20">
+            <Image
+              src={content.hero.image.src}
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-[45%_center] sm:object-[72%_center] lg:object-right"
+            />
+          </div>
+          <div className="absolute inset-0 -z-10 bg-white/55 sm:bg-white/35" />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-white via-white/95 to-white/35 sm:via-white/90 sm:to-white/15 lg:via-white/80 lg:to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-white to-transparent" />
+          <PixelDecor placement="topRight" mask="topRight" opacity={0.12} />
 
-          <div className="container relative z-10 mx-auto grid gap-12 px-4 md:px-6 xl:grid-cols-[minmax(0,1fr)_minmax(400px,0.86fr)] xl:items-center xl:gap-16">
-            <div className="min-w-0">
+          <div className="container relative z-10 mx-auto px-4 md:px-6">
+            <div className="max-w-3xl">
               <motion.div {...fadeUp} className="mb-5 sm:mb-8">
                 <SectionPill>
                   <span className="sm:hidden">{content.hero.pillShort}</span>
@@ -147,7 +158,7 @@ export function LawFirmLgpdPage() {
 
               <motion.div
                 {...fadeUp}
-                className="mt-7 max-w-2xl space-y-4 text-base font-medium leading-relaxed text-neutral-500 sm:text-lg md:text-xl"
+                className="mt-7 max-w-2xl space-y-4 text-base font-medium leading-relaxed text-neutral-600 sm:text-lg md:text-xl"
               >
                 {content.hero.paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
@@ -156,7 +167,7 @@ export function LawFirmLgpdPage() {
 
               <motion.div
                 {...fadeUp}
-                className="mt-6 grid gap-3 sm:grid-cols-2 sm:gap-4"
+                className="mt-6 grid max-w-2xl gap-3 sm:grid-cols-2 sm:gap-4"
               >
                 <ActionLink
                   href={content.hero.primary.href}
@@ -175,21 +186,6 @@ export function LawFirmLgpdPage() {
                 </ActionLink>
               </motion.div>
             </div>
-
-            <motion.div
-              {...fadeUp}
-              className="relative min-h-[360px] overflow-hidden rounded-[28px] border border-neutral-100 bg-neutral-50 shadow-[0_30px_90px_rgba(0,0,0,0.08)] sm:min-h-[460px] xl:min-h-[560px]"
-            >
-              <Image
-                src={content.hero.image.src}
-                alt={content.hero.image.alt}
-                fill
-                priority
-                sizes="(max-width: 1279px) 100vw, 46vw"
-                className="object-cover"
-              />
-              <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-black/[0.04]" />
-            </motion.div>
           </div>
         </section>
 
