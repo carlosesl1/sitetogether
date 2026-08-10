@@ -58,7 +58,8 @@ test("annotated copy and hero scale match the approved refinement", () => {
   const heroSource =
     pageSource.match(/<motion\.h1[\s\S]*?<\/motion\.h1>/)?.[0] ?? "";
 
-  assert.match(heroSource, /sm:text-5xl/);
+  assert.match(heroSource, /sm:text-\[3\.5rem\]/);
+  assert.doesNotMatch(heroSource, /sm:text-5xl/);
   assert.doesNotMatch(heroSource, /md:text-6xl/);
   assert.doesNotMatch(heroSource, /xl:text-\[4rem\]/);
 });
@@ -81,6 +82,9 @@ test("responsibility map exposes the approved role boundary", () => {
 
 const capacitySource = await readOptional(
   "../src/components/legal-partners/partner-capacity-section.tsx",
+);
+const portfolioSource = await readOptional(
+  "../src/components/legal-partners/partner-portfolio-offer.tsx",
 );
 const partnerFaqSource = await readOptional(
   "../src/components/legal-partners/partner-faq-section.tsx",
@@ -125,6 +129,25 @@ test("landing page reuses the incumbent TOGETHER visual primitives", () => {
     [...new Set(rawColors.map((color) => color.toLowerCase()))].sort(),
     [...approvedRawColors].sort(),
   );
+});
+
+test("annotated components reuse the Home rounded visual language", () => {
+  assert.match(portfolioSource, /rounded-\[2rem\]/);
+  assert.match(portfolioSource, /rounded-full/);
+  assert.doesNotMatch(
+    portfolioSource,
+    /grid overflow-hidden border border-neutral-200/,
+  );
+
+  assert.match(capacitySource, /rounded-\[2rem\]/);
+  assert.match(capacitySource, /rounded-\[24px\]/);
+  assert.match(capacitySource, /flex flex-wrap/);
+  assert.doesNotMatch(
+    capacitySource,
+    /grid overflow-hidden border border-white\/10/,
+  );
+
+  assert.match(pageSource, /rounded-\[2rem\][^"\n]*bg-neutral-100\/70/);
 });
 
 test("landing page preserves the Home institutional framing", () => {

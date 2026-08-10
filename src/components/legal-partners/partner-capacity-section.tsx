@@ -1,4 +1,12 @@
 import Image from "next/image";
+import {
+  BadgeCheck,
+  ClipboardCheck,
+  Clock3,
+  Globe2,
+  ListChecks,
+  PanelsTopLeft,
+} from "lucide-react";
 import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
 import { SectionPill } from "@/components/ui/site-primitives";
 
@@ -10,6 +18,15 @@ const platforms = [
   { label: "DPONet", src: "/logos/dponet.svg" },
   { label: "BeCompliance", src: "/logos/becompliance.svg" },
   { label: "Privally", src: "/logos/privally.png" },
+] as const;
+
+const proofIcons = [
+  ListChecks,
+  Clock3,
+  BadgeCheck,
+  PanelsTopLeft,
+  Globe2,
+  ClipboardCheck,
 ] as const;
 
 type PartnerCapacitySectionProps = {
@@ -42,38 +59,54 @@ export function PartnerCapacitySection({ content }: PartnerCapacitySectionProps)
           </p>
         </div>
 
-        <div className="mt-14 grid overflow-hidden border border-white/10 sm:grid-cols-2 lg:grid-cols-3">
-          {content.proofs.map((proof) => (
-            <article
-              key={proof.value}
-              className="min-h-44 border-b border-white/10 p-6 sm:border-r lg:p-8"
-            >
-              <strong className="block text-3xl font-bold tracking-tight text-brand-400">
-                {proof.value}
-              </strong>
-              <p className="mt-4 max-w-xs text-sm leading-relaxed text-neutral-400">
-                {proof.label}
-              </p>
-            </article>
-          ))}
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-12">
+          {content.proofs.map((proof, index) => {
+            const Icon = proofIcons[index];
+            const featured = index < 2;
+
+            return (
+              <article
+                key={proof.value}
+                className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-neutral-900/50 p-7 transition-all duration-300 hover:border-brand-400/30 hover:bg-neutral-900/70 ${
+                  featured
+                    ? "min-h-56 lg:col-span-6 lg:p-9"
+                    : "min-h-48 lg:col-span-3"
+                }`}
+              >
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/[0.06] text-brand-400 transition-colors group-hover:bg-brand-400 group-hover:text-neutral-950">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <strong
+                  className={`mt-8 block font-bold tracking-tight text-brand-400 ${
+                    featured ? "text-5xl" : "text-2xl"
+                  }`}
+                >
+                  {proof.value}
+                </strong>
+                <p className="mt-4 max-w-sm text-sm leading-relaxed text-neutral-400">
+                  {proof.label}
+                </p>
+              </article>
+            );
+          })}
         </div>
 
         <div className="mt-14 border-t border-white/10 pt-8">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-neutral-500">
             Experiência prática com plataformas de privacidade
           </p>
-          <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-7">
+          <div className="mt-7 flex flex-wrap gap-3">
             {platforms.map((platform) => (
               <div
                 key={platform.label}
-                className="flex h-20 items-center justify-center border border-white/10 bg-white/[0.03] px-4 transition-colors hover:border-brand-400/30 hover:bg-white/[0.06]"
+                className="group flex h-24 basis-[calc(50%-0.375rem)] items-center justify-center rounded-[24px] border border-white/5 bg-neutral-900/40 px-5 transition-all duration-300 hover:border-brand-400/30 hover:bg-neutral-900/60 sm:basis-[calc(33.333%-0.5rem)] lg:basis-[calc(25%-0.5625rem)] lg:px-6"
               >
                 <Image
                   src={platform.src}
                   alt={platform.label}
                   width={120}
                   height={32}
-                  className="max-h-8 w-auto max-w-full object-contain brightness-0 invert opacity-65"
+                  className="max-h-8 w-auto max-w-full object-contain brightness-0 invert opacity-60 transition-opacity group-hover:opacity-100"
                 />
               </div>
             ))}

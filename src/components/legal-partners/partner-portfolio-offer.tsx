@@ -70,16 +70,16 @@ export function PartnerPortfolioOffer({ content }: PartnerPortfolioOfferProps) {
           </div>
         </div>
 
-        <ul className="mt-14 grid overflow-hidden border border-neutral-200 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-14 grid gap-3 rounded-[2rem] border border-neutral-200 bg-neutral-50 p-3 shadow-xl shadow-neutral-200/40 sm:grid-cols-2 lg:grid-cols-4">
           {content.benefits.map((benefit, index) => (
             <li
               key={benefit}
-              className="flex min-h-32 gap-4 border-b border-neutral-200 p-6 text-sm font-semibold leading-relaxed text-neutral-700 last:border-b-0 sm:border-r lg:border-b-0"
+              className="flex min-h-40 flex-col justify-between rounded-[1.35rem] bg-white p-6 text-sm font-semibold leading-relaxed text-neutral-700 transition-colors hover:bg-brand-400/10"
             >
-              <span className="text-[10px] font-bold tracking-[0.14em] text-brand-600">
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-400 text-xs font-black text-neutral-950">
                 0{index + 1}
               </span>
-              <span>{benefit}</span>
+              <span className="mt-8 max-w-[16rem]">{benefit}</span>
             </li>
           ))}
         </ul>

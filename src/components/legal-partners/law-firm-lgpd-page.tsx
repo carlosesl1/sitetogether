@@ -148,7 +148,7 @@ export function LawFirmLgpdPage() {
 
               <motion.h1
                 {...fadeUp}
-                className="max-w-4xl text-[2.55rem] font-bold leading-[0.98] tracking-tight text-neutral-900 sm:text-5xl"
+                className="max-w-4xl text-[2.55rem] font-bold leading-[0.98] tracking-tight text-neutral-900 sm:text-[3.5rem]"
               >
                 {content.hero.title}{" "}
                 <span className="font-light italic text-brand-500">
@@ -286,7 +286,7 @@ export function LawFirmLgpdPage() {
               text="A parceria pode começar em uma oportunidade específica ou acompanhar o escritório continuamente."
             />
 
-            <div className="mt-14 grid gap-10 md:grid-cols-3">
+            <div className="mt-14 grid gap-4 rounded-[2rem] border border-neutral-200 bg-neutral-100/70 p-4 shadow-xl shadow-neutral-200/40 md:grid-cols-3">
               {content.partnerModels.map((model, index) => {
                 const Icon = model.icon;
                 return (
@@ -294,15 +294,20 @@ export function LawFirmLgpdPage() {
                     key={model.label}
                     {...fadeUp}
                     transition={{ ...fadeUp.transition, delay: index * 0.06 }}
-                    className="border-t-2 border-neutral-900 pt-6"
+                    className="group rounded-[1.5rem] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-neutral-200/60"
                   >
                     <div className="flex items-center justify-between gap-4">
-                      <span className="text-xs font-bold uppercase tracking-[0.16em] text-brand-600">
-                        0{index + 1} / {model.label}
+                      <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-neutral-950 text-brand-400">
+                        <Icon className="h-5 w-5" aria-hidden="true" />
                       </span>
-                      <Icon className="h-5 w-5 text-neutral-400" aria-hidden="true" />
+                      <span className="text-xs font-bold uppercase tracking-[0.16em] text-brand-600">
+                        0{index + 1}
+                      </span>
                     </div>
-                    <h3 className="mt-8 text-2xl font-bold tracking-tight text-neutral-900">
+                    <p className="mt-8 text-[10px] font-black uppercase tracking-[0.22em] text-neutral-400">
+                      {model.label}
+                    </p>
+                    <h3 className="mt-3 text-2xl font-bold tracking-tight text-neutral-900">
                       {model.title}
                     </h3>
                     <p className="mt-4 leading-relaxed text-neutral-500">
