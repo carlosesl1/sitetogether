@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { SectionPill } from "@/components/ui/site-primitives";
 
 const logos = [
     {
@@ -106,13 +107,33 @@ function LogoMarqueeSet({ duplicate = false }: { duplicate?: boolean }) {
     );
 }
 
-export function AuthorityStrip() {
+type AuthorityStripProps = {
+    eyebrow?: string;
+    title?: string;
+};
+
+export function AuthorityStrip({ eyebrow, title }: AuthorityStripProps = {}) {
     return (
         <div className="relative z-20 -mt-10 w-full px-4 md:px-6">
             <section className="container relative rounded-t-[40px] bg-white px-6 pb-12 pt-12 shadow-[0_-20px_40px_rgba(0,0,0,0.02)] sm:px-8 lg:px-12">
-                <p className="text-left text-sm font-medium text-stone-400 uppercase tracking-widest mb-8">
-                    Clientes que confiam:
-                </p>
+                {title ? (
+                    eyebrow ? (
+                        <div className="mb-10 max-w-3xl">
+                            <SectionPill>{eyebrow}</SectionPill>
+                            <h2 className="mt-6 text-3xl font-bold leading-tight tracking-tight text-neutral-900 sm:text-4xl">
+                                {title}
+                            </h2>
+                        </div>
+                    ) : (
+                        <p className="mb-8 text-left text-sm font-medium uppercase tracking-widest text-stone-400">
+                            {title}
+                        </p>
+                    )
+                ) : (
+                    <p className="mb-8 text-left text-sm font-medium uppercase tracking-widest text-stone-400">
+                        Clientes que confiam:
+                    </p>
+                )}
 
                 <div className="overflow-hidden w-full relative">
                     {/* Gradient Masks */}
