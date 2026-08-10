@@ -95,11 +95,13 @@ export function PartnerCapacitySection({ content }: PartnerCapacitySectionProps)
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-neutral-500">
             Experiência prática com plataformas de privacidade
           </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            {platforms.map((platform) => (
+          <div className="mt-7 grid gap-3 lg:grid-cols-12">
+            {platforms.map((platform, index) => (
               <div
                 key={platform.label}
-                className="group flex h-24 basis-[calc(50%-0.375rem)] items-center justify-center rounded-[24px] border border-white/5 bg-neutral-900/40 px-5 transition-all duration-300 hover:border-brand-400/30 hover:bg-neutral-900/60 sm:basis-[calc(33.333%-0.5rem)] lg:basis-[calc(25%-0.5625rem)] lg:px-6"
+                className={`group flex h-24 items-center justify-center rounded-[24px] border border-white/5 bg-neutral-900/40 px-5 transition-all duration-300 hover:border-brand-400/30 hover:bg-neutral-900/60 lg:px-6 ${
+                  index < 4 ? "lg:col-span-3" : "lg:col-span-4"
+                }`}
               >
                 <Image
                   src={platform.src}

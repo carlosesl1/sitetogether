@@ -141,7 +141,10 @@ test("annotated components reuse the Home rounded visual language", () => {
 
   assert.match(capacitySource, /rounded-\[2rem\]/);
   assert.match(capacitySource, /rounded-\[24px\]/);
-  assert.match(capacitySource, /flex flex-wrap/);
+  assert.match(capacitySource, /lg:grid-cols-12/);
+  assert.match(capacitySource, /index < 4/);
+  assert.match(capacitySource, /lg:col-span-3/);
+  assert.match(capacitySource, /lg:col-span-4/);
   assert.doesNotMatch(
     capacitySource,
     /grid overflow-hidden border border-white\/10/,
