@@ -33,3 +33,18 @@ test("legacy root blog URLs redirect permanently to canonical blog URLs", () => 
     new RegExp(`RewriteRule \\^${escapedSlug}\\\\\\.html\\$ /blog/${sampleSlug} \\[R=301,L,NE\\]`),
   );
 });
+
+test("selected legacy landing pages remain routed to WordPress", () => {
+  const htaccess = readFileSync(htaccessPath, "utf8");
+  const slugs = ["compliance-sdaia-pdpl-saudi-arabia", "ferramenta-de-autoavaliacao-lgpd"];
+
+  for (const slug of slugs) {
+    const wordpressRule = `RewriteRule ^${slug}/?$ index.php [QSA,L]`;
+
+    assert.ok(htaccess.includes(wordpressRule));
+    assert.ok(
+      htaccess.indexOf(wordpressRule) < htaccess.indexOf("# Return a real 404 for public routes"),
+      `The WordPress exception for ${slug} must run before the static frontend 404 fallback`,
+    );
+  }
+});
