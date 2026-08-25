@@ -60,7 +60,7 @@ Card lateral:
 
 Canais:
 - WhatsApp Estratégico
-- (11) 5178-3235
+- (11) 5178-3235 / +55 11 92642-0123
 - E-mail Corporativo
 - contato@togetherprivacy.com
 - Sede de Operações
@@ -76,7 +76,7 @@ Texto institucional:
 - Excelência em governança de dados para empresas que buscam segurança jurídica e aceleração comercial.
 
 Contato:
-- (11) 5178-3235
+- (11) 5178-3235 / +55 11 92642-0123
 - contato@togetherprivacy.com
 - São Paulo, Brasil
 

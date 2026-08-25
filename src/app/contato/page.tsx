@@ -40,7 +40,7 @@ const contactHighlights = [
 ];
 
 const channels = [
-    { icon: Phone, label: "WhatsApp", value: "(11) 5178-3235" },
+    { icon: Phone, label: "WhatsApp", value: "(11) 5178-3235 / +55 11 92642-0123" },
     { icon: Mail, label: "E-mail", value: "contato@togetherprivacy.com" },
     { icon: MapPin, label: "Base", value: "Berrini, 1681 - SP" },
 ];
