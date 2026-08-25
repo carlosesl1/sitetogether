@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-const title = "LGPD para Escritórios de Advocacia | Parceria TOGETHER";
+const title = "Escritórios de Advocacia | Parceria LGPD";
 const description =
   "Apoio técnico e operacional em LGPD para escritórios de advocacia. Seu escritório conduz a estratégia jurídica e a TOGETHER complementa a execução com equipe especializada.";
 

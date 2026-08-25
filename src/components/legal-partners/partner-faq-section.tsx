@@ -80,13 +80,13 @@ export function PartnerFaqSection({ faqs }: PartnerFaqSectionProps) {
       <div className="container relative z-10 mx-auto px-6">
         <div className="flex flex-col items-start gap-16 lg:flex-row lg:gap-36">
           <div className="pt-2 lg:sticky lg:top-24 lg:w-1/3">
-            <SectionPill>Suporte &amp; Consultoria</SectionPill>
-            <h2 className="mt-8 text-[2.75rem] font-bold leading-[0.94] tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl">
+            <SectionPill>Perguntas frequentes</SectionPill>
+            <h2 className="mt-8 break-words text-[clamp(2.25rem,10vw,2.75rem)] font-bold leading-[0.94] tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl">
               Perguntas{" "}
               <span className="font-light italic text-brand-500">frequentes.</span>
             </h2>
             <p className="mb-10 mt-8 max-w-sm text-xl font-medium leading-relaxed text-neutral-500">
-              Respostas para estruturar a primeira parceria.
+              Antes de apresentar uma oportunidade.
             </p>
 
             <div className="rounded-3xl border border-neutral-100 bg-neutral-50 p-8">
@@ -99,7 +99,13 @@ export function PartnerFaqSection({ faqs }: PartnerFaqSectionProps) {
                 </span>
                 <strong className="text-neutral-900">Ainda com dúvidas?</strong>
               </div>
-              <ActionLink href="/contato" variant="dark" size="md" fullWidth>
+              <ActionLink
+                href="/contato"
+                variant="dark"
+                size="md"
+                fullWidth
+                className="sm:whitespace-normal"
+              >
                 Conversar com nosso time
               </ActionLink>
             </div>

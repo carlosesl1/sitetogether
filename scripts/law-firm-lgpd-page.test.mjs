@@ -22,11 +22,17 @@ const contentSource = await readOptional(
 const pageSource = await readOptional(
   "../src/components/legal-partners/law-firm-lgpd-page.tsx",
 );
+const footerSource = await readOptional("../src/components/ui/footer.tsx");
 
 test("law-firm LGPD route declares focused metadata and canonical", () => {
-  assert.match(layoutSource, /LGPD para Escritórios de Advocacia/);
-  assert.match(layoutSource, /Parceria TOGETHER/);
+  assert.match(layoutSource, /Escritórios de Advocacia/);
+  assert.match(layoutSource, /Parceria LGPD/);
   assert.match(layoutSource, /solucoes\/escritorios-de-advocacia/);
+});
+
+test("law-firm page footer displays both phones in local format", () => {
+  assert.match(footerSource, /\(11\) 5178-3235 \/ \(11\) 92642-0123/);
+  assert.doesNotMatch(footerSource, /\+55 11 92642-0123/);
 });
 
 test("law-firm LGPD route delegates rendering to its page component", () => {
@@ -38,7 +44,7 @@ test("content preserves the approved role boundary", () => {
   assert.match(contentSource, /Implementação e operação/);
   assert.match(contentSource, /estratégia e interpretação jurídica/i);
   assert.match(contentSource, /diagnóstico e mapeamento de dados/i);
-  assert.match(contentSource, /confidencialidade/i);
+  assert.match(contentSource, /confidencial|sigilo/i);
 });
 
 test("annotated copy and hero scale match the approved refinement", () => {
@@ -52,7 +58,7 @@ test("annotated copy and hero scale match the approved refinement", () => {
   );
   assert.match(
     contentSource,
-    /Uma estrutura pronta para apoiar o seu escritório\./,
+    /Capacidade para sustentar sua entrega\./,
   );
 
   const heroSource =
@@ -108,7 +114,7 @@ test("landing page renders the approved narrative and conversion path", () => {
   assert.match(pageSource, /content\.process/);
   assert.match(pageSource, /content\.faqs/);
   assert.match(pageSource, /content\.finalCta/);
-  assert.match(contentSource, /Conversar sobre uma parceria/);
+  assert.match(contentSource, /Avaliar uma parceria/);
   assert.match(contentSource, /href: "\/contato"/);
   assert.match(pageSource, /<Footer/);
 });
@@ -150,7 +156,7 @@ test("annotated components reuse the Home rounded visual language", () => {
     /grid overflow-hidden border border-white\/10/,
   );
 
-  assert.match(pageSource, /rounded-\[2rem\][^"\n]*bg-neutral-100\/70/);
+  assert.match(pageSource, /rounded-\[2rem\][^"\n]*bg-white/);
 });
 
 test("landing page preserves the Home institutional framing", () => {
@@ -158,7 +164,7 @@ test("landing page preserves the Home institutional framing", () => {
   assert.match(pageSource, /EcaDigitalAnnouncement/);
   assert.match(pageSource, /AuthorityStrip/);
   assert.doesNotMatch(pageSource, /eyebrow="Experiência em campo"/);
-  assert.match(pageSource, /Empresas que confiam em nosso trabalho/);
+  assert.match(pageSource, /Empresas que já confiaram na execução da TOGETHER/);
   assert.match(announcementSource, /ECA Digital/);
   assert.match(announcementSource, /Ver diagn.stico/);
 });
@@ -184,6 +190,20 @@ test("hero and responsibility breakpoints remain usable from tablet upward", () 
   assert.match(mapSource, /roles\.together\.summary/);
 });
 
+test("responsive typography and grids protect narrow and tablet layouts", () => {
+  assert.ok(
+    pageSource.includes('text-[clamp(2.15rem,10vw,2.55rem)]'),
+  );
+  assert.match(pageSource, /md:grid-cols-2 lg:grid-cols-3/);
+  assert.match(pageSource, /md:col-span-2 lg:col-span-1/);
+  assert.match(pageSource, /w-full min-w-0 sm:w-auto/);
+  assert.match(pageSource, /flex w-full min-w-0 flex-col items-stretch/);
+  assert.match(pageSource, /\[overflow-wrap:anywhere\]/);
+  assert.match(pageSource, /w-full min-w-0 max-w-full/);
+  assert.match(partnerFaqSource, /sm:whitespace-normal/);
+  assert.match(mapSource, /min-w-0/);
+});
+
 test("all section labels use the shared pill treatment", () => {
   assert.match(pageSource, /<SectionPill/);
   assert.match(pageSource, /<SectionPill tone="brand">\{content\.finalCta\.pill\}<\/SectionPill>/);
@@ -197,18 +217,27 @@ test("proof and final CTA copy are public-facing", () => {
 });
 
 test("landing page contains the newly approved partnership narrative", () => {
-  assert.match(contentSource, /Nova frente de negócios/);
-  assert.match(contentSource, /Demandas de LGPD/);
-  assert.match(contentSource, /Estrutura TOGETHER/);
-  assert.match(pageSource, /Responsabilidades definidas/);
-  assert.match(pageSource, /Modelos de parceria/);
-  assert.match(pageSource, /Início da parceria/);
-  assert.match(pageSource, /Confidencialidade desde o primeiro contato/);
+  assert.match(contentSource, /Novos projetos/);
+  assert.match(contentSource, /Oportunidades na carteira/);
+  assert.match(contentSource, /Capacidade comprovada/);
+  assert.match(pageSource, /Papéis definidos/);
+  assert.match(pageSource, /Capacidade sob demanda/);
+  assert.match(pageSource, /Da oportunidade ao projeto/);
+  assert.match(contentSource, /Sigilo desde a primeira conversa/);
   assert.match(partnerFaqSource, /Perguntas/);
-  assert.match(contentSource, /Conduzir um projeto completo/);
-  assert.match(contentSource, /Leve uma nova solução de LGPD/);
-  assert.match(pageSource, /Primeiro alinhamos o projeto/);
-  assert.match(contentSource, /03 \/ Trabalho conjunto/);
+  assert.match(contentSource, /Implantar o programa/);
+  assert.match(contentSource, /Aumente o faturamento com novos projetos de LGPD/);
+  assert.match(pageSource, /Uma oportunidade/);
+  assert.match(contentSource, /label: "Execução"/);
+});
+
+test("partnership sections render three distinct Together visual scenes", () => {
+  assert.match(pageSource, /data-visual-scene="roles"/);
+  assert.match(pageSource, /data-visual-scene="capacity"/);
+  assert.match(pageSource, /data-visual-scene="process"/);
+  assert.match(pageSource, /data-model-tone=/);
+  assert.match(pageSource, /bg-brand-400\/15/);
+  assert.match(pageSource, /lg:h-2 lg:w-auto/);
 });
 
 test("landing page honors the user's reduced-motion preference", () => {
@@ -259,11 +288,19 @@ test("public copy avoids unapproved commercial promises", () => {
 });
 
 test("landing page leads with the partner revenue opportunity", () => {
-  assert.match(contentSource, /Amplie os serviços do seu escritório/);
+  assert.match(contentSource, /Aumente o faturamento do seu escritório/);
+  assert.match(contentSource, /Transforme demandas de LGPD em novas entregas/);
   assert.match(contentSource, /Adequação TOGETHER/);
   assert.match(contentSource, /Escritório Parceiro TOGETHER/);
   assert.match(contentSource, /nova frente de faturamento/);
   assert.doesNotMatch(contentSource, /garantia de faturamento/i);
+});
+
+test("partnership contact offers both approved WhatsApp numbers", () => {
+  assert.match(pageSource, /\(11\) 5178-3235/);
+  assert.match(pageSource, /\(11\) 92642-0123/);
+  assert.match(pageSource, /wa\.me\/551151783235/);
+  assert.match(pageSource, /wa\.me\/5511926420123/);
 });
 
 test("hero uses a full-bleed decorative background", () => {

@@ -1,4 +1,10 @@
-import { BadgeCheck } from "lucide-react";
+import {
+  BadgeCheck,
+  BriefcaseBusiness,
+  Handshake,
+  TrendingUp,
+  Users,
+} from "lucide-react";
 import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
 import { SectionPill } from "@/components/ui/site-primitives";
 
@@ -12,6 +18,13 @@ type PartnerPortfolioOfferProps = {
   };
 };
 
+const benefitIcons = [
+  BriefcaseBusiness,
+  Handshake,
+  Users,
+  TrendingUp,
+] as const;
+
 export function PartnerPortfolioOffer({ content }: PartnerPortfolioOfferProps) {
   return (
     <section
@@ -22,9 +35,9 @@ export function PartnerPortfolioOffer({ content }: PartnerPortfolioOfferProps) {
 
       <div className="container relative z-10 mx-auto px-6">
         <div className="grid gap-14 lg:grid-cols-[0.88fr_1.12fr] lg:items-start lg:gap-20">
-          <div>
+          <div className="min-w-0">
             <SectionPill>{content.pill}</SectionPill>
-            <h2 className="mt-8 max-w-2xl text-[2.65rem] font-bold leading-[0.98] tracking-tighter text-neutral-900 md:text-6xl">
+            <h2 className="mt-8 max-w-2xl break-words text-[clamp(2.15rem,10vw,2.55rem)] font-bold leading-[0.98] tracking-tighter text-neutral-900 sm:text-5xl xl:text-6xl">
               {content.title}
             </h2>
             <div className="mt-8 space-y-5 text-lg leading-relaxed text-neutral-500">
@@ -34,25 +47,22 @@ export function PartnerPortfolioOffer({ content }: PartnerPortfolioOfferProps) {
             </div>
           </div>
 
-          <div className="rounded-[28px] border border-neutral-200 bg-neutral-50 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.06)] sm:p-7">
-            <div className="grid gap-3 sm:grid-cols-2">
+          <div className="min-w-0 rounded-[2rem] border border-neutral-200 bg-neutral-50 p-4 shadow-[0_24px_80px_rgba(0,0,0,0.06)] sm:p-7">
+            <ol className="overflow-hidden rounded-[1.5rem] border border-neutral-200 bg-white">
               {content.flow.map((step, index) => (
-                <div
+                <li
                   key={step}
-                  className="relative min-h-32 overflow-hidden rounded-2xl border border-neutral-200 bg-white p-5"
+                  className="group grid min-h-24 grid-cols-[auto_1fr] items-center gap-5 border-b border-neutral-100 p-5 last:border-b-0 sm:min-h-28 sm:gap-6 sm:p-6"
                 >
-                  <span className="text-[10px] font-bold tracking-[0.18em] text-brand-500">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-400/20 text-[10px] font-black tracking-[0.12em] text-neutral-900 transition-colors group-hover:bg-brand-400">
                     0{index + 1}
                   </span>
-                  <p className="mt-6 max-w-[15rem] font-bold leading-snug text-neutral-900">
+                  <p className="max-w-md font-bold leading-snug text-neutral-900">
                     {step}
                   </p>
-                  <span className="absolute -bottom-5 -right-2 text-7xl font-black text-neutral-950/[0.035]">
-                    0{index + 1}
-                  </span>
-                </div>
+                </li>
               ))}
-            </div>
+            </ol>
 
             <div className="mt-4 flex items-center justify-between gap-5 rounded-2xl bg-brand-400 p-5 sm:p-6">
               <div>
@@ -70,19 +80,30 @@ export function PartnerPortfolioOffer({ content }: PartnerPortfolioOfferProps) {
           </div>
         </div>
 
-        <ul className="mt-14 grid gap-3 rounded-[2rem] border border-neutral-200 bg-neutral-50 p-3 shadow-xl shadow-neutral-200/40 sm:grid-cols-2 lg:grid-cols-4">
-          {content.benefits.map((benefit, index) => (
-            <li
-              key={benefit}
-              className="flex min-h-40 flex-col justify-between rounded-[1.35rem] bg-white p-6 text-sm font-semibold leading-relaxed text-neutral-700 transition-colors hover:bg-brand-400/10"
-            >
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-400 text-xs font-black text-neutral-950">
-                0{index + 1}
-              </span>
-              <span className="mt-8 max-w-[16rem]">{benefit}</span>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-12">
+          <p className="text-[10px] font-black uppercase tracking-[0.22em] text-neutral-400">
+            O que muda para o escritório
+          </p>
+          <ul className="mt-8 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+            {content.benefits.map((benefit, index) => {
+              const Icon = benefitIcons[index];
+
+              return (
+                <li
+                  key={benefit}
+                  className="group min-h-36 border-t border-neutral-200 pt-6"
+                >
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-neutral-950 text-brand-400 transition-transform duration-300 group-hover:-translate-y-1">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <p className="mt-7 max-w-[16rem] text-base font-bold leading-snug text-neutral-800">
+                    {benefit}
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </section>
   );

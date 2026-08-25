@@ -51,7 +51,7 @@ export function PartnerCapacitySection({ content }: PartnerCapacitySectionProps)
       <div className="container relative z-10 mx-auto px-6">
         <div className="max-w-3xl">
           <SectionPill tone="dark">{content.pill}</SectionPill>
-          <h2 className="mt-8 text-[2.65rem] font-bold leading-[0.98] tracking-tighter md:text-6xl">
+          <h2 className="mt-8 break-words text-[clamp(2.15rem,10vw,2.55rem)] font-bold leading-[0.98] tracking-tighter sm:text-5xl lg:text-[3.35rem] xl:text-6xl">
             {content.title}
           </h2>
           <p className="mt-7 max-w-2xl text-lg leading-relaxed text-neutral-400">

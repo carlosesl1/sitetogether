@@ -44,7 +44,7 @@ export function Footer() {
 
                         <div className="space-y-6">
                             {[
-                                { icon: <Phone className="w-4 h-4" />, text: "(11) 5178-3235" },
+                                { icon: <Phone className="w-4 h-4" />, text: "(11) 5178-3235 / (11) 92642-0123" },
                                 { icon: <Mail className="w-4 h-4" />, text: "contato@togetherprivacy.com" },
                                 { icon: <MapPin className="w-4 h-4" />, text: "São Paulo, Brasil" }
                             ].map((item, i) => (
@@ -52,7 +52,7 @@ export function Footer() {
                                     <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-brand-400 group-hover:text-black transition-all">
                                         {item.icon}
                                     </div>
-                                    <span className="text-xs font-medium tracking-wide">{item.text}</span>
+                                    <span className="min-w-0 break-words text-xs font-medium leading-relaxed tracking-wide">{item.text}</span>
                                 </div>
                             ))}
                         </div>

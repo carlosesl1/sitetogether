@@ -45,11 +45,11 @@ export function CoDeliveryMap({ roles }: CoDeliveryMapProps) {
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-neutral-100 text-neutral-900">
               <Scale aria-hidden="true" className="h-5 w-5" />
             </div>
-            <div>
+            <div className="min-w-0">
               <p className="text-[9px] font-black uppercase tracking-[0.2em] text-neutral-400">
                 {roles.office.label}
               </p>
-              <h3 className="mt-1 text-xl font-bold">{roles.office.title}</h3>
+              <h3 className="mt-1 break-words text-xl font-bold">{roles.office.title}</h3>
             </div>
           </div>
           <p className="mt-5 text-sm font-medium leading-relaxed text-neutral-600 md:hidden">
@@ -88,11 +88,11 @@ export function CoDeliveryMap({ roles }: CoDeliveryMapProps) {
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-neutral-950 text-brand-400">
               <ShieldCheck aria-hidden="true" className="h-5 w-5" />
             </div>
-            <div>
+            <div className="min-w-0">
               <p className="text-[9px] font-black uppercase tracking-[0.2em] text-neutral-700">
                 {roles.together.label}
               </p>
-              <h3 className="mt-1 text-xl font-bold">{roles.together.title}</h3>
+              <h3 className="mt-1 break-words text-xl font-bold">{roles.together.title}</h3>
             </div>
           </div>
           <p className="mt-5 text-sm font-semibold leading-relaxed text-neutral-800 md:hidden">
