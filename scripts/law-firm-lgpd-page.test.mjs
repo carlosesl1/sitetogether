@@ -156,7 +156,7 @@ test("annotated components reuse the Home rounded visual language", () => {
     /grid overflow-hidden border border-white\/10/,
   );
 
-  assert.match(pageSource, /rounded-\[2rem\][^"\n]*bg-neutral-100\/70/);
+  assert.match(pageSource, /rounded-\[2rem\][^"\n]*bg-white/);
 });
 
 test("landing page preserves the Home institutional framing", () => {
@@ -229,6 +229,15 @@ test("landing page contains the newly approved partnership narrative", () => {
   assert.match(contentSource, /Aumente o faturamento com novos projetos de LGPD/);
   assert.match(pageSource, /Uma oportunidade/);
   assert.match(contentSource, /label: "Execução"/);
+});
+
+test("partnership sections render three distinct Together visual scenes", () => {
+  assert.match(pageSource, /data-visual-scene="roles"/);
+  assert.match(pageSource, /data-visual-scene="capacity"/);
+  assert.match(pageSource, /data-visual-scene="process"/);
+  assert.match(pageSource, /data-model-tone=/);
+  assert.match(pageSource, /bg-brand-400\/15/);
+  assert.match(pageSource, /lg:h-2 lg:w-auto/);
 });
 
 test("landing page honors the user's reduced-motion preference", () => {

@@ -117,6 +117,36 @@ const partnershipContacts = [
   },
 ] as const;
 
+const partnerModelTones = [
+  {
+    name: "light",
+    card: "border-neutral-200 bg-white text-neutral-900",
+    icon: "bg-neutral-950 text-brand-400",
+    label: "text-neutral-500",
+    body: "text-neutral-600",
+  },
+  {
+    name: "brand",
+    card: "border-brand-500/30 bg-brand-400 text-neutral-950",
+    icon: "bg-neutral-950 text-brand-400",
+    label: "text-neutral-700",
+    body: "text-neutral-700",
+  },
+  {
+    name: "dark",
+    card: "border-neutral-800 bg-neutral-950 text-white",
+    icon: "bg-brand-400 text-neutral-950",
+    label: "text-brand-400",
+    body: "text-neutral-300",
+  },
+] as const;
+
+const processIconTones = [
+  "border-brand-400/40 bg-white text-neutral-900",
+  "border-brand-400 bg-brand-400 text-neutral-950",
+  "border-neutral-950 bg-neutral-950 text-brand-400",
+] as const;
+
 export function LawFirmLgpdPage() {
   const content = lawFirmLgpdContent;
   const [primaryScenario, ...secondaryScenarios] = content.scenarios;
@@ -277,9 +307,15 @@ export function LawFirmLgpdPage() {
 
         <section
           id="coentrega"
-          className="relative overflow-hidden bg-white py-24 md:py-36"
+          data-visual-scene="roles"
+          className="relative overflow-hidden bg-gradient-to-br from-white via-white to-brand-100 py-24 md:py-36"
         >
-          <PixelDecor placement="topRight" mask="topRight" opacity={0.1} />
+          <PixelDecor placement="topRight" mask="topRight" opacity={0.16} />
+          <PixelDecor placement="bottomLeft" mask="bottomLeft" opacity={0.08} />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-24 top-24 h-80 w-80 rounded-full bg-brand-400/15 blur-[100px]"
+          />
           <div className="container relative z-10 mx-auto px-4 md:px-6">
             <SectionHeading
               pill="Papéis definidos"
@@ -287,14 +323,22 @@ export function LawFirmLgpdPage() {
               accent="A implementação, com a TOGETHER."
               text="Antes de começar, definimos responsabilidades, interlocutores, entregáveis e aprovações."
             />
-            <div className="mt-14">
+            <div className="relative mt-14">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute left-1/2 top-1/2 hidden h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-400/25 blur-3xl md:block"
+              />
               <CoDeliveryMap roles={content.roles} />
             </div>
           </div>
         </section>
 
-        <section className="border-y border-neutral-100 bg-neutral-50 py-24 md:py-32">
-          <div className="container mx-auto px-4 md:px-6">
+        <section
+          data-visual-scene="capacity"
+          className="relative overflow-hidden border-y border-neutral-100 bg-gradient-to-b from-white via-neutral-50 to-white py-24 md:py-32"
+        >
+          <PixelDecor placement="bottomLeft" mask="bottomLeft" opacity={0.12} />
+          <div className="container relative z-10 mx-auto px-4 md:px-6">
             <SectionHeading
               pill="Capacidade sob demanda"
               pillShort="Modelos de parceria"
@@ -303,28 +347,34 @@ export function LawFirmLgpdPage() {
               text="A parceria pode atender uma oportunidade pontual ou acompanhar o escritório continuamente."
             />
 
-            <div className="mt-14 grid gap-4 rounded-[2rem] border border-neutral-200 bg-neutral-100/70 p-4 shadow-xl shadow-neutral-200/40 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-14 grid gap-4 rounded-[2rem] border border-neutral-200 bg-white p-4 shadow-xl shadow-neutral-200/40 md:grid-cols-2 lg:grid-cols-3">
               {content.partnerModels.map((model, index) => {
                 const Icon = model.icon;
+                const tone = partnerModelTones[index] ?? partnerModelTones[0];
                 return (
                   <motion.article
                     key={model.label}
+                    data-model-tone={tone.name}
                     {...fadeUp}
                     transition={{ ...fadeUp.transition, delay: index * 0.06 }}
-                    className={`group min-w-0 rounded-[1.5rem] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-neutral-200/60 ${index === 2 ? "md:col-span-2 lg:col-span-1" : ""}`}
+                    className={`group min-w-0 rounded-[1.5rem] border p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${tone.card} ${index === 2 ? "md:col-span-2 lg:col-span-1" : ""}`}
                   >
                     <div className="flex items-center gap-4">
-                      <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-neutral-950 text-brand-400">
+                      <span
+                        className={`flex h-12 w-12 items-center justify-center rounded-2xl ${tone.icon}`}
+                      >
                         <Icon className="h-5 w-5" aria-hidden="true" />
                       </span>
                     </div>
-                    <p className="mt-8 text-[10px] font-black uppercase tracking-[0.22em] text-neutral-400">
+                    <p
+                      className={`mt-8 text-[10px] font-black uppercase tracking-[0.22em] ${tone.label}`}
+                    >
                       {model.label}
                     </p>
-                    <h3 className="mt-3 text-2xl font-bold tracking-tight text-neutral-900">
+                    <h3 className="mt-3 text-2xl font-bold tracking-tight">
                       {model.title}
                     </h3>
-                    <p className="mt-4 leading-relaxed text-neutral-500">
+                    <p className={`mt-4 leading-relaxed ${tone.body}`}>
                       {model.text}
                     </p>
                   </motion.article>
@@ -334,8 +384,12 @@ export function LawFirmLgpdPage() {
           </div>
         </section>
 
-        <section className="relative overflow-hidden bg-white py-24 md:py-36">
-          <div className="container mx-auto px-4 md:px-6">
+        <section
+          data-visual-scene="process"
+          className="relative overflow-hidden bg-white py-24 md:py-36"
+        >
+          <PixelDecor placement="bottomRight" mask="bottomRight" opacity={0.12} />
+          <div className="container relative z-10 mx-auto px-4 md:px-6">
             <SectionHeading
               pill="Da oportunidade ao projeto"
               title="Uma oportunidade."
@@ -355,16 +409,25 @@ export function LawFirmLgpdPage() {
               aria-label="Fluxo da parceria"
               className="relative mt-8 grid gap-10 lg:grid-cols-3 lg:gap-8"
             >
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute bottom-8 left-9 top-8 w-2 rounded-full bg-brand-400/15 lg:bottom-auto lg:left-8 lg:right-8 lg:top-10 lg:h-2 lg:w-auto"
+              >
+                <span className="absolute inset-x-[2px] inset-y-0 rounded-full bg-brand-400/70 lg:inset-x-0 lg:inset-y-[2px]" />
+              </span>
               {content.process.map((item, index) => {
                 const Icon = item.icon;
+                const iconTone = processIconTones[index] ?? processIconTones[0];
                 return (
                   <motion.li
                     key={item.label}
                     {...fadeUp}
                     transition={{ ...fadeUp.transition, delay: index * 0.08 }}
-                    className="relative rounded-[2rem] border border-neutral-100 bg-white p-7 lg:border-transparent"
+                    className="relative z-10 rounded-[2rem] border border-neutral-100 bg-white/95 p-7 shadow-[0_18px_50px_rgba(0,0,0,0.035)] backdrop-blur-sm"
                   >
-                    <div className="relative z-10 flex h-20 w-20 items-center justify-center rounded-[1.6rem] border border-neutral-100 bg-white text-neutral-500 shadow-xl shadow-neutral-900/5">
+                    <div
+                      className={`relative z-10 flex h-20 w-20 items-center justify-center rounded-[1.6rem] border shadow-xl shadow-neutral-900/5 ${iconTone}`}
+                    >
                       <Icon aria-hidden="true" className="h-6 w-6" />
                     </div>
                     <p className="mt-8 text-[10px] font-black uppercase tracking-[0.22em] text-brand-600">
