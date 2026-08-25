@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+    useSyncExternalStore,
+} from "react";
 import { createPortal } from "react-dom";
 import { gsap } from "gsap";
 import "./staggered-menu.css";
@@ -29,6 +35,8 @@ interface StaggeredMenuProps {
     onMenuClose?: () => void;
 }
 
+const subscribeToClient = () => () => {};
+
 export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     colors = ["#FFF8DC", "#F5C518"],
     items = [],
@@ -42,6 +50,12 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     onMenuClose,
 }) => {
     const [open, setOpen] = useState(false);
+    const canUsePortal = useSyncExternalStore(
+        subscribeToClient,
+        () => true,
+        () => false,
+    );
+    const portalTarget = canUsePortal ? document.body : null;
     const openRef = useRef(false);
     const panelRef = useRef<HTMLElement>(null);
     const preLayersRef = useRef<HTMLDivElement>(null);
@@ -73,7 +87,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             if (backdrop) gsap.set(backdrop, { opacity: 0 });
         });
         return () => ctx.revert();
-    }, []);
+    }, [portalTarget]);
 
     const buildOpenTimeline = useCallback(() => {
         const panel = panelRef.current;
@@ -359,7 +373,6 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         };
     }, []);
 
-    const portalTarget = typeof document === "undefined" ? null : document.body;
     const menuOverlay = (
         <div
             className="staggered-menu-wrapper"

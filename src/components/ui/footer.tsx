@@ -44,7 +44,7 @@ export function Footer() {
 
                         <div className="space-y-6">
                             {[
-                                { icon: <Phone className="w-4 h-4" />, text: "(11) 5178-3235 / +55 11 92642-0123" },
+                                { icon: <Phone className="w-4 h-4" />, text: "(11) 5178-3235 / (11) 92642-0123" },
                                 { icon: <Mail className="w-4 h-4" />, text: "contato@togetherprivacy.com" },
                                 { icon: <MapPin className="w-4 h-4" />, text: "São Paulo, Brasil" }
                             ].map((item, i) => (
