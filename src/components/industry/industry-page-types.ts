@@ -119,7 +119,7 @@ export type RoadsIndustryContent = {
     readonly title: string;
     readonly description: string;
     readonly illustration: {
-      readonly src: "/images/industries/roads/international-data-routes-v2.png";
+      readonly src: "/images/industries/roads/international-data-routes-v3.png";
       readonly width: 1254;
       readonly height: 1254;
       readonly alt: string;

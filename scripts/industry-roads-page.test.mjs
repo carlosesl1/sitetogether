@@ -354,7 +354,7 @@ test("training is presented as a structured responsive module", () => {
 
 test("international section renders a transparent project-owned illustration", async () => {
   const asset = await readOptionalBinary(
-    "../public/images/industries/roads/international-data-routes-v2.png",
+    "../public/images/industries/roads/international-data-routes-v3.png",
   );
 
   assert.ok(asset.length > 10_000, "illustration must not be an empty placeholder");
@@ -362,7 +362,8 @@ test("international section renders a transparent project-owned illustration", a
   assert.ok([4, 6].includes(asset[25]), "PNG must preserve an alpha channel");
   assert.match(roadsCapabilitySource, /import Image from "next\/image"/);
   assert.match(roadsCapabilitySource, /content\.illustration/);
-  assert.match(contentSource, /international-data-routes-v2\.png/);
+  assert.match(contentSource, /international-data-routes-v3\.png/);
+  assert.doesNotMatch(contentSource, /international-data-routes-v2\.png/);
   assert.match(typesSource, /readonly illustration:/);
 });
 
