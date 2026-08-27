@@ -240,3 +240,134 @@ test("road context uses small yellow signals, not yellow section backgrounds", (
     /<section[^>]*className="[^"]*bg-brand-(?:100|200|300|400)/,
   );
 });
+
+const roadsCapabilitySource = await readOptional(
+  "../src/components/industry/roads/roads-capability-sections.tsx",
+);
+
+test("road capability story renders every declared campaign destination", () => {
+  for (const id of ["privacy-by-design", "fornecedores", "internacional"]) {
+    assert.match(roadsCapabilitySource, new RegExp(`id="${id}"`));
+  }
+  assert.match(roadsCapabilitySource, /index === 0 \? "dpo"/);
+  assert.match(roadsCapabilitySource, /index === 1 \? "incidentes"/);
+});
+
+test("capability mosaic keeps the yellow card compact", () => {
+  assert.match(roadsCapabilitySource, /max-w-\[280px\]/);
+  assert.match(roadsCapabilitySource, /tone === "brand-compact"/);
+  assert.match(roadsCapabilitySource, /position="capabilities"/);
+  assert.doesNotMatch(
+    roadsCapabilitySource,
+    /<section[^>]*className="[^"]*bg-brand-(?:100|200|300|400)/,
+  );
+});
+
+test("continuous operation carries training and technology proof", () => {
+  assert.match(roadsCapabilitySource, /IndustryTechnologyRail/);
+  assert.match(roadsCapabilitySource, /training\.audiences/);
+  assert.match(roadsCapabilitySource, /RoadsOperationsSection/);
+  assert.match(roadsCapabilitySource, /RoadsInternationalMethodSection/);
+});
+
+const finalCtaSource = await readOptional(
+  "../src/components/industry/industry-final-cta.tsx",
+);
+const pageSource = await readOptional(
+  "../src/components/industry/roads-industry-page.tsx",
+);
+
+test("road page composes the complete approved narrative", () => {
+  const requiredComponents = [
+    "Navbar",
+    "IndustryHero",
+    "IndustryProofStrip",
+    "RoadsOperationalContextSection",
+    "RoadsLifecycleSection",
+    "RoadsFreeFlowSection",
+    "RoadsCapabilitiesSection",
+    "RoadsPrivacyByDesignSection",
+    "RoadsOperationsSection",
+    "RoadsInternationalMethodSection",
+    "IndustryFaqSection",
+    "IndustryFinalCta",
+    "Footer",
+  ];
+
+  for (const component of requiredComponents) {
+    assert.match(pageSource, new RegExp(`<${component}`));
+  }
+});
+
+test("road page has exactly the three approved CTA positions", () => {
+  const combinedSource = `${pageSource}\n${heroSource}\n${roadsCapabilitySource}\n${finalCtaSource}`;
+  assert.equal((combinedSource.match(/position="hero"/g) ?? []).length, 1);
+  assert.equal(
+    (combinedSource.match(/position="capabilities"/g) ?? []).length,
+    1,
+  );
+  assert.equal((combinedSource.match(/position="final"/g) ?? []).length, 1);
+});
+
+test("only the final CTA uses a full yellow section", () => {
+  assert.match(finalCtaSource, /<section[^>]*bg-brand-400/);
+  assert.doesNotMatch(pageSource, /bg-brand-100/);
+  assert.doesNotMatch(pageSource, /bg-brand-200/);
+  assert.doesNotMatch(pageSource, /overflow-x-(?:hidden|clip)/);
+});
+
+const routeSource = await readOptional(
+  "../src/app/solucoes/privacidade-gestao-de-rodovias/page.tsx",
+);
+const layoutSource = await readOptional(
+  "../src/app/solucoes/privacidade-gestao-de-rodovias/layout.tsx",
+);
+const sitemapSource = await readOptional("../public/sitemap.xml");
+const sitemapGeneratorSource = await readOptional("./sync-wordpress-posts.mjs");
+
+test("road solution route delegates to the road page", () => {
+  assert.match(routeSource, /RoadsIndustryPage/);
+});
+
+test("road solution metadata declares title, canonical and Open Graph", () => {
+  assert.match(layoutSource, /roadsIndustryContent\.metadata/);
+  assert.match(layoutSource, /alternates/);
+  assert.match(layoutSource, /canonical/);
+  assert.match(layoutSource, /openGraph/);
+  assert.match(layoutSource, /pt_BR/);
+});
+
+test("sitemap source and generator preserve the road route", () => {
+  const route = "/solucoes/privacidade-gestao-de-rodovias";
+  assert.match(sitemapGeneratorSource, new RegExp(`"${route}"`));
+  assert.match(
+    sitemapSource,
+    /https:\/\/togetherprivacy\.tech\/solucoes\/privacidade-gestao-de-rodovias/,
+  );
+});
+
+test("every declared campaign anchor has one rendered target", () => {
+  const renderedSources = `${roadsContextSource}\n${roadsCapabilitySource}`;
+  const staticAnchors = [
+    "free-flow",
+    "privacy-by-design",
+    "fornecedores",
+    "internacional",
+  ];
+
+  for (const anchor of staticAnchors) {
+    const matches = renderedSources.match(new RegExp(`id="${anchor}"`, "g"));
+    assert.equal(matches?.length, 1, `${anchor} must render exactly once`);
+  }
+
+  assert.equal(
+    (roadsCapabilitySource.match(/index === 0 \? "dpo"/g) ?? []).length,
+    1,
+    "dpo must render exactly once",
+  );
+  assert.equal(
+    (roadsCapabilitySource.match(/index === 1 \? "incidentes"/g) ?? []).length,
+    1,
+    "incidentes must render exactly once",
+  );
+});

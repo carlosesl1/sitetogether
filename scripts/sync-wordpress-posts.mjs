@@ -80,6 +80,7 @@ function buildSitemap(posts) {
     "/blog",
     "/contato",
     "/solucoes/escritorios-de-advocacia",
+    "/solucoes/privacidade-gestao-de-rodovias",
     "/servicos/dpo-as-a-service",
     "/servicos/consultoria-adequacao",
     "/servicos/mentoria-e-cultura",
