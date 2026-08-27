@@ -192,6 +192,11 @@ test("privacy platform data is shared without changing the home section", () => 
   }
   assert.match(techIntegrationSource, /privacyPlatforms/);
   assert.match(technologyRailSource, /privacyPlatforms/);
+  assert.match(
+    technologyRailSource,
+    /brightness-0 invert opacity-75/,
+    "the dark technology rail should normalize every logo to a high-contrast monochrome treatment",
+  );
 });
 
 const faqSource = await readOptional(

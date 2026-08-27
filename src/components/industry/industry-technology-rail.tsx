@@ -18,7 +18,7 @@ export function IndustryTechnologyRail() {
               alt={platform.label}
               width={160}
               height={48}
-              className="max-h-8 w-auto max-w-full object-contain grayscale opacity-65"
+              className="max-h-8 w-auto max-w-full object-contain brightness-0 invert opacity-75"
             />
           </div>
         ))}
