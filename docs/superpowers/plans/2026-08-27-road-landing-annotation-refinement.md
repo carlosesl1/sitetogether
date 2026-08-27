@@ -308,8 +308,8 @@ Extend the international type with:
 ```ts
 readonly illustration: {
   readonly src: "/images/industries/roads/international-data-routes.png";
-  readonly width: 1024;
-  readonly height: 1024;
+  readonly width: 1254;
+  readonly height: 1254;
   readonly alt: string;
 };
 ```
@@ -319,8 +319,8 @@ Add this to `roadsIndustryContent.international`:
 ```ts
 illustration: {
   src: `${imageBase}/international-data-routes.png`,
-  width: 1024,
-  height: 1024,
+  width: 1254,
+  height: 1254,
   alt: "Globo conectado por infraestrutura rodoviária e rotas internacionais de dados",
 },
 ```
