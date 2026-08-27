@@ -17,7 +17,7 @@
 - Modify `src/components/industry/industry-final-cta.tsx`: complete contact card.
 - Modify `src/components/industry/industry-page-types.ts`: remove unused lifecycle outcomes and type the international illustration.
 - Modify `src/content/industries/roads.ts`: remove outcomes data and declare the international asset.
-- Create `public/images/industries/roads/international-data-routes.png`: transparent international infrastructure illustration.
+- Create `public/images/industries/roads/international-data-routes-v2.png`: transparent international infrastructure illustration.
 - Modify `scripts/industry-roads-page.test.mjs`: regression coverage for every approved annotation.
 
 ### Task 1: Replace lifecycle markers and remove the redundant outcomes block
@@ -241,7 +241,7 @@ git commit -m "refactor: structure road privacy training module"
 ### Task 3: Generate and wire the transparent international illustration
 
 **Files:**
-- Create: `public/images/industries/roads/international-data-routes.png`
+- Create: `public/images/industries/roads/international-data-routes-v2.png`
 - Modify: `scripts/industry-roads-page.test.mjs:291-319`
 - Modify: `src/components/industry/roads/roads-capability-sections.tsx:1-197`
 - Modify: `src/components/industry/industry-page-types.ts:119-123`
@@ -254,7 +254,7 @@ Add:
 ```js
 test("international section renders a transparent project-owned illustration", async () => {
   const assetUrl = new URL(
-    "../public/images/industries/roads/international-data-routes.png",
+    "../public/images/industries/roads/international-data-routes-v2.png",
     import.meta.url,
   );
   const asset = await readFile(assetUrl);
@@ -264,7 +264,7 @@ test("international section renders a transparent project-owned illustration", a
   assert.ok([4, 6].includes(asset[25]), "PNG must preserve an alpha channel");
   assert.match(roadsCapabilitySource, /import Image from "next\/image"/);
   assert.match(roadsCapabilitySource, /content\.illustration/);
-  assert.match(contentSource, /international-data-routes\.png/);
+  assert.match(contentSource, /international-data-routes-v2\.png/);
   assert.match(typesSource, /readonly illustration:/);
 });
 ```
@@ -298,7 +298,7 @@ Constraints: actual alpha transparency; no text; no logos; no watermark; no UI; 
 Inspect the generated result, preserve its alpha channel, and copy the selected file to:
 
 ```text
-public/images/industries/roads/international-data-routes.png
+public/images/industries/roads/international-data-routes-v2.png
 ```
 
 - [ ] **Step 4: Type and declare the illustration**
@@ -307,7 +307,7 @@ Extend the international type with:
 
 ```ts
 readonly illustration: {
-  readonly src: "/images/industries/roads/international-data-routes.png";
+  readonly src: "/images/industries/roads/international-data-routes-v2.png";
   readonly width: 1254;
   readonly height: 1254;
   readonly alt: string;
@@ -318,7 +318,7 @@ Add this to `roadsIndustryContent.international`:
 
 ```ts
 illustration: {
-  src: `${imageBase}/international-data-routes.png`,
+  src: `${imageBase}/international-data-routes-v2.png`,
   width: 1254,
   height: 1254,
   alt: "Globo conectado por infraestrutura rodoviária e rotas internacionais de dados",
@@ -370,7 +370,7 @@ Expected: PASS, including PNG alpha verification.
 - [ ] **Step 7: Commit the international illustration**
 
 ```powershell
-git add -- public/images/industries/roads/international-data-routes.png scripts/industry-roads-page.test.mjs src/components/industry/roads/roads-capability-sections.tsx src/components/industry/industry-page-types.ts src/content/industries/roads.ts
+git add -- public/images/industries/roads/international-data-routes-v2.png scripts/industry-roads-page.test.mjs src/components/industry/roads/roads-capability-sections.tsx src/components/industry/industry-page-types.ts src/content/industries/roads.ts
 git commit -m "feat: illustrate international road data flows"
 ```
 
@@ -515,7 +515,7 @@ git commit -m "feat: complete industry contact CTA"
 - Verify: `src/components/industry/roads/roads-context-sections.tsx`
 - Verify: `src/components/industry/roads/roads-capability-sections.tsx`
 - Verify: `src/components/industry/industry-final-cta.tsx`
-- Verify: `public/images/industries/roads/international-data-routes.png`
+- Verify: `public/images/industries/roads/international-data-routes-v2.png`
 
 - [ ] **Step 1: Run automated verification**
 

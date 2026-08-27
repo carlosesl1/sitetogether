@@ -54,7 +54,7 @@ O módulo continuará ao lado da rotina operacional, mas passará a parecer uma 
 
 A seção será reorganizada em duas áreas: conteúdo textual e ilustração. No desktop, o texto ficará à esquerda e a imagem à direita; no mobile, a imagem aparecerá abaixo do texto.
 
-O novo ativo será salvo em `public/images/industries/roads/international-data-routes.png`, como PNG quadrado de 1254 × 1254 pixels com transparência real. Direção do ativo:
+O novo ativo será salvo em `public/images/industries/roads/international-data-routes-v2.png`, como PNG quadrado de 1254 × 1254 pixels com transparência real. Direção do ativo:
 
 - Globo ou hemisfério reconhecível.
 - Rodovia, ponte ou túnel integrados à composição.
