@@ -22,13 +22,23 @@ const navbarSource = await readOptional("../src/components/ui/navbar.tsx");
 test("road content declares the approved sector promise and CTA", () => {
   assert.match(
     contentSource,
-    /Privacidade incorporada à operação rodoviária, do projeto ao free flow\./,
+    /Organize a privacidade da operação — do projeto ao pedágio digital\./,
   );
   assert.match(contentSource, /Agende uma Conversa/);
   assert.match(contentSource, /Ainda não temos experiência nem case específico/);
   assert.doesNotMatch(contentSource, /case comprovado no setor/i);
   assert.doesNotMatch(contentSource, /garantia de conformidade/i);
   assert.doesNotMatch(contentSource, /aprovado pela ANPD/i);
+});
+
+test("road copy stays clear for non-specialist decision makers", () => {
+  assert.match(contentSource, /Uma rodovia também é uma operação de dados\./);
+  assert.match(contentSource, /Uma equipe para colocar a LGPD em prática\./);
+  assert.match(contentSource, /A privacidade precisa funcionar todos os dias\./);
+  assert.doesNotMatch(
+    contentSource,
+    /\b(?:go-live|runbooks|subprocessadores|cadência|premissas|atores|entregáveis)\b/i,
+  );
 });
 
 test("road metadata leaves the root layout responsible for the title brand", () => {
