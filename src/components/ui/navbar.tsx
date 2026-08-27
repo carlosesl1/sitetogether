@@ -62,12 +62,12 @@ export function Navbar({ includeAbout = false, showCtaArrow = false }: NavbarPro
                 {/* Action Buttons - Desktop Only */}
                 <div className="hidden xl:flex items-center gap-4">
                     <LanguageSwitcher />
-                    <Link href="/contato">
-                        <Button size="default" className="text-xs font-bold shadow-md hover:shadow-lg transition-all">
+                    <Button asChild size="default" className="text-xs font-bold shadow-md hover:shadow-lg transition-all">
+                        <Link href="/contato">
                             Agendar uma Conversa
                             {showCtaArrow ? <ArrowUpRight className="ml-1 h-4 w-4" /> : null}
-                        </Button>
-                    </Link>
+                        </Link>
+                    </Button>
                 </div>
 
                 {/* Mobile Menu Toggle + StaggeredMenu */}

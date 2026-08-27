@@ -16,6 +16,8 @@ const typesSource = await readOptional(
 const contentSource = await readOptional(
   "../src/content/industries/roads.ts",
 );
+const globalStylesSource = await readOptional("../src/app/globals.css");
+const navbarSource = await readOptional("../src/components/ui/navbar.tsx");
 
 test("road content declares the approved sector promise and CTA", () => {
   assert.match(
@@ -27,6 +29,28 @@ test("road content declares the approved sector promise and CTA", () => {
   assert.doesNotMatch(contentSource, /case comprovado no setor/i);
   assert.doesNotMatch(contentSource, /garantia de conformidade/i);
   assert.doesNotMatch(contentSource, /aprovado pela ANPD/i);
+});
+
+test("road metadata leaves the root layout responsible for the title brand", () => {
+  assert.match(
+    contentSource,
+    /metadata:\s*\{\s*title: "Privacidade e LGPD para .+ Rodovias"/,
+  );
+  assert.doesNotMatch(
+    contentSource,
+    /metadata:\s*\{\s*title: "[^"]*\| TOGETHER"/,
+  );
+});
+
+test("mobile Leadster invitation cannot cover primary page actions", () => {
+  assert.match(globalStylesSource, /\.nld-chatbot-invite-container/);
+  assert.match(globalStylesSource, /display:\s*none\s*!important/);
+});
+
+test("desktop navbar CTA exposes one interactive element", () => {
+  assert.match(navbarSource, /<Button\s+asChild/);
+  assert.match(navbarSource, /<Link href="\/contato">/);
+  assert.doesNotMatch(navbarSource, /<Link href="\/contato">\s*<Button/);
 });
 
 test("road content declares six unique campaign anchors", () => {

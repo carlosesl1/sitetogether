@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { roadsIndustryContent } from "@/content/industries/roads";
 
 const { title, description, canonical } = roadsIndustryContent.metadata;
+const socialTitle = `${title} | TOGETHER`;
 
 export const metadata: Metadata = {
   title,
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     url: canonical,
-    title,
+    title: socialTitle,
     description,
     images: [
       {

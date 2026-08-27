@@ -5,7 +5,7 @@ const imageBase = "/images/industries/roads";
 export const roadsIndustryContent = {
   sector: "gestao-de-rodovias",
   metadata: {
-    title: "Privacidade e LGPD para Gestão de Rodovias | TOGETHER",
+    title: "Privacidade e LGPD para Gestão de Rodovias",
     description:
       "Privacidade para concessionárias e operadoras rodoviárias: projetos, free flow, fornecedores, DPO, incidentes, tecnologia e treinamentos.",
     canonical: "/solucoes/privacidade-gestao-de-rodovias",

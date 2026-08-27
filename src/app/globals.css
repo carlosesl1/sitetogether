@@ -205,6 +205,11 @@ html.lenis body {
 }
 
 @media (max-width: 767px) {
+  /* Keep the Leadster launcher available without covering mobile CTAs. */
+  .nld-chatbot-invite-container {
+    display: none !important;
+  }
+
   [data-section="proposal-comparison"] [data-comparison-overlay] {
     opacity: var(--together-mobile-overlay-opacity, 0) !important;
     transform: translateY(var(--together-mobile-overlay-y, 14px)) !important;
