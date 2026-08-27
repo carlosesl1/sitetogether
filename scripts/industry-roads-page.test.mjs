@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import test from "node:test";
 
 async function readOptional(relativePath) {
@@ -170,4 +170,49 @@ test("industry FAQ is configurable and exposes accordion semantics", () => {
   assert.match(faqSource, /useReducedMotion/);
   assert.doesNotMatch(faqSource, /Agendar Call Técnica/);
   assert.doesNotMatch(faqSource, /<ActionLink/);
+});
+
+const heroSource = await readOptional(
+  "../src/components/industry/industry-hero.tsx",
+);
+
+test("road hero uses static art direction and a decorative image", () => {
+  assert.match(heroSource, /<picture/);
+  assert.match(heroSource, /max-width: 767px/);
+  assert.match(heroSource, /image\.mobile\.avif/);
+  assert.match(heroSource, /image\.desktop\.avif/);
+  assert.match(heroSource, /width=\{image\.desktop\.width\}/);
+  assert.match(heroSource, /height=\{image\.desktop\.height\}/);
+  assert.match(heroSource, /alt=""/);
+  assert.match(heroSource, /fetchPriority="high"/);
+});
+
+test("optimized AVIF and WebP hero assets stay within budget", async () => {
+  const budgets = new Map([
+    ["hero-desktop.avif", 350_000],
+    ["hero-desktop.webp", 500_000],
+    ["hero-mobile.avif", 250_000],
+    ["hero-mobile.webp", 350_000],
+  ]);
+
+  for (const [filename, maxBytes] of budgets) {
+    const file = new URL(
+      `../public/images/industries/roads/${filename}`,
+      import.meta.url,
+    );
+    const fileStat = await stat(file);
+    assert.ok(
+      fileStat.size <= maxBytes,
+      `${filename} is ${fileStat.size} bytes; maximum is ${maxBytes}`,
+    );
+  }
+
+  for (const filename of ["hero-desktop.png", "hero-mobile.png"]) {
+    await stat(
+      new URL(
+        `../public/images/industries/roads/${filename}`,
+        import.meta.url,
+      ),
+    );
+  }
 });
