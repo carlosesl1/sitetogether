@@ -1,3 +1,4 @@
+import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import type { RoadsIndustryContent } from "@/components/industry/industry-page-types";
 import { IndustryContactLink } from "@/components/industry/industry-contact-link";
 import { SectionPill } from "@/components/ui/site-primitives";
@@ -7,6 +8,27 @@ type IndustryFinalCtaProps = {
   content: RoadsIndustryContent["finalCta"];
   allowedAnchors: readonly string[];
 };
+
+const industryContacts = [
+  {
+    label: "WhatsApp",
+    value: "(11) 5178-3235",
+    href: "https://wa.me/551151783235",
+    icon: Phone,
+  },
+  {
+    label: "WhatsApp",
+    value: "(11) 92642-0123",
+    href: "https://wa.me/5511926420123",
+    icon: Phone,
+  },
+  {
+    label: "E-mail",
+    value: "contato@togetherprivacy.com",
+    href: "mailto:contato@togetherprivacy.com",
+    icon: Mail,
+  },
+] as const;
 
 export function IndustryFinalCta({
   sector,
@@ -31,7 +53,15 @@ export function IndustryFinalCta({
               {content.description}
             </p>
           </div>
-          <div className="min-w-0 rounded-[28px] border border-black/10 bg-white/30 p-6 backdrop-blur-sm sm:p-8">
+          <div className="min-w-0 rounded-[28px] border border-black/5 bg-white p-6 shadow-[0_32px_70px_rgba(0,0,0,0.08)] sm:p-8">
+            <div>
+              <h3 className="text-3xl font-bold tracking-tight text-neutral-900">
+                Contato
+              </h3>
+              <p className="mt-2 text-sm font-medium leading-relaxed text-neutral-500">
+                Fale diretamente com nosso time.
+              </p>
+            </div>
             <IndustryContactLink
               sector={sector}
               position="final"
@@ -39,15 +69,47 @@ export function IndustryFinalCta({
               variant="dark"
               size="xl"
               fullWidth
+              className="mt-7"
             >
               {content.cta}
             </IndustryContactLink>
-            <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-700">
-              Próximo passo
-            </p>
-            <p className="mt-3 text-base font-bold leading-relaxed text-neutral-900">
-              {content.nextStep}
-            </p>
+            <div className="mt-6 border-t border-neutral-200 pt-5">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500">
+                Próximo passo
+              </p>
+              <p className="mt-2 text-sm font-bold leading-relaxed text-neutral-900">
+                {content.nextStep}
+              </p>
+            </div>
+            <div className="mt-6 space-y-3">
+              {industryContacts.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    aria-label={`${item.label}: ${item.value}`}
+                    className="group flex min-h-16 min-w-0 items-center gap-4 rounded-[18px] border border-neutral-200 bg-neutral-50 px-4 py-3 outline-none transition-colors hover:border-brand-400 focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+                  >
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-brand-400 text-neutral-950">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-[9px] font-bold uppercase tracking-[0.16em] text-neutral-400">
+                        {item.label}
+                      </span>
+                      <span className="mt-1 block break-words text-sm font-bold leading-tight text-neutral-900 sm:text-base">
+                        {item.value}
+                      </span>
+                    </span>
+                    <ArrowUpRight
+                      className="h-4 w-4 shrink-0 text-neutral-400"
+                      aria-hidden="true"
+                    />
+                  </a>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

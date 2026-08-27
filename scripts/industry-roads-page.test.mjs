@@ -373,6 +373,17 @@ const pageSource = await readOptional(
   "../src/components/industry/roads-industry-page.tsx",
 );
 
+test("final industry CTA exposes complete direct contact options", () => {
+  assert.match(finalCtaSource, /Contato/);
+  assert.match(finalCtaSource, /\(11\) 5178-3235/);
+  assert.match(finalCtaSource, /\(11\) 92642-0123/);
+  assert.match(finalCtaSource, /contato@togetherprivacy\.com/);
+  assert.match(finalCtaSource, /https:\/\/wa\.me\/551151783235/);
+  assert.match(finalCtaSource, /https:\/\/wa\.me\/5511926420123/);
+  assert.match(finalCtaSource, /mailto:contato@togetherprivacy\.com/);
+  assert.match(finalCtaSource, /focus-visible:ring-2/);
+});
+
 test("road page composes the complete approved narrative", () => {
   const requiredComponents = [
     "Navbar",
