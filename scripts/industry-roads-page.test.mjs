@@ -165,6 +165,7 @@ test("industry FAQ is configurable and exposes accordion semantics", () => {
   assert.match(faqSource, /aria-expanded=\{isOpen\}/);
   assert.match(faqSource, /aria-controls=\{panelId\}/);
   assert.match(faqSource, /aria-labelledby=\{buttonId\}/);
+  assert.match(faqSource, /aria-hidden=\{!isOpen\}/);
   assert.match(faqSource, /role="region"/);
   assert.match(faqSource, /type="button"/);
   assert.match(faqSource, /useReducedMotion/);

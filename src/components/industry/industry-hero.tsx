@@ -54,7 +54,7 @@ export function IndustryHero({
       <div className="container relative z-10 mx-auto flex min-h-[760px] items-start px-6 pb-28 pt-20 sm:min-h-[720px] sm:items-center sm:py-24 lg:min-h-[760px]">
         <div className="max-w-3xl">
           <SectionPill>{content.pill}</SectionPill>
-          <h1 className="mt-8 max-w-3xl break-words text-[clamp(2.55rem,11vw,3.5rem)] font-bold leading-[0.94] tracking-tight text-neutral-950 sm:text-6xl lg:text-7xl">
+          <h1 className="mt-8 max-w-3xl break-words text-[clamp(2.55rem,11vw,3.5rem)] font-bold leading-[0.94] tracking-tight text-neutral-950 sm:text-6xl lg:text-[4rem]">
             {content.title}
           </h1>
           <p className="mt-8 max-w-2xl text-base font-medium leading-relaxed text-neutral-700 sm:text-lg lg:text-xl">

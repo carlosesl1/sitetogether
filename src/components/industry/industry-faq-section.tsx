@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import type { IndustryFaqItem } from "@/components/industry/industry-page-types";
 import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
@@ -52,24 +52,20 @@ function IndustryFaqRow({
           <ChevronDown className="h-6 w-6" />
         </span>
       </button>
-      <AnimatePresence initial={false}>
-        {isOpen ? (
-          <motion.div
-            id={panelId}
-            role="region"
-            aria-labelledby={buttonId}
-            initial={reduceMotion ? false : { height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
-            transition={{ duration: reduceMotion ? 0 : 0.35 }}
-            className="overflow-hidden"
-          >
-            <p className="ml-1 mt-6 max-w-3xl border-l-2 border-brand-400 pl-7 text-base font-medium leading-relaxed text-neutral-500 sm:text-lg">
-              {item.answer}
-            </p>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      <motion.div
+        id={panelId}
+        role="region"
+        aria-labelledby={buttonId}
+        aria-hidden={!isOpen}
+        initial={false}
+        animate={isOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+        transition={{ duration: reduceMotion ? 0 : 0.35 }}
+        className="overflow-hidden"
+      >
+        <p className="ml-1 mt-6 max-w-3xl border-l-2 border-brand-400 pl-7 text-base font-medium leading-relaxed text-neutral-500 sm:text-lg">
+          {item.answer}
+        </p>
+      </motion.div>
     </div>
   );
 }
