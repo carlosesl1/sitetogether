@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { MouseEventHandler, ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -26,13 +26,14 @@ export function SectionPill({ children, tone = "light", className }: SectionPill
     );
 }
 
-type ActionLinkProps = {
+export type ActionLinkProps = {
     href: string;
     children: ReactNode;
     variant?: "primary" | "dark" | "light" | "muted";
     size?: "sm" | "md" | "lg" | "xl";
     fullWidth?: boolean;
     className?: string;
+    onClick?: MouseEventHandler<HTMLAnchorElement>;
 };
 
 export function ActionLink({
@@ -41,11 +42,13 @@ export function ActionLink({
     variant = "primary",
     size = "md",
     fullWidth = false,
-    className
+    className,
+    onClick
 }: ActionLinkProps) {
     return (
         <Link
             href={href}
+            onClick={onClick}
             className={cn(
                 "group inline-flex max-w-full items-center justify-center gap-3 whitespace-normal text-center font-bold uppercase leading-tight tracking-[0.14em] transition-all duration-200 active:scale-[0.98] sm:whitespace-nowrap sm:tracking-[0.16em]",
                 fullWidth && "w-full",

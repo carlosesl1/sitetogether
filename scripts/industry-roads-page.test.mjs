@@ -49,3 +49,70 @@ test("road content declares six unique campaign anchors", () => {
   assert.match(contentSource, /gov\.br\/antt/);
   assert.match(contentSource, /eur-lex\.europa\.eu/);
 });
+
+const attributionModule = await import(
+  new URL("../src/lib/industry-attribution.ts", import.meta.url),
+);
+const actionLinkSource = await readOptional(
+  "../src/components/ui/site-primitives.tsx",
+);
+const contactLinkSource = await readOptional(
+  "../src/components/industry/industry-contact-link.tsx",
+);
+
+test("industry contact href preserves only approved campaign data", () => {
+  const entryUrl = new URL(
+    "https://togetherprivacy.tech/solucoes/privacidade-gestao-de-rodovias?utm_source=google&utm_campaign=free-flow&gclid=abc&unsafe=value#free-flow",
+  );
+  const href = attributionModule.buildIndustryContactHref({
+    sector: "gestao-de-rodovias",
+    position: "hero",
+    entryUrl,
+    allowedAnchors: ["free-flow", "privacy-by-design"],
+  });
+
+  assert.equal(
+    href,
+    "/contato?sector=gestao-de-rodovias&cta_position=hero&entry_anchor=free-flow&utm_source=google&utm_campaign=free-flow&gclid=abc",
+  );
+  assert.doesNotMatch(href, /unsafe/);
+});
+
+test("industry contact href keeps a useful no-JavaScript fallback", () => {
+  assert.equal(
+    attributionModule.buildIndustryContactHref({
+      sector: "gestao-de-rodovias",
+      position: "final",
+      allowedAnchors: ["free-flow"],
+    }),
+    "/contato?sector=gestao-de-rodovias&cta_position=final",
+  );
+});
+
+test("malformed hashes cannot break the contact link", () => {
+  assert.doesNotThrow(() =>
+    attributionModule.buildIndustryContactHref({
+      sector: "gestao-de-rodovias",
+      position: "hero",
+      entryUrl: new URL("https://togetherprivacy.tech/solucoes#%E0%A4%A"),
+      allowedAnchors: ["free-flow"],
+    }),
+  );
+});
+
+test("industry CTA maps positions to the three approved events", () => {
+  assert.equal(attributionModule.getIndustryCtaEvent("hero"), "cta_hero");
+  assert.equal(
+    attributionModule.getIndustryCtaEvent("capabilities"),
+    "cta_midpage",
+  );
+  assert.equal(attributionModule.getIndustryCtaEvent("final"), "cta_final");
+});
+
+test("industry contact link enhances ActionLink without blocking navigation", () => {
+  assert.match(actionLinkSource, /onClick\?: MouseEventHandler/);
+  assert.match(contactLinkSource, /dataLayer\?\.push/);
+  assert.match(contactLinkSource, /buildIndustryContactHref/);
+  assert.match(contactLinkSource, /useSyncExternalStore/);
+  assert.doesNotMatch(contactLinkSource, /preventDefault/);
+});
