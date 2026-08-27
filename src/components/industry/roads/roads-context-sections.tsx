@@ -1,4 +1,15 @@
-import { CarFront, Cloud, CreditCard, ScanLine, Users } from "lucide-react";
+import {
+  BadgeCheck,
+  CarFront,
+  Cloud,
+  CreditCard,
+  FileSignature,
+  RefreshCw,
+  ScanLine,
+  Search,
+  Settings2,
+  Users,
+} from "lucide-react";
 import type { RoadsIndustryContent } from "@/components/industry/industry-page-types";
 import { IndustrySectionHeading } from "@/components/industry/industry-section-heading";
 import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
@@ -16,6 +27,13 @@ type FreeFlowProps = {
 };
 
 const contextIcons = [CarFront, ScanLine, CreditCard, Cloud, Users] as const;
+const lifecycleIcons = [
+  Search,
+  FileSignature,
+  Settings2,
+  BadgeCheck,
+  RefreshCw,
+] as const;
 
 export function RoadsOperationalContextSection({ content }: ContextProps) {
   return (
@@ -90,52 +108,37 @@ export function RoadsLifecycleSection({ content }: LifecycleProps) {
             aria-hidden="true"
           />
           <ol className="relative grid gap-8 lg:grid-cols-5 lg:gap-5">
-            {content.stages.map((stage, index) => (
-              <li
-                id={index === 1 ? "fornecedores" : undefined}
-                key={stage.title}
-                className="relative scroll-mt-28 grid grid-cols-[48px_1fr] gap-5 lg:block"
-              >
-                <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-[16px] border border-neutral-200 bg-white">
-                  <span
-                    className="h-3 w-3 rounded-[3px] bg-brand-400"
-                    aria-hidden="true"
-                  />
-                </span>
-                <div className="min-w-0 lg:mt-8">
-                  <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-neutral-600">
-                    {stage.label}
-                  </span>
-                  <h3 className="mt-3 break-words text-xl font-bold tracking-tight text-neutral-900">
-                    {stage.title}
-                  </h3>
-                  <p className="mt-3 text-sm font-medium leading-relaxed text-neutral-500">
-                    {stage.description}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
+            {content.stages.map((stage, index) => {
+              const Icon = lifecycleIcons[index];
 
-        <div className="mt-14 border-t border-neutral-300 pt-9">
-          <h3 className="text-2xl font-bold tracking-tight text-neutral-900">
-            {content.outcomesTitle}
-          </h3>
-          <ul className="mt-7 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
-            {content.outcomes.map((outcome) => (
-              <li
-                key={outcome}
-                className="flex min-w-0 items-start gap-3 border-t border-neutral-200 pt-4 text-sm font-bold leading-relaxed text-neutral-700"
-              >
-                <span
-                  className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-[3px] bg-brand-400"
-                  aria-hidden="true"
-                />
-                <span className="min-w-0">{outcome}</span>
-              </li>
-            ))}
-          </ul>
+              return (
+                <li
+                  id={index === 1 ? "fornecedores" : undefined}
+                  key={stage.title}
+                  className="relative scroll-mt-28 grid grid-cols-[48px_1fr] gap-5 lg:block"
+                >
+                  <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-[16px] border border-neutral-200 bg-white text-neutral-900 shadow-sm">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                    <span
+                      className="absolute -bottom-1 -right-1 h-2.5 w-2.5 rounded-[3px] bg-brand-400 ring-2 ring-neutral-50"
+                      aria-hidden="true"
+                    />
+                  </span>
+                  <div className="min-w-0 lg:mt-8">
+                    <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-neutral-600">
+                      {stage.label}
+                    </span>
+                    <h3 className="mt-3 break-words text-xl font-bold tracking-tight text-neutral-900">
+                      {stage.title}
+                    </h3>
+                    <p className="mt-3 text-sm font-medium leading-relaxed text-neutral-500">
+                      {stage.description}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
         </div>
       </div>
     </section>

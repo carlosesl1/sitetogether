@@ -115,13 +115,6 @@ export const roadsIndustryContent = {
         description: "Atendimento, incidentes, fornecedores e pendências.",
       },
     ],
-    outcomesTitle: "O que sai da primeira fase",
-    outcomes: [
-      "Mapa dos principais fluxos de dados",
-      "Prioridades e plano de ação",
-      "Fornecedores, acessos e controles críticos",
-      "Responsáveis e próximos passos definidos",
-    ],
   },
   freeFlow: {
     pill: "Free flow e pedágio digital",

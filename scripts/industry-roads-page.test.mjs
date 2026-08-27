@@ -35,7 +35,7 @@ test("road copy stays clear for non-specialist decision makers", () => {
   assert.match(contentSource, /Uma rodovia também é uma operação de dados\./);
   assert.match(contentSource, /Uma equipe para colocar a LGPD em prática\./);
   assert.match(contentSource, /A privacidade precisa funcionar todos os dias\./);
-  assert.match(contentSource, /O que sai da primeira fase/);
+  assert.doesNotMatch(contentSource, /O que sai da primeira fase/);
   assert.doesNotMatch(
     contentSource,
     /\b(?:go-live|runbooks|subprocessadores|cadência|premissas|atores|entregáveis)\b/i,
@@ -272,15 +272,31 @@ test("road context renders the required campaign destination and varied layouts"
   assert.match(roadsContextSource, /RoadsOperationalContextSection/);
   assert.match(roadsContextSource, /RoadsLifecycleSection/);
   assert.match(roadsContextSource, /RoadsFreeFlowSection/);
-  assert.match(roadsContextSource, /content\.outcomes\.map/);
   assert.match(roadsContextSource, /lg:grid-cols-5/);
   assert.match(roadsContextSource, /md:grid-cols-\[0\.9fr_1\.1fr\]/);
+});
+
+test("lifecycle uses semantic stage icons and omits redundant outcomes", () => {
+  for (const icon of [
+    "Search",
+    "FileSignature",
+    "Settings2",
+    "BadgeCheck",
+    "RefreshCw",
+  ]) {
+    assert.match(roadsContextSource, new RegExp(`\\b${icon}\\b`));
+  }
+
+  assert.match(roadsContextSource, /lg:grid-cols-5/);
+  assert.doesNotMatch(roadsContextSource, /content\.outcomes/);
+  assert.doesNotMatch(contentSource, /outcomesTitle:|outcomes:/);
+  assert.doesNotMatch(typesSource, /readonly outcomesTitle:|readonly outcomes:/);
 });
 
 test("road context uses small yellow signals, not yellow section backgrounds", () => {
   assert.match(
     roadsContextSource,
-    /h-3 w-3 rounded-\[3px\] bg-brand-400/,
+    /h-2\.5 w-2\.5 rounded-\[3px\] bg-brand-400/,
   );
   assert.doesNotMatch(
     roadsContextSource,
@@ -434,7 +450,7 @@ test("every declared campaign anchor has one rendered target", () => {
 
 test("road content removes the redundant standalone process contracts", () => {
   assert.match(typesSource, /proofNote: string/);
-  assert.match(typesSource, /outcomes: readonly string\[\]/);
+  assert.doesNotMatch(typesSource, /outcomes: readonly string\[\]/);
   assert.doesNotMatch(typesSource, /readonly privacyByDesign:/);
   assert.doesNotMatch(typesSource, /readonly method:/);
   assert.doesNotMatch(contentSource, /privacyByDesign:/);

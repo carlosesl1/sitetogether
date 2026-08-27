@@ -86,8 +86,6 @@ export type RoadsIndustryContent = {
     readonly title: string;
     readonly description: string;
     readonly stages: readonly IndustryTextItem[];
-    readonly outcomesTitle: string;
-    readonly outcomes: readonly string[];
   };
   readonly freeFlow: {
     readonly pill: string;
