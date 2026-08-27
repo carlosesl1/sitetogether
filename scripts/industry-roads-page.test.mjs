@@ -116,3 +116,42 @@ test("industry contact link enhances ActionLink without blocking navigation", ()
   assert.match(contactLinkSource, /useSyncExternalStore/);
   assert.doesNotMatch(contactLinkSource, /preventDefault/);
 });
+
+const proofSource = await readOptional(
+  "../src/components/industry/industry-proof-strip.tsx",
+);
+const technologyRailSource = await readOptional(
+  "../src/components/industry/industry-technology-rail.tsx",
+);
+const privacyPlatformsSource = await readOptional(
+  "../src/content/privacy-platforms.ts",
+);
+const techIntegrationSource = await readOptional(
+  "../src/components/ui/tech-integration.tsx",
+);
+
+test("industry proof is stats-only and cannot imply road-sector clients", () => {
+  assert.match(proofSource, /<dl/);
+  assert.match(proofSource, /rounded-t-\[40px\]/);
+  assert.doesNotMatch(proofSource, /LogoMarquee/);
+  assert.doesNotMatch(proofSource, /Clientes que confiam/);
+});
+
+test("privacy platform data is shared without changing the home section", () => {
+  for (const label of [
+    "OneTrust",
+    "TrustWorks",
+    "Securiti",
+    "Privacy Tools",
+    "DPONet",
+    "BeCompliance",
+    "Privally",
+  ]) {
+    assert.match(
+      privacyPlatformsSource,
+      new RegExp(label.replace(" ", "\\s*"), "i"),
+    );
+  }
+  assert.match(techIntegrationSource, /privacyPlatforms/);
+  assert.match(technologyRailSource, /privacyPlatforms/);
+});

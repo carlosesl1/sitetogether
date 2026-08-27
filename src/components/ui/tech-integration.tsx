@@ -6,16 +6,7 @@ import { motion } from "framer-motion";
 import { Zap } from "lucide-react";
 import { ActionLink, SectionPill } from "@/components/ui/site-primitives";
 import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
-
-const vendors = [
-    { id: "OneTrust", label: "OneTrust", src: "/logos/onetrust.svg" },
-    { id: "TrustWorks", label: "TrustWorks", src: "/logos/trustworks.png" },
-    { id: "Securiti", label: "Securiti", src: "/logos/securiti.svg" },
-    { id: "Privacy Tools", label: "Privacy Tools", src: "/logos/privacy-tools.svg" },
-    { id: "DPONet", label: "DPONet", src: "/logos/dponet.svg" },
-    { id: "BeCompliance", label: "BeCompliance", src: "/logos/becompliance.svg" },
-    { id: "Privally", label: "Privally", src: "/logos/privally.png" },
-];
+import { privacyPlatforms } from "@/content/privacy-platforms";
 
 export function TechIntegration() {
     return (
@@ -74,7 +65,7 @@ export function TechIntegration() {
 
                 {/* VISIBLE GRID instead of Scroll Stream */}
                 <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-16 max-w-6xl mx-auto md:mb-24">
-                    {vendors.map((v, i) => (
+                    {privacyPlatforms.map((v, i) => (
                         <motion.div
                             key={i}
                             initial={{ opacity: 0, y: 20 }}
