@@ -155,3 +155,19 @@ test("privacy platform data is shared without changing the home section", () => 
   assert.match(techIntegrationSource, /privacyPlatforms/);
   assert.match(technologyRailSource, /privacyPlatforms/);
 });
+
+const faqSource = await readOptional(
+  "../src/components/industry/industry-faq-section.tsx",
+);
+
+test("industry FAQ is configurable and exposes accordion semantics", () => {
+  assert.match(faqSource, /items: readonly IndustryFaqItem\[\]/);
+  assert.match(faqSource, /aria-expanded=\{isOpen\}/);
+  assert.match(faqSource, /aria-controls=\{panelId\}/);
+  assert.match(faqSource, /aria-labelledby=\{buttonId\}/);
+  assert.match(faqSource, /role="region"/);
+  assert.match(faqSource, /type="button"/);
+  assert.match(faqSource, /useReducedMotion/);
+  assert.doesNotMatch(faqSource, /Agendar Call Técnica/);
+  assert.doesNotMatch(faqSource, /<ActionLink/);
+});
