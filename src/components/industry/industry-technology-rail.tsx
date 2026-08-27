@@ -4,7 +4,7 @@ import { privacyPlatforms } from "@/content/privacy-platforms";
 export function IndustryTechnologyRail() {
   return (
     <div className="border-t border-white/10 pt-10">
-      <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-neutral-500">
+      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-neutral-400">
         Experiência prática com plataformas de privacidade
       </p>
       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-7">

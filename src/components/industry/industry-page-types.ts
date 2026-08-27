@@ -1,7 +1,5 @@
 export type IndustryCtaPosition = "hero" | "capabilities" | "final";
 
-export type IndustryTone = "light" | "dark" | "brand-compact";
-
 export type IndustryProofItem = {
   readonly value: string;
   readonly label: string;
@@ -22,8 +20,8 @@ export type IndustryCampaignAnchor = {
     | "internacional";
   readonly sectionKey:
     | "freeFlow"
-    | "privacyByDesign"
-    | "operations"
+    | "lifecycle"
+    | "capabilities"
     | "international";
 };
 
@@ -65,7 +63,6 @@ export type IndustryTextItem = {
 export type IndustryCapability = {
   readonly title: string;
   readonly description: string;
-  readonly tone: IndustryTone;
 };
 
 export type RoadsIndustryContent = {
@@ -77,6 +74,7 @@ export type RoadsIndustryContent = {
   };
   readonly hero: IndustryHeroContent;
   readonly proof: readonly IndustryProofItem[];
+  readonly proofNote: string;
   readonly context: {
     readonly pill: string;
     readonly title: string;
@@ -88,6 +86,8 @@ export type RoadsIndustryContent = {
     readonly title: string;
     readonly description: string;
     readonly stages: readonly IndustryTextItem[];
+    readonly outcomesTitle: string;
+    readonly outcomes: readonly string[];
   };
   readonly freeFlow: {
     readonly pill: string;
@@ -103,12 +103,6 @@ export type RoadsIndustryContent = {
     readonly ctaTitle: string;
     readonly ctaText: string;
     readonly cta: string;
-  };
-  readonly privacyByDesign: {
-    readonly pill: string;
-    readonly title: string;
-    readonly description: string;
-    readonly steps: readonly IndustryTextItem[];
   };
   readonly operations: {
     readonly pill: string;
@@ -126,12 +120,6 @@ export type RoadsIndustryContent = {
     readonly pill: string;
     readonly title: string;
     readonly description: string;
-  };
-  readonly method: {
-    readonly pill: string;
-    readonly title: string;
-    readonly description: string;
-    readonly stages: readonly IndustryTextItem[];
   };
   readonly faq: {
     readonly pill: string;

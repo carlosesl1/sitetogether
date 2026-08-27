@@ -4,8 +4,6 @@ import {
   FileCheck2,
   Network,
   ScanSearch,
-  ShieldAlert,
-  UserCheck,
   Workflow,
 } from "lucide-react";
 import type { RoadsIndustryContent } from "@/components/industry/industry-page-types";
@@ -14,26 +12,17 @@ import { IndustrySectionHeading } from "@/components/industry/industry-section-h
 import { IndustryTechnologyRail } from "@/components/industry/industry-technology-rail";
 import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
 import { SectionPill } from "@/components/ui/site-primitives";
-import { cn } from "@/lib/utils";
 
-type CapabilityProps = {
+type DeliveryProps = {
   sector: string;
   allowedAnchors: readonly string[];
-  content: RoadsIndustryContent["capabilities"];
-};
-
-type PrivacyByDesignProps = {
-  content: RoadsIndustryContent["privacyByDesign"];
-};
-
-type OperationsProps = {
-  content: RoadsIndustryContent["operations"];
+  capabilities: RoadsIndustryContent["capabilities"];
+  operations: RoadsIndustryContent["operations"];
   training: RoadsIndustryContent["training"];
 };
 
-type InternationalMethodProps = {
-  international: RoadsIndustryContent["international"];
-  method: RoadsIndustryContent["method"];
+type InternationalProps = {
+  content: RoadsIndustryContent["international"];
 };
 
 const capabilityIcons = [
@@ -43,272 +32,164 @@ const capabilityIcons = [
   FileCheck2,
   Workflow,
   CloudCog,
-  UserCheck,
-  ShieldAlert,
 ] as const;
 
-const capabilitySpans = [
-  "lg:col-span-5",
-  "lg:col-span-4",
-  "lg:col-span-3",
-  "lg:col-span-3",
-  "lg:col-span-4",
-  "lg:col-span-5",
-  "lg:col-span-7",
-  "lg:col-span-5",
-] as const;
-
-export function RoadsCapabilitiesSection({
+export function RoadsDeliverySection({
   sector,
   allowedAnchors,
-  content,
-}: CapabilityProps) {
+  capabilities,
+  operations,
+  training,
+}: DeliveryProps) {
   return (
-    <section className="relative overflow-hidden bg-white py-24 md:py-36">
-      <PixelDecor placement="topRight" mask="topRight" opacity={0.1} />
-      <div className="container relative z-10 mx-auto px-6">
-        <IndustrySectionHeading
-          pill={content.pill}
-          title={content.title}
-          description={content.description}
-        />
+    <section className="relative overflow-hidden bg-white">
+      <div className="relative py-24 md:py-32">
+        <PixelDecor placement="topRight" mask="topRight" opacity={0.08} />
+        <div className="container relative z-10 mx-auto px-6">
+          <div className="grid items-start gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+            <IndustrySectionHeading
+              pill={capabilities.pill}
+              title={capabilities.title}
+              description={capabilities.description}
+              className="lg:sticky lg:top-28"
+            />
 
-        <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-12">
-          {content.items.map((item, index) => {
-            const Icon = capabilityIcons[index];
-            return (
-              <article
-                key={item.title}
-                className={cn(
-                  "min-w-0 rounded-[28px] border p-6 sm:p-8",
-                  capabilitySpans[index],
-                  item.tone === "light" &&
-                    "border-neutral-200 bg-neutral-50/60 text-neutral-900",
-                  item.tone === "dark" &&
-                    "border-neutral-900 bg-[#0a0a0a] text-white",
-                  item.tone === "brand-compact" &&
-                    "w-full max-w-[280px] justify-self-start border-brand-500 bg-brand-400 text-neutral-950 lg:max-w-none",
-                )}
-              >
-                <span
-                  className={cn(
-                    "flex h-11 w-11 items-center justify-center rounded-[14px]",
-                    item.tone === "dark"
-                      ? "bg-brand-400 text-neutral-950"
-                      : "bg-white text-neutral-900 shadow-sm",
-                  )}
-                >
-                  <Icon className="h-5 w-5" aria-hidden="true" />
-                </span>
-                <h3 className="mt-8 break-words text-xl font-bold tracking-tight">
-                  {item.title}
-                </h3>
-                <p
-                  className={cn(
-                    "mt-4 text-sm font-medium leading-relaxed",
-                    item.tone === "dark" ? "text-neutral-400" : "text-neutral-600",
-                  )}
-                >
-                  {item.description}
-                </p>
-              </article>
-            );
-          })}
-        </div>
-
-        <div className="mt-6 flex flex-col items-start gap-7 rounded-[28px] bg-neutral-950 p-7 text-white sm:flex-row sm:items-center sm:justify-between sm:p-9">
-          <div>
-            <h3 className="text-2xl font-bold tracking-tight text-white">
-              {content.ctaTitle}
-            </h3>
-            <p className="mt-2 max-w-2xl text-sm font-medium leading-relaxed text-neutral-400">
-              {content.ctaText}
-            </p>
+            <div className="grid border-t border-neutral-300 md:grid-cols-2">
+              {capabilities.items.map((item, index) => {
+                const Icon = capabilityIcons[index];
+                return (
+                  <article
+                    key={item.title}
+                    className="grid min-w-0 grid-cols-[40px_1fr] gap-4 border-b border-neutral-200 py-6 md:odd:pr-7 md:even:border-l md:even:pl-7"
+                  >
+                    <span className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-brand-400 text-neutral-950">
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    <div className="min-w-0">
+                      <h3 className="break-words text-lg font-bold tracking-tight text-neutral-900">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-sm font-medium leading-relaxed text-neutral-500">
+                        {item.description}
+                      </p>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
           </div>
-          <IndustryContactLink
-            sector={sector}
-            position="capabilities"
-            allowedAnchors={allowedAnchors}
-            variant="light"
-            size="md"
-            fullWidth
-            className="sm:w-auto"
-          >
-            {content.cta}
-          </IndustryContactLink>
-        </div>
-      </div>
-    </section>
-  );
-}
 
-export function RoadsPrivacyByDesignSection({ content }: PrivacyByDesignProps) {
-  return (
-    <section
-      id="privacy-by-design"
-      className="relative overflow-hidden bg-neutral-50 py-24 md:py-36"
-    >
-      <div className="container mx-auto grid items-start gap-14 px-6 md:grid-cols-[0.9fr_1.1fr] lg:gap-24">
-        <IndustrySectionHeading
-          pill={content.pill}
-          title={content.title}
-          description={content.description}
-          className="md:sticky md:top-28"
-        />
-        <div
-          id="fornecedores"
-          className="scroll-mt-28 overflow-hidden rounded-[32px] border border-neutral-200 bg-white"
-        >
-          {content.steps.map((step, index) => (
-            <article
-              key={step.title}
-              className="grid gap-5 border-b border-neutral-100 p-6 last:border-b-0 sm:grid-cols-[84px_1fr] sm:p-8"
-            >
-              <span
-                className={cn(
-                  "flex h-14 w-14 items-center justify-center rounded-[18px] text-sm font-black",
-                  index === 1
-                    ? "bg-brand-400 text-neutral-950"
-                    : "border border-neutral-200 bg-neutral-50 text-neutral-900",
-                )}
-              >
-                {step.label.slice(0, 2).toUpperCase()}
-              </span>
-              <div>
-                <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-brand-600">
-                  {step.label}
-                </span>
-                <h3 className="mt-3 text-2xl font-bold tracking-tight text-neutral-900">
-                  {step.title}
-                </h3>
-                <p className="mt-3 text-sm font-medium leading-relaxed text-neutral-500">
-                  {step.description}
-                </p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function RoadsOperationsSection({ content, training }: OperationsProps) {
-  return (
-    <section className="relative overflow-hidden bg-[#0a0a0a] py-24 text-white md:py-36">
-      <PixelDecor placement="bottomLeft" mask="bottomLeft" opacity={0.14} />
-      <div className="container relative z-10 mx-auto px-6">
-        <IndustrySectionHeading
-          pill={content.pill}
-          title={content.title}
-          description={content.description}
-          inverse
-        />
-
-        <div className="mt-14 grid gap-px overflow-hidden rounded-[30px] border border-white/10 bg-white/10 md:grid-cols-2">
-          {content.routines.map((routine, index) => (
-            <article
-              id={index === 0 ? "dpo" : index === 1 ? "incidentes" : undefined}
-              key={routine.title}
-              className="scroll-mt-28 bg-[#0a0a0a] p-7 sm:p-9"
-            >
-              <span className="flex items-center gap-3 text-[9px] font-bold uppercase tracking-[0.2em] text-brand-400">
-                <span className="h-3 w-3 rounded-[3px] bg-brand-400" aria-hidden="true" />
-                {routine.label}
-              </span>
-              <h3 className="mt-7 text-2xl font-bold tracking-tight text-white">
-                {routine.title}
+          <div className="mt-12 flex flex-col items-start gap-7 rounded-[24px] bg-neutral-950 p-7 text-white sm:flex-row sm:items-center sm:justify-between sm:p-9">
+            <div>
+              <h3 className="text-2xl font-bold tracking-tight text-white">
+                {capabilities.ctaTitle}
               </h3>
-              <p className="mt-4 text-sm font-medium leading-relaxed text-neutral-400">
-                {routine.description}
+              <p className="mt-2 max-w-2xl text-sm font-medium leading-relaxed text-neutral-400">
+                {capabilities.ctaText}
               </p>
-            </article>
-          ))}
-        </div>
-
-        <div className="mt-14 grid gap-10 border-t border-white/10 pt-12 lg:grid-cols-[0.8fr_1.2fr]">
-          <div>
-            <SectionPill tone="dark">{training.pill}</SectionPill>
-            <h3 className="mt-7 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              {training.title}
-            </h3>
-            <p className="mt-5 text-base font-medium leading-relaxed text-neutral-400">
-              {training.description}
-            </p>
-          </div>
-          <div className="flex flex-wrap content-start gap-3">
-            {training.audiences.map((audience) => (
-              <span
-                key={audience}
-                className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-3 text-xs font-bold text-neutral-300"
-              >
-                {audience}
-              </span>
-            ))}
+            </div>
+            <IndustryContactLink
+              sector={sector}
+              position="capabilities"
+              allowedAnchors={allowedAnchors}
+              variant="primary"
+              size="md"
+              fullWidth
+              className="sm:w-auto"
+            >
+              {capabilities.cta}
+            </IndustryContactLink>
           </div>
         </div>
+      </div>
 
-        <div className="mt-14">
-          <IndustryTechnologyRail />
+      <div className="relative bg-[#0a0a0a] py-24 text-white md:py-32">
+        <PixelDecor placement="bottomLeft" mask="bottomLeft" opacity={0.12} />
+        <div className="container relative z-10 mx-auto px-6">
+          <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+            <div>
+              <SectionPill tone="dark">{operations.pill}</SectionPill>
+              <h2 className="mt-7 max-w-3xl text-[clamp(2.3rem,7vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.03em] text-white">
+                {operations.title}
+              </h2>
+              <p className="mt-6 max-w-2xl text-base font-medium leading-relaxed text-neutral-400 sm:text-lg">
+                {operations.description}
+              </p>
+
+              <div className="mt-10 border-t border-white/15">
+                {operations.routines.map((routine, index) => (
+                  <article
+                    id={index === 0 ? "dpo" : index === 1 ? "incidentes" : undefined}
+                    key={routine.title}
+                    className="scroll-mt-28 grid gap-3 border-b border-white/10 py-6 sm:grid-cols-[120px_1fr] sm:gap-7"
+                  >
+                    <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-400">
+                      {routine.label}
+                    </span>
+                    <div>
+                      <h3 className="text-xl font-bold tracking-tight text-white">
+                        {routine.title}
+                      </h3>
+                      <p className="mt-2 text-sm font-medium leading-relaxed text-neutral-400">
+                        {routine.description}
+                      </p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <div className="border-t border-white/15 pt-9 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
+              <SectionPill tone="dark">{training.pill}</SectionPill>
+              <h3 className="mt-7 text-3xl font-bold tracking-[-0.025em] text-white">
+                {training.title}
+              </h3>
+              <p className="mt-5 text-base font-medium leading-relaxed text-neutral-400">
+                {training.description}
+              </p>
+              <ul className="mt-8 space-y-3">
+                {training.audiences.map((audience) => (
+                  <li
+                    key={audience}
+                    className="flex items-start gap-3 border-t border-white/10 pt-3 text-sm font-bold leading-relaxed text-neutral-300"
+                  >
+                    <span
+                      className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-[3px] bg-brand-400"
+                      aria-hidden="true"
+                    />
+                    {audience}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-14">
+            <IndustryTechnologyRail />
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-export function RoadsInternationalMethodSection({
-  international,
-  method,
-}: InternationalMethodProps) {
+export function RoadsInternationalSection({ content }: InternationalProps) {
   return (
-    <section className="relative overflow-hidden bg-white py-24 md:py-36">
+    <section className="relative bg-white py-20 md:py-24">
       <div className="container mx-auto px-6">
         <div
           id="internacional"
-          className="scroll-mt-28 rounded-[32px] border border-neutral-200 bg-neutral-50/70 p-7 sm:p-10 lg:grid lg:grid-cols-[0.75fr_1.25fr] lg:gap-20"
+          className="scroll-mt-28 rounded-[28px] bg-neutral-100/80 p-7 sm:p-10 lg:grid lg:grid-cols-[0.65fr_1.35fr] lg:items-start lg:gap-16"
         >
-          <SectionPill>{international.pill}</SectionPill>
+          <SectionPill>{content.pill}</SectionPill>
           <div className="mt-8 lg:mt-0">
-            <h2 className="text-[clamp(2.2rem,8vw,3rem)] font-bold leading-[0.98] tracking-tight text-neutral-900 lg:text-5xl">
-              {international.title}
+            <h2 className="max-w-3xl text-[clamp(2.15rem,7vw,3.25rem)] font-bold leading-[0.98] tracking-[-0.03em] text-neutral-900">
+              {content.title}
             </h2>
-            <p className="mt-6 text-lg font-medium leading-relaxed text-neutral-500">
-              {international.description}
+            <p className="mt-6 max-w-3xl text-base font-medium leading-relaxed text-neutral-500 sm:text-lg">
+              {content.description}
             </p>
           </div>
-        </div>
-
-        <div className="mt-20">
-          <IndustrySectionHeading
-            pill={method.pill}
-            title={method.title}
-            description={method.description}
-          />
-          <ol aria-label="Fluxo de trabalho" className="mt-12 grid gap-8 lg:grid-cols-4">
-            {method.stages.map((stage, index) => (
-              <li key={stage.title} className="relative min-w-0 border-t border-neutral-300 pt-8">
-                <span
-                  className={cn(
-                    "mb-6 flex h-11 w-11 items-center justify-center rounded-[14px] text-sm font-black",
-                    index === method.stages.length - 1
-                      ? "bg-neutral-950 text-brand-400"
-                      : "bg-brand-400 text-neutral-950",
-                  )}
-                >
-                  {stage.label.slice(0, 1)}
-                </span>
-                <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-brand-600">
-                  {stage.label}
-                </span>
-                <h3 className="mt-3 text-xl font-bold tracking-tight text-neutral-900">
-                  {stage.title}
-                </h3>
-                <p className="mt-3 text-sm font-medium leading-relaxed text-neutral-500">
-                  {stage.description}
-                </p>
-              </li>
-            ))}
-          </ol>
         </div>
       </div>
     </section>

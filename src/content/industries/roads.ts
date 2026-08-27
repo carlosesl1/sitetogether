@@ -15,7 +15,7 @@ export const roadsIndustryContent = {
     title:
       "Organize a privacidade da operação — do projeto ao pedágio digital.",
     description:
-      "A TOGETHER ajuda concessionárias e operadoras a definir como os dados serão usados, ajustar sistemas e fornecedores, atender solicitações e preparar a resposta a incidentes. Tudo com responsabilidades e próximos passos claros.",
+      "A TOGETHER ajuda concessionárias e operadoras a organizar dados, sistemas, fornecedores, solicitações e incidentes, com responsabilidades e próximos passos claros.",
     cta: "Agende uma Conversa",
     image: {
       desktop: {
@@ -46,11 +46,13 @@ export const roadsIndustryContent = {
       label: "prática com as principais plataformas de privacidade",
     },
   ],
+  proofNote:
+    "Indicadores da atuação da TOGETHER em privacidade. A aplicação ao setor rodoviário começa pelo entendimento da operação e não representa um case setorial já realizado.",
   context: {
     pill: "Onde os dados circulam",
     title: "Uma rodovia também é uma operação de dados.",
     description:
-      "Cadastros, placas, imagens, pagamentos, aplicativos e fornecedores fazem parte da rotina. A TOGETHER mostra onde os dados entram, quem os utiliza e quais cuidados são necessários.",
+      "Cadastros, placas, imagens, pagamentos, aplicativos e fornecedores fazem parte da rotina. Mapeamos onde os dados entram, quem os usa e quais cuidados são necessários.",
     nodes: [
       {
         label: "Entrada",
@@ -60,8 +62,7 @@ export const roadsIndustryContent = {
       {
         label: "Identificação",
         title: "Pórticos e sistemas",
-        description:
-          "Imagens, leitura automática de placas, sensores e registros dos sistemas.",
+        description: "Imagens, leitura de placas, sensores e registros.",
       },
       {
         label: "Transação",
@@ -72,14 +73,12 @@ export const roadsIndustryContent = {
       {
         label: "Ecossistema",
         title: "Fornecedores e integrações",
-        description:
-          "Operadores, nuvem, suporte e empresas com acesso aos dados.",
+        description: "Operadores, nuvem, suporte e outros acessos.",
       },
       {
         label: "Atendimento",
         title: "Pessoas e equipes",
-        description:
-          "Colaboradores, solicitações de pessoas e registros do atendimento.",
+        description: "Colaboradores, solicitações e registros de atendimento.",
       },
     ],
   },
@@ -92,24 +91,23 @@ export const roadsIndustryContent = {
       {
         label: "Viabilidade",
         title: "Entender quais dados serão usados",
-        description:
-          "Objetivo, pessoas envolvidas, riscos e necessidades do projeto.",
+        description: "Objetivo, pessoas, riscos e necessidades do projeto.",
       },
       {
         label: "Contratação",
         title: "Definir exigências para fornecedores",
-        description: "Responsabilidades, acessos, segurança e comprovações.",
+        description:
+          "Responsabilidades, acessos, segurança, contratos e comprovações.",
       },
       {
         label: "Implantação",
         title: "Ajustar sistemas e processos",
-        description: "Acessos, prazos de guarda, responsáveis e testes.",
+        description: "Acessos, guarda, integrações, responsáveis e testes.",
       },
       {
         label: "Entrada em operação",
         title: "Confirmar se tudo está pronto",
-        description:
-          "Avisos, canais, responsáveis e plano para situações críticas.",
+        description: "Avisos, canais, responsáveis e plano de resposta.",
       },
       {
         label: "Rotina",
@@ -117,23 +115,30 @@ export const roadsIndustryContent = {
         description: "Atendimento, incidentes, fornecedores e pendências.",
       },
     ],
+    outcomesTitle: "O que sai da primeira fase",
+    outcomes: [
+      "Mapa dos principais fluxos de dados",
+      "Prioridades e plano de ação",
+      "Fornecedores, acessos e controles críticos",
+      "Responsáveis e próximos passos definidos",
+    ],
   },
   freeFlow: {
     pill: "Free flow e pedágio digital",
     title: "Placas, imagens e pagamentos precisam de regras claras.",
     description:
-      "A TOGETHER ajuda sua equipe a decidir quais dados são necessários, quem pode acessá-los, por quanto tempo serão guardados e como corrigir problemas.",
+      "Definimos quais dados são necessários, quem acessa, por quanto tempo são guardados e como corrigir problemas.",
     controls: [
       {
         label: "Necessidade",
         title: "Coletar somente o necessário",
-        description: "Cada dado precisa ter uma finalidade ligada ao serviço.",
+        description: "Cada dado precisa ter uma finalidade clara.",
       },
       {
         label: "Acesso",
         title: "Definir quem pode acessar",
         description:
-          "Permissões e registros mostram quem consultou ou alterou informações.",
+          "Permissões e registros mostram quem consultou ou alterou dados.",
       },
       {
         label: "Armazenamento",
@@ -144,176 +149,86 @@ export const roadsIndustryContent = {
       {
         label: "Atendimento",
         title: "Corrigir erros e responder solicitações",
-        description: "Canais, prazos e responsáveis precisam funcionar na prática.",
+        description: "Canais, prazos e responsáveis precisam funcionar.",
       },
     ],
   },
   capabilities: {
     pill: "Como a TOGETHER apoia",
     title: "Uma equipe para colocar a LGPD em prática.",
-    description:
-      "O apoio pode começar em uma demanda específica ou acompanhar toda a operação.",
+    description: "O apoio pode ser pontual ou acompanhar a operação.",
     items: [
       {
         title: "Diagnóstico e plano de ação",
         description: "Identificamos problemas, prioridades e próximos passos.",
-        tone: "light",
       },
       {
         title: "Mapeamento do uso de dados",
         description:
           "Mostramos onde os dados entram, circulam e são compartilhados.",
-        tone: "light",
       },
       {
         title: "Privacidade desde o projeto",
-        description:
-          "Incluímos os cuidados com os dados antes da entrada em operação.",
-        tone: "brand-compact",
+        description: "Incluímos privacidade antes da entrada em operação.",
       },
       {
         title: "Processos e comprovações",
-        description:
-          "Criamos rotinas, controles e registros que podem ser demonstrados.",
-        tone: "dark",
+        description: "Criamos rotinas, controles e registros demonstráveis.",
       },
       {
         title: "Controle de fornecedores",
         description: "Revisamos contratos, acessos e empresas envolvidas.",
-        tone: "light",
       },
       {
         title: "Ferramentas de privacidade",
-        description:
-          "Configuramos e apoiamos a operação das plataformas necessárias.",
-        tone: "light",
-      },
-      {
-        title: "Apoio ao DPO e às pessoas",
-        description:
-          "Organizamos canais, registros e acompanhamento das solicitações.",
-        tone: "light",
-      },
-      {
-        title: "Resposta a incidentes",
-        description:
-          "Preparamos o plano de resposta, testes e acompanhamento das ações.",
-        tone: "light",
+        description: "Configuramos e operamos plataformas de privacidade.",
       },
     ],
     ctaTitle: "Quer avaliar uma necessidade da operação?",
-    ctaText:
-      "Conte o que está acontecendo. Ajudamos a definir o escopo e o próximo passo.",
+    ctaText: "Ajudamos a definir o escopo e o próximo passo.",
     cta: "Agende uma Conversa",
-  },
-  privacyByDesign: {
-    pill: "Privacidade desde o projeto",
-    title: "Evite descobrir problemas quando a operação já estiver pronta.",
-    description:
-      "A TOGETHER ajuda engenharia, tecnologia, compras e jurídico a incluir regras de privacidade nas decisões do projeto.",
-    steps: [
-      {
-        label: "Contratação",
-        title: "Contratos e concorrências",
-        description:
-          "Responsabilidades, medidas de segurança e comprovações entram no escopo.",
-      },
-      {
-        label: "Arquitetura",
-        title: "Sistemas e integrações",
-        description:
-          "Definimos dados, acessos, prazos de guarda, localização e fornecedores.",
-      },
-      {
-        label: "Validação",
-        title: "Testes antes da operação",
-        description:
-          "Verificamos controles, avisos, canais e responsáveis antes da entrada em uso.",
-      },
-    ],
   },
   operations: {
     pill: "Depois da implantação",
     title: "A privacidade precisa funcionar todos os dias.",
     description:
-      "Apoiamos a rotina de atendimento, incidentes, fornecedores, acessos e melhoria do programa.",
+      "Apoiamos atendimento, incidentes, fornecedores e evolução do programa.",
     routines: [
       {
         label: "Atendimento",
-        title: "Solicitações organizadas",
+        title: "DPO e solicitações organizadas",
         description:
           "Canal, responsáveis, prazos e histórico de cada solicitação.",
       },
       {
         label: "Incidentes",
         title: "Resposta sem improviso",
-        description:
-          "Plano, responsáveis, informações e ações ficam registrados.",
+        description: "Plano, responsáveis e ações ficam registrados.",
       },
       {
-        label: "Fornecedores",
-        title: "Acompanhamento contínuo",
+        label: "Continuidade",
+        title: "Fornecedores e melhoria contínua",
         description:
-          "Acessos, contratos e pendências são revisados periodicamente.",
-      },
-      {
-        label: "Programa",
-        title: "Melhoria acompanhada",
-        description: "Indicadores, decisões e próximos passos ficam visíveis.",
+          "Acessos, contratos, pendências e próximos passos são acompanhados.",
       },
     ],
   },
   training: {
     pill: "Treinamentos e workshops",
     title: "Cada equipe aprende o que precisa fazer.",
-    description:
-      "Treinamentos adaptados à rotina de cada área, com registro de participação e conclusão.",
+    description: "Treinamentos por área, com registro de participação e conclusão.",
     audiences: [
-      "Engenharia e projetos",
-      "Operação de pórticos e CCO",
+      "Projetos, engenharia e compras",
+      "Operação, CCO e atendimento",
       "Tecnologia e segurança",
-      "RH e compras",
-      "Fornecedores",
-      "Atendimento e incidentes",
-      "Lideranças",
+      "Lideranças e fornecedores",
     ],
   },
   international: {
     pill: "Brasil e atuação internacional",
     title: "Dados em outros países exigem uma análise específica.",
     description:
-      "Verificamos onde os dados ficam, quem pode acessá-los e quais regras se aplicam quando há nuvem, suporte ou fornecedores no exterior. Consideramos a LGPD e, quando necessário, o GDPR.",
-  },
-  method: {
-    pill: "Como o trabalho começa",
-    title: "Entendemos a demanda, definimos o plano e acompanhamos a execução.",
-    description:
-      "A TOGETHER pode apoiar uma frente específica ou assumir uma rotina contínua de privacidade.",
-    stages: [
-      {
-        label: "Entender",
-        title: "Entender a demanda",
-        description:
-          "Conhecemos a operação, o problema, os sistemas e as áreas envolvidas.",
-      },
-      {
-        label: "Definir",
-        title: "Definir o plano",
-        description:
-          "Organizamos atividades, responsáveis, prazos e aprovações.",
-      },
-      {
-        label: "Implantar",
-        title: "Colocar em prática",
-        description:
-          "Apoiamos processos, ferramentas, registros e correções.",
-      },
-      {
-        label: "Sustentar",
-        title: "Manter funcionando",
-        description: "Treinamos as equipes e acompanhamos a evolução.",
-      },
-    ],
+      "Analisamos onde os dados ficam, quem acessa e quais regras se aplicam à nuvem, ao suporte ou a fornecedores no exterior. Consideramos LGPD e, quando necessário, GDPR.",
   },
   faq: {
     pill: "Perguntas frequentes",
@@ -322,39 +237,30 @@ export const roadsIndustryContent = {
     description: "Respostas diretas para avaliar se a TOGETHER pode ajudar.",
     items: [
       {
-        question: "Onde a LGPD aparece na operação de uma rodovia?",
+        question: "Onde a LGPD aparece na operação?",
         answer:
-          "Em cadastros, placas, imagens, pagamentos, aplicativos, atendimento, colaboradores, fornecedores e sistemas. O trabalho necessário depende de como cada operação coleta, utiliza e compartilha esses dados.",
+          "Em cadastros, placas, imagens, pagamentos, aplicativos, equipes, fornecedores e sistemas. O escopo depende de como cada operação usa e compartilha esses dados.",
       },
       {
         question:
           "Como a TOGETHER apoia projetos de free flow e pedágio digital?",
         answer:
-          "Mapeamos quais dados são usados, por que são necessários, quem pode acessá-los, por quanto tempo serão guardados e como fornecedores, atendimento e sistemas participam da operação.",
+          "Mapeamos dados, finalidades, acessos, prazos e fornecedores. Também organizamos atendimento, correção de erros e resposta a incidentes.",
       },
       {
-        question:
-          "A atuação pode começar ainda na fase de projeto ou contratação?",
+        question: "Podemos atuar antes da entrada em operação?",
         answer:
-          "Sim. Podemos incluir regras de privacidade em contratos, sistemas, integrações e testes antes da entrada em operação. Isso reduz retrabalho e ajustes de última hora.",
+          "Sim. Regras de privacidade podem entrar em contratos, sistemas, integrações e testes, reduzindo ajustes posteriores.",
       },
       {
-        question:
-          "A TOGETHER pode apoiar DPO, titulares e incidentes depois da implantação?",
+        question: "A TOGETHER apoia a operação contínua?",
         answer:
-          "Sim. Podemos organizar canais, registros, atividades do encarregado, atendimento a solicitações, planos de resposta a incidentes, testes e acompanhamento das ações.",
+          "Sim. Organizamos DPO, titulares, incidentes, fornecedores, registros e treinamentos conforme o escopo.",
       },
       {
-        question:
-          "Como são tratados fornecedores e transferências internacionais?",
+        question: "A TOGETHER já possui um case no setor rodoviário?",
         answer:
-          "Verificamos quais empresas acessam os dados, onde eles ficam armazenados e quais contratos e regras são necessários. A análise considera o funcionamento real de cada operação.",
-      },
-      {
-        question:
-          "A TOGETHER já possui um case específico no setor rodoviário?",
-        answer:
-          "Ainda não temos experiência nem case específico no setor rodoviário. Nossa experiência está em colocar programas de privacidade em prática, com processos, tecnologia, controles e registros. Aplicamos esse conhecimento ao contexto da concessionária depois de entender seus contratos, sistemas, fornecedores e uso de dados.",
+          "Ainda não temos experiência nem case específico no setor rodoviário. Nossa experiência está na implantação e operação de programas de privacidade, aplicada depois de entendermos contratos, sistemas, fornecedores e fluxos da concessionária.",
       },
     ],
   },
@@ -362,7 +268,7 @@ export const roadsIndustryContent = {
     pill: "LGPD para operações rodoviárias",
     title: "Coloque a LGPD em prática na operação rodoviária.",
     description:
-      "Em uma conversa inicial, entendemos sua prioridade e mostramos como a TOGETHER pode apoiar o projeto ou a rotina.",
+      "Entendemos sua prioridade e mostramos como apoiar o projeto ou a rotina.",
     cta: "Agende uma Conversa",
     nextStep:
       "Uma conversa sobre a demanda, as áreas envolvidas e o próximo passo.",
@@ -412,10 +318,10 @@ export const roadsIndustryContent = {
   ],
   campaignAnchors: [
     { id: "free-flow", sectionKey: "freeFlow" },
-    { id: "privacy-by-design", sectionKey: "privacyByDesign" },
-    { id: "fornecedores", sectionKey: "privacyByDesign" },
-    { id: "dpo", sectionKey: "operations" },
-    { id: "incidentes", sectionKey: "operations" },
+    { id: "privacy-by-design", sectionKey: "lifecycle" },
+    { id: "fornecedores", sectionKey: "lifecycle" },
+    { id: "dpo", sectionKey: "capabilities" },
+    { id: "incidentes", sectionKey: "capabilities" },
     { id: "internacional", sectionKey: "international" },
   ],
 } as const satisfies RoadsIndustryContent;

@@ -52,7 +52,7 @@ export function RoadsOperationalContextSection({ content }: ContextProps) {
                     />
                   </span>
                   <span className="min-w-0 self-center">
-                    <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-brand-600">
+                    <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-neutral-600">
                       {node.label}
                     </span>
                     <strong className="mt-2 block break-words text-lg tracking-tight text-neutral-900">
@@ -74,7 +74,10 @@ export function RoadsOperationalContextSection({ content }: ContextProps) {
 
 export function RoadsLifecycleSection({ content }: LifecycleProps) {
   return (
-    <section className="relative overflow-hidden bg-neutral-50 py-24 md:py-36">
+    <section
+      id="privacy-by-design"
+      className="relative scroll-mt-24 overflow-hidden bg-neutral-50 py-24 md:py-36"
+    >
       <div className="container mx-auto px-6">
         <IndustrySectionHeading
           pill={content.pill}
@@ -87,19 +90,20 @@ export function RoadsLifecycleSection({ content }: LifecycleProps) {
             aria-hidden="true"
           />
           <ol className="relative grid gap-8 lg:grid-cols-5 lg:gap-5">
-            {content.stages.map((stage) => (
+            {content.stages.map((stage, index) => (
               <li
+                id={index === 1 ? "fornecedores" : undefined}
                 key={stage.title}
-                className="relative grid grid-cols-[48px_1fr] gap-5 lg:block"
+                className="relative scroll-mt-28 grid grid-cols-[48px_1fr] gap-5 lg:block"
               >
-                <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-[16px] border border-neutral-200 bg-white shadow-sm">
+                <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-[16px] border border-neutral-200 bg-white">
                   <span
                     className="h-3 w-3 rounded-[3px] bg-brand-400"
                     aria-hidden="true"
                   />
                 </span>
                 <div className="min-w-0 lg:mt-8">
-                  <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-brand-600">
+                  <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-neutral-600">
                     {stage.label}
                   </span>
                   <h3 className="mt-3 break-words text-xl font-bold tracking-tight text-neutral-900">
@@ -112,6 +116,26 @@ export function RoadsLifecycleSection({ content }: LifecycleProps) {
               </li>
             ))}
           </ol>
+        </div>
+
+        <div className="mt-14 border-t border-neutral-300 pt-9">
+          <h3 className="text-2xl font-bold tracking-tight text-neutral-900">
+            {content.outcomesTitle}
+          </h3>
+          <ul className="mt-7 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
+            {content.outcomes.map((outcome) => (
+              <li
+                key={outcome}
+                className="flex min-w-0 items-start gap-3 border-t border-neutral-200 pt-4 text-sm font-bold leading-relaxed text-neutral-700"
+              >
+                <span
+                  className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-[3px] bg-brand-400"
+                  aria-hidden="true"
+                />
+                <span className="min-w-0">{outcome}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
@@ -144,7 +168,7 @@ export function RoadsFreeFlowSection({ content }: FreeFlowProps) {
                 key={control.title}
                 className="grid gap-3 border-b border-white/10 py-7 sm:grid-cols-[130px_1fr] sm:gap-8"
               >
-                <span className="flex items-start gap-3 text-[9px] font-bold uppercase tracking-[0.2em] text-brand-400">
+                <span className="flex items-start gap-3 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-400">
                   <span
                     className="mt-0.5 h-3 w-3 shrink-0 rounded-[3px] bg-brand-400"
                     aria-hidden="true"

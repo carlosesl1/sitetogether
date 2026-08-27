@@ -3,10 +3,8 @@ import { IndustryFinalCta } from "@/components/industry/industry-final-cta";
 import { IndustryHero } from "@/components/industry/industry-hero";
 import { IndustryProofStrip } from "@/components/industry/industry-proof-strip";
 import {
-  RoadsCapabilitiesSection,
-  RoadsInternationalMethodSection,
-  RoadsOperationsSection,
-  RoadsPrivacyByDesignSection,
+  RoadsDeliverySection,
+  RoadsInternationalSection,
 } from "@/components/industry/roads/roads-capability-sections";
 import {
   RoadsFreeFlowSection,
@@ -29,24 +27,18 @@ export function RoadsIndustryPage() {
           content={content.hero}
           allowedAnchors={roadAnchorIds}
         />
-        <IndustryProofStrip items={content.proof} />
+        <IndustryProofStrip items={content.proof} note={content.proofNote} />
         <RoadsOperationalContextSection content={content.context} />
         <RoadsLifecycleSection content={content.lifecycle} />
         <RoadsFreeFlowSection content={content.freeFlow} />
-        <RoadsCapabilitiesSection
+        <RoadsDeliverySection
           sector={content.sector}
           allowedAnchors={roadAnchorIds}
-          content={content.capabilities}
-        />
-        <RoadsPrivacyByDesignSection content={content.privacyByDesign} />
-        <RoadsOperationsSection
-          content={content.operations}
+          capabilities={content.capabilities}
+          operations={content.operations}
           training={content.training}
         />
-        <RoadsInternationalMethodSection
-          international={content.international}
-          method={content.method}
-        />
+        <RoadsInternationalSection content={content.international} />
         <IndustryFaqSection {...content.faq} />
         <IndustryFinalCta
           sector={content.sector}

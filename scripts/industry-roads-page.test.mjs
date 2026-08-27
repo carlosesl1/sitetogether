@@ -35,6 +35,7 @@ test("road copy stays clear for non-specialist decision makers", () => {
   assert.match(contentSource, /Uma rodovia também é uma operação de dados\./);
   assert.match(contentSource, /Uma equipe para colocar a LGPD em prática\./);
   assert.match(contentSource, /A privacidade precisa funcionar todos os dias\./);
+  assert.match(contentSource, /O que sai da primeira fase/);
   assert.doesNotMatch(
     contentSource,
     /\b(?:go-live|runbooks|subprocessadores|cadência|premissas|atores|entregáveis)\b/i,
@@ -167,6 +168,9 @@ const techIntegrationSource = await readOptional(
 test("industry proof is stats-only and cannot imply road-sector clients", () => {
   assert.match(proofSource, /<dl/);
   assert.match(proofSource, /rounded-t-\[40px\]/);
+  assert.match(proofSource, /note\?: string/);
+  assert.match(contentSource, /proofNote:/);
+  assert.match(contentSource, /não representa um case setorial já realizado/);
   assert.doesNotMatch(proofSource, /LogoMarquee/);
   assert.doesNotMatch(proofSource, /Clientes que confiam/);
 });
@@ -258,9 +262,12 @@ const roadsContextSource = await readOptional(
 
 test("road context renders the required campaign destination and varied layouts", () => {
   assert.match(roadsContextSource, /id="free-flow"/);
+  assert.match(roadsContextSource, /id="privacy-by-design"/);
+  assert.match(roadsContextSource, /index === 1 \? "fornecedores"/);
   assert.match(roadsContextSource, /RoadsOperationalContextSection/);
   assert.match(roadsContextSource, /RoadsLifecycleSection/);
   assert.match(roadsContextSource, /RoadsFreeFlowSection/);
+  assert.match(roadsContextSource, /content\.outcomes\.map/);
   assert.match(roadsContextSource, /lg:grid-cols-5/);
   assert.match(roadsContextSource, /md:grid-cols-\[0\.9fr_1\.1fr\]/);
 });
@@ -280,18 +287,18 @@ const roadsCapabilitySource = await readOptional(
   "../src/components/industry/roads/roads-capability-sections.tsx",
 );
 
-test("road capability story renders every declared campaign destination", () => {
-  for (const id of ["privacy-by-design", "fornecedores", "internacional"]) {
-    assert.match(roadsCapabilitySource, new RegExp(`id="${id}"`));
-  }
+test("distilled delivery story renders its campaign destinations", () => {
+  assert.match(roadsCapabilitySource, /id="internacional"/);
   assert.match(roadsCapabilitySource, /index === 0 \? "dpo"/);
   assert.match(roadsCapabilitySource, /index === 1 \? "incidentes"/);
 });
 
-test("capability mosaic keeps the yellow card compact", () => {
-  assert.match(roadsCapabilitySource, /max-w-\[280px\]/);
-  assert.match(roadsCapabilitySource, /tone === "brand-compact"/);
+test("delivery section replaces the repeated capability card mosaic", () => {
+  assert.match(roadsCapabilitySource, /RoadsDeliverySection/);
+  assert.match(roadsCapabilitySource, /RoadsInternationalSection/);
   assert.match(roadsCapabilitySource, /position="capabilities"/);
+  assert.doesNotMatch(roadsCapabilitySource, /max-w-\[280px\]/);
+  assert.doesNotMatch(roadsCapabilitySource, /tone === "brand-compact"/);
   assert.doesNotMatch(
     roadsCapabilitySource,
     /<section[^>]*className="[^"]*bg-brand-(?:100|200|300|400)/,
@@ -301,8 +308,9 @@ test("capability mosaic keeps the yellow card compact", () => {
 test("continuous operation carries training and technology proof", () => {
   assert.match(roadsCapabilitySource, /IndustryTechnologyRail/);
   assert.match(roadsCapabilitySource, /training\.audiences/);
-  assert.match(roadsCapabilitySource, /RoadsOperationsSection/);
-  assert.match(roadsCapabilitySource, /RoadsInternationalMethodSection/);
+  assert.doesNotMatch(roadsCapabilitySource, /RoadsOperationsSection/);
+  assert.doesNotMatch(roadsCapabilitySource, /RoadsInternationalMethodSection/);
+  assert.doesNotMatch(roadsCapabilitySource, /RoadsPrivacyByDesignSection/);
 });
 
 const finalCtaSource = await readOptional(
@@ -320,10 +328,8 @@ test("road page composes the complete approved narrative", () => {
     "RoadsOperationalContextSection",
     "RoadsLifecycleSection",
     "RoadsFreeFlowSection",
-    "RoadsCapabilitiesSection",
-    "RoadsPrivacyByDesignSection",
-    "RoadsOperationsSection",
-    "RoadsInternationalMethodSection",
+    "RoadsDeliverySection",
+    "RoadsInternationalSection",
     "IndustryFaqSection",
     "IndustryFinalCta",
     "Footer",
@@ -331,6 +337,15 @@ test("road page composes the complete approved narrative", () => {
 
   for (const component of requiredComponents) {
     assert.match(pageSource, new RegExp(`<${component}`));
+  }
+
+  for (const removedComponent of [
+    "RoadsCapabilitiesSection",
+    "RoadsPrivacyByDesignSection",
+    "RoadsOperationsSection",
+    "RoadsInternationalMethodSection",
+  ]) {
+    assert.doesNotMatch(pageSource, new RegExp(`<${removedComponent}`));
   }
 });
 
@@ -386,7 +401,6 @@ test("every declared campaign anchor has one rendered target", () => {
   const staticAnchors = [
     "free-flow",
     "privacy-by-design",
-    "fornecedores",
     "internacional",
   ];
 
@@ -394,6 +408,12 @@ test("every declared campaign anchor has one rendered target", () => {
     const matches = renderedSources.match(new RegExp(`id="${anchor}"`, "g"));
     assert.equal(matches?.length, 1, `${anchor} must render exactly once`);
   }
+
+  assert.equal(
+    (roadsContextSource.match(/index === 1 \? "fornecedores"/g) ?? []).length,
+    1,
+    "fornecedores must render exactly once",
+  );
 
   assert.equal(
     (roadsCapabilitySource.match(/index === 0 \? "dpo"/g) ?? []).length,
@@ -405,4 +425,14 @@ test("every declared campaign anchor has one rendered target", () => {
     1,
     "incidentes must render exactly once",
   );
+});
+
+test("road content removes the redundant standalone process contracts", () => {
+  assert.match(typesSource, /proofNote: string/);
+  assert.match(typesSource, /outcomes: readonly string\[\]/);
+  assert.doesNotMatch(typesSource, /readonly privacyByDesign:/);
+  assert.doesNotMatch(typesSource, /readonly method:/);
+  assert.doesNotMatch(contentSource, /privacyByDesign:/);
+  assert.doesNotMatch(contentSource, /method:/);
+  assert.equal((contentSource.match(/tone:/g) ?? []).length, 0);
 });
