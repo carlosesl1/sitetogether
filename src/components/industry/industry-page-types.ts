@@ -118,6 +118,12 @@ export type RoadsIndustryContent = {
     readonly pill: string;
     readonly title: string;
     readonly description: string;
+    readonly illustration: {
+      readonly src: "/images/industries/roads/international-data-routes.png";
+      readonly width: 1254;
+      readonly height: 1254;
+      readonly alt: string;
+    };
   };
   readonly faq: {
     readonly pill: string;

@@ -222,6 +222,12 @@ export const roadsIndustryContent = {
     title: "Dados em outros países exigem uma análise específica.",
     description:
       "Analisamos onde os dados ficam, quem acessa e quais regras se aplicam à nuvem, ao suporte ou a fornecedores no exterior. Consideramos LGPD e, quando necessário, GDPR.",
+    illustration: {
+      src: `${imageBase}/international-data-routes.png`,
+      width: 1254,
+      height: 1254,
+      alt: "Globo conectado por infraestrutura rodoviária e rotas internacionais de dados",
+    },
   },
   faq: {
     pill: "Perguntas frequentes",

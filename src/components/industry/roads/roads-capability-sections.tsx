@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   Blocks,
   CloudCog,
@@ -185,16 +186,25 @@ export function RoadsInternationalSection({ content }: InternationalProps) {
       <div className="container mx-auto px-6">
         <div
           id="internacional"
-          className="scroll-mt-28 rounded-[28px] bg-neutral-100/80 p-7 sm:p-10 lg:grid lg:grid-cols-[0.65fr_1.35fr] lg:items-start lg:gap-16"
+          className="scroll-mt-28 overflow-hidden rounded-[28px] bg-neutral-100/80 p-7 sm:p-10 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-12"
         >
-          <SectionPill>{content.pill}</SectionPill>
-          <div className="mt-8 lg:mt-0">
-            <h2 className="max-w-3xl text-[clamp(2.15rem,7vw,3.25rem)] font-bold leading-[0.98] tracking-[-0.03em] text-neutral-900">
+          <div>
+            <SectionPill>{content.pill}</SectionPill>
+            <h2 className="mt-8 max-w-3xl text-[clamp(2.15rem,7vw,3.25rem)] font-bold leading-[0.98] tracking-[-0.03em] text-neutral-900">
               {content.title}
             </h2>
             <p className="mt-6 max-w-3xl text-base font-medium leading-relaxed text-neutral-500 sm:text-lg">
               {content.description}
             </p>
+          </div>
+          <div className="mx-auto mt-10 aspect-square w-full max-w-[420px] lg:mt-0">
+            <Image
+              src={content.illustration.src}
+              alt={content.illustration.alt}
+              width={content.illustration.width}
+              height={content.illustration.height}
+              className="h-full w-full object-contain"
+            />
           </div>
         </div>
       </div>

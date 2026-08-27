@@ -10,6 +10,14 @@ async function readOptional(relativePath) {
   }
 }
 
+async function readOptionalBinary(relativePath) {
+  try {
+    return await readFile(new URL(relativePath, import.meta.url));
+  } catch {
+    return Buffer.alloc(0);
+  }
+}
+
 const typesSource = await readOptional(
   "../src/components/industry/industry-page-types.ts",
 );
@@ -342,6 +350,20 @@ test("training is presented as a structured responsive module", () => {
   );
   assert.match(roadsCapabilitySource, /sm:grid-cols-2/);
   assert.match(roadsCapabilitySource, /training\.audiences\.map/);
+});
+
+test("international section renders a transparent project-owned illustration", async () => {
+  const asset = await readOptionalBinary(
+    "../public/images/industries/roads/international-data-routes.png",
+  );
+
+  assert.ok(asset.length > 10_000, "illustration must not be an empty placeholder");
+  assert.equal(asset.subarray(1, 4).toString("ascii"), "PNG");
+  assert.ok([4, 6].includes(asset[25]), "PNG must preserve an alpha channel");
+  assert.match(roadsCapabilitySource, /import Image from "next\/image"/);
+  assert.match(roadsCapabilitySource, /content\.illustration/);
+  assert.match(contentSource, /international-data-routes\.png/);
+  assert.match(typesSource, /readonly illustration:/);
 });
 
 const finalCtaSource = await readOptional(
