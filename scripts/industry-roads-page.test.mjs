@@ -216,3 +216,27 @@ test("optimized AVIF and WebP hero assets stay within budget", async () => {
     );
   }
 });
+
+const roadsContextSource = await readOptional(
+  "../src/components/industry/roads/roads-context-sections.tsx",
+);
+
+test("road context renders the required campaign destination and varied layouts", () => {
+  assert.match(roadsContextSource, /id="free-flow"/);
+  assert.match(roadsContextSource, /RoadsOperationalContextSection/);
+  assert.match(roadsContextSource, /RoadsLifecycleSection/);
+  assert.match(roadsContextSource, /RoadsFreeFlowSection/);
+  assert.match(roadsContextSource, /lg:grid-cols-5/);
+  assert.match(roadsContextSource, /md:grid-cols-\[0\.9fr_1\.1fr\]/);
+});
+
+test("road context uses small yellow signals, not yellow section backgrounds", () => {
+  assert.match(
+    roadsContextSource,
+    /h-3 w-3 rounded-\[3px\] bg-brand-400/,
+  );
+  assert.doesNotMatch(
+    roadsContextSource,
+    /<section[^>]*className="[^"]*bg-brand-(?:100|200|300|400)/,
+  );
+});
