@@ -2,6 +2,7 @@ import {
   Blocks,
   CloudCog,
   FileCheck2,
+  GraduationCap,
   Network,
   ScanSearch,
   Workflow,
@@ -139,29 +140,34 @@ export function RoadsDeliverySection({
               </div>
             </div>
 
-            <div className="border-t border-white/15 pt-9 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
-              <SectionPill tone="dark">{training.pill}</SectionPill>
-              <h3 className="mt-7 text-3xl font-bold tracking-[-0.025em] text-white">
-                {training.title}
-              </h3>
-              <p className="mt-5 text-base font-medium leading-relaxed text-neutral-400">
-                {training.description}
-              </p>
-              <ul className="mt-8 space-y-3">
+            <aside className="rounded-[28px] border border-white/10 bg-white/[0.04] p-7 sm:p-9">
+              <span className="flex h-14 w-14 items-center justify-center rounded-[18px] bg-brand-400 text-neutral-950">
+                <GraduationCap className="h-7 w-7" aria-hidden="true" />
+              </span>
+              <div className="mt-7">
+                <SectionPill tone="dark">{training.pill}</SectionPill>
+                <h3 className="mt-7 text-3xl font-bold tracking-[-0.025em] text-white">
+                  {training.title}
+                </h3>
+                <p className="mt-5 text-base font-medium leading-relaxed text-neutral-400">
+                  {training.description}
+                </p>
+              </div>
+              <ul className="mt-8 grid gap-3 sm:grid-cols-2">
                 {training.audiences.map((audience) => (
                   <li
                     key={audience}
-                    className="flex items-start gap-3 border-t border-white/10 pt-3 text-sm font-bold leading-relaxed text-neutral-300"
+                    className="flex min-h-24 items-start gap-3 rounded-[18px] border border-white/10 bg-black/20 p-4 text-sm font-bold leading-relaxed text-neutral-200"
                   >
                     <span
                       className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-[3px] bg-brand-400"
                       aria-hidden="true"
                     />
-                    {audience}
+                    <span>{audience}</span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </aside>
           </div>
 
           <div className="mt-14">

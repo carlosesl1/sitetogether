@@ -334,6 +334,16 @@ test("continuous operation carries training and technology proof", () => {
   assert.doesNotMatch(roadsCapabilitySource, /RoadsPrivacyByDesignSection/);
 });
 
+test("training is presented as a structured responsive module", () => {
+  assert.match(roadsCapabilitySource, /GraduationCap/);
+  assert.match(
+    roadsCapabilitySource,
+    /rounded-\[28px\] border border-white\/10 bg-white\/\[0\.04\]/,
+  );
+  assert.match(roadsCapabilitySource, /sm:grid-cols-2/);
+  assert.match(roadsCapabilitySource, /training\.audiences\.map/);
+});
+
 const finalCtaSource = await readOptional(
   "../src/components/industry/industry-final-cta.tsx",
 );
