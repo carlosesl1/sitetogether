@@ -395,6 +395,23 @@ test("light road sections use restrained TOGETHER pixel framing", () => {
   );
 });
 
+test("light road pixel framing stays visibly present", () => {
+  for (const sectionSource of [
+    operationalContextSource,
+    deliveryLightSource,
+    internationalSectionSource,
+  ]) {
+    assert.match(
+      sectionSource,
+      /placement="topRight"[\s\S]{0,180}opacity=\{0\.18\}/,
+    );
+    assert.match(
+      sectionSource,
+      /placement="bottomLeft"[\s\S]{0,180}opacity=\{0\.14\}/,
+    );
+  }
+});
+
 test("distilled delivery story renders its campaign destinations", () => {
   assert.match(roadsCapabilitySource, /id="internacional"/);
   assert.match(roadsCapabilitySource, /index === 0 \? "dpo"/);

@@ -46,11 +46,11 @@ export function RoadsDeliverySection({
   return (
     <section className="relative overflow-hidden bg-white">
       <div className="relative py-20 sm:py-24 lg:py-28 xl:py-32">
-        <PixelDecor placement="topRight" mask="topRight" opacity={0.08} />
+        <PixelDecor placement="topRight" mask="topRight" opacity={0.18} />
         <PixelDecor
           placement="bottomLeft"
           mask="bottomLeft"
-          opacity={0.07}
+          opacity={0.14}
           className="max-sm:h-[34%] max-sm:w-[72%]"
         />
         <div className="container relative z-10 mx-auto px-6">
@@ -192,13 +192,13 @@ export function RoadsInternationalSection({ content }: InternationalProps) {
       <PixelDecor
         placement="topRight"
         mask="topRight"
-        opacity={0.09}
+        opacity={0.18}
         className="max-sm:h-[36%] max-sm:w-[72%]"
       />
       <PixelDecor
         placement="bottomLeft"
         mask="bottomLeft"
-        opacity={0.06}
+        opacity={0.14}
         className="max-sm:h-[30%] max-sm:w-[68%]"
       />
       <div className="container relative z-10 mx-auto px-6">
