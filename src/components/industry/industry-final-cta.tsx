@@ -1,11 +1,11 @@
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
-import type { RoadsIndustryContent } from "@/components/industry/industry-page-types";
+import type { IndustryFinalCtaContent } from "@/components/industry/industry-page-types";
 import { IndustryContactLink } from "@/components/industry/industry-contact-link";
 import { SectionPill } from "@/components/ui/site-primitives";
 
 type IndustryFinalCtaProps = {
   sector: string;
-  content: RoadsIndustryContent["finalCta"];
+  content: IndustryFinalCtaContent;
   allowedAnchors: readonly string[];
 };
 

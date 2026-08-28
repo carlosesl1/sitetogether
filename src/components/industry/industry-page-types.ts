@@ -42,15 +42,15 @@ export type IndustryHeroContent = {
       readonly avif: string;
       readonly webp: string;
       readonly png: string;
-      readonly width: 1717;
-      readonly height: 916;
+      readonly width: number;
+      readonly height: number;
     };
     readonly mobile: {
       readonly avif: string;
       readonly webp: string;
       readonly png: string;
-      readonly width: 941;
-      readonly height: 1672;
+      readonly width: number;
+      readonly height: number;
     };
   };
 };
@@ -64,6 +64,144 @@ export type IndustryTextItem = {
 export type IndustryCapability = {
   readonly title: string;
   readonly description: string;
+};
+
+export type IndustryFinalCtaContent = {
+  readonly pill: string;
+  readonly title: string;
+  readonly description: string;
+  readonly cta: string;
+  readonly nextStep: string;
+};
+
+export type SectorId =
+  | "saas"
+  | "escolas-particulares"
+  | "ensino-superior"
+  | "transporte-fracionado"
+  | "transporte-lotacao";
+
+export type SectorVisualFamily =
+  | "product"
+  | "school"
+  | "campus"
+  | "hub"
+  | "direct-route";
+
+export type IndustryIconKey =
+  | "analytics"
+  | "billing"
+  | "book"
+  | "building"
+  | "camera"
+  | "check"
+  | "cloud"
+  | "code"
+  | "database"
+  | "file"
+  | "graduation"
+  | "hub"
+  | "key"
+  | "map-pin"
+  | "message"
+  | "network"
+  | "package"
+  | "presentation"
+  | "research"
+  | "route"
+  | "server"
+  | "shield"
+  | "telemetry"
+  | "truck"
+  | "users"
+  | "warehouse";
+
+export type SectorTextItem = IndustryTextItem & {
+  readonly icon: IndustryIconKey;
+};
+
+export type SectorCapability = IndustryCapability & {
+  readonly icon: IndustryIconKey;
+  readonly emphasis?: boolean;
+};
+
+export type SectorCampaignAnchor = {
+  readonly id: string;
+  readonly sectionKey:
+    | "context"
+    | "journey"
+    | "priority"
+    | "support"
+    | "training";
+};
+
+export type SectorIndustryContent = {
+  readonly sector: SectorId;
+  readonly visualFamily: SectorVisualFamily;
+  readonly metadata: {
+    readonly title: string;
+    readonly description: string;
+    readonly canonical: string;
+    readonly socialAlt: string;
+  };
+  readonly hero: IndustryHeroContent;
+  readonly context: {
+    readonly id: string;
+    readonly pill: string;
+    readonly title: string;
+    readonly accent: string;
+    readonly description: string;
+    readonly nodes: readonly SectorTextItem[];
+  };
+  readonly journey: {
+    readonly id: string;
+    readonly pill: string;
+    readonly title: string;
+    readonly accent: string;
+    readonly description: string;
+    readonly stages: readonly SectorTextItem[];
+  };
+  readonly priority: {
+    readonly id: string;
+    readonly pill: string;
+    readonly title: string;
+    readonly accent: string;
+    readonly description: string;
+    readonly points: readonly SectorTextItem[];
+  };
+  readonly support: {
+    readonly id: string;
+    readonly pill: string;
+    readonly title: string;
+    readonly accent: string;
+    readonly description: string;
+    readonly items: readonly SectorCapability[];
+    readonly ctaTitle: string;
+    readonly ctaText: string;
+    readonly cta: string;
+  };
+  readonly proof: readonly IndustryProofItem[];
+  readonly training: {
+    readonly id: string;
+    readonly pill: string;
+    readonly title: string;
+    readonly description: string;
+    readonly audiences: readonly string[];
+  };
+  readonly faq: {
+    readonly pill: string;
+    readonly title: string;
+    readonly accent: string;
+    readonly description: string;
+    readonly items: readonly IndustryFaqItem[];
+  };
+  readonly finalCta: IndustryFinalCtaContent;
+  readonly campaignAnchors: readonly SectorCampaignAnchor[];
+  readonly sources: readonly {
+    readonly claim: string;
+    readonly url: string;
+    readonly reviewedAt: string;
+  }[];
 };
 
 export type RoadsIndustryContent = {
@@ -140,13 +278,7 @@ export type RoadsIndustryContent = {
     readonly description: string;
     readonly items: readonly IndustryFaqItem[];
   };
-  readonly finalCta: {
-    readonly pill: string;
-    readonly title: string;
-    readonly description: string;
-    readonly cta: string;
-    readonly nextStep: string;
-  };
+  readonly finalCta: IndustryFinalCtaContent;
   readonly sources: readonly IndustryContentSource[];
   readonly campaignAnchors: readonly IndustryCampaignAnchor[];
 };
