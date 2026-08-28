@@ -2,6 +2,7 @@ import type { SectorIndustryContent } from "@/components/industry/industry-page-
 import { IndustryFaqSection } from "@/components/industry/industry-faq-section";
 import { IndustryFinalCta } from "@/components/industry/industry-final-cta";
 import { IndustryHero } from "@/components/industry/industry-hero";
+import { IndustryStructuredData } from "@/components/industry/industry-structured-data";
 import { SectorJourneySection } from "@/components/industry/sector/sector-journey-section";
 import { SectorOperationalSection } from "@/components/industry/sector/sector-operational-section";
 import { SectorPrioritySection } from "@/components/industry/sector/sector-priority-section";
@@ -19,6 +20,7 @@ export function SectorIndustryPage({
 
   return (
     <div className="min-w-0 bg-white text-neutral-900">
+      <IndustryStructuredData content={content} />
       <Navbar showCtaArrow />
       <main>
         <IndustryHero

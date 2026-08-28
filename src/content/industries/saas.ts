@@ -1,0 +1,135 @@
+import type { SectorIndustryContent } from "@/components/industry/industry-page-types";
+
+const imageBase = "/images/industries/saas";
+
+export const saasIndustryContent = {
+  sector: "saas",
+  visualFamily: "product",
+  metadata: {
+    title: "Privacidade e LGPD para empresas SaaS",
+    description:
+      "Privacidade para empresas SaaS: onboarding, contas, permissões, logs, suporte, billing, nuvem, transferências e incidentes.",
+    canonical: "/solucoes/privacidade-saas",
+    socialAlt: "Operação de produto SaaS com infraestrutura em nuvem",
+  },
+  hero: {
+    pill: "LGPD para empresas SaaS",
+    title: "Privacidade que acompanha o produto.",
+    accent: "Do onboarding à escala.",
+    description:
+      "Organize dados, acessos, fornecedores e respostas ao longo do ciclo do produto, com decisões claras para produto, tecnologia e negócio.",
+    cta: "Agende uma Conversa",
+    image: {
+      desktop: { avif: `${imageBase}/hero-desktop.avif`, webp: `${imageBase}/hero-desktop.webp`, png: `${imageBase}/hero-desktop.png`, width: 1536, height: 1024 },
+      mobile: { avif: `${imageBase}/hero-mobile.avif`, webp: `${imageBase}/hero-mobile.webp`, png: `${imageBase}/hero-mobile.png`, width: 1024, height: 1536 },
+    },
+  },
+  context: {
+    id: "contexto-saas",
+    pill: "Onde os dados circulam",
+    title: "Cada etapa do produto é",
+    accent: "uma decisão de privacidade.",
+    description: "O produto conecta pessoas, contas, integrações e operações em uma rotina contínua.",
+    nodes: [
+      { icon: "users", label: "Entrada", title: "Onboarding e cadastro", description: "Dados de usuários, administradores, contatos e preferências." },
+      { icon: "key", label: "Acesso", title: "Contas e permissões", description: "Papéis, convites, autenticação e registros de acesso." },
+      { icon: "analytics", label: "Uso", title: "Analytics e logs", description: "Eventos, métricas, logs técnicos e informações de uso." },
+      { icon: "billing", label: "Operação", title: "Suporte e billing", description: "Chamados, contratos, cobrança, pagamentos e atendimento." },
+      { icon: "cloud", label: "Ecossistema", title: "Nuvem e subprocessadores", description: "Infraestrutura, integrações, parceiros e acessos de terceiros." },
+    ],
+  },
+  journey: {
+    id: "jornada-produto",
+    pill: "Da primeira conta à escala",
+    title: "Privacidade entra no backlog",
+    accent: "antes de virar retrabalho.",
+    description: "Criamos pontos de decisão para que produto e engenharia avancem com contexto e rastreabilidade.",
+    stages: [
+      { icon: "research", label: "Descoberta", title: "Definir finalidade e necessidade", description: "Entenda quais dados o produto precisa e por quê." },
+      { icon: "code", label: "Desenho", title: "Projetar acessos e experiências", description: "Inclua transparência, permissões e escolhas desde o fluxo inicial." },
+      { icon: "check", label: "Construção", title: "Registrar controles e responsabilidades", description: "Alinhe tecnologia, produto, segurança e fornecedores." },
+      { icon: "shield", label: "Lançamento", title: "Validar operação e atendimento", description: "Prepare canais, avisos, evidências e resposta a incidentes." },
+      { icon: "network", label: "Escala", title: "Acompanhar mudanças do produto", description: "Revise integrações, dados, riscos e decisões conforme o crescimento." },
+    ],
+  },
+  priority: {
+    id: "prioridades-saas",
+    pill: "Prioridades de privacidade",
+    title: "Controles que cabem",
+    accent: "na operação real.",
+    description: "Avaliamos o que precisa ser decidido, documentado e acompanhado em cada frente.",
+    points: [
+      { icon: "key", label: "Permissões", title: "Acesso proporcional ao papel", description: "Defina quem acessa, altera ou exporta dados e mantenha registros." },
+      { icon: "database", label: "Retenção", title: "Guardar pelo tempo necessário", description: "Conecte prazos a finalidade, contrato, suporte e requisitos operacionais." },
+      { icon: "cloud", label: "Terceiros", title: "Nuvem e subprocessadores sob controle", description: "Mapeie fluxos, responsabilidades, contratos e mudanças de fornecedor." },
+      { icon: "file", label: "Transparência", title: "Explicar o uso sem ruído", description: "Organize avisos e informações para usuários, clientes e equipes." },
+      { icon: "shield", label: "Resposta", title: "Solicitações e incidentes com dono", description: "Estruture triagem, prazos, responsáveis, evidências e comunicação." },
+    ],
+  },
+  support: {
+    id: "como-apoiamos",
+    pill: "Como a TOGETHER apoia",
+    title: "Privacidade aplicada ao",
+    accent: "ritmo do produto.",
+    description: "O apoio pode começar por uma frente específica ou acompanhar a evolução do programa.",
+    items: [
+      { icon: "analytics", title: "Mapeamento de dados e fluxos", description: "Conectamos produto, sistemas, integrações e finalidades." },
+      { icon: "key", title: "Contas e permissões", description: "Organizamos papéis, acessos, solicitações e registros." },
+      { icon: "cloud", title: "Nuvem e subprocessadores", description: "Apoiamos avaliação, contratos, transferências e responsabilidades." },
+      { icon: "message", title: "Atendimento e direitos", description: "Criamos rotinas para receber, encaminhar e responder solicitações." },
+      { icon: "shield", title: "Incidentes e evidências", description: "Estruturamos resposta, decisões, comunicação e aprendizados.", emphasis: true },
+      { icon: "presentation", title: "Workshops por equipe", description: "Levamos decisões de privacidade para produto, engenharia e negócio." },
+    ],
+    ctaTitle: "Quer discutir uma frente do seu produto?",
+    ctaText: "Ajudamos a transformar a demanda em escopo e próximo passo.",
+    cta: "Agende uma Conversa",
+  },
+  proof: [
+    { value: "Produto + operação", label: "privacidade conectada ao dia a dia" },
+    { value: "Decisões registradas", label: "evidências para acompanhar evolução" },
+    { value: "Nuvem e parceiros", label: "fluxos e responsabilidades mapeados" },
+    { value: "Workshops", label: "conhecimento compartilhado com as equipes" },
+  ],
+  training: {
+    id: "workshops-saas",
+    pill: "Treinamentos e workshops",
+    title: "Cada equipe aprende o que precisa decidir.",
+    description: "Sessões práticas conectam privacidade às tarefas e escolhas de cada área.",
+    audiences: ["Produto e design", "Engenharia, dados e segurança", "Suporte, sucesso e billing", "Lideranças e fornecedores"],
+  },
+  faq: {
+    pill: "Perguntas frequentes",
+    title: "LGPD em produtos",
+    accent: "SaaS.",
+    description: "Respostas diretas para avaliar o próximo passo.",
+    items: [
+      { question: "Em quais áreas a LGPD aparece em um SaaS?", answer: "Em onboarding, contas, permissões, analytics, logs, suporte, cobrança, integrações, nuvem e fornecedores. O escopo depende dos fluxos e responsabilidades do produto." },
+      { question: "A privacidade precisa entrar antes do lançamento?", answer: "Quanto antes as finalidades, acessos, avisos e prazos forem discutidos, menor tende a ser o retrabalho. Organizamos esses pontos dentro do ciclo de produto." },
+      { question: "Como avaliar subprocessadores e serviços em nuvem?", answer: "Mapeamos quais dados circulam, quem acessa, em que país, com qual finalidade e sob quais responsabilidades contratuais e operacionais." },
+      { question: "Vocês apoiam incidentes e solicitações de titulares?", answer: "Sim. Estruturamos papéis, triagem, prazos, evidências e comunicação para que a resposta tenha um processo definido." },
+      { question: "A TOGETHER oferece workshops para times técnicos?", answer: "Sim. Podemos adaptar workshops para produto, engenharia, dados, suporte, segurança, liderança e fornecedores." },
+      { question: "A atuação pode começar por uma frente específica?", answer: "Sim. Podemos começar por um lançamento, fornecedores, transferências, incidentes ou atendimento a titulares e ampliar o trabalho conforme a prioridade do produto." },
+    ],
+  },
+  finalCta: {
+    pill: "LGPD para empresas SaaS",
+    title: "Faça a privacidade acompanhar o seu produto.",
+    description: "Conte qual é a prioridade agora: produto, operação, fornecedores ou resposta.",
+    cta: "Agende uma Conversa",
+    nextStep: "Uma conversa sobre o contexto, as áreas envolvidas e o próximo passo.",
+  },
+  campaignAnchors: [
+    { id: "privacy-by-design", sectionKey: "journey" },
+    { id: "fornecedores", sectionKey: "priority" },
+    { id: "dpo", sectionKey: "support" },
+    { id: "incidentes", sectionKey: "support" },
+    { id: "internacional", sectionKey: "priority" },
+  ],
+  sources: [
+    { claim: "Fundamentos, direitos, tratamento, segurança e agentes", url: "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709compilado.htm", reviewedAt: "2026-08-27" },
+    { claim: "Guia orientativo sobre agentes de tratamento", url: "https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia_agentes_de_tratamento_e_encarregado___defeso_eleitoral.pdf", reviewedAt: "2026-08-27" },
+    { claim: "Transferência internacional de dados", url: "https://www.gov.br/anpd/pt-br/assuntos/assuntos-internacionais/transferencia-internacional-de-dados", reviewedAt: "2026-08-27" },
+    { claim: "Comunicação de incidente de segurança", url: "https://www.gov.br/anpd/pt-br/canais_atendimento/agente-de-tratamento/comunicado-de-incidente-de-seguranca-cis", reviewedAt: "2026-08-27" },
+    { claim: "Relatório de impacto à proteção de dados pessoais", url: "https://www.gov.br/anpd/pt-br/canais_atendimento/agente-de-tratamento/relatorio-de-impacto-a-protecao-de-dados-pessoais-ripd", reviewedAt: "2026-08-27" },
+  ],
+} as const satisfies SectorIndustryContent;

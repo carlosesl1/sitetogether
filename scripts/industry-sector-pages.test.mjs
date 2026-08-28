@@ -57,6 +57,9 @@ const finalCtaSource = await readOptional(
 const pageSource = await readOptional(
   "../src/components/industry/sector-industry-page.tsx",
 );
+const structuredDataSource = await readOptional(
+  "../src/components/industry/industry-structured-data.tsx",
+);
 const sectionSources = (
   await Promise.all([
     "../src/components/industry/sector/sector-operational-section.tsx",
@@ -78,6 +81,7 @@ test("shared industry types support all five sectors", () => {
 
 test("sector page composes a varied TOGETHER narrative", () => {
   for (const symbol of [
+    "IndustryStructuredData",
     "SectorOperationalSection",
     "SectorJourneySection",
     "SectorPrioritySection",
@@ -97,6 +101,14 @@ test("sector page composes a varied TOGETHER narrative", () => {
   );
 });
 
+test("sector pages publish service and FAQ structured data", () => {
+  assert.match(structuredDataSource, /application\/ld\+json/);
+  assert.match(structuredDataSource, /"@type": "Service"/);
+  assert.match(structuredDataSource, /"@type": "FAQPage"/);
+  assert.match(structuredDataSource, /content\.faq\.items\.map/);
+  assert.match(structuredDataSource, /content\.metadata\.canonical/);
+});
+
 test("all sector content and route modules are present and distinct", async () => {
   for (const sector of sectorDefinitions) {
     const contentSource = await readOptional(
@@ -108,14 +120,16 @@ test("all sector content and route modules are present and distinct", async () =
     const layoutSource = await readOptional(
       `../src/app/solucoes/${sector.route}/layout.tsx`,
     );
+    const metadataSource = `${routeSource}\n${layoutSource}`;
 
     assert.match(contentSource, new RegExp(sector.title));
     assert.match(contentSource, /Agende uma Conversa/g);
     assert.match(contentSource, /faq:/);
     assert.match(contentSource, /campaignAnchors:/);
+    assert.match(contentSource, new RegExp(`/${sector.route}`));
     assert.match(routeSource, /SectorIndustryPage/);
-    assert.match(layoutSource, /export const metadata/);
-    assert.match(layoutSource, new RegExp(`/${sector.route}`));
+    assert.match(metadataSource, /export const metadata/);
+    assert.match(metadataSource, /alternates:\s*\{\s*canonical/);
   }
 });
 
