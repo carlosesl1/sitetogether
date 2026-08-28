@@ -102,7 +102,19 @@ export function RoadsLifecycleSection({ content }: LifecycleProps) {
       id="privacy-by-design"
       className="relative scroll-mt-24 overflow-hidden bg-neutral-50 py-20 sm:py-24 lg:py-28 xl:py-36"
     >
-      <div className="container mx-auto px-6">
+      <PixelDecor
+        placement="topRight"
+        mask="topRight"
+        opacity={0.18}
+        className="left-0 right-auto -scale-x-100 max-sm:h-[36%] max-sm:w-[72%]"
+      />
+      <PixelDecor
+        placement="bottomRight"
+        mask="bottomRight"
+        opacity={0.14}
+        className="max-sm:h-[30%] max-sm:w-[68%]"
+      />
+      <div className="container relative z-10 mx-auto px-6">
         <IndustrySectionHeading
           pill={content.pill}
           title={content.title}

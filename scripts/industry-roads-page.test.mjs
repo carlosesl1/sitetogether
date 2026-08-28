@@ -354,6 +354,11 @@ const operationalContextSource = sourceBetween(
   "export function RoadsOperationalContextSection",
   "export function RoadsLifecycleSection",
 );
+const lifecycleSectionSource = sourceBetween(
+  roadsContextSource,
+  "export function RoadsLifecycleSection",
+  "export function RoadsFreeFlowSection",
+);
 const deliveryLightSource = sourceBetween(
   roadsCapabilitySource,
   '<div className="relative py-20 sm:py-24 lg:py-28 xl:py-32">',
@@ -410,6 +415,19 @@ test("light road pixel framing stays visibly present", () => {
       /placement="bottomLeft"[\s\S]{0,180}opacity=\{0\.14\}/,
     );
   }
+});
+
+test("lifecycle section frames the highlighted opposite corners", () => {
+  assert.equal((lifecycleSectionSource.match(/<PixelDecor/g) ?? []).length, 2);
+  assert.match(
+    lifecycleSectionSource,
+    /placement="topRight"[\s\S]{0,240}opacity=\{0\.18\}[\s\S]{0,240}left-0 right-auto -scale-x-100/,
+  );
+  assert.match(
+    lifecycleSectionSource,
+    /placement="bottomRight"[\s\S]{0,180}opacity=\{0\.14\}/,
+  );
+  assert.match(lifecycleSectionSource, /container relative z-10/);
 });
 
 test("distilled delivery story renders its campaign destinations", () => {
