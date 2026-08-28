@@ -18,6 +18,7 @@ import { SectionPill } from "@/components/ui/site-primitives";
 type DeliveryProps = {
   sector: string;
   allowedAnchors: readonly string[];
+  proof: RoadsIndustryContent["proof"];
   capabilities: RoadsIndustryContent["capabilities"];
   operations: RoadsIndustryContent["operations"];
   training: RoadsIndustryContent["training"];
@@ -36,9 +37,44 @@ const capabilityIcons = [
   CloudCog,
 ] as const;
 
+function RoadsCapabilityProofRail({
+  items,
+}: {
+  items: RoadsIndustryContent["proof"];
+}) {
+  return (
+    <div className="relative mt-12 overflow-hidden rounded-[28px] border border-neutral-200 bg-neutral-200 shadow-[0_18px_55px_rgba(15,23,42,0.05)]">
+      <span
+        className="absolute inset-x-10 top-0 z-10 h-px bg-brand-400"
+        aria-hidden="true"
+      />
+      <dl className="grid grid-cols-2 gap-px xl:grid-cols-4">
+        {items.map((item) => (
+          <div
+            key={`${item.value}-${item.label}`}
+            className="min-w-0 bg-white p-4 sm:p-6 xl:min-h-[150px]"
+          >
+            <span
+              className="mb-4 block h-2.5 w-2.5 rounded-[3px] bg-brand-400 sm:mb-5"
+              aria-hidden="true"
+            />
+            <dt className="break-words text-base font-bold tracking-tight text-neutral-900 sm:text-xl">
+              {item.value}
+            </dt>
+            <dd className="mt-2 max-w-[24ch] text-[11px] font-medium leading-relaxed text-neutral-500 sm:text-sm">
+              {item.label}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
 export function RoadsDeliverySection({
   sector,
   allowedAnchors,
+  proof,
   capabilities,
   operations,
   training,
@@ -58,6 +94,7 @@ export function RoadsDeliverySection({
             <IndustrySectionHeading
               pill={capabilities.pill}
               title={capabilities.title}
+              accent={capabilities.accent}
               description={capabilities.description}
               className="lg:sticky lg:top-28"
             />
@@ -70,7 +107,7 @@ export function RoadsDeliverySection({
                     key={item.title}
                     className="grid min-w-0 grid-cols-[40px_1fr] gap-4 border-b border-neutral-200 py-6 xl:odd:pr-7 xl:even:border-l xl:even:pl-7"
                   >
-                    <span className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-brand-400 text-neutral-950">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-[12px] border border-brand-400/25 bg-brand-400/10 text-brand-600">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </span>
                     <div className="min-w-0">
@@ -87,7 +124,13 @@ export function RoadsDeliverySection({
             </div>
           </div>
 
-          <div className="mt-12 flex flex-col items-start gap-7 rounded-[24px] bg-neutral-950 p-7 text-white sm:flex-row sm:items-center sm:justify-between sm:p-9">
+          <RoadsCapabilityProofRail items={proof} />
+
+          <div className="relative mt-4 flex flex-col items-start gap-7 overflow-hidden rounded-[24px] bg-neutral-950 p-7 text-white sm:flex-row sm:items-center sm:justify-between sm:p-9">
+            <span
+              className="absolute inset-x-8 top-0 h-px bg-brand-400"
+              aria-hidden="true"
+            />
             <div>
               <h3 className="text-2xl font-bold tracking-tight text-white">
                 {capabilities.ctaTitle}
@@ -111,18 +154,19 @@ export function RoadsDeliverySection({
         </div>
       </div>
 
-      <div className="relative bg-[#0a0a0a] py-20 text-white sm:py-24 lg:py-28 xl:py-32">
+      <div className="relative bg-neutral-950 py-20 text-white sm:py-24 lg:py-28 xl:py-32">
+        <PixelDecor placement="topRight" mask="topRight" opacity={0.12} />
         <PixelDecor placement="bottomLeft" mask="bottomLeft" opacity={0.12} />
         <div className="container relative z-10 mx-auto px-6">
           <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
             <div>
-              <SectionPill tone="dark">{operations.pill}</SectionPill>
-              <h2 className="mt-7 max-w-3xl text-[clamp(2.05rem,7vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.03em] text-white">
-                {operations.title}
-              </h2>
-              <p className="mt-6 max-w-2xl text-base font-medium leading-relaxed text-neutral-400 sm:text-lg">
-                {operations.description}
-              </p>
+              <IndustrySectionHeading
+                pill={operations.pill}
+                title={operations.title}
+                accent={operations.accent}
+                description={operations.description}
+                inverse
+              />
 
               <div className="mt-10 border-t border-white/15">
                 {operations.routines.map((routine, index) => (
@@ -147,7 +191,11 @@ export function RoadsDeliverySection({
               </div>
             </div>
 
-            <aside className="rounded-[28px] border border-white/10 bg-white/[0.04] p-7 sm:p-9">
+            <aside className="relative overflow-hidden rounded-[28px] border border-brand-400/20 bg-white/[0.04] p-7 sm:p-9">
+              <span
+                className="absolute inset-x-8 top-0 h-px bg-brand-400"
+                aria-hidden="true"
+              />
               <span className="flex h-14 w-14 items-center justify-center rounded-[18px] bg-brand-400 text-neutral-950">
                 <GraduationCap className="h-7 w-7" aria-hidden="true" />
               </span>
@@ -204,16 +252,19 @@ export function RoadsInternationalSection({ content }: InternationalProps) {
       <div className="container relative z-10 mx-auto px-6">
         <div
           id="internacional"
-          className="scroll-mt-28 overflow-hidden rounded-[28px] bg-neutral-100/80 p-7 sm:p-10 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-12"
+          className="relative scroll-mt-28 overflow-hidden rounded-[28px] border border-brand-400/25 bg-neutral-50 p-7 shadow-[0_24px_70px_rgba(15,23,42,0.07)] sm:p-10 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-12"
         >
+          <span
+            className="absolute inset-x-10 top-0 h-px bg-brand-400"
+            aria-hidden="true"
+          />
           <div>
-            <SectionPill>{content.pill}</SectionPill>
-            <h2 className="mt-8 max-w-3xl text-[clamp(2rem,7vw,3.25rem)] font-bold leading-[0.98] tracking-[-0.03em] text-neutral-900">
-              {content.title}
-            </h2>
-            <p className="mt-6 max-w-3xl text-base font-medium leading-relaxed text-neutral-500 sm:text-lg">
-              {content.description}
-            </p>
+            <IndustrySectionHeading
+              pill={content.pill}
+              title={content.title}
+              accent={content.accent}
+              description={content.description}
+            />
           </div>
           <div className="mx-auto mt-10 aspect-square w-full max-w-[420px] lg:mt-0">
             <Image

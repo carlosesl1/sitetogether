@@ -7,11 +7,15 @@ type IndustryProofStripProps = {
 
 export function IndustryProofStrip({ items, note }: IndustryProofStripProps) {
   return (
-    <div className="relative z-20 -mt-10 w-full px-4 md:px-6">
+    <div className="relative z-20 -my-10 sm:-my-14 lg:-my-16 xl:-my-20 2xl:-my-[100px] w-full px-4 md:px-6">
       <section
         aria-label="Capacidade institucional da TOGETHER"
-        className="container relative rounded-t-[40px] border border-neutral-100 bg-white px-5 pb-7 pt-7 shadow-[0_-20px_40px_rgba(0,0,0,0.03)] sm:px-8 lg:px-12"
+        className="container relative overflow-hidden rounded-[40px] border border-neutral-100 bg-white px-5 pb-7 pt-7 shadow-[0_-20px_40px_rgba(0,0,0,0.03)] sm:px-8 lg:px-12"
       >
+        <span
+          className="absolute inset-x-12 top-0 h-px bg-brand-400"
+          aria-hidden="true"
+        />
         <dl className="grid grid-cols-2 gap-x-4 sm:gap-x-6 lg:grid-cols-4 lg:gap-x-8">
           {items.map((item) => (
             <div

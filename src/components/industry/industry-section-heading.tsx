@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 type IndustrySectionHeadingProps = {
   pill: string;
   title: string;
+  accent?: string;
   description: string;
   inverse?: boolean;
   className?: string;
@@ -12,6 +13,7 @@ type IndustrySectionHeadingProps = {
 export function IndustrySectionHeading({
   pill,
   title,
+  accent,
   description,
   inverse = false,
   className,
@@ -26,6 +28,14 @@ export function IndustrySectionHeading({
         )}
       >
         {title}
+        {accent ? (
+          <>
+            {" "}
+            <span className="font-light italic text-brand-500 leading-[1.08] pb-1">
+              {accent}
+            </span>
+          </>
+        ) : null}
       </h2>
       <p
         className={cn(

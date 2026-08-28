@@ -28,10 +28,8 @@ const globalStylesSource = await readOptional("../src/app/globals.css");
 const navbarSource = await readOptional("../src/components/ui/navbar.tsx");
 
 test("road content declares the approved sector promise and CTA", () => {
-  assert.match(
-    contentSource,
-    /Organize a privacidade da operação — do projeto ao pedágio digital\./,
-  );
+  assert.match(contentSource, /title: "Organize a privacidade da operação, do projeto ao"/);
+  assert.match(contentSource, /accent: "pedágio digital\."/);
   assert.match(contentSource, /Agende uma Conversa/);
   assert.match(contentSource, /Ainda não temos experiência nem case específico/);
   assert.doesNotMatch(contentSource, /case comprovado no setor/i);
@@ -40,9 +38,13 @@ test("road content declares the approved sector promise and CTA", () => {
 });
 
 test("road copy stays clear for non-specialist decision makers", () => {
-  assert.match(contentSource, /Uma rodovia também é uma operação de dados\./);
-  assert.match(contentSource, /Uma equipe para colocar a LGPD em prática\./);
-  assert.match(contentSource, /A privacidade precisa funcionar todos os dias\./);
+  assert.match(contentSource, /title: "Uma rodovia também é"/);
+  assert.match(contentSource, /accent: "uma operação de dados\."/);
+  assert.match(contentSource, /controles necessários em cada etapa/);
+  assert.match(contentSource, /title: "Uma equipe para"/);
+  assert.match(contentSource, /accent: "colocar a LGPD em prática\."/);
+  assert.match(contentSource, /title: "A privacidade precisa funcionar"/);
+  assert.match(contentSource, /accent: "todos os dias\."/);
   assert.doesNotMatch(contentSource, /O que sai da primeira fase/);
   assert.doesNotMatch(
     contentSource,
@@ -172,15 +174,27 @@ const privacyPlatformsSource = await readOptional(
 const techIntegrationSource = await readOptional(
   "../src/components/ui/tech-integration.tsx",
 );
+const authorityStripSource = await readOptional(
+  "../src/components/ui/authority-strip.tsx",
+);
 
-test("industry proof is stats-only and the road page omits the disclaimer", () => {
+test("industry proof is stats-only, fully rounded, and the road page omits the disclaimer", () => {
   assert.match(proofSource, /<dl/);
-  assert.match(proofSource, /rounded-t-\[40px\]/);
+  assert.match(proofSource, /rounded-\[40px\]/);
+  assert.doesNotMatch(proofSource, /rounded-t-/);
+  assert.match(proofSource, /absolute inset-x-12 top-0 h-px bg-brand-400/);
   assert.match(proofSource, /note\?: string/);
   assert.doesNotMatch(contentSource, /proofNote:/);
   assert.doesNotMatch(typesSource, /proofNote: string/);
   assert.doesNotMatch(proofSource, /LogoMarquee/);
   assert.doesNotMatch(proofSource, /Clientes que confiam/);
+});
+
+test("industry proof overlaps the following section with responsive spacing", () => {
+  assert.match(
+    proofSource,
+    /-my-10 sm:-my-14 lg:-my-16 xl:-my-20 2xl:-my-\[100px\]/,
+  );
 });
 
 test("privacy platform data is shared without changing the home section", () => {
@@ -241,6 +255,9 @@ test("shared industry typography stays readable from mobile through tablet", () 
 const heroSource = await readOptional(
   "../src/components/industry/industry-hero.tsx",
 );
+const industrySectionHeadingSource = await readOptional(
+  "../src/components/industry/industry-section-heading.tsx",
+);
 
 test("road hero uses static art direction and a decorative image", () => {
   assert.match(heroSource, /<picture/);
@@ -257,6 +274,10 @@ test("road hero uses the yellow brand CTA", () => {
   assert.match(heroSource, /position="hero"[\s\S]*?variant="primary"/);
   assert.doesNotMatch(heroSource, /position="hero"[\s\S]*?variant="dark"/);
   assert.match(heroSource, /lg:text-\[3\.5rem\] xl:text-\[4rem\]/);
+  assert.match(heroSource, /content\.accent/);
+  assert.match(heroSource, /font-light italic text-brand-500/);
+  assert.match(heroSource, /overflow-hidden bg-white/);
+  assert.doesNotMatch(heroSource, /bg-\[#fffdf8\]/i);
 });
 
 test("optimized AVIF and WebP hero assets stay within budget", async () => {
@@ -303,7 +324,11 @@ test("road context renders the required campaign destination and varied layouts"
   assert.match(roadsContextSource, /lg:grid-cols-3[^"\n]*xl:grid-cols-5/);
   assert.match(roadsContextSource, /lg:grid-cols-\[0\.9fr_1\.1fr\]/);
   assert.doesNotMatch(roadsContextSource, /md:grid-cols-\[0\.9fr_1\.1fr\]/);
-  assert.match(roadsContextSource, /py-20 sm:py-24 lg:py-28 xl:py-36/);
+  assert.match(
+    roadsContextSource,
+    /py-20 sm:py-24 lg:py-32 xl:py-36/,
+  );
+  assert.doesNotMatch(roadsContextSource, /lg:sticky lg:top-28/);
 });
 
 test("lifecycle uses semantic stage icons and omits redundant outcomes", () => {
@@ -359,15 +384,104 @@ const lifecycleSectionSource = sourceBetween(
   "export function RoadsLifecycleSection",
   "export function RoadsFreeFlowSection",
 );
+const freeFlowSectionSource = sourceBetween(
+  roadsContextSource,
+  "export function RoadsFreeFlowSection",
+);
 const deliveryLightSource = sourceBetween(
   roadsCapabilitySource,
   '<div className="relative py-20 sm:py-24 lg:py-28 xl:py-32">',
-  '<div className="relative bg-[#0a0a0a] py-20',
+  '<div className="relative bg',
 );
 const internationalSectionSource = sourceBetween(
   roadsCapabilitySource,
   "export function RoadsInternationalSection",
 );
+const deliveryDarkSource = sourceBetween(
+  roadsCapabilitySource,
+  '<div className="relative bg-neutral-950',
+  "export function RoadsInternationalSection",
+);
+
+test("operational context follows the TOGETHER editorial and card language", () => {
+  assert.match(typesSource, /readonly accent: string/);
+  assert.match(typesSource, /readonly emphasis: string/);
+  assert.match(typesSource, /readonly emphasisAccent: string/);
+  assert.match(
+    operationalContextSource,
+    /font-light italic text-brand-500/,
+  );
+  assert.match(operationalContextSource, /bg-brand-100/);
+  assert.match(
+    operationalContextSource,
+    /border-brand-400\/35 bg-white/,
+  );
+  assert.match(
+    operationalContextSource,
+    /bg-neutral-950 text-brand-400/,
+  );
+  assert.match(operationalContextSource, /index === 2/);
+  assert.match(operationalContextSource, /Fluxo operacional/);
+  assert.match(operationalContextSource, /Da entrada ao atendimento/);
+  assert.match(operationalContextSource, /text-brand-600/);
+  assert.doesNotMatch(
+    operationalContextSource,
+    /text-\[#(?:B48600|8F6A00)\]/,
+  );
+  assert.doesNotMatch(operationalContextSource, /hover:-translate/);
+});
+
+test("the full road page uses the TOGETHER editorial accent system", () => {
+  assert.match(
+    typesSource,
+    /export type IndustryHeroContent = \{[\s\S]*?readonly accent: string/,
+  );
+  assert.match(industrySectionHeadingSource, /accent\?: string/);
+  assert.match(
+    industrySectionHeadingSource,
+    /font-light italic text-brand-500/,
+  );
+
+  for (const accent of [
+    "antes do sistema entrar no ar.",
+    "precisam de regras claras.",
+    "colocar a LGPD em prática.",
+    "todos os dias.",
+    "uma análise específica.",
+  ]) {
+    assert.match(contentSource, new RegExp(`accent: "${accent.replace(".", "\\.")}"`));
+  }
+
+  assert.equal(
+    (roadsContextSource.match(/accent=\{content\.accent\}/g) ?? []).length,
+    2,
+  );
+  assert.equal(
+    (roadsCapabilitySource.match(
+      /accent=\{(?:capabilities|operations|content)\.accent\}/g,
+    ) ?? []).length,
+    3,
+  );
+});
+
+test("the full road page uses official TOGETHER surface and yellow tokens", () => {
+  const roadVisualSources = [
+    heroSource,
+    roadsContextSource,
+    roadsCapabilitySource,
+    industrySectionHeadingSource,
+  ].join("\n");
+
+  assert.doesNotMatch(
+    roadVisualSources,
+    /#(?:fffdf8|0a0a0a|B48600|8F6A00)/i,
+  );
+  assert.match(heroSource, /bg-white/);
+  assert.match(roadsContextSource, /bg-neutral-950/);
+  assert.match(roadsCapabilitySource, /bg-neutral-950/);
+  assert.match(roadsCapabilitySource, /border-brand-400\/25/);
+  assert.match(roadsCapabilitySource, /bg-brand-400\/10/);
+});
 
 test("light road sections use restrained TOGETHER pixel framing", () => {
   assert.equal(
@@ -428,6 +542,21 @@ test("lifecycle section frames the highlighted opposite corners", () => {
     /placement="bottomRight"[\s\S]{0,180}opacity=\{0\.14\}/,
   );
   assert.match(lifecycleSectionSource, /container relative z-10/);
+  assert.match(
+    lifecycleSectionSource,
+    /from-brand-400 via-neutral-300 to-brand-400\/30/,
+  );
+  assert.match(lifecycleSectionSource, /border-brand-400\/25 bg-white/);
+});
+
+test("dark road sections use the TOGETHER pixel framing at both corners", () => {
+  for (const sectionSource of [freeFlowSectionSource, deliveryDarkSource]) {
+    assert.equal((sectionSource.match(/<PixelDecor/g) ?? []).length, 2);
+    assert.match(
+      sectionSource,
+      /placement="topRight"[\s\S]*placement="bottomLeft"/,
+    );
+  }
 });
 
 test("distilled delivery story renders its campaign destinations", () => {
@@ -460,7 +589,7 @@ test("training is presented as a structured responsive module", () => {
   assert.match(roadsCapabilitySource, /GraduationCap/);
   assert.match(
     roadsCapabilitySource,
-    /rounded-\[28px\] border border-white\/10 bg-white\/\[0\.04\]/,
+    /rounded-\[28px\] border border-brand-400\/20 bg-white\/\[0\.04\]/,
   );
   assert.match(
     roadsCapabilitySource,
@@ -503,6 +632,36 @@ const pageSource = await readOptional(
   "../src/components/industry/roads-industry-page.tsx",
 );
 
+test("road page reuses the home client-logo strip and moves proof into the support section", () => {
+  assert.match(authorityStripSource, /Clientes que confiam:/);
+  assert.match(authorityStripSource, /animate-marquee/);
+  assert.match(pageSource, /<AuthorityStrip\s*\/>/);
+  assert.doesNotMatch(pageSource, /<IndustryProofStrip/);
+  assert.match(pageSource, /proof=\{content\.proof\}/);
+  assert.match(
+    roadsCapabilitySource,
+    /proof: RoadsIndustryContent\["proof"\]/,
+  );
+  assert.match(roadsCapabilitySource, /items\.map/);
+  assert.match(roadsCapabilitySource, /function RoadsCapabilityProofRail/);
+  assert.match(
+    roadsCapabilitySource,
+    /grid grid-cols-2 gap-px xl:grid-cols-4/,
+  );
+  assert.match(
+    roadsCapabilitySource,
+    /<RoadsCapabilityProofRail items=\{proof\} \/>/,
+  );
+  assert.match(
+    roadsCapabilitySource,
+    /relative mt-4 flex flex-col items-start/,
+  );
+  assert.doesNotMatch(
+    roadsCapabilitySource,
+    /rounded-\[18px\] border border-neutral-200 bg-neutral-50/,
+  );
+});
+
 test("final industry CTA exposes complete direct contact options", () => {
   assert.match(finalCtaSource, /Contato/);
   assert.match(finalCtaSource, /\(11\) 5178-3235/);
@@ -534,7 +693,7 @@ test("road page composes the complete approved narrative", () => {
   const requiredComponents = [
     "Navbar",
     "IndustryHero",
-    "IndustryProofStrip",
+    "AuthorityStrip",
     "RoadsOperationalContextSection",
     "RoadsLifecycleSection",
     "RoadsFreeFlowSection",

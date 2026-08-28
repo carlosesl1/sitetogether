@@ -12,8 +12,8 @@ export const roadsIndustryContent = {
   },
   hero: {
     pill: "LGPD para operações rodoviárias",
-    title:
-      "Organize a privacidade da operação — do projeto ao pedágio digital.",
+    title: "Organize a privacidade da operação, do projeto ao",
+    accent: "pedágio digital.",
     description:
       "A TOGETHER ajuda concessionárias e operadoras a organizar dados, sistemas, fornecedores, solicitações e incidentes, com responsabilidades e próximos passos claros.",
     cta: "Agende uma Conversa",
@@ -48,9 +48,13 @@ export const roadsIndustryContent = {
   ],
   context: {
     pill: "Onde os dados circulam",
-    title: "Uma rodovia também é uma operação de dados.",
+    title: "Uma rodovia também é",
+    accent: "uma operação de dados.",
     description:
-      "Cadastros, placas, imagens, pagamentos, aplicativos e fornecedores fazem parte da rotina. Mapeamos onde os dados entram, quem os usa e quais cuidados são necessários.",
+      "Cadastros, placas, imagens, pagamentos, aplicativos e fornecedores fazem parte da rotina.",
+    emphasis:
+      "Identificamos onde os dados entram, quem os usa e os",
+    emphasisAccent: "controles necessários em cada etapa.",
     nodes: [
       {
         label: "Entrada",
@@ -82,7 +86,8 @@ export const roadsIndustryContent = {
   },
   lifecycle: {
     pill: "Do projeto à operação",
-    title: "A LGPD precisa entrar no projeto antes do sistema entrar no ar.",
+    title: "A LGPD precisa entrar no projeto",
+    accent: "antes do sistema entrar no ar.",
     description:
       "Definir os cuidados com os dados desde o início reduz retrabalho e evita ajustes de última hora.",
     stages: [
@@ -116,7 +121,8 @@ export const roadsIndustryContent = {
   },
   freeFlow: {
     pill: "Free flow e pedágio digital",
-    title: "Placas, imagens e pagamentos precisam de regras claras.",
+    title: "Placas, imagens e pagamentos",
+    accent: "precisam de regras claras.",
     description:
       "Definimos quais dados são necessários, quem acessa, por quanto tempo são guardados e como corrigir problemas.",
     controls: [
@@ -146,7 +152,8 @@ export const roadsIndustryContent = {
   },
   capabilities: {
     pill: "Como a TOGETHER apoia",
-    title: "Uma equipe para colocar a LGPD em prática.",
+    title: "Uma equipe para",
+    accent: "colocar a LGPD em prática.",
     description: "O apoio pode ser pontual ou acompanhar a operação.",
     items: [
       {
@@ -181,7 +188,8 @@ export const roadsIndustryContent = {
   },
   operations: {
     pill: "Depois da implantação",
-    title: "A privacidade precisa funcionar todos os dias.",
+    title: "A privacidade precisa funcionar",
+    accent: "todos os dias.",
     description:
       "Apoiamos atendimento, incidentes, fornecedores e evolução do programa.",
     routines: [
@@ -217,7 +225,8 @@ export const roadsIndustryContent = {
   },
   international: {
     pill: "Brasil e atuação internacional",
-    title: "Dados em outros países exigem uma análise específica.",
+    title: "Dados em outros países exigem",
+    accent: "uma análise específica.",
     description:
       "Analisamos onde os dados ficam, quem acessa e quais regras se aplicam à nuvem, ao suporte ou a fornecedores no exterior. Consideramos LGPD e, quando necessário, GDPR.",
     illustration: {

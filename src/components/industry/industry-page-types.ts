@@ -34,6 +34,7 @@ export type IndustryContentSource = {
 export type IndustryHeroContent = {
   readonly pill: string;
   readonly title: string;
+  readonly accent: string;
   readonly description: string;
   readonly cta: string;
   readonly image: {
@@ -77,24 +78,30 @@ export type RoadsIndustryContent = {
   readonly context: {
     readonly pill: string;
     readonly title: string;
+    readonly accent: string;
     readonly description: string;
+    readonly emphasis: string;
+    readonly emphasisAccent: string;
     readonly nodes: readonly IndustryTextItem[];
   };
   readonly lifecycle: {
     readonly pill: string;
     readonly title: string;
+    readonly accent: string;
     readonly description: string;
     readonly stages: readonly IndustryTextItem[];
   };
   readonly freeFlow: {
     readonly pill: string;
     readonly title: string;
+    readonly accent: string;
     readonly description: string;
     readonly controls: readonly IndustryTextItem[];
   };
   readonly capabilities: {
     readonly pill: string;
     readonly title: string;
+    readonly accent: string;
     readonly description: string;
     readonly items: readonly IndustryCapability[];
     readonly ctaTitle: string;
@@ -104,6 +111,7 @@ export type RoadsIndustryContent = {
   readonly operations: {
     readonly pill: string;
     readonly title: string;
+    readonly accent: string;
     readonly description: string;
     readonly routines: readonly IndustryTextItem[];
   };
@@ -116,6 +124,7 @@ export type RoadsIndustryContent = {
   readonly international: {
     readonly pill: string;
     readonly title: string;
+    readonly accent: string;
     readonly description: string;
     readonly illustration: {
       readonly src: "/images/industries/roads/international-data-routes-v3.png";
