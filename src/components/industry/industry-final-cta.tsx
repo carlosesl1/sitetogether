@@ -43,13 +43,13 @@ export function IndustryFinalCta({
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] bg-[size:40px_40px]" />
       <div className="absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-white/30 blur-[120px]" />
       <div className="container relative z-10 mx-auto px-6">
-        <SectionPill tone="brand">{content.pill}</SectionPill>
-        <div className="mt-8 grid items-end gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-24">
-          <div>
-            <h2 className="max-w-4xl break-words text-[clamp(2.7rem,10vw,3.5rem)] font-bold leading-[0.94] tracking-tight sm:text-6xl lg:text-7xl">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-24">
+          <div className="min-w-0">
+            <SectionPill tone="brand">{content.pill}</SectionPill>
+            <h2 className="mt-6 max-w-4xl break-words text-[clamp(2.7rem,10vw,3.5rem)] font-bold leading-[0.94] tracking-tight sm:text-6xl lg:text-[4rem]">
               {content.title}
             </h2>
-            <p className="mt-8 max-w-2xl text-lg font-medium leading-relaxed text-neutral-800">
+            <p className="mt-6 max-w-lg text-lg font-medium leading-relaxed text-neutral-800">
               {content.description}
             </p>
           </div>

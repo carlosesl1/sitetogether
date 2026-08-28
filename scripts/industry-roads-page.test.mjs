@@ -385,6 +385,16 @@ test("final industry CTA exposes complete direct contact options", () => {
   assert.match(finalCtaSource, /focus-visible:ring-2/);
 });
 
+test("final CTA groups its pill and copy in a centered text block", () => {
+  assert.match(finalCtaSource, /grid items-center gap-12/);
+  assert.match(
+    finalCtaSource,
+    /<div className="min-w-0">[\s\S]*?<SectionPill tone="brand">[\s\S]*?<h2 className="mt-6[^"]*lg:text-\[4rem\][^"]*">[\s\S]*?<p className="mt-6 max-w-lg/,
+  );
+  assert.doesNotMatch(finalCtaSource, /items-end/);
+  assert.doesNotMatch(finalCtaSource, /lg:text-7xl/);
+});
+
 test("road page composes the complete approved narrative", () => {
   const requiredComponents = [
     "Navbar",
