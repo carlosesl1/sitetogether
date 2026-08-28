@@ -21,7 +21,7 @@ export function SectionPill({ children, tone = "light", className }: SectionPill
             )}
         >
             <span className="h-1.5 w-1.5 rounded-full bg-brand-400 shadow-[0_0_10px_rgba(255,214,55,0.8)]" />
-            <span className="min-w-0 text-[10px] font-bold uppercase tracking-[0.22em] leading-tight">{children}</span>
+            <span className="min-w-0 text-[11px] font-bold uppercase tracking-[0.18em] leading-tight sm:text-xs sm:tracking-[0.22em]">{children}</span>
         </div>
     );
 }

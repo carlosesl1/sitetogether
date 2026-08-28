@@ -114,7 +114,7 @@ export function LanguageSwitcher({
         aria-label={`Selecionar idioma. Idioma ativo: ${currentLocale.label}`}
         onClick={() => setIsOpen((open) => !open)}
         className={cn(
-          "inline-flex h-10 shrink-0 items-center justify-center rounded-full border text-[10px] font-bold uppercase transition-all",
+          "inline-flex h-11 shrink-0 items-center justify-center rounded-full border text-[11px] font-bold uppercase transition-all",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400/70 focus-visible:ring-offset-2",
           compact ? "gap-1.5 px-2.5 tracking-[0.14em]" : "gap-2 px-3 tracking-[0.16em]",
           isTranslatedLocale

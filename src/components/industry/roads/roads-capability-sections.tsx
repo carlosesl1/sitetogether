@@ -45,7 +45,7 @@ export function RoadsDeliverySection({
 }: DeliveryProps) {
   return (
     <section className="relative overflow-hidden bg-white">
-      <div className="relative py-24 md:py-32">
+      <div className="relative py-20 sm:py-24 lg:py-28 xl:py-32">
         <PixelDecor placement="topRight" mask="topRight" opacity={0.08} />
         <div className="container relative z-10 mx-auto px-6">
           <div className="grid items-start gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
@@ -56,13 +56,13 @@ export function RoadsDeliverySection({
               className="lg:sticky lg:top-28"
             />
 
-            <div className="grid border-t border-neutral-300 md:grid-cols-2">
+            <div className="grid border-t border-neutral-300 xl:grid-cols-2">
               {capabilities.items.map((item, index) => {
                 const Icon = capabilityIcons[index];
                 return (
                   <article
                     key={item.title}
-                    className="grid min-w-0 grid-cols-[40px_1fr] gap-4 border-b border-neutral-200 py-6 md:odd:pr-7 md:even:border-l md:even:pl-7"
+                    className="grid min-w-0 grid-cols-[40px_1fr] gap-4 border-b border-neutral-200 py-6 xl:odd:pr-7 xl:even:border-l xl:even:pl-7"
                   >
                     <span className="flex h-10 w-10 items-center justify-center rounded-[12px] bg-brand-400 text-neutral-950">
                       <Icon className="h-5 w-5" aria-hidden="true" />
@@ -105,13 +105,13 @@ export function RoadsDeliverySection({
         </div>
       </div>
 
-      <div className="relative bg-[#0a0a0a] py-24 text-white md:py-32">
+      <div className="relative bg-[#0a0a0a] py-20 text-white sm:py-24 lg:py-28 xl:py-32">
         <PixelDecor placement="bottomLeft" mask="bottomLeft" opacity={0.12} />
         <div className="container relative z-10 mx-auto px-6">
           <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
             <div>
               <SectionPill tone="dark">{operations.pill}</SectionPill>
-              <h2 className="mt-7 max-w-3xl text-[clamp(2.3rem,7vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.03em] text-white">
+              <h2 className="mt-7 max-w-3xl text-[clamp(2.05rem,7vw,3.5rem)] font-bold leading-[0.98] tracking-[-0.03em] text-white">
                 {operations.title}
               </h2>
               <p className="mt-6 max-w-2xl text-base font-medium leading-relaxed text-neutral-400 sm:text-lg">
@@ -154,7 +154,7 @@ export function RoadsDeliverySection({
                   {training.description}
                 </p>
               </div>
-              <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+              <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                 {training.audiences.map((audience) => (
                   <li
                     key={audience}
@@ -190,7 +190,7 @@ export function RoadsInternationalSection({ content }: InternationalProps) {
         >
           <div>
             <SectionPill>{content.pill}</SectionPill>
-            <h2 className="mt-8 max-w-3xl text-[clamp(2.15rem,7vw,3.25rem)] font-bold leading-[0.98] tracking-[-0.03em] text-neutral-900">
+            <h2 className="mt-8 max-w-3xl text-[clamp(2rem,7vw,3.25rem)] font-bold leading-[0.98] tracking-[-0.03em] text-neutral-900">
               {content.title}
             </h2>
             <p className="mt-6 max-w-3xl text-base font-medium leading-relaxed text-neutral-500 sm:text-lg">

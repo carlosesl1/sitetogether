@@ -74,7 +74,6 @@ export type RoadsIndustryContent = {
   };
   readonly hero: IndustryHeroContent;
   readonly proof: readonly IndustryProofItem[];
-  readonly proofNote: string;
   readonly context: {
     readonly pill: string;
     readonly title: string;

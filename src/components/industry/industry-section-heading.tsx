@@ -21,7 +21,7 @@ export function IndustrySectionHeading({
       <SectionPill tone={inverse ? "dark" : "light"}>{pill}</SectionPill>
       <h2
         className={cn(
-          "mt-8 break-words text-[clamp(2.35rem,9vw,3rem)] font-bold leading-[0.96] tracking-tight sm:text-5xl lg:text-6xl",
+          "mt-8 break-words text-[clamp(2rem,8vw,3rem)] font-bold leading-[0.96] tracking-tight sm:text-5xl lg:text-[3.5rem] xl:text-6xl",
           inverse ? "text-white" : "text-neutral-900",
         )}
       >

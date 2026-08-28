@@ -17,7 +17,7 @@ export function IndustryHero({
   const { image } = content;
 
   return (
-    <section className="relative min-h-[760px] overflow-hidden bg-[#fffdf8] sm:min-h-[720px] lg:min-h-[760px]">
+    <section className="relative min-h-[700px] overflow-hidden bg-[#fffdf8] sm:min-h-[720px] lg:min-h-[760px]">
       <picture className="absolute inset-0 block h-full w-full">
         <source
           media="(max-width: 767px)"
@@ -51,10 +51,10 @@ export function IndustryHero({
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:40px_40px] opacity-35" />
       <PixelDecor placement="topRight" mask="topRight" opacity={0.12} />
 
-      <div className="container relative z-10 mx-auto flex min-h-[760px] items-start px-6 pb-28 pt-20 sm:min-h-[720px] sm:items-center sm:py-24 lg:min-h-[760px]">
+      <div className="container relative z-10 mx-auto flex min-h-[700px] items-start px-5 pb-20 pt-16 sm:min-h-[720px] sm:items-center sm:px-6 sm:py-24 lg:min-h-[760px]">
         <div className="max-w-3xl">
           <SectionPill>{content.pill}</SectionPill>
-          <h1 className="mt-8 max-w-3xl break-words text-[clamp(2.55rem,11vw,3.5rem)] font-bold leading-[0.94] tracking-tight text-neutral-950 sm:text-6xl lg:text-[4rem]">
+          <h1 className="mt-8 max-w-3xl break-words text-[clamp(2.35rem,10vw,3.5rem)] font-bold leading-[0.94] tracking-tight text-neutral-950 sm:text-[3.5rem] lg:text-[3.5rem] xl:text-[4rem]">
             {content.title}
           </h1>
           <p className="mt-8 max-w-2xl text-base font-medium leading-relaxed text-neutral-700 sm:text-lg lg:text-xl">
@@ -65,7 +65,7 @@ export function IndustryHero({
               sector={sector}
               position="hero"
               allowedAnchors={allowedAnchors}
-              variant="dark"
+              variant="primary"
               size="lg"
               fullWidth
               className="sm:w-auto"

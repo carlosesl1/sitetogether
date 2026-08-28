@@ -46,8 +46,6 @@ export const roadsIndustryContent = {
       label: "prática com as principais plataformas de privacidade",
     },
   ],
-  proofNote:
-    "Indicadores da atuação da TOGETHER em privacidade. A aplicação ao setor rodoviário começa pelo entendimento da operação e não representa um case setorial já realizado.",
   context: {
     pill: "Onde os dados circulam",
     title: "Uma rodovia também é uma operação de dados.",

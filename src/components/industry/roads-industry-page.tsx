@@ -27,7 +27,7 @@ export function RoadsIndustryPage() {
           content={content.hero}
           allowedAnchors={roadAnchorIds}
         />
-        <IndustryProofStrip items={content.proof} note={content.proofNote} />
+        <IndustryProofStrip items={content.proof} />
         <RoadsOperationalContextSection content={content.context} />
         <RoadsLifecycleSection content={content.lifecycle} />
         <RoadsFreeFlowSection content={content.freeFlow} />

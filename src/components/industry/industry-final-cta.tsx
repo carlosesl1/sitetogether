@@ -38,7 +38,7 @@ export function IndustryFinalCta({
   return (
     <section
       id="cta"
-      className="relative overflow-hidden bg-brand-400 py-24 text-neutral-950 md:py-36"
+      className="relative overflow-hidden bg-brand-400 py-20 text-neutral-950 sm:py-24 lg:py-28 xl:py-36"
     >
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] bg-[size:40px_40px]" />
       <div className="absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-white/30 blur-[120px]" />
@@ -46,7 +46,7 @@ export function IndustryFinalCta({
         <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-24">
           <div className="min-w-0">
             <SectionPill tone="brand">{content.pill}</SectionPill>
-            <h2 className="mt-6 max-w-4xl break-words text-[clamp(2.7rem,10vw,3.5rem)] font-bold leading-[0.94] tracking-tight sm:text-6xl lg:text-[4rem]">
+            <h2 className="mt-6 max-w-4xl break-words text-[clamp(2.35rem,10vw,3.5rem)] font-bold leading-[0.94] tracking-tight sm:text-6xl lg:text-[3.5rem] xl:text-[4rem]">
               {content.title}
             </h2>
             <p className="mt-6 max-w-lg text-lg font-medium leading-relaxed text-neutral-800">
@@ -74,7 +74,7 @@ export function IndustryFinalCta({
               {content.cta}
             </IndustryContactLink>
             <div className="mt-6 border-t border-neutral-200 pt-5">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500">
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-neutral-500">
                 Próximo passo
               </p>
               <p className="mt-2 text-sm font-bold leading-relaxed text-neutral-900">
@@ -95,7 +95,7 @@ export function IndustryFinalCta({
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block text-[9px] font-bold uppercase tracking-[0.16em] text-neutral-400">
+                      <span className="block text-[11px] font-bold uppercase tracking-[0.14em] text-neutral-400">
                         {item.label}
                       </span>
                       <span className="mt-1 block break-words text-sm font-bold leading-tight text-neutral-900 sm:text-base">

@@ -173,12 +173,12 @@ const techIntegrationSource = await readOptional(
   "../src/components/ui/tech-integration.tsx",
 );
 
-test("industry proof is stats-only and cannot imply road-sector clients", () => {
+test("industry proof is stats-only and the road page omits the disclaimer", () => {
   assert.match(proofSource, /<dl/);
   assert.match(proofSource, /rounded-t-\[40px\]/);
   assert.match(proofSource, /note\?: string/);
-  assert.match(contentSource, /proofNote:/);
-  assert.match(contentSource, /não representa um case setorial já realizado/);
+  assert.doesNotMatch(contentSource, /proofNote:/);
+  assert.doesNotMatch(typesSource, /proofNote: string/);
   assert.doesNotMatch(proofSource, /LogoMarquee/);
   assert.doesNotMatch(proofSource, /Clientes que confiam/);
 });
@@ -210,6 +210,12 @@ test("privacy platform data is shared without changing the home section", () => 
 const faqSource = await readOptional(
   "../src/components/industry/industry-faq-section.tsx",
 );
+const sectionHeadingSource = await readOptional(
+  "../src/components/industry/industry-section-heading.tsx",
+);
+const languageSwitcherSource = await readOptional(
+  "../src/components/i18n/language-switcher.tsx",
+);
 
 test("industry FAQ is configurable and exposes accordion semantics", () => {
   assert.match(faqSource, /items: readonly IndustryFaqItem\[\]/);
@@ -222,6 +228,14 @@ test("industry FAQ is configurable and exposes accordion semantics", () => {
   assert.match(faqSource, /useReducedMotion/);
   assert.doesNotMatch(faqSource, /Agendar Call Técnica/);
   assert.doesNotMatch(faqSource, /<ActionLink/);
+});
+
+test("shared industry typography stays readable from mobile through tablet", () => {
+  assert.match(sectionHeadingSource, /clamp\(2rem,8vw,3rem\)/);
+  assert.match(faqSource, /leading-\[1\.3\]/);
+  assert.match(faqSource, /py-20 sm:py-24 lg:py-28 xl:py-40/);
+  assert.match(languageSwitcherSource, /h-11/);
+  assert.match(actionLinkSource, /text-\[11px\].*sm:text-xs/);
 });
 
 const heroSource = await readOptional(
@@ -237,6 +251,12 @@ test("road hero uses static art direction and a decorative image", () => {
   assert.match(heroSource, /height=\{image\.desktop\.height\}/);
   assert.match(heroSource, /alt=""/);
   assert.match(heroSource, /fetchPriority="high"/);
+});
+
+test("road hero uses the yellow brand CTA", () => {
+  assert.match(heroSource, /position="hero"[\s\S]*?variant="primary"/);
+  assert.doesNotMatch(heroSource, /position="hero"[\s\S]*?variant="dark"/);
+  assert.match(heroSource, /lg:text-\[3\.5rem\] xl:text-\[4rem\]/);
 });
 
 test("optimized AVIF and WebP hero assets stay within budget", async () => {
@@ -280,8 +300,10 @@ test("road context renders the required campaign destination and varied layouts"
   assert.match(roadsContextSource, /RoadsOperationalContextSection/);
   assert.match(roadsContextSource, /RoadsLifecycleSection/);
   assert.match(roadsContextSource, /RoadsFreeFlowSection/);
-  assert.match(roadsContextSource, /lg:grid-cols-5/);
-  assert.match(roadsContextSource, /md:grid-cols-\[0\.9fr_1\.1fr\]/);
+  assert.match(roadsContextSource, /lg:grid-cols-3[^"\n]*xl:grid-cols-5/);
+  assert.match(roadsContextSource, /lg:grid-cols-\[0\.9fr_1\.1fr\]/);
+  assert.doesNotMatch(roadsContextSource, /md:grid-cols-\[0\.9fr_1\.1fr\]/);
+  assert.match(roadsContextSource, /py-20 sm:py-24 lg:py-28 xl:py-36/);
 });
 
 test("lifecycle uses semantic stage icons and omits redundant outcomes", () => {
@@ -295,7 +317,8 @@ test("lifecycle uses semantic stage icons and omits redundant outcomes", () => {
     assert.match(roadsContextSource, new RegExp(`\\b${icon}\\b`));
   }
 
-  assert.match(roadsContextSource, /lg:grid-cols-5/);
+  assert.match(roadsContextSource, /lg:grid-cols-3[^"\n]*xl:grid-cols-5/);
+  assert.match(roadsContextSource, /xl:block/);
   assert.doesNotMatch(roadsContextSource, /content\.outcomes/);
   assert.doesNotMatch(contentSource, /outcomesTitle:|outcomes:/);
   assert.doesNotMatch(typesSource, /readonly outcomesTitle:|readonly outcomes:/);
@@ -348,8 +371,23 @@ test("training is presented as a structured responsive module", () => {
     roadsCapabilitySource,
     /rounded-\[28px\] border border-white\/10 bg-white\/\[0\.04\]/,
   );
-  assert.match(roadsCapabilitySource, /sm:grid-cols-2/);
+  assert.match(
+    roadsCapabilitySource,
+    /sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2/,
+  );
   assert.match(roadsCapabilitySource, /training\.audiences\.map/);
+});
+
+test("nested delivery grids expand only when their columns stay readable", () => {
+  assert.match(roadsCapabilitySource, /xl:grid-cols-2/);
+  assert.doesNotMatch(
+    roadsCapabilitySource,
+    /className="grid border-t border-neutral-300 md:grid-cols-2"/,
+  );
+  assert.match(
+    roadsCapabilitySource,
+    /py-20 sm:py-24 lg:py-28 xl:py-32/,
+  );
 });
 
 test("international section renders a transparent project-owned illustration", async () => {
@@ -389,10 +427,16 @@ test("final CTA groups its pill and copy in a centered text block", () => {
   assert.match(finalCtaSource, /grid items-center gap-12/);
   assert.match(
     finalCtaSource,
-    /<div className="min-w-0">[\s\S]*?<SectionPill tone="brand">[\s\S]*?<h2 className="mt-6[^"]*lg:text-\[4rem\][^"]*">[\s\S]*?<p className="mt-6 max-w-lg/,
+    /<div className="min-w-0">[\s\S]*?<SectionPill tone="brand">[\s\S]*?<h2 className="mt-6[^"]*lg:text-\[3\.5rem\] xl:text-\[4rem\][^"]*">[\s\S]*?<p className="mt-6 max-w-lg/,
   );
   assert.doesNotMatch(finalCtaSource, /items-end/);
   assert.doesNotMatch(finalCtaSource, /lg:text-7xl/);
+});
+
+test("final CTA uses compact mobile spacing and legible microcopy", () => {
+  assert.match(finalCtaSource, /py-20[^"\n]*sm:py-24 lg:py-28 xl:py-36/);
+  assert.match(finalCtaSource, /text-\[11px\]/);
+  assert.doesNotMatch(finalCtaSource, /text-\[(?:9|10)px\]/);
 });
 
 test("road page composes the complete approved narrative", () => {
@@ -422,6 +466,8 @@ test("road page composes the complete approved narrative", () => {
   ]) {
     assert.doesNotMatch(pageSource, new RegExp(`<${removedComponent}`));
   }
+
+  assert.doesNotMatch(pageSource, /note=\{content\.proofNote\}/);
 });
 
 test("road page has exactly the three approved CTA positions", () => {
@@ -503,7 +549,7 @@ test("every declared campaign anchor has one rendered target", () => {
 });
 
 test("road content removes the redundant standalone process contracts", () => {
-  assert.match(typesSource, /proofNote: string/);
+  assert.doesNotMatch(typesSource, /proofNote: string/);
   assert.doesNotMatch(typesSource, /outcomes: readonly string\[\]/);
   assert.doesNotMatch(typesSource, /readonly privacyByDesign:/);
   assert.doesNotMatch(typesSource, /readonly method:/);

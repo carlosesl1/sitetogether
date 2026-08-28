@@ -41,7 +41,7 @@ function IndustryFaqRow({
         className="flex min-h-16 w-full items-center justify-between gap-5 py-2 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-4"
       >
         <span
-          className={`min-w-0 break-words text-xl font-bold tracking-tight transition-colors md:text-3xl ${isOpen ? "text-neutral-900" : "text-neutral-500 group-hover:text-neutral-800"}`}
+          className={`min-w-0 break-words text-xl font-bold leading-[1.3] tracking-tight transition-colors md:text-3xl ${isOpen ? "text-neutral-900" : "text-neutral-500 group-hover:text-neutral-800"}`}
         >
           {item.question}
         </span>
@@ -78,14 +78,14 @@ export function IndustryFaqSection({
   items,
 }: IndustryFaqSectionProps) {
   return (
-    <section id="faq" className="relative overflow-hidden bg-white py-24 md:py-40">
+    <section id="faq" className="relative overflow-hidden bg-white py-20 sm:py-24 lg:py-28 xl:py-40">
       <PixelDecor placement="topRight" mask="topRight" opacity={0.12} />
       <PixelDecor placement="bottomLeft" mask="bottomLeft" opacity={0.12} />
       <div className="container relative z-10 mx-auto px-6">
         <div className="flex flex-col items-start gap-14 lg:flex-row lg:gap-32">
           <div className="pt-2 lg:sticky lg:top-24 lg:w-1/3">
             <SectionPill>{pill}</SectionPill>
-            <h2 className="mt-8 break-words text-[clamp(2.25rem,10vw,2.75rem)] font-bold leading-[0.94] tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl">
+            <h2 className="mt-8 break-words text-[clamp(2rem,9vw,2.75rem)] font-bold leading-[0.94] tracking-tight text-neutral-900 sm:text-5xl lg:text-[3.5rem] xl:text-6xl">
               {title}{" "}
               <span className="font-light italic text-brand-500">{accent}</span>
             </h2>

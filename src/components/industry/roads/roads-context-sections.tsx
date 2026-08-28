@@ -39,15 +39,15 @@ export function RoadsOperationalContextSection({ content }: ContextProps) {
   return (
     <section
       data-section="roads-context"
-      className="relative overflow-hidden bg-white py-24 md:py-36"
+      className="relative overflow-hidden bg-white py-20 sm:py-24 lg:py-28 xl:py-36"
     >
       <PixelDecor placement="topRight" mask="topRight" opacity={0.1} />
-      <div className="container relative z-10 mx-auto grid items-start gap-14 px-6 md:grid-cols-[0.9fr_1.1fr] lg:gap-24">
+      <div className="container relative z-10 mx-auto grid items-start gap-14 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
         <IndustrySectionHeading
           pill={content.pill}
           title={content.title}
           description={content.description}
-          className="md:sticky md:top-28"
+          className="lg:sticky lg:top-28"
         />
 
         <div className="relative overflow-hidden rounded-[32px] border border-neutral-200 bg-neutral-50/70 p-5 shadow-xl shadow-neutral-200/35 sm:p-8">
@@ -94,7 +94,7 @@ export function RoadsLifecycleSection({ content }: LifecycleProps) {
   return (
     <section
       id="privacy-by-design"
-      className="relative scroll-mt-24 overflow-hidden bg-neutral-50 py-24 md:py-36"
+      className="relative scroll-mt-24 overflow-hidden bg-neutral-50 py-20 sm:py-24 lg:py-28 xl:py-36"
     >
       <div className="container mx-auto px-6">
         <IndustrySectionHeading
@@ -104,10 +104,10 @@ export function RoadsLifecycleSection({ content }: LifecycleProps) {
         />
         <div className="relative mt-14">
           <div
-            className="absolute left-6 top-6 hidden h-px w-[calc(100%-3rem)] bg-neutral-300 lg:block"
+            className="absolute left-6 top-6 hidden h-px w-[calc(100%-3rem)] bg-neutral-300 xl:block"
             aria-hidden="true"
           />
-          <ol className="relative grid gap-8 lg:grid-cols-5 lg:gap-5">
+          <ol className="relative grid gap-8 lg:grid-cols-3 lg:gap-6 xl:grid-cols-5 xl:gap-5">
             {content.stages.map((stage, index) => {
               const Icon = lifecycleIcons[index];
 
@@ -149,11 +149,11 @@ export function RoadsFreeFlowSection({ content }: FreeFlowProps) {
   return (
     <section
       id="free-flow"
-      className="relative scroll-mt-24 overflow-hidden bg-[#0a0a0a] py-24 text-white md:py-36"
+      className="relative scroll-mt-24 overflow-hidden bg-[#0a0a0a] py-20 text-white sm:py-24 lg:py-28 xl:py-36"
     >
       <PixelDecor placement="bottomLeft" mask="bottomLeft" opacity={0.14} />
       <div className="container relative z-10 mx-auto px-6">
-        <div className="grid items-start gap-14 md:grid-cols-[0.9fr_1.1fr] lg:gap-24">
+        <div className="grid items-start gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
           <div>
             <span className="mb-7 flex h-14 w-14 items-center justify-center rounded-[18px] bg-brand-400 text-neutral-950">
               <ScanLine className="h-7 w-7" aria-hidden="true" />
