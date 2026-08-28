@@ -339,6 +339,62 @@ const roadsCapabilitySource = await readOptional(
   "../src/components/industry/roads/roads-capability-sections.tsx",
 );
 
+function sourceBetween(source, startMarker, endMarker) {
+  const start = source.indexOf(startMarker);
+  assert.notEqual(start, -1, `missing source marker: ${startMarker}`);
+
+  const end = endMarker ? source.indexOf(endMarker, start) : source.length;
+  assert.notEqual(end, -1, `missing source marker: ${endMarker}`);
+
+  return source.slice(start, end);
+}
+
+const operationalContextSource = sourceBetween(
+  roadsContextSource,
+  "export function RoadsOperationalContextSection",
+  "export function RoadsLifecycleSection",
+);
+const deliveryLightSource = sourceBetween(
+  roadsCapabilitySource,
+  '<div className="relative py-20 sm:py-24 lg:py-28 xl:py-32">',
+  '<div className="relative bg-[#0a0a0a] py-20',
+);
+const internationalSectionSource = sourceBetween(
+  roadsCapabilitySource,
+  "export function RoadsInternationalSection",
+);
+
+test("light road sections use restrained TOGETHER pixel framing", () => {
+  assert.equal(
+    (operationalContextSource.match(/<PixelDecor/g) ?? []).length,
+    2,
+  );
+  assert.match(
+    operationalContextSource,
+    /placement="topRight"[\s\S]*placement="bottomLeft"/,
+  );
+
+  assert.equal((deliveryLightSource.match(/<PixelDecor/g) ?? []).length, 2);
+  assert.match(
+    deliveryLightSource,
+    /placement="topRight"[\s\S]*placement="bottomLeft"/,
+  );
+
+  assert.equal(
+    (internationalSectionSource.match(/<PixelDecor/g) ?? []).length,
+    2,
+  );
+  assert.match(
+    internationalSectionSource,
+    /<section className="relative overflow-hidden bg-white/,
+  );
+  assert.match(internationalSectionSource, /container relative z-10/);
+  assert.match(
+    internationalSectionSource,
+    /placement="topRight"[\s\S]*placement="bottomLeft"/,
+  );
+});
+
 test("distilled delivery story renders its campaign destinations", () => {
   assert.match(roadsCapabilitySource, /id="internacional"/);
   assert.match(roadsCapabilitySource, /index === 0 \? "dpo"/);

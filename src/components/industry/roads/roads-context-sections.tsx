@@ -42,6 +42,12 @@ export function RoadsOperationalContextSection({ content }: ContextProps) {
       className="relative overflow-hidden bg-white py-20 sm:py-24 lg:py-28 xl:py-36"
     >
       <PixelDecor placement="topRight" mask="topRight" opacity={0.1} />
+      <PixelDecor
+        placement="bottomLeft"
+        mask="bottomLeft"
+        opacity={0.07}
+        className="max-sm:h-[38%] max-sm:w-[72%]"
+      />
       <div className="container relative z-10 mx-auto grid items-start gap-14 px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
         <IndustrySectionHeading
           pill={content.pill}

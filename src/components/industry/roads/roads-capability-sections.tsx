@@ -47,6 +47,12 @@ export function RoadsDeliverySection({
     <section className="relative overflow-hidden bg-white">
       <div className="relative py-20 sm:py-24 lg:py-28 xl:py-32">
         <PixelDecor placement="topRight" mask="topRight" opacity={0.08} />
+        <PixelDecor
+          placement="bottomLeft"
+          mask="bottomLeft"
+          opacity={0.07}
+          className="max-sm:h-[34%] max-sm:w-[72%]"
+        />
         <div className="container relative z-10 mx-auto px-6">
           <div className="grid items-start gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
             <IndustrySectionHeading
@@ -182,8 +188,20 @@ export function RoadsDeliverySection({
 
 export function RoadsInternationalSection({ content }: InternationalProps) {
   return (
-    <section className="relative bg-white py-20 md:py-24">
-      <div className="container mx-auto px-6">
+    <section className="relative overflow-hidden bg-white py-20 md:py-24">
+      <PixelDecor
+        placement="topRight"
+        mask="topRight"
+        opacity={0.09}
+        className="max-sm:h-[36%] max-sm:w-[72%]"
+      />
+      <PixelDecor
+        placement="bottomLeft"
+        mask="bottomLeft"
+        opacity={0.06}
+        className="max-sm:h-[30%] max-sm:w-[68%]"
+      />
+      <div className="container relative z-10 mx-auto px-6">
         <div
           id="internacional"
           className="scroll-mt-28 overflow-hidden rounded-[28px] bg-neutral-100/80 p-7 sm:p-10 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-12"
