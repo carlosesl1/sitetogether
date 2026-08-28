@@ -14,7 +14,7 @@ test("every visible fixed-phone surface also displays the mobile number", async 
 
     assert.match(
       source,
-      /\(11\) 5178-3235 \/ \+55 11 92642-0123/,
+      /\(11\) 5178-3235 \/ (?:\+55 11|\(11\)) 92642-0123/,
       `${relativePath} must display the mobile number beside the fixed phone`,
     );
   }
