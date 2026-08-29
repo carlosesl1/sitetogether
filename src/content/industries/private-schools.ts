@@ -7,15 +7,15 @@ export const privateSchoolsIndustryContent = {
   visualFamily: "school",
   metadata: {
     title: "Privacidade e LGPD para escolas particulares",
-    description: "Organize a privacidade de alunos, responsáveis, equipes e fornecedores sem travar a rotina escolar.",
+    description: "Privacidade e LGPD para dados de alunos, responsáveis, equipes, plataformas e fornecedores na rotina escolar.",
     canonical: "/solucoes/privacidade-escolas-particulares",
     socialAlt: "Adultos e estudante em rotina administrativa de uma escola contemporânea",
   },
   hero: {
     pill: "LGPD para escolas particulares",
-    title: "Proteja dados de alunos e responsáveis.",
-    accent: "Sem travar a rotina escolar.",
-    description: "A TOGETHER ajuda sua escola a organizar dados, acessos, plataformas, fornecedores e respostas a incidentes com clareza para cada equipe.",
+    title: "Coloque a proteção de dados de alunos e responsáveis",
+    accent: "dentro da rotina escolar.",
+    description: "A TOGETHER estrutura processos e controles para dados, acessos, plataformas, fornecedores e resposta a incidentes na rotina escolar.",
     cta: "Agende uma Conversa",
     image: {
       desktop: { avif: `${imageBase}/hero-desktop.avif`, webp: `${imageBase}/hero-desktop.webp`, png: `${imageBase}/hero-desktop.png`, width: 1672, height: 941 },
@@ -45,7 +45,7 @@ export const privateSchoolsIndustryContent = {
     ],
   },
   priority: {
-    id: "prioridades-escola", pill: "Pontos de atenção", title: "Cuidado proporcional para", accent: "alunos e adolescentes.",
+    id: "prioridades-escola", pill: "Pontos de atenção", title: "Cuidado reforçado com dados de", accent: "crianças e adolescentes.",
     description: "A proteção deve considerar o melhor interesse de crianças e adolescentes e a realidade das equipes escolares.",
     points: [
       { icon: "shield", label: "Melhor interesse", title: "Decidir com responsabilidade", description: "Avaliar necessidade, contexto e impacto para crianças e adolescentes." },
@@ -61,17 +61,17 @@ export const privateSchoolsIndustryContent = {
       { icon: "analytics", title: "Diagnóstico e plano de ação", description: "Priorizamos riscos, fluxos e próximos passos." },
       { icon: "network", title: "Mapeamento de dados", description: "Mostramos onde os dados entram, circulam e são compartilhados." },
       { icon: "key", title: "Acessos e plataformas", description: "Organizamos perfis, contratos, integrações e responsabilidades." },
-      { icon: "shield", title: "Dados sensíveis e menores", description: "Apoiamos decisões considerando contexto e melhor interesse." },
+      { icon: "shield", title: "Dados sensíveis, crianças e adolescentes", description: "Apoiamos decisões considerando contexto, necessidade e melhor interesse." },
       { icon: "camera", title: "Incidentes e solicitações", description: "Criamos rotinas para responder, registrar e aprender." },
       { icon: "presentation", title: "Workshops por equipe", description: "Conteúdo prático para direção, secretaria, tecnologia e docentes." },
     ],
-    ctaTitle: "Quer avaliar uma prioridade da escola?", ctaText: "Ajudamos a definir o escopo e o próximo passo.", cta: "Agende uma Conversa",
+    ctaTitle: "Quer avaliar uma prioridade da escola?", ctaText: "Ajudamos a identificar o escopo inicial.", cta: "Agende uma Conversa",
   },
   proof: [
-    { value: "LGPD", label: "privacidade integrada à rotina escolar" },
-    { value: "Por área", label: "responsabilidades mais claras para cada equipe" },
-    { value: "Na prática", label: "processos, registros e próximos passos" },
-    { value: "Com cuidado", label: "atenção a dados de crianças e adolescentes" },
+    { value: "+5 anos", label: "de atuação em privacidade e LGPD" },
+    { value: "+200", label: "atividades e entregas disponíveis" },
+    { value: "Equipe multidisciplinar", label: "privacidade, tecnologia, processos e operação" },
+    { value: "Escopo flexível", label: "de uma prioridade específica à estrutura contínua de privacidade" },
   ],
   training: {
     id: "treinamentos-escola", pill: "Treinamentos e workshops", title: "Cada equipe aprende o que precisa fazer.",
@@ -79,7 +79,7 @@ export const privateSchoolsIndustryContent = {
     audiences: ["Direção, coordenação e secretaria", "Docentes e atendimento às famílias", "Tecnologia, segurança e portaria", "Compras, parceiros e fornecedores"],
   },
   faq: {
-    pill: "Perguntas frequentes", title: "LGPD em escolas", accent: "particulares.", description: "Respostas diretas para avaliar o próximo passo.",
+    pill: "Perguntas frequentes", title: "LGPD em escolas", accent: "particulares.", description: "Respostas diretas para a rotina escolar.",
     items: [
       { question: "Quais dados uma escola precisa organizar?", answer: "Cadastros, documentos, contatos, registros pedagógicos, frequência, imagens, dados de saúde, acessos e informações compartilhadas com fornecedores." },
       { question: "Como tratar dados de crianças e adolescentes?", answer: "A análise deve considerar o melhor interesse e o contexto da criança ou do adolescente, com finalidade, necessidade, acesso e comunicação adequados." },
@@ -89,7 +89,7 @@ export const privateSchoolsIndustryContent = {
       { question: "Como começar sem interromper as aulas?", answer: "Começamos pela prioridade mais relevante, ouvimos as áreas envolvidas e organizamos ações em etapas compatíveis com o calendário escolar." },
     ],
   },
-  finalCta: { pill: "LGPD para escolas particulares", title: "Coloque a privacidade em prática na escola.", description: "Entendemos sua prioridade e mostramos como organizar o próximo passo.", cta: "Agende uma Conversa", nextStep: "Uma conversa sobre a rotina, as áreas envolvidas e a prioridade inicial." },
+  finalCta: { pill: "LGPD para escolas particulares", title: "Coloque a privacidade em prática na escola.", description: "Entendemos a rotina e indicamos como estruturar a primeira frente.", cta: "Agende uma Conversa", nextStep: "Uma conversa sobre a rotina, as áreas envolvidas e o escopo inicial." },
   campaignAnchors: [
     { id: "matricula", sectionKey: "context" }, { id: "plataformas", sectionKey: "journey" }, { id: "menores", sectionKey: "priority" }, { id: "fornecedores", sectionKey: "support" }, { id: "incidentes", sectionKey: "support" }, { id: "workshops", sectionKey: "training" },
   ],

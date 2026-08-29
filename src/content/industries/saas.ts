@@ -17,7 +17,7 @@ export const saasIndustryContent = {
     title: "Privacidade que acompanha o produto.",
     accent: "Do onboarding à escala.",
     description:
-      "Organize dados, acessos, fornecedores e respostas ao longo do ciclo do produto, com decisões claras para produto, tecnologia e negócio.",
+      "A TOGETHER estrutura decisões, processos e controles de privacidade para dados, acessos, fornecedores e respostas ao longo do ciclo do produto.",
     cta: "Agende uma Conversa",
     image: {
       desktop: { avif: `${imageBase}/hero-desktop.avif`, webp: `${imageBase}/hero-desktop.webp`, png: `${imageBase}/hero-desktop.png`, width: 1536, height: 1024 },
@@ -74,21 +74,21 @@ export const saasIndustryContent = {
     description: "O apoio pode começar por uma frente específica ou acompanhar a evolução do programa.",
     items: [
       { icon: "analytics", title: "Mapeamento de dados e fluxos", description: "Conectamos produto, sistemas, integrações e finalidades." },
-      { icon: "key", title: "Contas e permissões", description: "Organizamos papéis, acessos, solicitações e registros." },
+      { icon: "key", title: "Governança de acessos", description: "Definimos critérios, papéis, solicitações e registros para apoiar a gestão de permissões." },
       { icon: "cloud", title: "Nuvem e subprocessadores", description: "Apoiamos avaliação, contratos, transferências e responsabilidades." },
       { icon: "message", title: "Atendimento e direitos", description: "Criamos rotinas para receber, encaminhar e responder solicitações." },
       { icon: "shield", title: "Incidentes e evidências", description: "Estruturamos resposta, decisões, comunicação e aprendizados.", emphasis: true },
       { icon: "presentation", title: "Workshops por equipe", description: "Levamos decisões de privacidade para produto, engenharia e negócio." },
     ],
-    ctaTitle: "Quer discutir uma frente do seu produto?",
-    ctaText: "Ajudamos a transformar a demanda em escopo e próximo passo.",
+    ctaTitle: "Tem uma frente de privacidade prioritária no produto?",
+    ctaText: "Avaliamos o contexto, as áreas envolvidas e o escopo inicial.",
     cta: "Agende uma Conversa",
   },
   proof: [
-    { value: "Produto + operação", label: "privacidade conectada ao dia a dia" },
-    { value: "Decisões registradas", label: "evidências para acompanhar evolução" },
-    { value: "Nuvem e parceiros", label: "fluxos e responsabilidades mapeados" },
-    { value: "Workshops", label: "conhecimento compartilhado com as equipes" },
+    { value: "+5 anos", label: "de atuação em privacidade e LGPD" },
+    { value: "+200", label: "atividades e entregas disponíveis" },
+    { value: "Equipe multidisciplinar", label: "privacidade, tecnologia, processos e operação" },
+    { value: "Escopo flexível", label: "de uma frente prioritária à evolução contínua do programa" },
   ],
   training: {
     id: "workshops-saas",
@@ -101,7 +101,7 @@ export const saasIndustryContent = {
     pill: "Perguntas frequentes",
     title: "LGPD em produtos",
     accent: "SaaS.",
-    description: "Respostas diretas para avaliar o próximo passo.",
+    description: "Respostas diretas sobre privacidade no produto.",
     items: [
       { question: "Em quais áreas a LGPD aparece em um SaaS?", answer: "Em onboarding, contas, permissões, analytics, logs, suporte, cobrança, integrações, nuvem e fornecedores. O escopo depende dos fluxos e responsabilidades do produto." },
       { question: "A privacidade precisa entrar antes do lançamento?", answer: "Quanto antes as finalidades, acessos, avisos e prazos forem discutidos, menor tende a ser o retrabalho. Organizamos esses pontos dentro do ciclo de produto." },
@@ -114,9 +114,9 @@ export const saasIndustryContent = {
   finalCta: {
     pill: "LGPD para empresas SaaS",
     title: "Faça a privacidade acompanhar o seu produto.",
-    description: "Conte qual é a prioridade agora: produto, operação, fornecedores ou resposta.",
+    description: "Conte qual frente exige atenção agora: produto, operação, fornecedores ou resposta.",
     cta: "Agende uma Conversa",
-    nextStep: "Uma conversa sobre o contexto, as áreas envolvidas e o próximo passo.",
+    nextStep: "Uma conversa para entender o contexto, as áreas envolvidas e definir o escopo inicial.",
   },
   campaignAnchors: [
     { id: "privacy-by-design", sectionKey: "journey" },

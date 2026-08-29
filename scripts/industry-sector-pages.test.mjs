@@ -23,14 +23,14 @@ const sectorDefinitions = [
     route: "privacidade-escolas-particulares",
     content: "private-schools.ts",
     imageDir: "private-schools",
-    title: "Proteja dados de alunos e responsáveis",
+    title: "Coloque a proteção de dados de alunos e responsáveis",
   },
   {
     id: "ensino-superior",
     route: "privacidade-ensino-superior",
     content: "higher-education.ts",
     imageDir: "higher-education",
-    title: "Privacidade para uma operação acadêmica que não para",
+    title: "Privacidade para admissão, EAD, pesquisa",
   },
   {
     id: "transporte-fracionado",
@@ -44,7 +44,7 @@ const sectorDefinitions = [
     route: "privacidade-transporte-lotacao",
     content: "full-truckload.ts",
     imageDir: "full-truckload",
-    title: "Privacidade conectada à operação de carga lotação",
+    title: "Privacidade para a operação de carga lotação",
   },
 ];
 
