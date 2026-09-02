@@ -30,7 +30,7 @@ const sectorDefinitions = [
     route: "privacidade-ensino-superior",
     content: "higher-education.ts",
     imageDir: "higher-education",
-    title: "Privacidade para admissão, EAD, pesquisa",
+    title: "Estruture a privacidade da sua instituição",
   },
   {
     id: "transporte-fracionado",
@@ -129,6 +129,10 @@ test("all sector content and route modules are present and distinct", async () =
     if (sector.id === "escolas-particulares") {
       assert.match(contentSource, /Quero avaliar minha escola/g);
       assert.match(routeSource, /PrivateSchoolsLandingPage/);
+    } else if (sector.id === "ensino-superior") {
+      assert.match(contentSource, /Agendar uma conversa/g);
+      assert.match(routeSource, /HigherEducationNarrative/);
+      assert.match(routeSource, /HigherEducationContactSection/);
     } else {
       assert.match(contentSource, /Agende uma Conversa/g);
       assert.match(routeSource, /SectorIndustryPage/);

@@ -1,11 +1,22 @@
-import type { SectorIndustryContent } from "@/components/industry/industry-page-types";
+import type { IndustryFaqItem } from "@/components/industry/industry-page-types";
 
 const siteUrl = "https://togetherprivacy.tech";
+
+type IndustryStructuredDataContent = {
+  metadata: {
+    title: string;
+    description: string;
+    canonical: string;
+  };
+  faq: {
+    items: readonly IndustryFaqItem[];
+  };
+};
 
 export function IndustryStructuredData({
   content,
 }: {
-  content: SectorIndustryContent;
+  content: IndustryStructuredDataContent;
 }) {
   const pageUrl = `${siteUrl}${content.metadata.canonical}`;
   const payload = {

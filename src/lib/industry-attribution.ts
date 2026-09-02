@@ -14,6 +14,8 @@ const CAMPAIGN_KEYS = [
 const CTA_EVENTS: Record<IndustryCtaPosition, string> = {
   hero: "cta_hero",
   capabilities: "cta_midpage",
+  map: "cta_midpage",
+  proof: "cta_midpage",
   final: "cta_final",
 };
 

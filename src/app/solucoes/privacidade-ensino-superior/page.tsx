@@ -1,4 +1,6 @@
-import { SectorIndustryPage } from "@/components/industry/sector-industry-page";
+import { IndustryPageShell } from "@/components/industry/industry-page-shell";
+import { HigherEducationContactSection } from "@/components/industry/higher-education-contact-section";
+import { HigherEducationNarrative } from "@/components/industry/narratives/higher-education-narrative";
 import { higherEducationIndustryContent } from "@/content/industries/higher-education";
 
 export const metadata = {
@@ -9,5 +11,16 @@ export const metadata = {
 };
 
 export default function PrivacidadeEnsinoSuperiorPage() {
-  return <SectorIndustryPage content={higherEducationIndustryContent} />;
+  return (
+    <IndustryPageShell
+      content={higherEducationIndustryContent}
+      finalCta={
+        <HigherEducationContactSection
+          content={higherEducationIndustryContent.finalCta}
+        />
+      }
+    >
+      <HigherEducationNarrative content={higherEducationIndustryContent} />
+    </IndustryPageShell>
+  );
 }

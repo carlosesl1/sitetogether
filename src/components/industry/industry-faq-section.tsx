@@ -13,6 +13,7 @@ type IndustryFaqSectionProps = {
   accent: string;
   description: string;
   items: readonly IndustryFaqItem[];
+  variant?: "default" | "narrative";
 };
 
 function IndustryFaqRow({
@@ -76,7 +77,43 @@ export function IndustryFaqSection({
   accent,
   description,
   items,
+  variant = "default",
 }: IndustryFaqSectionProps) {
+  if (variant === "narrative") {
+    return (
+      <section
+        id="faq"
+        data-layout-family="faq-accordion"
+        className="relative overflow-hidden bg-white py-20 sm:py-24 lg:py-28 xl:py-40"
+      >
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col items-start gap-14 lg:flex-row lg:gap-32">
+            <div className="pt-2 lg:sticky lg:top-24 lg:w-1/3">
+              <h2 className="break-words text-[clamp(2rem,9vw,2.75rem)] font-bold leading-[0.96] tracking-[-0.035em] text-neutral-900 sm:text-5xl lg:text-[3.5rem] xl:text-6xl">
+                {title}{" "}
+                <span className="inline-block pb-1 font-light italic leading-[1.1] text-brand-500">
+                  {accent}
+                </span>
+              </h2>
+              <p className="mt-8 max-w-sm text-lg font-medium leading-relaxed text-neutral-500 sm:text-xl">
+                {description}
+              </p>
+            </div>
+            <div className="w-full min-w-0 lg:w-2/3">
+              {items.map((item, index) => (
+                <IndustryFaqRow
+                  key={item.question}
+                  item={item}
+                  defaultOpen={index === 0}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="faq" className="relative overflow-hidden bg-white py-20 sm:py-24 lg:py-28 xl:py-40">
       <PixelDecor placement="topRight" mask="topRight" opacity={0.12} />

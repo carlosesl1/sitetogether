@@ -1,0 +1,16 @@
+export type IndustryLayoutFamily =
+  | "hero-image-field"
+  | "authority-transition"
+  | "editorial-rail"
+  | "operational-field"
+  | "decision-chapter"
+  | "evidence-dossier"
+  | "release-cycle"
+  | "school-day"
+  | "academic-mosaic"
+  | "handoff-chain"
+  | "trip-timeline"
+  | "passage-lifecycle"
+  | "narrative-diagnostic"
+  | "faq-accordion"
+  | "final-cta";
