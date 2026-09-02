@@ -204,6 +204,16 @@ html.lenis body {
   overflow: visible;
 }
 
+/* The page already has a dedicated conversion form; keep the launcher without
+   letting Leadster's invite cover its responsive content. */
+body:has([data-private-schools-page]) .nld-chatbot-invite-container {
+  display: none !important;
+}
+
+body:has([data-private-schools-page]) .nld-avatar {
+  right: -8px !important;
+}
+
 @media (max-width: 767px) {
   /* Keep the Leadster launcher available without covering mobile CTAs. */
   .nld-chatbot-invite-container {

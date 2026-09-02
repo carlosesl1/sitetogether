@@ -1,102 +1,293 @@
-import type { SectorIndustryContent } from "@/components/industry/industry-page-types";
+import type { PrivateSchoolsIndustryContent } from "@/components/industry/private-schools/private-schools-types";
 
 const imageBase = "/images/industries/private-schools";
 
 export const privateSchoolsIndustryContent = {
   sector: "escolas-particulares",
-  visualFamily: "school",
   metadata: {
-    title: "Privacidade e LGPD para escolas particulares",
-    description: "Privacidade e LGPD para dados de alunos, responsáveis, equipes, plataformas e fornecedores na rotina escolar.",
+    title: "LGPD para escolas particulares, na prática",
+    description:
+      "Organize acessos, processos e responsabilidades para proteger os dados de alunos, responsáveis e colaboradores no dia a dia da escola.",
     canonical: "/solucoes/privacidade-escolas-particulares",
-    socialAlt: "Adultos e estudante em rotina administrativa de uma escola contemporânea",
+    socialAlt:
+      "Adultos e estudante em rotina administrativa de uma escola contemporânea",
   },
   hero: {
     pill: "LGPD para escolas particulares",
-    title: "Coloque a proteção de dados de alunos e responsáveis",
-    accent: "dentro da rotina escolar.",
-    description: "A TOGETHER estrutura processos e controles para dados, acessos, plataformas, fornecedores e resposta a incidentes na rotina escolar.",
-    cta: "Agende uma Conversa",
+    title: "LGPD para escolas particulares,",
+    accent: "na prática.",
+    description:
+      "Organize acessos, processos e responsabilidades para proteger dados de alunos, responsáveis e colaboradores. Leve a LGPD para a rotina real da sua escola.",
+    cta: "Quero avaliar minha escola",
+    supportLine:
+      "Adequação à LGPD • DPO as a Service • Treinamentos e Workshops",
+    trustLine: "Empresas que confiam na TOGETHER",
     image: {
-      desktop: { avif: `${imageBase}/hero-desktop.avif`, webp: `${imageBase}/hero-desktop.webp`, png: `${imageBase}/hero-desktop.png`, width: 1672, height: 941 },
-      mobile: { avif: `${imageBase}/hero-mobile.avif`, webp: `${imageBase}/hero-mobile.webp`, png: `${imageBase}/hero-mobile.png`, width: 941, height: 1672 },
+      desktop: {
+        avif: `${imageBase}/hero-desktop.avif`,
+        webp: `${imageBase}/hero-desktop.webp`,
+        png: `${imageBase}/hero-desktop.png`,
+        width: 1672,
+        height: 941,
+      },
+      mobile: {
+        avif: `${imageBase}/hero-mobile.avif`,
+        webp: `${imageBase}/hero-mobile.webp`,
+        png: `${imageBase}/hero-mobile.png`,
+        width: 941,
+        height: 1672,
+      },
     },
   },
-  context: {
-    id: "contexto-escolar", pill: "Onde os dados circulam", title: "A escola é uma rede de", accent: "pessoas, sistemas e decisões.",
-    description: "Da matrícula à comunicação com a família, dados pessoais fazem parte de cada etapa da experiência escolar.",
-    nodes: [
-      { icon: "users", label: "Matrícula", title: "Alunos e responsáveis", description: "Cadastros, contatos, documentos, histórico e autorizações." },
-      { icon: "database", label: "Aprendizagem", title: "Sistemas pedagógicos", description: "Plataformas, avaliações, frequência e registros de apoio." },
-      { icon: "camera", label: "Ambiente", title: "Acesso e imagens", description: "Câmeras, portaria, eventos e circulação no espaço escolar." },
-      { icon: "network", label: "Ecossistema", title: "Fornecedores e parceiros", description: "Tecnologia, transporte, alimentação, saúde e serviços terceirizados." },
-      { icon: "message", label: "Relacionamento", title: "Famílias e equipes", description: "Canais de atendimento, comunicados e solicitações dos titulares." },
-    ],
-  },
-  journey: {
-    id: "jornada-escolar", pill: "Da matrícula à rotina", title: "Privacidade precisa acompanhar", accent: "a jornada do aluno.",
-    description: "Mapeamos responsabilidades e cuidados antes que processos e ferramentas se tornem difíceis de ajustar.",
-    stages: [
-      { icon: "file", label: "Matrícula", title: "Entender o que é necessário", description: "Finalidades, bases legais, documentos e autorizações em cada fluxo." },
-      { icon: "key", label: "Acesso", title: "Dar acesso a quem precisa", description: "Perfis, permissões e registros para reduzir exposição indevida." },
-      { icon: "book", label: "Ensino", title: "Usar plataformas com critério", description: "Contratos, integrações e configurações alinhados à rotina pedagógica." },
-      { icon: "shield", label: "Proteção", title: "Cuidar de dados sensíveis", description: "Saúde, necessidades educacionais e outros dados com atenção reforçada." },
-      { icon: "check", label: "Continuidade", title: "Revisar e melhorar", description: "Registros, solicitações, incidentes e pendências acompanhados." },
-    ],
-  },
-  priority: {
-    id: "prioridades-escola", pill: "Pontos de atenção", title: "Cuidado reforçado com dados de", accent: "crianças e adolescentes.",
-    description: "A proteção deve considerar o melhor interesse de crianças e adolescentes e a realidade das equipes escolares.",
-    points: [
-      { icon: "shield", label: "Melhor interesse", title: "Decidir com responsabilidade", description: "Avaliar necessidade, contexto e impacto para crianças e adolescentes." },
-      { icon: "camera", label: "Imagem e acesso", title: "Controlar ambientes e registros", description: "Regras claras para câmeras, portaria, eventos e compartilhamentos." },
-      { icon: "database", label: "Dados de saúde", title: "Restringir o que é sensível", description: "Cuidados adicionais para informações de saúde e apoio educacional." },
-      { icon: "network", label: "Terceiros", title: "Organizar contratos e acessos", description: "Responsabilidades e limites para plataformas e fornecedores." },
-    ],
-  },
-  support: {
-    id: "apoio-escola", pill: "Como a TOGETHER apoia", title: "Privacidade aplicada à", accent: "vida escolar.",
-    description: "O apoio pode começar por uma prioridade ou acompanhar a organização do programa.",
-    items: [
-      { icon: "analytics", title: "Diagnóstico e plano de ação", description: "Priorizamos riscos, fluxos e próximos passos." },
-      { icon: "network", title: "Mapeamento de dados", description: "Mostramos onde os dados entram, circulam e são compartilhados." },
-      { icon: "key", title: "Acessos e plataformas", description: "Organizamos perfis, contratos, integrações e responsabilidades." },
-      { icon: "shield", title: "Dados sensíveis, crianças e adolescentes", description: "Apoiamos decisões considerando contexto, necessidade e melhor interesse." },
-      { icon: "camera", title: "Incidentes e solicitações", description: "Criamos rotinas para responder, registrar e aprender." },
-      { icon: "presentation", title: "Workshops por equipe", description: "Conteúdo prático para direção, secretaria, tecnologia e docentes." },
-    ],
-    ctaTitle: "Quer avaliar uma prioridade da escola?", ctaText: "Ajudamos a identificar o escopo inicial.", cta: "Agende uma Conversa",
-  },
-  proof: [
-    { value: "+5 anos", label: "de atuação em privacidade e LGPD" },
-    { value: "+200", label: "atividades e entregas disponíveis" },
-    { value: "Equipe multidisciplinar", label: "privacidade, tecnologia, processos e operação" },
-    { value: "Escopo flexível", label: "de uma prioridade específica à estrutura contínua de privacidade" },
-  ],
-  training: {
-    id: "treinamentos-escola", pill: "Treinamentos e workshops", title: "Cada equipe aprende o que precisa fazer.",
-    description: "Encontros objetivos, com exemplos da rotina e registro de participação.",
-    audiences: ["Direção, coordenação e secretaria", "Docentes e atendimento às famílias", "Tecnologia, segurança e portaria", "Compras, parceiros e fornecedores"],
+  narrative: {
+    problem: {
+      id: "riscos-na-escola",
+      pill: "Onde os dados circulam",
+      title: "Os dados circulam por toda a escola.",
+      accent: "Os riscos também.",
+      description:
+        "Da matrícula às plataformas digitais, você sabe quem acessa, compartilha e armazena cada informação?",
+      items: [
+        {
+          icon: "file",
+          label: "01",
+          title: "Matrículas",
+          description: "Dados de alunos, responsáveis, documentos e contratos.",
+        },
+        {
+          icon: "shield",
+          label: "02",
+          title: "Saúde",
+          description: "Laudos, alergias e informações sensíveis.",
+        },
+        {
+          icon: "camera",
+          label: "03",
+          title: "Fotos e vídeos",
+          description: "Imagens de eventos, redes sociais e câmeras de segurança.",
+        },
+        {
+          icon: "server",
+          label: "04",
+          title: "Sistemas",
+          description: "Plataformas educacionais, aplicativos e armazenamento em nuvem.",
+        },
+        {
+          icon: "users",
+          label: "05",
+          title: "Equipe",
+          description: "Professores, colaboradores e gestores com diferentes níveis de acesso.",
+        },
+        {
+          icon: "network",
+          label: "06",
+          title: "Fornecedores",
+          description: "Terceiros que recebem, armazenam ou processam dados da escola.",
+        },
+      ],
+    },
+    tension: {
+      id: "documentos-nao-bastam",
+      pill: "Da política à prática",
+      title: "Ter documentos não significa que a escola",
+      accent: "está preparada.",
+      description: "A LGPD só funciona quando orienta decisões reais.",
+      body:
+        "O risco aparece quando a equipe não sabe quem pode acessar cada dado, por que ele é usado, quando pode ser compartilhado ou como agir diante de um incidente.",
+    },
+    integration: {
+      id: "juridico-tecnologia-operacao",
+      pill: "Uma estrutura conectada",
+      title: "Jurídico, tecnologia e operação precisam",
+      accent: "agir em conjunto.",
+      description:
+        "A TOGETHER integra essas frentes para transformar as exigências da LGPD em decisões claras e aplicáveis no dia a dia.",
+      items: [
+        {
+          icon: "file",
+          label: "01",
+          title: "Jurídico",
+          description: "Define bases legais, contratos, políticas e responsabilidades.",
+        },
+        {
+          icon: "server",
+          label: "02",
+          title: "Tecnologia",
+          description: "Organiza sistemas, acessos, armazenamento e controles.",
+        },
+        {
+          icon: "users",
+          label: "03",
+          title: "Operação",
+          description: "Leva a privacidade para pessoas, processos, fornecedores e rotina escolar.",
+        },
+      ],
+    },
+    solutions: {
+      id: "solucoes",
+      pill: "Como podemos apoiar",
+      title: "Três formas de fazer a LGPD funcionar",
+      accent: "na rotina da sua escola.",
+      description: "",
+      items: [
+        {
+          icon: "analytics",
+          label: "Solução 01",
+          title: "Adequação à LGPD",
+          description:
+            "Mapeamos como os dados circulam, identificamos riscos e definimos o que precisa ser estruturado ou corrigido.",
+        },
+        {
+          icon: "shield",
+          label: "Solução 02",
+          title: "DPO as a Service",
+          description:
+            "Um especialista conduz as demandas de privacidade, orienta a equipe e apoia as decisões da escola.",
+        },
+        {
+          icon: "presentation",
+          label: "Solução 03",
+          title: "Treinamentos e Workshops",
+          description:
+            "Professores, colaboradores e lideranças aprendem a lidar com dados pessoais com mais segurança no dia a dia.",
+        },
+      ],
+    },
+    selfAssessment: {
+      id: "autodiagnostico",
+      pill: "Autodiagnóstico",
+      title: "Alguma destas situações acontece",
+      accent: "hoje na sua escola?",
+      description: "",
+      items: [
+        "A adequação já foi feita, mas ninguém sabe se continua funcionando.",
+        "Existem políticas e documentos, mas a equipe não sabe como aplicá-los.",
+        "Não há um responsável claro pelas demandas de privacidade.",
+        "Ainda existem dúvidas sobre dados de crianças e adolescentes.",
+        "Vários sistemas e fornecedores acessam dados pessoais da escola.",
+        "A escola precisa estruturar ou terceirizar a atuação do DPO.",
+      ],
+      note:
+        "Se uma dessas situações parece familiar, já existe um ponto que merece atenção.",
+      cta: "Quero avaliar minha escola",
+    },
+    process: {
+      id: "como-funciona",
+      pill: "Como funciona",
+      title: "Do primeiro diagnóstico ao próximo passo,",
+      accent: "sem complicar a rotina.",
+      description: "",
+      items: [
+        {
+          icon: "message",
+          label: "1",
+          title: "Entendemos sua realidade",
+          description:
+            "Conversamos sobre a rotina, a estrutura e as necessidades da escola.",
+        },
+        {
+          icon: "analytics",
+          label: "2",
+          title: "Priorizamos os riscos",
+          description: "Identificamos o que exige atenção agora e o que pode ser tratado depois.",
+        },
+        {
+          icon: "route",
+          label: "3",
+          title: "Definimos o próximo passo",
+          description:
+            "Recomendamos a atuação mais adequada para o momento da escola.",
+        },
+      ],
+    },
+    positioning: {
+      id: "mais-clareza-mais-seguranca",
+      pill: "Privacidade organizada",
+      title: "A LGPD não precisa ser mais uma preocupação solta",
+      accent: "na mesa da direção.",
+      description: "",
+      body:
+        "A TOGETHER organiza dados, acessos e responsabilidades para que direção, equipe e fornecedores saibam como agir diante de uma questão de privacidade.",
+      closing: "Mais clareza para a gestão. Mais segurança para a operação.",
+    },
   },
   faq: {
-    pill: "Perguntas frequentes", title: "LGPD em escolas", accent: "particulares.", description: "Respostas diretas para a rotina escolar.",
+    pill: "Dúvidas frequentes",
+    title: "Dúvidas",
+    accent: "frequentes",
+    description: "",
     items: [
-      { question: "Quais dados uma escola precisa organizar?", answer: "Cadastros, documentos, contatos, registros pedagógicos, frequência, imagens, dados de saúde, acessos e informações compartilhadas com fornecedores." },
-      { question: "Como tratar dados de crianças e adolescentes?", answer: "A análise deve considerar o melhor interesse e o contexto da criança ou do adolescente, com finalidade, necessidade, acesso e comunicação adequados." },
-      { question: "Câmeras e controle de acesso entram no escopo?", answer: "Sim. É importante definir finalidade, acesso, guarda, sinalização, fornecedores e resposta a solicitações relacionadas a imagens e registros." },
-      { question: "A TOGETHER ajuda a avaliar plataformas educacionais?", answer: "Sim. Podemos mapear dados, integrações, acessos, contratos e responsabilidades para apoiar decisões sobre plataformas e serviços." },
-      { question: "O que fazer quando ocorre um incidente?", answer: "A escola precisa de uma rotina com responsáveis, avaliação, registro, comunicação e medidas de contenção, conforme o caso e as regras aplicáveis." },
-      { question: "Como começar sem interromper as aulas?", answer: "Começamos pela prioridade mais relevante, ouvimos as áreas envolvidas e organizamos ações em etapas compatíveis com o calendário escolar." },
+      {
+        question:
+          "Minha escola já se adequou à LGPD. Ainda precisa de suporte?",
+        answer:
+          "Pode precisar. Novos sistemas, fornecedores, colaboradores e processos mudam o cenário. A conversa inicial mostra se a estrutura atual ainda funciona na prática.",
+      },
+      {
+        question: "O DPO precisa ser funcionário da escola?",
+        answer:
+          "Não necessariamente. O encarregado pode ser interno ou externo à instituição, conforme a estrutura da escola. A TOGETHER pode apoiar essa função como serviço especializado.",
+      },
+      {
+        question: "Vocês atendem escolas que ainda não começaram a adequação?",
+        answer:
+          "Sim. Começamos pelo diagnóstico do cenário, identificamos as prioridades e recomendamos o próximo passo.",
+      },
+      {
+        question: "Vocês treinam professores e colaboradores?",
+        answer:
+          "Sim. Os treinamentos e workshops mostram como aplicar a privacidade em situações reais da rotina escolar.",
+      },
+      {
+        question: "Precisamos envolver jurídico e TI?",
+        answer:
+          "Depende do cenário. Quando necessário, a TOGETHER conecta jurídico, TI e operação para que as decisões funcionem em toda a escola.",
+      },
     ],
   },
-  finalCta: { pill: "LGPD para escolas particulares", title: "Coloque a privacidade em prática na escola.", description: "Entendemos a rotina e indicamos como estruturar a primeira frente.", cta: "Agende uma Conversa", nextStep: "Uma conversa sobre a rotina, as áreas envolvidas e o escopo inicial." },
+  finalCta: {
+    pill: "Converse com um especialista",
+    title: "Descubra onde a LGPD precisa de atenção na sua escola.",
+    description:
+      "Preencha seus dados para que um especialista da TOGETHER entenda o momento da sua escola e indique o próximo passo.",
+    cta: "Quero conversar com um especialista",
+    nextStep:
+      "Sem compromisso. Primeiro entendemos o cenário da sua escola.",
+  },
   campaignAnchors: [
-    { id: "matricula", sectionKey: "context" }, { id: "plataformas", sectionKey: "journey" }, { id: "menores", sectionKey: "priority" }, { id: "fornecedores", sectionKey: "support" }, { id: "incidentes", sectionKey: "support" }, { id: "workshops", sectionKey: "training" },
+    { id: "matricula", sectionKey: "school-day" },
+    { id: "plataformas", sectionKey: "platforms" },
+    { id: "menores", sectionKey: "minors" },
+    { id: "fornecedores", sectionKey: "platforms" },
+    { id: "incidentes", sectionKey: "family-response" },
+    { id: "workshops", sectionKey: "together-school" },
   ],
   sources: [
-    { claim: "Princípios, direitos, segurança e tratamento de dados de crianças e adolescentes", url: "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709compilado.htm", reviewedAt: "2026-08-27" },
-    { claim: "Dados e orientações do Censo Escolar", url: "https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/censo-escolar", reviewedAt: "2026-08-27" },
-    { claim: "Perguntas frequentes do Censo Escolar", url: "https://www.gov.br/inep/pt-br/acesso-a-informacao/perguntas-frequentes/censo-escolar", reviewedAt: "2026-08-27" },
-    { claim: "Comunicação de incidente de segurança", url: "https://www.gov.br/anpd/pt-br/canais_atendimento/agente-de-tratamento/comunicado-de-incidente-de-seguranca-cis", reviewedAt: "2026-08-27" },
+    {
+      claim:
+        "Princípios, direitos, segurança e tratamento de dados de crianças e adolescentes",
+      url: "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709compilado.htm",
+      reviewedAt: "2026-08-27",
+    },
+    {
+      claim: "Dados e orientações do Censo Escolar",
+      url: "https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/censo-escolar",
+      reviewedAt: "2026-08-27",
+    },
+    {
+      claim: "Perguntas frequentes do Censo Escolar",
+      url: "https://www.gov.br/inep/pt-br/acesso-a-informacao/perguntas-frequentes/censo-escolar",
+      reviewedAt: "2026-08-27",
+    },
+    {
+      claim: "Comunicação de incidente de segurança",
+      url: "https://www.gov.br/anpd/pt-br/canais_atendimento/agente-de-tratamento/comunicado-de-incidente-de-seguranca-cis",
+      reviewedAt: "2026-08-27",
+    },
+    {
+      claim: "Atuação de encarregado interno, externo ou pessoa jurídica",
+      url: "https://www.gov.br/anpd/pt-br/acesso-a-informacao/institucional/atos-normativos/regulamentacoes_anpd/encarregado-completo_ocultado.pdf",
+      reviewedAt: "2026-09-01",
+    },
   ],
-} as const satisfies SectorIndustryContent;
+} as const satisfies PrivateSchoolsIndustryContent;

@@ -1,4 +1,4 @@
-import { SectorIndustryPage } from "@/components/industry/sector-industry-page";
+import { PrivateSchoolsLandingPage } from "@/components/industry/private-schools/private-schools-landing-page";
 import { privateSchoolsIndustryContent } from "@/content/industries/private-schools";
 
 export const metadata = {
@@ -9,5 +9,5 @@ export const metadata = {
 };
 
 export default function PrivacidadeEscolasParticularesPage() {
-  return <SectorIndustryPage content={privateSchoolsIndustryContent} />;
+  return <PrivateSchoolsLandingPage content={privateSchoolsIndustryContent} />;
 }

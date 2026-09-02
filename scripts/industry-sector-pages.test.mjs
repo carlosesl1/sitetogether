@@ -23,7 +23,7 @@ const sectorDefinitions = [
     route: "privacidade-escolas-particulares",
     content: "private-schools.ts",
     imageDir: "private-schools",
-    title: "Coloque a proteção de dados de alunos e responsáveis",
+    title: "LGPD para escolas particulares",
   },
   {
     id: "ensino-superior",
@@ -123,11 +123,16 @@ test("all sector content and route modules are present and distinct", async () =
     const metadataSource = `${routeSource}\n${layoutSource}`;
 
     assert.match(contentSource, new RegExp(sector.title));
-    assert.match(contentSource, /Agende uma Conversa/g);
     assert.match(contentSource, /faq:/);
     assert.match(contentSource, /campaignAnchors:/);
     assert.match(contentSource, new RegExp(`/${sector.route}`));
-    assert.match(routeSource, /SectorIndustryPage/);
+    if (sector.id === "escolas-particulares") {
+      assert.match(contentSource, /Quero avaliar minha escola/g);
+      assert.match(routeSource, /PrivateSchoolsLandingPage/);
+    } else {
+      assert.match(contentSource, /Agende uma Conversa/g);
+      assert.match(routeSource, /SectorIndustryPage/);
+    }
     assert.match(metadataSource, /export const metadata/);
     assert.match(metadataSource, /alternates:\s*\{\s*canonical/);
   }
