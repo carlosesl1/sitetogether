@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { roadsIndustryContent } from "@/content/industries/roads";
+import { roadsIndustryContent } from "@/roads-release/content/industries/roads";
 
 const { title, description, canonical } = roadsIndustryContent.metadata;
 const socialTitle = `${title} | TOGETHER`;

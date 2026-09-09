@@ -747,7 +747,8 @@ const sitemapSource = await readOptional("../public/sitemap.xml");
 const sitemapGeneratorSource = await readOptional("./sync-wordpress-posts.mjs");
 
 test("road solution route delegates to the road page", () => {
-  assert.match(routeSource, /RoadsIndustryPage/);
+  assert.match(routeSource, /RoadsNarrative/);
+  assert.match(routeSource, /@\/roads-release\//);
 });
 
 test("road solution metadata declares title, canonical and Open Graph", () => {
