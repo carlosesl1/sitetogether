@@ -90,49 +90,11 @@ export function BlogGrid({ posts }: BlogGridProps) {
 
   return (
     <>
-      <div role="search" aria-label="Pesquisa de artigos" className="mx-auto mb-10 mt-8 max-w-2xl md:mb-12">
-        <label htmlFor="blog-search" className="mb-3 block text-xs font-bold uppercase tracking-widest text-neutral-700">
-          Pesquisar no blog
-        </label>
-        <div className="relative">
-          <Search aria-hidden="true" className="pointer-events-none absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-neutral-400" />
-          <input
-            ref={searchRef}
-            id="blog-search"
-            name="q"
-            type="search"
-            value={query}
-            onChange={(event) => {
-              setQuery(event.target.value);
-              setVisibleCount(INITIAL_VISIBLE_POSTS);
-            }}
-            placeholder="Busque por LGPD, segurança, inteligência artificial..."
-            aria-controls="blog-results"
-            className="h-14 w-full rounded-2xl border border-neutral-200 bg-neutral-50 pl-14 pr-14 text-base text-neutral-900 outline-none transition-colors placeholder:text-neutral-500 focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-400/30 [&::-webkit-search-cancel-button]:appearance-none"
-          />
-          {query && (
-            <button
-              type="button"
-              aria-label="Limpar pesquisa"
-              onClick={() => {
-                setQuery("");
-                setVisibleCount(INITIAL_VISIBLE_POSTS);
-                searchRef.current?.focus();
-              }}
-              className="absolute right-1 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-xl text-neutral-500 hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-brand-500"
-            >
-              <X aria-hidden="true" className="h-4 w-4" />
-            </button>
-          )}
-        </div>
-        <p className="mt-3 text-sm text-neutral-500">Pesquise por título, resumo ou tema.</p>
-      </div>
+      <BlogFeatured post={posts[0]} />
 
-      {!isFiltering && <BlogFeatured post={posts[0]} />}
-
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
-        <div className="max-w-xl">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 leading-tight mb-4">
+      <div className="mb-8 space-y-5 border-b border-neutral-200 pb-5">
+        <div>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 leading-tight mb-2">
             Artigos <span className="text-brand-500 italic font-light">Recentes.</span>
           </h2>
           <p className="text-lg text-neutral-500 font-medium">
@@ -140,30 +102,69 @@ export function BlogGrid({ posts }: BlogGridProps) {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2">
-          {BLOG_FILTERS.map((filter) => {
-            const isActive = filter.label === activeFilter;
+        <div className="flex min-w-0 flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex flex-wrap gap-2">
+            {BLOG_FILTERS.map((filter) => {
+              const isActive = filter.label === activeFilter;
 
-            return (
-              <button
-                key={filter.label}
-                type="button"
-                aria-pressed={isActive}
-                onClick={() => handleFilterChange(filter.label)}
-                className={`px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all ${
-                  isActive
-                    ? "bg-neutral-900 text-white shadow-lg"
-                    : "bg-neutral-50 text-neutral-500 border border-neutral-100 hover:bg-neutral-100"
-                }`}
-              >
-                {filter.label}
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={filter.label}
+                  type="button"
+                  aria-pressed={isActive}
+                  onClick={() => handleFilterChange(filter.label)}
+                  className={`px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all ${
+                    isActive
+                      ? "bg-neutral-900 text-white shadow-lg"
+                      : "bg-neutral-50 text-neutral-500 border border-neutral-100 hover:bg-neutral-100"
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              );
+            })}
+          </div>
+          <div role="search" aria-label="Pesquisa de artigos" className="w-full min-w-0 lg:w-[30rem] lg:shrink-0">
+            <label htmlFor="blog-search" className="sr-only">
+              Pesquisar no blog
+            </label>
+            <div className="relative">
+              <Search aria-hidden="true" className="pointer-events-none absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-neutral-400" />
+              <input
+                ref={searchRef}
+                id="blog-search"
+                name="q"
+                type="search"
+                value={query}
+                onChange={(event) => {
+                  setQuery(event.target.value);
+                  setVisibleCount(INITIAL_VISIBLE_POSTS);
+                }}
+                placeholder="Pesquisar artigos..."
+                aria-controls="blog-results"
+                className="h-12 w-full rounded-2xl border border-neutral-200 bg-neutral-50 pl-14 pr-14 text-base text-neutral-900 outline-none transition-colors placeholder:text-neutral-500 focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-400/30 [&::-webkit-search-cancel-button]:appearance-none"
+              />
+              {query && (
+                <button
+                  type="button"
+                  aria-label="Limpar pesquisa"
+                  onClick={() => {
+                    setQuery("");
+                    setVisibleCount(INITIAL_VISIBLE_POSTS);
+                    searchRef.current?.focus();
+                  }}
+                  className="absolute right-1 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-xl text-neutral-500 hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-brand-500"
+                >
+                  <X aria-hidden="true" className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+
+          </div>
         </div>
       </div>
 
-      <p role="status" aria-atomic="true" className="mb-6 text-sm text-neutral-500">
+      <p role="status" aria-atomic="true" className={isFiltering ? "mb-6 text-sm text-neutral-500" : "sr-only"}>
         {isFiltering ? `${filteredPosts.length} ${filteredPosts.length === 1 ? "artigo encontrado" : "artigos encontrados"}${activeFilter !== "Todos" ? ` em ${activeFilter}` : ""}.` : ""}
       </p>
       <div id="blog-results">
