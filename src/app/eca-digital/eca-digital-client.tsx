@@ -1582,11 +1582,11 @@ function FormField({
   children: ReactNode;
 }) {
   return (
-    <div className="space-y-3">
-      <label className="ml-1 text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-500">
+    <label className="block space-y-3">
+      <span className="ml-1 block text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-500">
         {label} {required ? <span className="text-red-500">*</span> : null}
-      </label>
+      </span>
       {children}
-    </div>
+    </label>
   );
 }

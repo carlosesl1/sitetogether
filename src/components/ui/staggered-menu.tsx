@@ -66,6 +66,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     const closeTweenRef = useRef<gsap.core.Tween | null>(null);
     const toggleBtnRef = useRef<HTMLButtonElement>(null);
     const busyRef = useRef(false);
+    const restoreFocusRef = useRef(false);
     const itemEntranceTweenRef = useRef<gsap.core.Tween | null>(null);
 
     useEffect(() => {
@@ -339,6 +340,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
     const closeMenu = useCallback(() => {
         if (openRef.current) {
+            // Move focus out before the panel becomes hidden/inert.
+            toggleBtnRef.current?.focus();
             openRef.current = false;
             setOpen(false);
             document.body.style.overflow = "";
@@ -346,6 +349,35 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             playClose();
         }
     }, [playClose, onMenuClose]);
+
+    useEffect(() => {
+        if (!open) {
+            if (restoreFocusRef.current) toggleBtnRef.current?.focus();
+            restoreFocusRef.current = false;
+            return;
+        }
+
+        restoreFocusRef.current = true;
+        panelRef.current?.querySelector<HTMLAnchorElement>("a[href]")?.focus();
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                event.preventDefault();
+                closeMenu();
+            } else if (event.key === "Tab") {
+                const controls = [
+                    toggleBtnRef.current,
+                    ...Array.from(panelRef.current?.querySelectorAll<HTMLAnchorElement>("a[href]") ?? []),
+                ].filter((element): element is HTMLButtonElement | HTMLAnchorElement => element !== null);
+                const index = controls.indexOf(document.activeElement as HTMLAnchorElement);
+                // The toggle lives in a separate portal, so use an explicit order.
+                event.preventDefault();
+                const nextIndex = index < 0 ? 0 : (index + (event.shiftKey ? -1 : 1) + controls.length) % controls.length;
+                controls[nextIndex]?.focus();
+            }
+        };
+        document.addEventListener("keydown", handleKeyDown);
+        return () => document.removeEventListener("keydown", handleKeyDown);
+    }, [open, closeMenu]);
 
     // Close on backdrop click
     React.useEffect(() => {
@@ -418,6 +450,8 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 ref={panelRef}
                 className="staggered-menu-panel"
                 aria-hidden={!open}
+                inert={!open}
+                aria-label="Navegação principal"
             >
                 <div className="sm-panel-inner">
                     {/* Menu Items */}
