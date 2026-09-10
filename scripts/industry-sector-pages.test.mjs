@@ -127,7 +127,7 @@ test("all sector content and route modules are present and distinct", async () =
     assert.match(contentSource, /campaignAnchors:/);
     assert.match(contentSource, new RegExp(`/${sector.route}`));
     if (sector.id === "escolas-particulares") {
-      assert.match(contentSource, /Quero avaliar minha escola/g);
+      assert.match(contentSource, /Conversar sobre minha escola/g);
       assert.match(routeSource, /PrivateSchoolsLandingPage/);
     } else if (sector.id === "ensino-superior") {
       assert.match(contentSource, /Agendar uma conversa/g);

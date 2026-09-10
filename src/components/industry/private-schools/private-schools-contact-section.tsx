@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { submitContact } from "@/lib/contact";
+import styles from "./private-schools-sections.module.css";
 
 export function PrivateSchoolsContactSection({
   content,
@@ -30,7 +31,7 @@ export function PrivateSchoolsContactSection({
     const formData = new FormData(form);
     const schoolContext = String(formData.get("message") || "").trim();
     const message = [
-      "Interesse: Avaliação LGPD para escola particular",
+      "Interesse: Conversa sobre LGPD para escola particular",
       schoolContext ? `Conte sobre sua escola: ${schoolContext}` : null,
     ]
       .filter(Boolean)
@@ -66,14 +67,14 @@ export function PrivateSchoolsContactSection({
     <section
       id="contato-escolas"
       data-layout-family="final-cta"
-      className="relative scroll-mt-20 overflow-hidden bg-white py-20 text-neutral-950 sm:py-24 lg:py-32"
+      className={`relative scroll-mt-20 overflow-hidden text-neutral-950 ${styles.contact}`}
     >
       <PixelDecor placement="topRight" mask="topRight" opacity={0.18} />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(245,192,0,0.12),transparent_28%),radial-gradient(circle_at_86%_20%,rgba(0,0,0,0.035),transparent_24%)]" />
+      <PixelDecor placement="bottomLeft" mask="bottomLeft" opacity={0.12} />
 
       <div className="container relative z-10 mx-auto px-6">
-        <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(420px,0.8fr)] lg:gap-16">
-          <div className="min-w-0">
+        <div className={styles.contactGrid}>
+          <div className={styles.contactIntro}>
             <p className="text-xs font-black uppercase tracking-[0.18em] text-brand-600">
               {content.pill}
             </p>
@@ -103,10 +104,10 @@ export function PrivateSchoolsContactSection({
                     <CheckCircle2 className="h-12 w-12" aria-hidden="true" />
                   </span>
                   <h3 className="mt-8 text-3xl font-bold tracking-tight text-neutral-950 sm:text-4xl">
-                    Recebemos seus dados.
+                    Solicitação enviada.
                   </h3>
                   <p className="mt-4 max-w-sm text-base font-medium leading-relaxed text-neutral-500 sm:text-lg">
-                    Um especialista da TOGETHER entrará em contato para entender o cenário da sua escola.
+                    Um especialista da TOGETHER entrará em contato para combinar uma conversa sobre sua escola.
                   </p>
                   <Button
                     type="button"
@@ -122,7 +123,7 @@ export function PrivateSchoolsContactSection({
                   {...{
                     toolname: "request_school_privacy_assessment",
                     tooldescription:
-                      "Preenche uma solicitação de avaliação sobre LGPD para escolas particulares. O usuário revisa e envia o formulário.",
+                      "Preenche uma solicitação de conversa sobre LGPD para escolas particulares. O usuário revisa e envia o formulário.",
                   }}
                   onSubmit={handleSubmit}
                   className="relative z-10 space-y-6"
@@ -132,7 +133,7 @@ export function PrivateSchoolsContactSection({
                       Formulário rápido
                     </p>
                     <h2 className="mt-3 text-2xl font-bold tracking-tight text-neutral-900">
-                      Solicitar avaliação de LGPD
+                      Conte a principal dúvida da sua escola
                     </h2>
                   </div>
 
@@ -178,7 +179,7 @@ export function PrivateSchoolsContactSection({
                   <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                     <FormField
                       htmlFor="school-contact-email"
-                      label="E-mail corporativo"
+                      label="E-mail de contato"
                       required
                     >
                       <Input
@@ -207,7 +208,7 @@ export function PrivateSchoolsContactSection({
                     </FormField>
                   </div>
 
-                  <FormField htmlFor="school-contact-phone" label="Telefone">
+                  <FormField htmlFor="school-contact-phone" label="Telefone (opcional)">
                     <Input
                       id="school-contact-phone"
                       name="phone"
@@ -220,12 +221,12 @@ export function PrivateSchoolsContactSection({
 
                   <FormField
                     htmlFor="school-contact-message"
-                    label="Conte sobre sua escola"
+                    label="Sobre qual assunto você quer conversar? (opcional)"
                   >
                     <Textarea
                       id="school-contact-message"
                       name="message"
-                      placeholder="Conte se a escola já realizou uma adequação, possui DPO, usa muitos sistemas ou fornecedores ou tem alguma urgência."
+                      placeholder="Ex.: imagens, uma plataforma, dados de saúde ou orientação da equipe. Não inclua dados de alunos."
                       className="min-h-[150px] bg-neutral-50/70"
                     />
                   </FormField>
@@ -237,7 +238,7 @@ export function PrivateSchoolsContactSection({
                       disabled={isSubmitting}
                       className="group h-auto min-h-16 w-full gap-1 rounded-2xl px-3 py-5 text-[10px] font-bold tracking-[0.1em] shadow-2xl shadow-brand-400/30 sm:gap-2 sm:px-6 sm:text-sm sm:tracking-[0.16em]"
                     >
-                      {isSubmitting ? "Enviando..." : "Quero avaliar minha escola"}
+                      {isSubmitting ? "Enviando..." : content.cta}
                       <ArrowRight
                         className="hidden h-5 w-5 transition-transform group-hover:translate-x-2 sm:block"
                         aria-hidden="true"

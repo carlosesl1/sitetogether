@@ -108,14 +108,15 @@ function LogoMarqueeSet({ duplicate = false }: { duplicate?: boolean }) {
 }
 
 type AuthorityStripProps = {
+    paperBackdrop?: boolean;
     eyebrow?: string;
     title?: string;
 };
 
-export function AuthorityStrip({ eyebrow, title }: AuthorityStripProps = {}) {
+export function AuthorityStrip({ eyebrow, title, paperBackdrop = false }: AuthorityStripProps = {}) {
     return (
-        <div className="relative z-20 -mt-10 w-full px-4 md:px-6">
-            <section className="container relative rounded-t-[40px] bg-white px-6 pb-12 pt-12 shadow-[0_-20px_40px_rgba(0,0,0,0.02)] sm:px-8 lg:px-12">
+        <div className={cn("relative z-20 -mt-10 w-full px-4 md:px-6", paperBackdrop && "bg-[linear-gradient(to_bottom,transparent_2.5rem,#fffdf8_2.5rem)]")}>
+            <section className={cn("container relative bg-white px-6 pb-12 pt-12 shadow-[0_-20px_40px_rgba(0,0,0,0.02)] sm:px-8 lg:px-12", paperBackdrop ? "rounded-[40px]" : "rounded-t-[40px]")}>
                 {title ? (
                     eyebrow ? (
                         <div className="mb-10 max-w-3xl">
@@ -143,7 +144,7 @@ export function AuthorityStrip({ eyebrow, title }: AuthorityStripProps = {}) {
                     {/* Marquee Content */}
                     <div
                         data-pause-offscreen-animation
-                        className="flex w-max animate-marquee hover:[animation-play-state:paused]"
+                        className={cn("flex w-max animate-marquee hover:[animation-play-state:paused]", paperBackdrop && "motion-reduce:animate-none motion-reduce:transform-none")}
                     >
                         <LogoMarqueeSet />
                         <LogoMarqueeSet duplicate />

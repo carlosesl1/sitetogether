@@ -1,0 +1,203 @@
+.hero {
+  overflow: hidden;
+  background: #fffdf8;
+}
+
+.intro {
+  position: relative;
+  padding: 40px 48px 8px;
+}
+
+.copy {
+  position: relative;
+  z-index: 1;
+  max-width: 1440px;
+  margin-inline: auto;
+}
+
+.title {
+  max-width: 1280px;
+  margin-top: 28px;
+  color: #0a0a0a;
+  font-size: clamp(48px, 5.5vw, 84px);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+}
+
+.accent {
+  display: block;
+  padding-bottom: 4px;
+  color: var(--color-brand-500);
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: -0.04em;
+}
+
+.description {
+  max-width: 1060px;
+  margin-top: 24px;
+  color: var(--color-neutral-600);
+  font-size: clamp(20px, 1.8vw, 28px);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.025em;
+}
+
+.action {
+  display: flex;
+  margin-top: 28px;
+}
+
+.media {
+  position: relative;
+  max-width: 1920px;
+  margin-inline: auto;
+}
+
+.picture {
+  position: relative;
+  display: block;
+  height: clamp(420px, 40vw, 720px);
+  overflow: hidden;
+  border-radius: 36px 36px 0 0;
+}
+
+.picture::before,
+.picture::after {
+  position: absolute;
+  z-index: 1;
+  top: 18.5%;
+  width: 36px;
+  height: 36px;
+  content: "";
+  pointer-events: none;
+}
+
+.picture::before {
+  left: 0;
+  background: radial-gradient(circle at 100% 100%, transparent 35px, #fffdf8 36px);
+}
+
+.picture::after {
+  right: 0;
+  background: radial-gradient(circle at 0 100%, transparent 35px, #fffdf8 36px);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.services {
+  position: absolute;
+  bottom: clamp(144px, 12vw, 216px);
+  left: max(48px, calc((100% - 1440px) / 2));
+  width: min(500px, 39%);
+  padding: 66px 40px 38px 48px;
+  border: 1px solid rgb(255 255 255 / 80%);
+  border-radius: 32px;
+  background: #fffdf8;
+  box-shadow: 0 16px 44px rgb(40 35 20 / 10%);
+}
+
+.services p {
+  position: relative;
+  color: var(--color-neutral-600);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.65;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cardPixels {
+  top: 26px;
+  left: 28px;
+  width: 68px;
+  height: 38px;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .intro {
+    padding-inline: 32px;
+  }
+
+  .services {
+    left: 32px;
+    width: 36%;
+    padding: 60px 24px 28px;
+  }
+
+  .services p {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  .intro {
+    padding: 32px 20px 28px;
+  }
+
+  .title {
+    margin-top: 24px;
+    font-size: clamp(36px, 9.5vw, 58px);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+  }
+
+  .accent {
+    margin-top: 4px;
+  }
+
+  .description {
+    margin-top: 20px;
+    font-size: 18px;
+    line-height: 1.55;
+    letter-spacing: -0.02em;
+  }
+
+  .action {
+    margin-top: 24px;
+  }
+
+  .media {
+    padding-bottom: 72px;
+  }
+
+  .picture {
+    height: clamp(300px, 85vw, 470px);
+    border-radius: 28px 28px 0 0;
+  }
+
+  .image {
+    object-position: center bottom;
+  }
+
+  .picture::before,
+  .picture::after {
+    display: none;
+  }
+
+  .services {
+    position: relative;
+    inset: auto;
+    width: auto;
+    margin: -64px 20px 0;
+    padding: 58px 28px 28px;
+    border-radius: 28px;
+  }
+
+  .services p {
+    font-size: 12px;
+    letter-spacing: 0.09em;
+  }
+
+  .cardPixels {
+    top: 20px;
+    left: 24px;
+  }
+}

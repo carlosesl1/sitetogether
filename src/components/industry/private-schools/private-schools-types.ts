@@ -59,6 +59,16 @@ export type PrivateSchoolsIndustryContent = {
     };
     readonly integration: PrivateSchoolsNarrativeChapter;
     readonly solutions: PrivateSchoolsNarrativeChapter;
+    readonly capacity: {
+      readonly pill: string;
+      readonly title: string;
+      readonly accent: string;
+      readonly text: string;
+      readonly proofs: readonly {
+        readonly value: string;
+        readonly label: string;
+      }[];
+    };
     readonly selfAssessment: PrivateSchoolsNarrativeIntro & {
       readonly items: readonly string[];
       readonly note: string;

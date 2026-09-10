@@ -1,3 +1,4 @@
+import { PartnerCapacitySection } from "@/components/legal-partners/partner-capacity-section";
 import { Check } from "lucide-react";
 import {
   PrivateSchoolsNarrativeList,
@@ -5,25 +6,18 @@ import {
   PrivateSchoolsSectionFrame,
 } from "@/components/industry/private-schools/private-schools-section-primitives";
 import type { PrivateSchoolsIndustryContent } from "@/components/industry/private-schools/private-schools-types";
-import { IndustryReveal } from "@/components/industry/industry-reveal";
+import { IndustryReveal } from "@/components/industry/private-schools/private-schools-reveal";
 import { SectorIcon } from "@/components/industry/sector/sector-icon";
 import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
 import { ActionLink, SectionPill } from "@/components/ui/site-primitives";
+import styles from "@/components/industry/private-schools/private-schools-sections.module.css";
 
 export function PrivateSchoolsNarrative({
   content,
 }: {
   readonly content: PrivateSchoolsIndustryContent;
 }) {
-  const {
-    problem,
-    tension,
-    integration,
-    solutions,
-    selfAssessment,
-    process,
-    positioning,
-  } = content.narrative;
+  const { problem, tension, integration, solutions, capacity, selfAssessment, process, positioning } = content.narrative;
 
   return (
     <>
@@ -32,32 +26,26 @@ export function PrivateSchoolsNarrative({
           chapter={problem}
           layoutFamily="school-day"
           tone="paper"
+          className={styles.section}
+          headingClassName={`${styles.heading} ${styles.centered}`}
         >
-          <IndustryReveal className="mt-14">
+          <IndustryReveal className={styles.sectionContent}>
             <PrivateSchoolsNarrativeList
               as="ul"
               ariaLabel="Pontos da rotina escolar em que dados pessoais circulam"
-              className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+              className={styles.problemGrid}
             >
-              {problem.items.map((item) => (
-                <li
-                  key={item.title}
-                  className="group min-h-64 rounded-[2rem] border border-neutral-200 bg-white p-7 shadow-[0_20px_50px_rgba(15,23,42,0.05)] transition duration-300 hover:-translate-y-1 hover:border-brand-400 sm:p-8"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-400 text-neutral-950">
-                      <SectorIcon name={item.icon} className="h-5 w-5" />
+              {problem.items.map((item, index) => (
+                <li key={item.title} className={`${styles.problemCard} ${index < 2 ? styles.featuredProblem : ""}`}>
+                  <div className={styles.cardTop}>
+                    <span className={styles.yellowIcon}>
+                      <SectorIcon name={item.icon} />
                     </span>
-                    <span className="text-xs font-black tracking-[0.16em] text-neutral-300">
-                      {item.label}
-                    </span>
+                    <span className={styles.cardNumber}>{item.label}</span>
                   </div>
-                  <h3 className="mt-9 text-2xl font-bold tracking-tight text-neutral-950">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-base font-medium leading-relaxed text-neutral-500">
-                    {item.description}
-                  </p>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                  <span className={styles.cardPixels} aria-hidden="true"><i /><i /><i /></span>
                 </li>
               ))}
             </PrivateSchoolsNarrativeList>
@@ -102,61 +90,28 @@ export function PrivateSchoolsNarrative({
         <PrivateSchoolsNarrativeSection
           chapter={integration}
           layoutFamily="operational-field"
-          tone="field"
+          tone="paper"
+          className={styles.section}
+          headingClassName={`${styles.heading} ${styles.centered}`}
         >
-          <IndustryReveal className="relative mt-14">
-            <div className="pointer-events-none absolute left-[18%] right-[18%] top-[6.75rem] hidden border-t border-dashed border-neutral-300 lg:block" />
-            <div className="pointer-events-none absolute bottom-[7rem] left-1/2 top-[6.75rem] hidden border-l border-dashed border-neutral-300 lg:block" />
-            <div className="relative grid gap-5 lg:grid-cols-[1fr_0.72fr_1fr] lg:items-start lg:gap-8">
-              {integration.items.slice(0, 2).map((item, index) => (
-                <article
-                  key={item.title}
-                  className={`relative z-10 rounded-[2rem] border border-neutral-200 bg-white p-7 shadow-[0_20px_50px_rgba(15,23,42,0.06)] sm:p-9 ${index === 1 ? "lg:col-start-3" : ""}`}
-                >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-neutral-950 text-brand-400">
-                    <SectorIcon name={item.icon} className="h-5 w-5" />
-                  </span>
-                  <h3 className="mt-7 text-2xl font-bold text-neutral-950">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-sm font-medium leading-relaxed text-neutral-500 sm:text-base">
-                    {item.description}
-                  </p>
+          <IndustryReveal className={styles.sectionContent}>
+            <div className={styles.integrationGrid}>
+              {integration.items.map((item) => (
+                <article key={item.title} className={styles.integrationCard}>
+                  <span className={styles.darkIcon}><SectorIcon name={item.icon} /></span>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
                 </article>
               ))}
-
-              <div className="relative z-20 flex min-h-52 flex-col items-center justify-center rounded-[2rem] bg-brand-400 p-8 text-center text-neutral-950 shadow-[0_24px_70px_rgba(245,192,0,0.24)] lg:col-start-2 lg:row-start-1">
-                <span className="text-xs font-black uppercase tracking-[0.18em] text-neutral-700">
-                  Tudo converge para a
-                </span>
-                <strong className="mt-4 text-4xl font-bold tracking-tight">
-                  Escola
-                </strong>
-                <span className="mt-3 text-sm font-bold leading-relaxed text-neutral-700">
-                  decisões claras para a rotina
-                </span>
-              </div>
-
-              {integration.items.slice(2).map((item) => (
-                <article
-                  key={item.title}
-                  className="relative z-10 rounded-[2rem] border border-neutral-200 bg-white p-7 shadow-[0_20px_50px_rgba(15,23,42,0.06)] sm:p-9 lg:col-start-2"
-                >
-                  <div className="flex items-start gap-5">
-                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-neutral-950 text-brand-400">
-                      <SectorIcon name={item.icon} className="h-5 w-5" />
-                    </span>
-                    <div>
-                      <h3 className="text-2xl font-bold text-neutral-950">
-                        {item.title}
-                      </h3>
-                      <p className="mt-3 text-sm font-medium leading-relaxed text-neutral-500 sm:text-base">
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-                </article>
-              ))}
+            </div>
+            <svg className={styles.connectors} viewBox="0 0 1200 86" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M200 0 V20 Q200 42 224 42 H555 Q600 42 600 84 M600 0 V84 M1000 0 V20 Q1000 42 976 42 H645 Q600 42 600 84" />
+            </svg>
+            <div className={styles.schoolOutcome}>
+              <span className={styles.connectionDot} aria-hidden="true" />
+              <span className={styles.outcomeLabel}>Orientações para a</span>
+              <strong>Escola</strong>
+              <span className={styles.outcomeCaption}>aplicação no dia a dia</span>
             </div>
           </IndustryReveal>
         </PrivateSchoolsNarrativeSection>
@@ -166,41 +121,24 @@ export function PrivateSchoolsNarrative({
         <PrivateSchoolsNarrativeSection
           chapter={solutions}
           layoutFamily="evidence-dossier"
-          tone="white"
+          tone="paper"
+          className={styles.section}
+          headingClassName={styles.heading}
         >
-          <IndustryReveal className="mt-14">
-            <PrivateSchoolsNarrativeList
-              as="ul"
-              ariaLabel="Soluções de privacidade para escolas"
-              className="grid gap-5 lg:grid-cols-3"
-            >
+          <IndustryReveal className={styles.sectionContent}>
+            <PrivateSchoolsNarrativeList as="ul" ariaLabel="Soluções de privacidade para escolas" className={styles.solutionList}>
               {solutions.items.map((item) => (
-                <li
-                  key={item.title}
-                  className="flex min-h-[28rem] flex-col rounded-[2rem] border border-neutral-200 bg-[#fffdf8] p-7 sm:p-9"
-                >
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-400 text-neutral-950">
-                      <SectorIcon name={item.icon} className="h-6 w-6" />
-                    </span>
-                    <span className="text-[11px] font-black uppercase tracking-[0.15em] text-neutral-400">
-                      {item.label}
-                    </span>
+                <li key={item.title} className={styles.solutionRow}>
+                  <div className={styles.solutionMeta}>
+                    <span className={styles.yellowIcon}><SectorIcon name={item.icon} /></span>
+                    <span className={styles.solutionLabel}>{item.label}</span>
                   </div>
-                  <h3 className="mt-10 text-3xl font-bold leading-tight tracking-tight text-neutral-950">
-                    {item.title}
-                  </h3>
-                  <p className="mt-5 text-base font-medium leading-relaxed text-neutral-500">
-                    {item.description}
-                  </p>
-                  <ActionLink
-                    href="#contato-escolas"
-                    variant="dark"
-                    size="lg"
-                    fullWidth
-                    className="relative mt-auto [&>svg]:absolute [&>svg]:right-6 sm:[&>svg]:right-8"
-                  >
-                    Quero saber mais
+                  <div className={styles.solutionCopy}>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                  <ActionLink href="#contato-escolas" variant="dark" size="lg" fullWidth className={styles.solutionAction}>
+                    {content.finalCta.cta}
                   </ActionLink>
                 </li>
               ))}
@@ -209,37 +147,30 @@ export function PrivateSchoolsNarrative({
         </PrivateSchoolsNarrativeSection>
       </div>
 
+      <div data-chapter="capacity" id="capacidade-comprovada" className={styles.capacity}>
+        <PartnerCapacitySection content={capacity} layout="open" />
+      </div>
+
       <div data-chapter="self-assessment">
         <PrivateSchoolsNarrativeSection
           chapter={selfAssessment}
           layoutFamily="school-day"
           tone="paper"
+          className={styles.section}
+          headingClassName={styles.heading}
         >
-          <IndustryReveal className="mt-14 rounded-[2rem] border border-neutral-200 bg-white p-6 shadow-[0_28px_70px_rgba(15,23,42,0.06)] sm:p-10 lg:p-12">
-            <ul className="grid gap-x-12 sm:grid-cols-2" aria-label="Autodiagnóstico de privacidade da escola">
+          <IndustryReveal className={styles.sectionContent}>
+            <ul className={styles.assessmentGrid} aria-label="Situações de privacidade para conversar">
               {selfAssessment.items.map((item) => (
-                <li
-                  key={item}
-                  className="flex gap-4 border-b border-neutral-200 py-5 text-base font-bold leading-relaxed text-neutral-800"
-                >
-                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-400 text-neutral-950">
-                    <Check className="h-4 w-4" aria-hidden="true" />
-                  </span>
+                <li key={item}>
+                  <span className={styles.checkIcon}><Check aria-hidden="true" /></span>
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
-            <div className="mt-9 flex flex-col items-start justify-between gap-7 border-t border-neutral-200 pt-8 lg:flex-row lg:items-center">
-              <p className="max-w-2xl text-xl font-bold leading-relaxed text-neutral-950 sm:text-2xl">
-                {selfAssessment.note}
-              </p>
-              <ActionLink
-                href="#contato-escolas"
-                variant="primary"
-                size="xl"
-                fullWidth
-                className="lg:w-auto"
-              >
+            <div className={styles.assessmentAction}>
+              <p>{selfAssessment.note}</p>
+              <ActionLink href="#contato-escolas" variant="primary" size="xl" fullWidth className={styles.assessmentButton}>
                 {selfAssessment.cta}
               </ActionLink>
             </div>
@@ -251,36 +182,23 @@ export function PrivateSchoolsNarrative({
         <PrivateSchoolsNarrativeSection
           chapter={process}
           layoutFamily="release-cycle"
-          tone="white"
+          tone="paper"
+          className={styles.section}
+          headingClassName={styles.heading}
         >
-          <IndustryReveal className="mt-14">
-            <ol className="grid border-y border-neutral-200 lg:grid-cols-3">
-              {process.items.map((item, index) => (
-                <li
-                  key={item.title}
-                  className={`relative py-9 lg:min-h-72 lg:px-9 ${index > 0 ? "border-t border-neutral-200 lg:border-l lg:border-t-0" : ""}`}
-                >
-                  <span className="text-5xl font-light italic leading-none text-brand-500">
-                    {item.label}.
-                  </span>
-                  <h3 className="mt-8 text-2xl font-bold text-neutral-950">
-                    {item.title}
-                  </h3>
-                  <p className="mt-4 max-w-sm text-base font-medium leading-relaxed text-neutral-500">
-                    {item.description}
-                  </p>
+          <IndustryReveal className={styles.sectionContent}>
+            <ol className={styles.timeline}>
+              {process.items.map((item) => (
+                <li key={item.title}>
+                  <span className={styles.stepNumber}>{item.label}.</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
                 </li>
               ))}
             </ol>
-            <div className="mt-10 flex justify-start lg:justify-center">
-              <ActionLink
-                href="#contato-escolas"
-                variant="dark"
-                size="xl"
-                fullWidth
-                className="sm:w-auto"
-              >
-                Quero conversar com um especialista
+            <div className={styles.processAction}>
+              <ActionLink href="#contato-escolas" variant="dark" size="xl" fullWidth className="sm:w-auto">
+                {content.finalCta.cta}
               </ActionLink>
             </div>
           </IndustryReveal>
@@ -288,28 +206,18 @@ export function PrivateSchoolsNarrative({
       </div>
 
       <div data-chapter="positioning">
-        <PrivateSchoolsSectionFrame
-          id={positioning.id}
-          layoutFamily="editorial-rail"
-          tone="dark"
-        >
-          <PixelDecor placement="bottomLeft" mask="bottomLeft" opacity={0.08} />
+        <PrivateSchoolsSectionFrame id={positioning.id} layoutFamily="editorial-rail" tone="dark" className={styles.positioning}>
+          <PixelDecor placement="custom" mask="none" opacity={0.1} squareSize={17} gridGap={7} className={styles.positioningPixelsTop} />
+          <PixelDecor placement="bottomRight" mask="bottomRight" opacity={0.15} squareSize={17} gridGap={7} />
           <div className="container relative z-10 mx-auto px-6">
-            <IndustryReveal>
-              <SectionPill tone="dark">{positioning.pill}</SectionPill>
-              <h2 className="mt-8 max-w-5xl text-[2.6rem] font-bold leading-[0.98] tracking-[-0.035em] text-white sm:text-5xl lg:text-6xl">
-                {positioning.title}{" "}
-                <span className="pb-1 font-light italic leading-[1.1] text-brand-400">
-                  {positioning.accent}
-                </span>
-              </h2>
-              <div className="mt-12 grid gap-8 border-t border-white/15 pt-9 lg:grid-cols-[1fr_0.8fr] lg:gap-20">
-                <p className="max-w-3xl text-lg font-medium leading-relaxed text-neutral-300 sm:text-xl">
-                  {positioning.body}
-                </p>
-                <p className="text-2xl font-bold leading-tight text-brand-400 sm:text-3xl">
-                  {positioning.closing}
-                </p>
+            <IndustryReveal className={styles.positioningGrid}>
+              <div>
+                <SectionPill tone="dark">{positioning.pill}</SectionPill>
+                <h2>{positioning.title}{" "}<span>{positioning.accent}</span></h2>
+              </div>
+              <div className={styles.positioningCopy}>
+                <p>{positioning.body}</p>
+                <p className={styles.positioningClosing}>{positioning.closing}</p>
               </div>
             </IndustryReveal>
           </div>
