@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import type { IndustryFinalCtaContent } from "@/components/industry/industry-page-types";
 import { IndustryReveal } from "@/components/industry/industry-reveal";
+import { IndustryContactLogoStrip } from "@/components/industry/industry-contact-logo-strip";
 import { IndustrySectionHeading } from "@/components/industry/industry-section-heading";
 import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
 import { Button } from "@/components/ui/button";
@@ -21,10 +22,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { submitContact } from "@/lib/contact";
 
 const conversationBenefits = [
-  { icon: Search, title: "Prioridades bem definidas" },
-  { icon: Users, title: "Áreas envolvidas" },
-  { icon: FileCheck2, title: "Escopo de implantação" },
-  { icon: ShieldCheck, title: "Próximos passos claros" },
+  { icon: Search, title: "Sua dúvida ou necessidade" },
+  { icon: Users, title: "O que já foi feito" },
+  { icon: FileCheck2, title: "As prioridades da instituição" },
+  { icon: ShieldCheck, title: "Como podemos ajudar" },
 ] as const;
 
 const privacyNoticeUrl =
@@ -52,7 +53,6 @@ export function HigherEducationContactSection({
               title={content.title}
               accent={content.nextStep}
               description={content.description}
-              variant="narrative"
             />
 
             <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-5 sm:gap-4">
@@ -76,9 +76,9 @@ export function HigherEducationContactSection({
             </div>
 
             <p className="mt-10 max-w-2xl border-l-2 border-brand-400 pl-5 text-sm font-semibold leading-relaxed text-neutral-600 sm:text-base">
-              A conversa inicial ajuda a organizar o ponto de partida. O escopo é
-              definido depois de entendermos as necessidades da instituição.
+              Você não precisa saber qual serviço contratar. Podemos definir isso juntos na conversa.
             </p>
+            <IndustryContactLogoStrip />
           </IndustryReveal>
 
           <HigherEducationContactForm cta={content.cta} />
@@ -102,7 +102,7 @@ function HigherEducationContactForm({ cta }: { readonly cta: string }) {
     const formData = new FormData(form);
     const message = String(formData.get("message") || "").trim();
     const composedMessage = [
-      "Interesse: Programa de Privacidade para Ensino Superior",
+      "Interesse: Adequação e Gestão da Privacidade no Ensino Superior",
       message ? `Contexto informado: ${message}` : null,
     ]
       .filter(Boolean)
@@ -153,8 +153,8 @@ function HigherEducationContactForm({ cta }: { readonly cta: string }) {
               Solicitação recebida!
             </h2>
             <p className="mt-4 max-w-sm text-lg font-medium text-neutral-500">
-              Um especialista entrará em contato para entender a realidade da
-              sua instituição e organizar o próximo passo.
+              Um especialista entrará em contato para combinar a conversa sobre as
+              necessidades da sua instituição.
             </p>
             <Button
               type="button"
@@ -169,7 +169,7 @@ function HigherEducationContactForm({ cta }: { readonly cta: string }) {
           <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.22em] text-brand-600">
-                Formulário rápido
+                Contato com a TOGETHER
               </p>
               <h2 className="mt-3 text-2xl font-bold tracking-tight text-neutral-900">
                 {cta}
@@ -249,7 +249,7 @@ function HigherEducationContactForm({ cta }: { readonly cta: string }) {
               </FormField>
             </div>
 
-            <FormField htmlFor="higher-education-phone" label="Telefone">
+            <FormField htmlFor="higher-education-phone" label="Telefone (opcional)">
               <Input
                 id="higher-education-phone"
                 name="phone"
@@ -262,12 +262,12 @@ function HigherEducationContactForm({ cta }: { readonly cta: string }) {
 
             <FormField
               htmlFor="higher-education-message"
-              label="Conte sobre a necessidade da instituição"
+              label="O que sua instituição precisa resolver? (opcional)"
             >
               <Textarea
                 id="higher-education-message"
                 name="message"
-                placeholder="Conte quais frentes precisam avançar ou qual é a principal prioridade hoje."
+                placeholder="Conte brevemente a situação. Não inclua dados pessoais de alunos ou de outras pessoas."
                 className="min-h-[150px] bg-neutral-50/70"
               />
             </FormField>
@@ -291,14 +291,14 @@ function HigherEducationContactForm({ cta }: { readonly cta: string }) {
                 </p>
               ) : null}
               <p className="mt-6 text-center text-[10px] font-medium leading-relaxed text-neutral-400">
-                Ao enviar, você concorda com nosso{" "}
+                Saiba como seus dados são tratados em nosso{" "}
                 <Link
                   href={privacyNoticeUrl}
                   className="underline underline-offset-4 transition-colors hover:text-neutral-900"
                 >
                   Aviso de Privacidade
                 </Link>
-                . Seus dados estão protegidos.
+                .
               </p>
             </div>
           </form>

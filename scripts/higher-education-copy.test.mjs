@@ -36,22 +36,23 @@ const contactSource = await readFile(
 test("higher education hero states the program outcome and next step", () => {
   assert.equal(
     `${content.hero.title} ${content.hero.accent}`,
-    "Estruture a privacidade da sua instituição, dos dados à rotina das pessoas.",
+    "Simplifique a LGPD e a privacidade na sua instituição de ensino.",
   );
   assert.equal(
     content.hero.description,
-    "A TOGETHER ajuda sua instituição a organizar dados, decisões, fornecedores, procedimentos e capacitação para que a privacidade funcione na prática.",
+    "A TOGETHER ajuda a entender o que precisa ser feito, organizar a adequação e manter o trabalho em dia, com apoio em documentos, contratos, processos e treinamento das equipes.",
   );
-  assert.equal(content.hero.cta, "Agendar uma conversa");
-  assert.equal(content.finalCta.cta, "Agendar uma conversa");
+  assert.equal(content.hero.cta, "Conversar com a TOGETHER");
+  assert.equal(content.finalCta.cta, "Solicitar contato");
   assert.deepEqual(content.hero.secondaryCta, {
-    label: "Conhecer as seis frentes",
+    label: "Ver como podemos ajudar",
     href: "#seis-frentes",
   });
 });
 
-test("higher education narrative follows the approved four-chapter sequence", () => {
+test("higher education explains the problem before the next-step context and services", () => {
   assert.deepEqual(Object.keys(content.narrative), [
+    "problem",
     "context",
     "sixFronts",
     "togetherApproach",
@@ -60,10 +61,11 @@ test("higher education narrative follows the approved four-chapter sequence", ()
   assert.deepEqual(
     Object.values(content.narrative).map(({ pill }) => pill),
     [
-      "Privacidade na prática",
-      "As seis frentes",
-      "Como a TOGETHER atua",
-      "O que muda na prática",
+      "O desafio da instituição",
+      "Quando a adequação já começou",
+      "Como podemos ajudar",
+      "Como trabalhamos com a instituição",
+      "O que o trabalho ajuda a organizar",
     ],
   );
 });
@@ -71,11 +73,29 @@ test("higher education narrative follows the approved four-chapter sequence", ()
 test("higher education context states the institutional need directly", () => {
   assert.equal(
     `${content.narrative.context.title} ${content.narrative.context.accent}`,
-    "Sua instituição precisa de um programa de privacidade que englobe dados, sistemas, contratos e pessoas.",
+    "Sua instituição já tem uma política de privacidade. O que precisa ser feito depois?",
   );
   assert.equal(
     content.narrative.context.description,
-    "Somente políticas de privacidade não organizam sozinhas onde os dados estão, por que são utilizados, quem pode acessá-los ou como agir diante de uma solicitação ou incidente.",
+    "A política de privacidade é uma parte da adequação. O restante precisa estar organizado na rotina da instituição.",
+  );
+  assert.deepEqual(
+    content.narrative.context.areas.map(({ label }) => label),
+    [
+      "Contratos",
+      "Processos",
+      "Treinamento das equipes",
+      "Atendimento às solicitações",
+    ],
+  );
+  assert.deepEqual(content.narrative.context.actions, [
+    "Avaliar o que já foi feito",
+    "Identificar o que ainda precisa de atenção",
+    "Organizar ações, responsáveis e prazos",
+  ]);
+  assert.equal(
+    content.narrative.context.note,
+    "Quando necessário, a TOGETHER também apoia ajustes em documentos e processos, capacitação e acompanhamento contínuo.",
   );
 });
 
@@ -96,7 +116,7 @@ test("higher education uses one ECA-style closing CTA", () => {
   assert.match(contactSource, /<form/);
   assert.equal(
     content.finalCta.nextStep,
-    "Descubra quais frentes precisam avançar primeiro.",
+    "da sua instituição.",
   );
 });
 
@@ -104,16 +124,16 @@ test("higher education requests the compact 64px desktop hero", () => {
   assert.match(heroSource, /2xl:text-\[4rem\]/);
 });
 
-test("higher education names all six privacy fronts with recognized terms", () => {
+test("higher education names all six privacy fronts in plain language", () => {
   assert.deepEqual(
     content.narrative.sixFronts.items.map(({ title }) => title),
     [
-      "Mapeamento de dados, sistemas e fluxos",
-      "Finalidade, base legal, acesso e retenção",
-      "Governança integrada entre as áreas",
-      "Governança de terceiros",
-      "Direitos dos titulares e resposta a incidentes",
-      "Capacitação e cultura de privacidade",
+      "Diagnóstico e plano de adequação",
+      "Políticas e documentos",
+      "Contratos e fornecedores",
+      "Acompanhamento da privacidade",
+      "Treinamentos e orientações",
+      "Solicitações, auditorias e incidentes",
     ],
   );
   assert.equal(content.narrative.sixFronts.items.length, 6);
@@ -121,20 +141,20 @@ test("higher education names all six privacy fronts with recognized terms", () =
 
 test("every privacy front explains how TOGETHER helps", () => {
   for (const front of content.narrative.sixFronts.items) {
-    assert.match(front.togetherHelp, /A TOGETHER/);
-    assert.ok(front.description.length >= 90);
-    assert.ok(front.togetherHelp.length >= 80);
+    assert.ok(front.description.length >= 40);
+    assert.ok(front.togetherHelp.length >= 40);
+    assert.notEqual(front.description, front.togetherHelp);
   }
 });
 
 test("TOGETHER approach is continuous and not a false six-step sequence", () => {
   assert.deepEqual(
     content.narrative.togetherApproach.items.map(({ title }) => title),
-    ["Diagnosticar", "Planejar", "Implantar", "Acompanhar"],
+    ["Entender a situação", "Definir as prioridades", "Executar as adequações", "Acompanhar a evolução"],
   );
   assert.match(
     content.narrative.sixFronts.description,
-    /atuam juntas|evoluem com a instituição/i,
+    /começar por uma demanda específica/i,
   );
   assert.doesNotMatch(
     content.narrative.sixFronts.description,
@@ -142,23 +162,29 @@ test("TOGETHER approach is continuous and not a false six-step sequence", () => 
   );
 });
 
-test("higher education uses one consistent editorial treatment for the fronts", () => {
+test("higher education presents the six fronts as a scannable service grid", () => {
   assert.match(narrativeSource, /ariaLabel="Seis frentes de um programa de privacidade"/);
   assert.match(narrativeSource, /Como a TOGETHER ajuda/);
   assert.match(narrativeSource, /data-front-index=\{item\.label\}/);
-  assert.match(narrativeSource, /lg:grid-cols-\[7rem_1fr_1fr\]/);
+  assert.match(narrativeSource, /xl:grid-cols-3/);
+  assert.match(narrativeSource, /rounded-\[1\.5rem\] border border-neutral-200 bg-white/);
   assert.doesNotMatch(narrativeSource, /lg:mt-4 lg:block/);
   assert.doesNotMatch(narrativeSource, /academic-mosaic/);
-  assert.doesNotMatch(narrativeSource, /lg:grid-cols-3/);
+});
+
+test("higher education keeps the approved two-column outcomes layout", () => {
+  assert.match(narrativeSource, /ariaLabel="Entregas e acompanhamento da privacidade"/);
+  assert.match(narrativeSource, /className="grid gap-4 sm:grid-cols-2"/);
+  assert.doesNotMatch(narrativeSource, /sm:grid-cols-2 lg:grid-cols-3/);
 });
 
 test("TOGETHER approach includes a contextual CTA to the final form", () => {
   assert.deepEqual(content.narrative.togetherApproach.cta, {
     eyebrow: "Próximo passo",
-    title: "Leve as prioridades da instituição para um plano de ação.",
+    title: "Sua instituição precisa começar ou dar continuidade?",
     description:
-      "Converse com a TOGETHER para identificar o ponto de partida e o escopo mais adequado.",
-    label: "Agendar uma conversa",
+      "Conte o que já foi feito e o que precisa de apoio. Ajudamos a definir os próximos passos.",
+    label: "Conversar com a TOGETHER",
     href: "#cta",
   });
   assert.match(narrativeSource, /<ActionLink/);
@@ -167,8 +193,8 @@ test("TOGETHER approach includes a contextual CTA to the final form", () => {
 
 test("higher education conversion copy is transparent", () => {
   const serialized = JSON.stringify(content);
-  assert.match(serialized, /realidade da sua instituição/i);
-  assert.match(serialized, /escopo/i);
+  assert.match(serialized, /conte sua dúvida/i);
+  assert.match(serialized, /proposta/i);
   assert.doesNotMatch(
     serialized,
     /diagnóstico gratuito|garantia de conformidade|aprovado pela ANPD|elimina(?:r|ção) (?:todos )?os riscos/i,

@@ -22,6 +22,8 @@ type IndustryNarrativeSectionProps = {
   readonly inverse?: boolean;
   readonly className?: string;
   readonly headingClassName?: string;
+  readonly headingVariant?: "default" | "narrative";
+  readonly decoration?: ReactNode;
   readonly children: ReactNode;
 };
 
@@ -33,6 +35,8 @@ export function IndustryNarrativeSection({
   inverse = false,
   className,
   headingClassName,
+  headingVariant = "narrative",
+  decoration,
   children,
 }: IndustryNarrativeSectionProps) {
   return (
@@ -43,6 +47,7 @@ export function IndustryNarrativeSection({
       tone={tone}
       className={className}
     >
+      {decoration}
       <div className="container relative z-10 mx-auto px-6">
         <IndustrySectionHeading
           pill={chapter.pill}
@@ -51,7 +56,7 @@ export function IndustryNarrativeSection({
           description={chapter.description}
           inverse={inverse}
           className={headingClassName}
-          variant="narrative"
+          variant={headingVariant}
         />
         {children}
       </div>

@@ -91,7 +91,15 @@ export type PrivateSchoolsNarrative = {
 };
 
 export type HigherEducationNarrative = {
+  readonly problem: NarrativeChapter & {
+    readonly note: string;
+  };
   readonly context: IndustrySectionIntro & {
+    readonly areas: readonly {
+      readonly icon: IndustryIconKey;
+      readonly label: string;
+    }[];
+    readonly actions: readonly string[];
     readonly note: string;
   };
   readonly sixFronts: IndustrySectionIntro & {

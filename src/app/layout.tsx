@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import { DeferredThirdParties } from "@/components/analytics/deferred-third-parties";
 import { WebMcpProvider } from "@/components/ai/webmcp-provider";
 import { LanguageProvider } from "@/components/i18n/language-provider";
@@ -11,9 +11,12 @@ import "./globals.css";
 const siteDescription =
   "Privacidade, LGPD e DPO as a Service para empresas que precisam de governança, tecnologia e segurança operacional.";
 
-const jakarta = Plus_Jakarta_Sans({
+const jakarta = localFont({
+  src: "./fonts/plus-jakarta-sans-latin-variable.woff2",
   variable: "--font-jakarta",
-  subsets: ["latin"],
+  weight: "200 800",
+  style: "normal",
+  display: "swap",
 });
 
 export const metadata: Metadata = {

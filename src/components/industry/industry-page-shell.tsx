@@ -12,11 +12,13 @@ export function IndustryPageShell({
   content,
   children,
   authority,
+  faq,
   finalCta,
 }: {
   readonly content: IndustrySharedContent;
   readonly children: ReactNode;
   readonly authority?: ReactNode;
+  readonly faq?: ReactNode;
   readonly finalCta?: ReactNode;
 }) {
   const allowedAnchors = content.campaignAnchors.map(({ id }) => id);
@@ -35,7 +37,7 @@ export function IndustryPageShell({
           {authority ?? <AuthorityStrip title={content.hero.trustLine} />}
         </div>
         {children}
-        <IndustryFaqSection {...content.faq} variant="narrative" />
+        {faq ?? <IndustryFaqSection {...content.faq} variant="narrative" />}
         {finalCta ?? (
           <IndustryFinalCta
             sector={content.sector}

@@ -79,6 +79,8 @@ export type IndustryHeroContent = {
   readonly title: string;
   readonly accent: string;
   readonly description: string;
+  readonly supportingText?: string;
+  readonly nextStep?: string;
   readonly cta: string;
   readonly trustLine?: string;
   readonly secondaryCta?: {
