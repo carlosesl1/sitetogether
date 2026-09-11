@@ -1,0 +1,114 @@
+import type { IndustryHeroContent } from "@/components/industry/saas/saas-page-types";
+import { SaasContactLink } from "@/components/industry/saas/saas-contact-link";
+import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
+import { ActionLink, SectionPill } from "@/components/ui/site-primitives";
+import { cn } from "@/lib/utils";
+
+type IndustryHeroProps = {
+  sector: string;
+  content: IndustryHeroContent;
+  allowedAnchors: readonly string[];
+  titleSize?: "default" | "compact";
+};
+
+export function SaasHero({
+  sector,
+  content,
+  allowedAnchors,
+  titleSize = "default",
+}: IndustryHeroProps) {
+  const { image } = content;
+
+  return (
+    <section
+      data-layout-family="hero-image-field"
+      className="relative min-h-[640px] overflow-hidden bg-[#fffdf8] sm:min-h-[680px] lg:min-h-[700px]"
+    >
+      <picture className="absolute inset-0 block h-full w-full">
+        <source
+          media="(max-width: 767px)"
+          srcSet={image.mobile.avif}
+          type="image/avif"
+        />
+        <source
+          media="(max-width: 767px)"
+          srcSet={image.mobile.webp}
+          type="image/webp"
+        />
+        <source
+          media="(max-width: 767px)"
+          srcSet={image.mobile.png}
+          type="image/png"
+        />
+        <source srcSet={image.desktop.avif} type="image/avif" />
+        <source srcSet={image.desktop.webp} type="image/webp" />
+        <img
+          src={image.desktop.png}
+          alt=""
+          width={image.desktop.width}
+          height={image.desktop.height}
+          fetchPriority="high"
+          decoding="async"
+          className="h-full w-full object-cover object-[58%_bottom] sm:object-[62%_center] lg:object-center"
+        />
+      </picture>
+
+      <div className="absolute inset-0 bg-gradient-to-b from-[#fffdf8] via-[#fffdf8]/92 to-[#fffdf8]/30 sm:bg-gradient-to-r sm:from-[#fffdf8] sm:via-[#fffdf8]/90 sm:to-transparent" />
+      <PixelDecor placement="topRight" mask="topRight" opacity={0.18} />
+      <PixelDecor placement="bottomLeft" mask="bottomLeft" opacity={0.1} />
+
+      <div className="container relative z-10 mx-auto flex min-h-[640px] items-center px-5 py-16 sm:min-h-[680px] sm:px-6 lg:min-h-[700px] lg:py-20">
+        <div className="max-w-[860px]">
+          {content.pill ? <SectionPill>{content.pill}</SectionPill> : null}
+          <h1
+            className={cn(
+              content.pill ? "mt-8" : "mt-0",
+              "max-w-[860px] break-words text-[2.75rem] font-bold leading-[0.98] tracking-normal text-neutral-950 sm:text-6xl xl:text-[4rem]",
+              titleSize === "compact"
+                ? "2xl:text-[4rem]"
+                : "2xl:text-[4.45rem]",
+            )}
+          >
+            {content.title}{" "}
+            <span
+              className={cn(
+                "pb-1 font-light italic leading-[1.1] text-brand-500",
+                sector === "saas" &&
+                  "sm:text-[3.25rem] xl:text-[3.375rem]",
+              )}
+            >
+              {content.accent}
+            </span>
+          </h1>
+          <p className="mt-8 max-w-2xl text-lg font-medium leading-relaxed text-neutral-500 sm:text-xl">
+            {content.description}
+          </p>
+          <div className="mt-10 flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
+            <SaasContactLink
+              sector={sector}
+              position="hero"
+              allowedAnchors={allowedAnchors}
+              variant="primary"
+              size="xl"
+              fullWidth
+              className="sm:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+            >
+              {content.cta}
+            </SaasContactLink>
+            {content.secondaryCta ? (
+              <ActionLink
+                href={content.secondaryCta.href}
+                variant="dark"
+                size="xl"
+                fullWidth
+                className="sm:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
+              >
+                {content.secondaryCta.label}
+              </ActionLink>
+            ) : null}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

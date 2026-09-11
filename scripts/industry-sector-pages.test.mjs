@@ -16,7 +16,7 @@ const sectorDefinitions = [
     route: "privacidade-saas",
     content: "saas.ts",
     imageDir: "saas",
-    title: "Privacidade que acompanha o produto",
+    title: "Tenha um SaaS adequado à LGPD",
   },
   {
     id: "escolas-particulares",
@@ -133,6 +133,11 @@ test("all sector content and route modules are present and distinct", async () =
       assert.match(contentSource, /Agendar uma conversa/g);
       assert.match(routeSource, /HigherEducationNarrative/);
       assert.match(routeSource, /HigherEducationContactSection/);
+    } else if (sector.id === "saas") {
+      assert.match(contentSource, /Solicite seu diagnóstico inicial/g);
+      assert.match(routeSource, /SaasPageShell/);
+      assert.match(routeSource, /SaasNarrative/);
+      assert.match(routeSource, /SaasContactSection/);
     } else {
       assert.match(contentSource, /Agende uma Conversa/g);
       assert.match(routeSource, /SectorIndustryPage/);
