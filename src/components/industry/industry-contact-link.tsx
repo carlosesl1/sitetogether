@@ -66,6 +66,7 @@ export function IndustryContactLink({
     position,
     entryUrl,
     allowedAnchors,
+    localForm: sector === "transporte-fracionado",
   });
   const eventPayload = {
     event: getIndustryCtaEvent(position),

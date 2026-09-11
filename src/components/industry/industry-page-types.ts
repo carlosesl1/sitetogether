@@ -42,6 +42,11 @@ export type IndustryNarrativeChapterKey =
   | "reconstruction"
   | "traveling-criteria"
   | "together-freight"
+  | "freight-pain"
+  | "freight-stage"
+  | "freight-services"
+  | "freight-process"
+  | "freight-teams"
   | "before-trip"
   | "during-trip"
   | "delivery"
@@ -119,6 +124,7 @@ export type IndustryCapability = {
 export type IndustryFinalCtaContent = {
   readonly pill: string;
   readonly title: string;
+  readonly accent?: string;
   readonly description: string;
   readonly cta: string;
   readonly nextStep: string;
@@ -200,7 +206,7 @@ export type IndustrySharedContent = {
     readonly pill: string;
     readonly title: string;
     readonly accent: string;
-    readonly description: string;
+    readonly description?: string;
     readonly items: readonly IndustryFaqItem[];
   };
   readonly finalCta: IndustryFinalCtaContent;

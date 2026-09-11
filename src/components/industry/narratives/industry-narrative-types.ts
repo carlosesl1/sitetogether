@@ -118,13 +118,21 @@ export type HigherEducationNarrative = {
 };
 
 export type FractionalFreightNarrative = {
-  readonly handoffs: NarrativeChapter;
-  readonly network: NarrativeChapter;
-  readonly sharingRules: NarrativeChapter;
-  readonly reconstruction: NarrativeChapter;
-  readonly travelingCriteria: NarrativeChapter;
-  readonly togetherFreight: NarrativeChapter;
-  readonly diagnostic: NarrativeDiagnostic;
+  readonly pain: NarrativeChapter;
+  readonly stage: NarrativeChapter & { readonly cta: string };
+  readonly services: NarrativeChapter & { readonly cta: string };
+  readonly process: NarrativeChapter;
+  readonly teams: NarrativeChapter & { readonly cta: string };
+  readonly capacity: {
+    readonly pill: string;
+    readonly title: string;
+    readonly accent: string;
+    readonly text: string;
+    readonly proofs: readonly {
+      readonly value: string;
+      readonly label: string;
+    }[];
+  };
 };
 
 export type FullTruckloadNarrative = {

@@ -24,6 +24,7 @@ type BuildIndustryContactHrefInput = {
   position: IndustryCtaPosition;
   entryUrl?: URL;
   allowedAnchors: readonly string[];
+  localForm?: boolean;
 };
 
 export function getIndustryCtaEvent(position: IndustryCtaPosition) {
@@ -56,6 +57,7 @@ export function buildIndustryContactHref({
   position,
   entryUrl,
   allowedAnchors,
+  localForm = false,
 }: BuildIndustryContactHrefInput) {
   const params = new URLSearchParams({
     sector,
@@ -74,5 +76,12 @@ export function buildIndustryContactHref({
     }
   }
 
+  if (localForm && sector === "transporte-fracionado") {
+    const originalAnchor = entryUrl?.searchParams.get("entry_anchor");
+    if (!params.has("entry_anchor") && originalAnchor && allowedAnchors.includes(originalAnchor)) {
+      params.set("entry_anchor", originalAnchor);
+    }
+    return `/solucoes/privacidade-transporte-fracionado?${params.toString()}#contato-fracionado`;
+  }
   return `/contato?${params.toString()}`;
 }

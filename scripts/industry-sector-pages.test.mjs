@@ -30,14 +30,14 @@ const sectorDefinitions = [
     route: "privacidade-ensino-superior",
     content: "higher-education.ts",
     imageDir: "higher-education",
-    title: "Estruture a privacidade da sua instituição",
+    title: "Simplifique a LGPD e a privacidade",
   },
   {
     id: "transporte-fracionado",
     route: "privacidade-transporte-fracionado",
     content: "fractional-freight.ts",
     imageDir: "fractional-freight",
-    title: "Privacidade em cada etapa da carga fracionada",
+    title: "Simplifique a LGPD",
   },
   {
     id: "transporte-lotacao",
@@ -123,14 +123,14 @@ test("all sector content and route modules are present and distinct", async () =
     const metadataSource = `${routeSource}\n${layoutSource}`;
 
     assert.match(contentSource, new RegExp(sector.title));
-    assert.match(contentSource, /faq:/);
-    assert.match(contentSource, /campaignAnchors:/);
+    assert.match(contentSource, /\bfaq"?\s*:/);
+    assert.match(contentSource, /\bcampaignAnchors"?\s*:/);
     assert.match(contentSource, new RegExp(`/${sector.route}`));
     if (sector.id === "escolas-particulares") {
       assert.match(contentSource, /Conversar sobre minha escola/g);
       assert.match(routeSource, /PrivateSchoolsLandingPage/);
     } else if (sector.id === "ensino-superior") {
-      assert.match(contentSource, /Agendar uma conversa/g);
+      assert.match(contentSource, /Conversar com a TOGETHER/g);
       assert.match(routeSource, /HigherEducationNarrative/);
       assert.match(routeSource, /HigherEducationContactSection/);
     } else if (sector.id === "saas") {
@@ -138,6 +138,11 @@ test("all sector content and route modules are present and distinct", async () =
       assert.match(routeSource, /SaasPageShell/);
       assert.match(routeSource, /SaasNarrative/);
       assert.match(routeSource, /SaasContactSection/);
+    } else if (sector.id === "transporte-fracionado") {
+      assert.match(contentSource, /Conversar com um especialista/g);
+      assert.match(routeSource, /FractionalFreightHero/);
+      assert.match(routeSource, /FractionalFreightNarrative/);
+      assert.match(routeSource, /IndustryContactSection/);
     } else {
       assert.match(contentSource, /Agende uma Conversa/g);
       assert.match(routeSource, /SectorIndustryPage/);

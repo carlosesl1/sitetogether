@@ -11,12 +11,14 @@ import { Navbar } from "@/components/ui/navbar";
 export function IndustryPageShell({
   content,
   children,
+  hero,
   authority,
   faq,
   finalCta,
 }: {
   readonly content: IndustrySharedContent;
   readonly children: ReactNode;
+  readonly hero?: ReactNode;
   readonly authority?: ReactNode;
   readonly faq?: ReactNode;
   readonly finalCta?: ReactNode;
@@ -28,11 +30,11 @@ export function IndustryPageShell({
       <IndustryStructuredData content={content} />
       <Navbar showCtaArrow />
       <main>
-        <HigherEducationHero
+        {hero ?? <HigherEducationHero
           sector={content.sector}
           content={content.hero}
           allowedAnchors={allowedAnchors}
-        />
+        />}
         <div data-layout-family="authority-transition">
           {authority ?? <AuthorityStrip title={content.hero.trustLine} />}
         </div>
