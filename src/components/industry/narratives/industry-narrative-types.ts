@@ -136,13 +136,24 @@ export type FractionalFreightNarrative = {
 };
 
 export type FullTruckloadNarrative = {
-  readonly beforeTrip: NarrativeChapter;
-  readonly duringTrip: NarrativeChapter;
-  readonly delivery: NarrativeChapter;
-  readonly retention: NarrativeChapter;
-  readonly routeIncidents: NarrativeChapter;
-  readonly togetherTruckload: NarrativeChapter;
-  readonly diagnostic: NarrativeDiagnostic;
+  readonly pain: NarrativeChapter;
+  readonly approach: IndustrySectionIntro & {
+    readonly example: { readonly title: string; readonly description: string };
+    readonly participation: { readonly title: string; readonly description: string };
+  };
+  readonly changes: NarrativeChapter & { readonly closing: string };
+  readonly services: NarrativeChapter & {
+    readonly context: { readonly title: string; readonly description: string };
+    readonly cta: string;
+  };
+  readonly process: NarrativeChapter;
+  readonly capacity: {
+    readonly pill: string;
+    readonly title: string;
+    readonly accent: string;
+    readonly text: string;
+    readonly proofs: readonly { readonly value: string; readonly label: string }[];
+  };
 };
 
 export type RoadsNarrative = {

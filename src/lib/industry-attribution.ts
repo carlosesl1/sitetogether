@@ -76,12 +76,13 @@ export function buildIndustryContactHref({
     }
   }
 
-  if (localForm && sector === "transporte-fracionado") {
+  if (localForm && (sector === "transporte-fracionado" || sector === "transporte-lotacao")) {
     const originalAnchor = entryUrl?.searchParams.get("entry_anchor");
     if (!params.has("entry_anchor") && originalAnchor && allowedAnchors.includes(originalAnchor)) {
       params.set("entry_anchor", originalAnchor);
     }
-    return `/solucoes/privacidade-transporte-fracionado?${params.toString()}#contato-fracionado`;
+    const contactAnchor = sector === "transporte-lotacao" ? "contato-lotacao" : "contato-fracionado";
+    return `/solucoes/privacidade-${sector}?${params.toString()}#${contactAnchor}`;
   }
   return `/contato?${params.toString()}`;
 }

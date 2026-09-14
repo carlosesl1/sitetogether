@@ -15,6 +15,22 @@ export type IndustryContactForm = {
 };
 
 export const industryContactForms = {
+  fullTruckload: {
+    id: "contato-lotacao",
+    title: "Solicite uma conversa",
+    source: "LP LGPD para carga lotação",
+    interest: "Serviços de privacidade para carga lotação",
+    toolName: "request_full_truckload_privacy_consultation",
+    companyLabel: "Transportadora",
+    companyPlaceholder: "Nome da transportadora",
+    emailPlaceholder: "nome@empresa.com.br",
+    messageLabel: "Como podemos ajudar?",
+    messagePlaceholder:
+      "Ex.: começar a adequação, atender uma exigência de cliente, contratar um DPO ou treinar a equipe.",
+    messageHint: "Não inclua documentos nem dados pessoais de motoristas ou recebedores.",
+    successMessage:
+      "Um especialista da TOGETHER entrará em contato para entender a situação e explicar como podemos ajudar.",
+  },
   fractionalFreight: {
     id: "contato-fracionado",
     title: "Solicite contato de um especialista",

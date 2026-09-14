@@ -127,7 +127,7 @@ export type IndustryFinalCtaContent = {
   readonly accent?: string;
   readonly description: string;
   readonly cta: string;
-  readonly nextStep: string;
+  readonly nextStep?: string;
 };
 
 export type SectorId =

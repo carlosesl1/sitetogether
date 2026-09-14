@@ -66,7 +66,7 @@ export function IndustryContactLink({
     position,
     entryUrl,
     allowedAnchors,
-    localForm: sector === "transporte-fracionado",
+    localForm: sector === "transporte-fracionado" || sector === "transporte-lotacao",
   });
   const eventPayload = {
     event: getIndustryCtaEvent(position),

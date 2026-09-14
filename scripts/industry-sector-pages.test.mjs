@@ -44,7 +44,7 @@ const sectorDefinitions = [
     route: "privacidade-transporte-lotacao",
     content: "full-truckload.ts",
     imageDir: "full-truckload",
-    title: "Privacidade para a operação de carga lotação",
+    title: "LGPD e privacidade mais simples",
   },
 ];
 
@@ -142,6 +142,11 @@ test("all sector content and route modules are present and distinct", async () =
       assert.match(contentSource, /Conversar com um especialista/g);
       assert.match(routeSource, /FractionalFreightHero/);
       assert.match(routeSource, /FractionalFreightNarrative/);
+      assert.match(routeSource, /IndustryContactSection/);
+    } else if (sector.id === "transporte-lotacao") {
+      assert.match(contentSource, /Falar com um especialista/g);
+      assert.match(routeSource, /FullTruckloadHero/);
+      assert.match(routeSource, /FullTruckloadNarrative/);
       assert.match(routeSource, /IndustryContactSection/);
     } else {
       assert.match(contentSource, /Agende uma Conversa/g);
