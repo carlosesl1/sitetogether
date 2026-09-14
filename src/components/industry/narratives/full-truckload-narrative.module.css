@@ -2,10 +2,6 @@
   padding-block: clamp(5rem, 8.5vw, 8rem);
 }
 
-.section > :global(.container) {
-  padding-inline: clamp(1.5rem, 4.5vw, 4.5rem);
-}
-
 .section .heading {
   max-width: 75rem;
 }
