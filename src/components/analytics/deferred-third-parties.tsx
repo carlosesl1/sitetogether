@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-const THIRD_PARTY_FALLBACK_DELAY_MS = 12_000;
+const LEADSTER_FALLBACK_DELAY_MS = 12_000;
 const LEADSTER_STAGGER_DELAY_MS = 1_000;
 const GTM_CONTAINER_ID = "GTM-NRXBFNQN";
 const LEADSTER_ID = "SdTbxs4BtXBoE0Bl0XDU5cUcz";
@@ -52,37 +52,38 @@ function loadLeadster() {
 
 export function DeferredThirdParties() {
   useEffect(() => {
-    let hasStarted = false;
+    loadGoogleTagManager();
+
+    let hasStartedLeadster = false;
     let leadsterTimer: number | null = null;
     const intentEvents = ["pointerdown", "touchstart", "keydown", "scroll"] as const;
     let fallbackTimer = 0;
 
     const removeIntentListeners = () => {
       intentEvents.forEach((eventName) => {
-        window.removeEventListener(eventName, startLoading);
+        window.removeEventListener(eventName, startLeadsterLoading);
       });
     };
 
-    function startLoading() {
-      if (hasStarted) return;
-      hasStarted = true;
+    function startLeadsterLoading() {
+      if (hasStartedLeadster) return;
+      hasStartedLeadster = true;
       removeIntentListeners();
       window.clearTimeout(fallbackTimer);
 
-      loadGoogleTagManager();
       leadsterTimer = window.setTimeout(loadLeadster, LEADSTER_STAGGER_DELAY_MS);
     }
 
     intentEvents.forEach((eventName) => {
-      window.addEventListener(eventName, startLoading, {
+      window.addEventListener(eventName, startLeadsterLoading, {
         once: true,
         passive: true,
       });
     });
 
     fallbackTimer = window.setTimeout(
-      startLoading,
-      THIRD_PARTY_FALLBACK_DELAY_MS,
+      startLeadsterLoading,
+      LEADSTER_FALLBACK_DELAY_MS,
     );
 
     return () => {

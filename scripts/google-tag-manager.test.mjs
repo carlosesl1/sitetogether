@@ -11,7 +11,7 @@ const deferredThirdPartiesSource = await readFile(
   "utf8",
 );
 
-test("loads the GTM container globally without blocking the critical render path", () => {
+test("loads GTM immediately while keeping Leadster deferred", () => {
   assert.match(layoutSource, /DeferredThirdParties/);
   assert.match(deferredThirdPartiesSource, /googletagmanager\.com\/gtm\.js/);
   assert.match(layoutSource, /googletagmanager\.com\/ns\.html\?id=GTM-NRXBFNQN/);
@@ -20,7 +20,12 @@ test("loads the GTM container globally without blocking the critical render path
     2,
   );
   assert.doesNotMatch(layoutSource, /strategy="beforeInteractive"/);
-  assert.match(deferredThirdPartiesSource, /THIRD_PARTY_FALLBACK_DELAY_MS\s*=\s*12_000/);
+  assert.match(
+    deferredThirdPartiesSource,
+    /useEffect\(\(\)\s*=>\s*\{\s*loadGoogleTagManager\(\);/,
+  );
+  assert.doesNotMatch(deferredThirdPartiesSource, /THIRD_PARTY_FALLBACK_DELAY_MS/);
+  assert.match(deferredThirdPartiesSource, /LEADSTER_FALLBACK_DELAY_MS\s*=\s*12_000/);
   assert.match(deferredThirdPartiesSource, /pointerdown/);
   assert.match(deferredThirdPartiesSource, /touchstart/);
   assert.match(deferredThirdPartiesSource, /keydown/);
