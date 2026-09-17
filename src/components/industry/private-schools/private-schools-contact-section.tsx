@@ -10,6 +10,7 @@ import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { pushLeadConversionEvent } from "@/lib/analytics";
 import { submitContact } from "@/lib/contact";
 import styles from "./private-schools-sections.module.css";
 
@@ -50,6 +51,11 @@ export function PrivateSchoolsContactSection({
         message,
       });
 
+      pushLeadConversionEvent({
+        formId: "contato-escolas",
+        formName: "request_private_school_privacy_consultation",
+        formSource: "LP LGPD para escolas particulares",
+      });
       form.reset();
       setIsSubmitted(true);
     } catch (error) {

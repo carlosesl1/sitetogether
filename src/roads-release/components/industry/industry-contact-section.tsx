@@ -11,6 +11,7 @@ import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { pushLeadConversionEvent } from "@/lib/analytics";
 import { submitContact } from "@/lib/contact";
 
 export function IndustryContactSection({
@@ -52,6 +53,11 @@ export function IndustryContactSection({
         message,
       });
 
+      pushLeadConversionEvent({
+        formId: formContent.id,
+        formName: formContent.toolName,
+        formSource: formContent.source,
+      });
       form.reset();
       setIsSubmitted(true);
     } catch (error) {

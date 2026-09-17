@@ -19,6 +19,7 @@ import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { pushLeadConversionEvent } from "@/lib/analytics";
 import { submitContact } from "@/lib/contact";
 
 const conversationBenefits = [
@@ -121,6 +122,11 @@ function HigherEducationContactForm({ cta }: { readonly cta: string }) {
         source: "Ensino Superior - Programa de Privacidade",
       });
 
+      pushLeadConversionEvent({
+        formId: "contato-ensino-superior",
+        formName: "request_higher_education_privacy_consultation",
+        formSource: "Ensino Superior - Programa de Privacidade",
+      });
       form.reset();
       setIsSubmitted(true);
     } catch (error) {
