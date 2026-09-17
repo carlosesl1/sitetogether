@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { DeferredThirdParties } from "@/components/analytics/deferred-third-parties";
+import { IndustryMarketingTracker } from "@/components/analytics/industry-marketing-tracker";
 import { WebMcpProvider } from "@/components/ai/webmcp-provider";
 import { LanguageProvider } from "@/components/i18n/language-provider";
 import { AnimationVisibilityProvider } from "@/components/ui/animation-visibility-provider";
@@ -67,6 +68,7 @@ export default function RootLayout({
           />
         </noscript>
         <DeferredThirdParties />
+        <IndustryMarketingTracker />
         <WebMcpProvider />
         <AnimationVisibilityProvider />
         <SmoothScrollProvider>

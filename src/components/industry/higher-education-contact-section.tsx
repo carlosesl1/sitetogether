@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { pushLeadConversionEvent } from "@/lib/analytics";
+import { pushFormErrorEvent } from "@/lib/analytics";
 import { submitContact } from "@/lib/contact";
 
 const conversationBenefits = [
@@ -130,6 +131,12 @@ function HigherEducationContactForm({ cta }: { readonly cta: string }) {
       form.reset();
       setIsSubmitted(true);
     } catch (error) {
+      pushFormErrorEvent({
+        formId: "contato-ensino-superior",
+        formName: "request_higher_education_privacy_consultation",
+        formSource: "Ensino Superior - Programa de Privacidade",
+        errorType: "submission_failed",
+      });
       setSubmitError(
         error instanceof Error
           ? error.message
@@ -172,7 +179,13 @@ function HigherEducationContactForm({ cta }: { readonly cta: string }) {
             </Button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+          <form
+            data-analytics-form-id="contato-ensino-superior"
+            data-analytics-form-name="request_higher_education_privacy_consultation"
+            data-analytics-form-source="Ensino Superior - Programa de Privacidade"
+            onSubmit={handleSubmit}
+            className="relative z-10 space-y-6"
+          >
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.22em] text-brand-600">
                 Contato com a TOGETHER

@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { pushLeadConversionEvent } from "@/lib/analytics";
+import { pushFormErrorEvent } from "@/lib/analytics";
 import { submitContact } from "@/lib/contact";
 import styles from "./private-schools-sections.module.css";
 
@@ -59,6 +60,12 @@ export function PrivateSchoolsContactSection({
       form.reset();
       setIsSubmitted(true);
     } catch (error) {
+      pushFormErrorEvent({
+        formId: "contato-escolas",
+        formName: "request_private_school_privacy_consultation",
+        formSource: "LP LGPD para escolas particulares",
+        errorType: "submission_failed",
+      });
       setSubmitError(
         error instanceof Error
           ? error.message
@@ -126,6 +133,9 @@ export function PrivateSchoolsContactSection({
                 </div>
               ) : (
                 <form
+                  data-analytics-form-id="contato-escolas"
+                  data-analytics-form-name="request_private_school_privacy_consultation"
+                  data-analytics-form-source="LP LGPD para escolas particulares"
                   {...{
                     toolname: "request_school_privacy_assessment",
                     tooldescription:

@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { pushLeadConversionEvent } from "@/lib/analytics";
+import { pushFormErrorEvent } from "@/lib/analytics";
 import { submitContact } from "@/lib/contact";
 
 export function IndustryContactSection({
@@ -61,6 +62,12 @@ export function IndustryContactSection({
       form.reset();
       setIsSubmitted(true);
     } catch (error) {
+      pushFormErrorEvent({
+        formId: formContent.id,
+        formName: formContent.toolName,
+        formSource: formContent.source,
+        errorType: "submission_failed",
+      });
       setSubmitError(
         error instanceof Error
           ? error.message
@@ -130,6 +137,9 @@ export function IndustryContactSection({
                 </div>
               ) : (
                 <form
+                  data-analytics-form-id={formContent.id}
+                  data-analytics-form-name={formContent.toolName}
+                  data-analytics-form-source={formContent.source}
                   {...{
                     toolname: formContent.toolName,
                     tooldescription:
