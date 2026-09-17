@@ -75,6 +75,33 @@ test("interaction payloads expose context without sending submitted field values
   assert.doesNotMatch(analyticsSource, /\b(email|phone|firstName|lastName|company):/);
 });
 
+test("each interaction clears parameters that belong to earlier events", () => {
+  for (const parameter of [
+    "page_sector",
+    "cta_location",
+    "cta_text",
+    "destination_path",
+    "contact_method",
+    "form_id",
+    "form_name",
+    "form_source",
+    "error_type",
+    "field_name",
+    "page_path",
+  ]) {
+    assert.match(
+      analyticsSource,
+      new RegExp(`${parameter}: undefined`),
+      `${parameter} must be cleared before the next event payload is merged`,
+    );
+  }
+
+  assert.match(
+    analyticsSource,
+    /\.\.\.EMPTY_EVENT_PARAMETERS,\s*event,\s*\.\.\.parameters/s,
+  );
+});
+
 test("all six forms identify themselves and emit a non-PII server error event", () => {
   for (const { path, source } of contactFormSources) {
     assert.match(source, /data-analytics-form-id=/, `${path} must expose its form id`);

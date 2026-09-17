@@ -4,6 +4,20 @@ type MarketingWindow = Window & {
 
 type AnalyticsParameter = string | number | boolean | undefined;
 
+const EMPTY_EVENT_PARAMETERS = {
+  page_sector: undefined,
+  cta_location: undefined,
+  cta_text: undefined,
+  destination_path: undefined,
+  contact_method: undefined,
+  form_id: undefined,
+  form_name: undefined,
+  form_source: undefined,
+  error_type: undefined,
+  field_name: undefined,
+  page_path: undefined,
+} satisfies Record<string, undefined>;
+
 export type LeadConversionEvent = {
   readonly formId: string;
   readonly formName: string;
@@ -26,6 +40,7 @@ export function pushAnalyticsEvent(
   const marketingWindow = window as MarketingWindow;
   marketingWindow.dataLayer = marketingWindow.dataLayer ?? [];
   marketingWindow.dataLayer.push({
+    ...EMPTY_EVENT_PARAMETERS,
     event,
     ...parameters,
   });
