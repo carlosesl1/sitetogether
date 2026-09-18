@@ -173,6 +173,11 @@ export default async function PostPage({ params }: PostPageProps) {
 
       {/* Post Hero Header */}
       <section className="relative pt-[48px] pb-2 overflow-hidden">
+        {/* Background Blur Image */}
+        <div className="absolute inset-0 -z-10 opacity-20 blur-[100px] scale-150">
+          <Image src={featuredImage} alt="" fill className="object-cover" />
+        </div>
+
         <div className="container px-6 mx-auto relative z-10">
           <div className="max-w-4xl mx-auto">
             {/* Back Link */}
@@ -205,12 +210,12 @@ export default async function PostPage({ params }: PostPageProps) {
             />
 
             {/* Featured Image */}
-            <div className="relative w-full aspect-[152/75] rounded-[24px] md:rounded-[40px] overflow-hidden bg-neutral-900 shadow-2xl shadow-neutral-200/50 mb-6 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+            <div className="relative w-full aspect-[21/9] max-h-[250px] md:max-h-[350px] rounded-[24px] md:rounded-[40px] overflow-hidden shadow-2xl shadow-neutral-200/50 mb-6 animate-in fade-in slide-in-from-bottom-10 duration-1000">
               <Image
                 src={featuredImage}
                 alt={post.title.rendered}
                 fill
-                className="object-contain"
+                className="object-cover"
                 priority
               />
             </div>

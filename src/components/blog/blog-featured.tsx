@@ -24,18 +24,28 @@ export function BlogFeatured({ post }: BlogFeaturedProps) {
       className="group relative w-full mb-12 md:mb-20"
     >
       <Link href={`/blog/${post.slug}`} className="block">
-        <div className="w-full rounded-[24px] md:rounded-[48px] overflow-hidden bg-white border border-neutral-100 shadow-2xl shadow-neutral-200/50 transition-all duration-700 hover:border-brand-400/30 hover:shadow-brand-400/20">
-          <div className="relative w-full aspect-[152/75] bg-neutral-900">
-            <Image
-              src={post.featuredImage}
-              alt={post.imageAlt}
-              fill
-              className="object-contain"
-              priority
-            />
+        <div className="relative w-full h-[450px] md:h-[500px] lg:h-[550px] xl:h-[600px] rounded-[24px] md:rounded-[48px] overflow-hidden bg-neutral-900 shadow-2xl shadow-neutral-200/50 transition-all duration-700 hover:shadow-brand-400/20">
+          <Image
+            src={post.featuredImage}
+            alt={post.imageAlt}
+            fill
+            className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-90"
+            priority
+          />
+
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-neutral-950/20 to-transparent transition-opacity duration-500 group-hover:opacity-90" />
+
+          <div className="absolute top-4 left-4 md:top-8 md:left-8">
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-brand-400 text-neutral-900 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">
+              <span
+                data-pause-offscreen-animation
+                className="w-1.5 h-1.5 rounded-full bg-neutral-900 animate-pulse"
+              ></span>
+              Em Destaque
+            </span>
           </div>
 
-          <div className="p-6 md:p-10">
+          <div className="absolute bottom-4 left-4 right-4 md:bottom-8 md:left-8 md:right-auto md:max-w-[600px] lg:max-w-[700px] bg-white rounded-[20px] md:rounded-[32px] p-6 md:p-10 shadow-2xl transition-transform duration-500 group-hover:-translate-y-2">
             <div className="flex flex-wrap items-center gap-3 mb-4 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400">
               <span className="text-brand-600">{post.category}</span>
               <span className="opacity-30">•</span>
