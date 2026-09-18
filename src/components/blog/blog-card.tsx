@@ -20,14 +20,13 @@ export function BlogCard({ post, index }: BlogCardProps) {
       className="group relative flex flex-col h-full bg-white border border-neutral-100 rounded-[32px] overflow-hidden hover:border-brand-400/30 transition-all duration-500"
     >
       <Link href={`/blog/${post.slug}`} className="block">
-        <div className="relative aspect-[16/9] overflow-hidden bg-neutral-100 mb-8 transition-transform duration-700 group-hover:scale-[1.02]">
+        <div className="relative aspect-[152/75] overflow-hidden bg-neutral-900 mb-8">
           <Image
             src={post.featuredImage}
             alt={post.imageAlt}
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="object-contain"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </div>
 
         <div className="px-8 pb-8">
