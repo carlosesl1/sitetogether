@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -33,21 +33,86 @@ type NavbarProps = {
 export function Navbar({ includeAbout = false, showCtaArrow = false }: NavbarProps) {
     const { getLenis } = useSmoothScroll();
     const [isServicesOpen, setIsServicesOpen] = useState(false);
-    const headerRef = useRef<HTMLElement>(null);
     const servicesButtonRef = useRef<HTMLButtonElement>(null);
+    const servicesPanelRef = useRef<HTMLDivElement>(null);
     const firstServiceLinkRef = useRef<HTMLAnchorElement>(null);
+    const focusFirstServiceRef = useRef(false);
+    const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    const cancelScheduledClose = useCallback(() => {
+        if (closeTimerRef.current !== null) {
+            clearTimeout(closeTimerRef.current);
+            closeTimerRef.current = null;
+        }
+    }, []);
+
+    const closeServices = useCallback(() => {
+        cancelScheduledClose();
+        focusFirstServiceRef.current = false;
+        // Never leave keyboard focus inside a panel that is becoming inert.
+        if (servicesPanelRef.current?.contains(document.activeElement)) {
+            servicesButtonRef.current?.focus({ preventScroll: true });
+        }
+        setIsServicesOpen(false);
+    }, [cancelScheduledClose]);
+
+    const openServices = () => {
+        cancelScheduledClose();
+        setIsServicesOpen(true);
+    };
+
+    const scheduleClose = () => {
+        cancelScheduledClose();
+        closeTimerRef.current = setTimeout(() => {
+            // A mouse leaving must not interrupt someone using the keyboard.
+            if (servicesPanelRef.current?.contains(document.activeElement)
+                && document.activeElement?.matches(":focus-visible")) return;
+            closeServices();
+        }, 250);
+    };
+
+    useEffect(() => cancelScheduledClose, [cancelScheduledClose]);
 
     useEffect(() => {
+        if (!isServicesOpen) return;
+        if (focusFirstServiceRef.current) {
+            focusFirstServiceRef.current = false;
+            firstServiceLinkRef.current?.focus({ preventScroll: true });
+        }
+        const isInsideServices = (target: EventTarget | null) => target instanceof Node && (
+            servicesButtonRef.current?.contains(target) || servicesPanelRef.current?.contains(target)
+        );
+        const handleOutside = (event: Event) => {
+            if (!isInsideServices(event.target)) closeServices();
+            else cancelScheduledClose();
+        };
         const handleEscape = (event: KeyboardEvent) => {
-            if (event.key === "Escape" && isServicesOpen) {
-                servicesButtonRef.current?.focus();
-                setIsServicesOpen(false);
+            if (event.key === "Escape") {
+                event.preventDefault();
+                closeServices();
+                servicesButtonRef.current?.focus({ preventScroll: true });
             }
         };
+        const desktop = window.matchMedia("(min-width: 1280px)");
+        const handleBreakpoint = () => {
+            if (!desktop.matches) closeServices();
+        };
 
+        document.addEventListener("pointerdown", handleOutside);
+        document.addEventListener("focusin", handleOutside);
         document.addEventListener("keydown", handleEscape);
-        return () => document.removeEventListener("keydown", handleEscape);
-    }, [isServicesOpen]);
+        window.addEventListener("scroll", closeServices, { passive: true });
+        window.addEventListener("blur", closeServices);
+        desktop.addEventListener("change", handleBreakpoint);
+        return () => {
+            document.removeEventListener("pointerdown", handleOutside);
+            document.removeEventListener("focusin", handleOutside);
+            document.removeEventListener("keydown", handleEscape);
+            window.removeEventListener("scroll", closeServices);
+            window.removeEventListener("blur", closeServices);
+            desktop.removeEventListener("change", handleBreakpoint);
+        };
+    }, [isServicesOpen, closeServices, cancelScheduledClose]);
 
     const navItems = [
         { label: "ECA Digital", href: "/eca-digital" },
@@ -57,7 +122,31 @@ export function Navbar({ includeAbout = false, showCtaArrow = false }: NavbarPro
     ];
 
     const menuItems = [
-        { label: "Serviços", ariaLabel: "Ver serviços", link: "/#offers" },
+        {
+            label: "Serviços", ariaLabel: "Ver serviços", link: "/#offers",
+            tabs: [
+                {
+                    label: "Serviços",
+                    links: [
+                        { label: "DPO as a Service", href: "/servicos/dpo-as-a-service" },
+                        { label: "Consultoria de Adequação", href: "/servicos/consultoria-adequacao" },
+                        { label: "Mentoria e Cultura", href: "/servicos/mentoria-e-cultura" },
+                    ],
+                },
+                {
+                    label: "Por setor",
+                    links: [
+                        { label: "SaaS e Tecnologia", href: "/solucoes/privacidade-saas" },
+                        { label: "Escolas Particulares", href: "/solucoes/privacidade-escolas-particulares" },
+                        { label: "Ensino Superior", href: "/solucoes/privacidade-ensino-superior" },
+                        { label: "Transporte Fracionado", href: "/solucoes/privacidade-transporte-fracionado" },
+                        { label: "Transporte Lotação", href: "/solucoes/privacidade-transporte-lotacao" },
+                        { label: "Gestão de Rodovias", href: "/solucoes/privacidade-gestao-de-rodovias" },
+                        { label: "Escritórios de Advocacia", href: "/solucoes/escritorios-de-advocacia" },
+                    ],
+                },
+            ],
+        },
         { label: "ECA Digital", ariaLabel: "Conhecer diagnóstico ECA Digital", link: "/eca-digital" },
         { label: "Metodologia", ariaLabel: "Nossa metodologia", link: "/#methodology" },
         { label: "Conteúdos", ariaLabel: "Ver conteúdos", link: "/blog" },
@@ -66,16 +155,14 @@ export function Navbar({ includeAbout = false, showCtaArrow = false }: NavbarPro
 
     return (
         <header
-            ref={headerRef}
             className="sticky top-0 z-50 w-full border-b border-neutral-100 bg-white/95 backdrop-blur-md supports-[backdrop-filter]:bg-white/80"
-            onMouseLeave={() => setIsServicesOpen(false)}
-            onBlur={(event) => {
-                if (!event.currentTarget.contains(event.relatedTarget)) {
-                    setIsServicesOpen(false);
+            onClickCapture={(event) => {
+                if (event.target instanceof Element && event.target.closest("a[href]")) {
+                    closeServices();
                 }
             }}
         >
-            <div className="mx-auto flex h-20 w-full max-w-[1856px] items-center justify-between px-4 md:px-6 xl:w-[89%] xl:px-0 2xl:h-[88px]">
+            <div className="container flex h-20 items-center justify-between px-4 md:px-6 2xl:h-[88px]">
                 {/* Logo */}
                 <Link href="/" className="flex items-center space-x-2">
                     <Image
@@ -98,14 +185,22 @@ export function Navbar({ includeAbout = false, showCtaArrow = false }: NavbarPro
                         className={`group relative inline-flex items-center px-3 py-2 font-sans text-sm font-medium leading-normal transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-4 2xl:text-base ${
                             isServicesOpen ? "text-neutral-900" : "text-neutral-600 hover:text-brand-600"
                         }`}
-                        onMouseEnter={() => setIsServicesOpen(true)}
-                        onFocus={() => setIsServicesOpen(true)}
-                        onClick={() => setIsServicesOpen(true)}
+                        onPointerEnter={(event) => {
+                            if (event.pointerType === "mouse") openServices();
+                        }}
+                        onPointerLeave={(event) => {
+                            if (event.pointerType === "mouse") scheduleClose();
+                        }}
+                        onClick={(event) => {
+                            if (event.detail === 0 && isServicesOpen) closeServices();
+                            else openServices();
+                        }}
                         onKeyDown={(event) => {
                             if (event.key === "ArrowDown") {
                                 event.preventDefault();
-                                setIsServicesOpen(true);
-                                requestAnimationFrame(() => firstServiceLinkRef.current?.focus());
+                                focusFirstServiceRef.current = !isServicesOpen;
+                                openServices();
+                                if (isServicesOpen) firstServiceLinkRef.current?.focus({ preventScroll: true });
                             }
                         }}
                     >
@@ -130,7 +225,7 @@ export function Navbar({ includeAbout = false, showCtaArrow = false }: NavbarPro
                             key={item.label}
                             href={item.href}
                             className="text-sm font-medium text-neutral-600 transition-colors hover:text-brand-600 hover:bg-brand-50 rounded-md px-3 py-2 2xl:text-base"
-                            onFocus={() => setIsServicesOpen(false)}
+                            onPointerEnter={closeServices}
                         >
                             {item.label}
                         </Link>
@@ -170,15 +265,21 @@ export function Navbar({ includeAbout = false, showCtaArrow = false }: NavbarPro
                 aria-label="Serviços e soluções da TOGETHER"
                 aria-hidden={!isServicesOpen}
                 inert={!isServicesOpen}
-                className={`absolute left-0 top-full hidden w-full origin-top transition-[opacity,transform,visibility] duration-200 ease-out motion-reduce:transition-none xl:block ${
+                className={`absolute left-0 top-full hidden w-full origin-top transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none xl:block ${
                     isServicesOpen
                         ? "visible translate-y-0 opacity-100"
                         : "invisible -translate-y-2 pointer-events-none opacity-0"
                 }`}
-                onMouseEnter={() => setIsServicesOpen(true)}
             >
-                <div className="mx-auto w-[92%] max-w-[1920px] pb-5 pt-4">
-                    <div className="relative rounded-2xl border border-neutral-200 border-t-4 border-t-brand-500 bg-white shadow-[0_16px_40px_rgba(18,18,18,0.09)]">
+                <div className="container px-4 pb-5 pt-4 md:px-6">
+                    <div
+                        ref={servicesPanelRef}
+                        onPointerEnter={cancelScheduledClose}
+                        onPointerLeave={(event) => {
+                            if (event.pointerType === "mouse") scheduleClose();
+                        }}
+                        className="relative rounded-2xl border border-neutral-200 border-t-4 border-t-brand-500 bg-white shadow-[0_16px_40px_rgba(18,18,18,0.09)]"
+                    >
                         <div className="grid grid-cols-[minmax(0,1fr)_minmax(240px,23%)] gap-5 p-6 2xl:gap-6 2xl:p-8">
                             <div className="min-w-0">
                                 <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-neutral-500 2xl:mb-4 2xl:text-sm">

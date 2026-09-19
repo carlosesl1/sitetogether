@@ -93,7 +93,7 @@
     top: 0;
     right: 0;
     height: 100%;
-    width: 100%;
+    width: calc(100% - 32px);
     transform: translateX(100%);
 }
 
@@ -102,13 +102,13 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 100%;
+    width: calc(100% - 32px);
     height: 100%;
     background: #ffffff;
     display: flex;
     flex-direction: column;
-    padding: 7rem 2rem 2rem 2rem;
-    overflow-y: auto;
+    padding: 5rem 0 0;
+    overflow: hidden;
     z-index: 10;
     pointer-events: none;
     transform: translateX(100%);
@@ -120,9 +120,15 @@
 
 .sm-panel-inner {
     flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+    padding: 2rem 1.5rem max(2rem, env(safe-area-inset-bottom));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #d0d0d0 transparent;
 }
 
 /* ===== MENU ITEMS ===== */
@@ -146,7 +152,8 @@
     position: relative;
     color: #1a1a1a;
     font-weight: 700;
-    font-size: 2.2rem;
+    font-size: clamp(1.5rem, 8.3vw, 2.4rem);
+    font-family: inherit;
     cursor: pointer;
     line-height: 1.2;
     letter-spacing: -1px;
@@ -156,7 +163,7 @@
         color 0.25s;
     display: inline-block;
     text-decoration: none;
-    padding-right: 1.4em;
+    padding-right: 0.8em;
 }
 
 .sm-panel-itemLabel {
@@ -175,11 +182,10 @@
 }
 
 .sm-panel-list[data-numbering] .sm-panel-item::after {
-    counter-increment: smItem;
-    content: counter(smItem, decimal-leading-zero);
+    content: attr(data-index);
     position: absolute;
     top: 0.1em;
-    right: 1.8em;
+    right: 0;
     font-size: 12px;
     font-weight: 400;
     color: var(--sm-accent, #F5C518);
@@ -201,12 +207,12 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 1rem 0.75rem;
     background: #F5C518;
     color: #1a1a1a;
     font-weight: 700;
-    font-size: 0.875rem;
-    letter-spacing: 0.16em;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     border: none;
     border-radius: 12px;
@@ -319,14 +325,14 @@
 /* Small phones → slightly larger text */
 @media (min-width: 375px) {
     .sm-panel-item {
-        font-size: 2.4rem;
+        font-size: clamp(1.5rem, 9vw, 2.4rem);
     }
 }
 
 /* Larger phones / small tablets → side panel */
 @media (min-width: 480px) {
     .sm-panel-item {
-        font-size: 2.4rem;
+        font-size: 2.2rem;
     }
 
     .staggered-menu-panel {
@@ -347,12 +353,15 @@
 
     .sm-panel-list[data-numbering] .sm-panel-item::after {
         font-size: 11px;
-        right: 1.5em;
+        right: 0;
     }
 
     .staggered-menu-panel {
         width: 380px;
-        padding: 6rem 2.5rem 2.5rem 2.5rem;
+    }
+
+    .sm-panel-inner {
+        padding: 1rem 2.5rem 2.5rem;
     }
 
     .sm-prelayers {
@@ -363,4 +372,93 @@
         font-size: 0.95rem;
         padding: 0.875rem 1.75rem;
     }
+}
+
+/* Tabbed service links stay inside the existing numbered navigation. */
+.sm-panel-item--disclosure {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    text-align: left;
+    min-height: 44px;
+}
+.sm-panel-list[data-numbering] .sm-panel-item--disclosure::after { content: none; }
+.sm-panel-item--disclosure:hover { color: #1a1a1a; }
+.sm-panel-item--disclosure > svg { flex-shrink: 0; }
+.sm-item-number {
+    display: inline-block;
+    margin-left: 12px;
+    color: var(--sm-accent, #F5C518);
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    vertical-align: top;
+    position: static;
+    line-height: 1.5;
+    opacity: var(--sm-num-opacity, 0);
+}
+.sm-submenu { margin: 24px 0 28px; }
+.sm-submenu[hidden], .sm-submenu [role="tabpanel"][hidden] { display: none; }
+.sm-submenu-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 2px solid #e5e5e5;
+}
+.sm-submenu-tabs button {
+    position: relative;
+    min-height: 48px;
+    padding: 10px 8px 16px;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    color: #737373;
+    cursor: pointer;
+}
+.sm-submenu-tabs button[aria-selected="true"] { color: #1a1a1a; }
+.sm-submenu-tabs button[aria-selected="true"]::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--sm-accent, #F5C518);
+}
+.sm-submenu-list { list-style: none; margin: 8px 0 0; padding: 0; }
+.sm-submenu-list a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 60px;
+    padding: 16px 0;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #1a1a1a;
+    text-decoration: none;
+}
+.sm-submenu-list svg { flex-shrink: 0; }
+.sm-submenu-list a:hover { color: #806400; }
+.sm-panel-item:focus-visible, .sm-submenu-tabs button:focus-visible,
+.sm-submenu-list a:focus-visible, .sm-cta-button:focus-visible {
+    outline: 2px solid var(--sm-accent, #F5C518);
+    outline-offset: -2px;
+}
+@media (prefers-reduced-motion: reduce) {
+    .staggered-menu-wrapper *, .sm-hamburger-line { transition: none !important; }
+}
+
+/* Keep the contact widget from covering navigation and restore it on close. */
+body:has(.staggered-menu-wrapper[data-open]) .nld-chatbot {
+    visibility: hidden !important;
+    pointer-events: none !important;
 }

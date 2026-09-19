@@ -3,18 +3,24 @@
 import React, {
     useCallback,
     useEffect,
+    useId,
     useRef,
     useState,
     useSyncExternalStore,
 } from "react";
 import { createPortal } from "react-dom";
 import { gsap } from "gsap";
+import { ChevronRight, Minus, Plus } from "lucide-react";
 import "./staggered-menu.css";
 
 interface MenuItem {
     label: string;
     ariaLabel: string;
     link: string;
+    tabs?: {
+        label: string;
+        links: { label: string; href: string }[];
+    }[];
 }
 
 interface SocialItem {
@@ -36,6 +42,79 @@ interface StaggeredMenuProps {
 }
 
 const subscribeToClient = () => () => {};
+
+function TabbedMenuItem({ item, index, numbered, onNavigate }: {
+    item: MenuItem;
+    index: number;
+    numbered: boolean;
+    onNavigate: () => void;
+}) {
+    const id = useId();
+    const [expanded, setExpanded] = useState(false);
+    const [activeTab, setActiveTab] = useState(0);
+    const tabs = item.tabs ?? [];
+
+    return (
+        <>
+            <button
+                type="button"
+                className="sm-panel-item sm-panel-item--disclosure"
+                aria-expanded={expanded}
+                aria-controls={`${id}-content`}
+                onClick={() => setExpanded(!expanded)}
+            >
+                <span className="sm-panel-itemLabel">
+                    {item.label}
+                    {numbered && <sup className="sm-item-number" aria-hidden="true">{String(index).padStart(2, "0")}</sup>}
+                </span>
+                {expanded ? <Minus size={20} aria-hidden="true" /> : <Plus size={20} aria-hidden="true" />}
+            </button>
+            <div id={`${id}-content`} className="sm-submenu" hidden={!expanded}>
+                <div className="sm-submenu-tabs" role="tablist" aria-label="Categorias de serviços">
+                    {tabs.map((tab, tabIndex) => (
+                        <button
+                            key={tab.label}
+                            type="button"
+                            role="tab"
+                            id={`${id}-tab-${tabIndex}`}
+                            aria-controls={`${id}-panel-${tabIndex}`}
+                            aria-selected={activeTab === tabIndex}
+                            tabIndex={activeTab === tabIndex ? 0 : -1}
+                            onClick={() => setActiveTab(tabIndex)}
+                            onKeyDown={(event) => {
+                                let next = tabIndex;
+                                if (event.key === "ArrowRight") next = (tabIndex + 1) % tabs.length;
+                                else if (event.key === "ArrowLeft") next = (tabIndex - 1 + tabs.length) % tabs.length;
+                                else if (event.key === "Home") next = 0;
+                                else if (event.key === "End") next = tabs.length - 1;
+                                else return;
+                                event.preventDefault();
+                                setActiveTab(next);
+                                event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="tab"]')[next]?.focus();
+                            }}
+                        >
+                            {tab.label}
+                        </button>
+                    ))}
+                </div>
+                {tabs.map((tab, tabIndex) => (
+                    <div key={tab.label} role="tabpanel" id={`${id}-panel-${tabIndex}`} aria-labelledby={`${id}-tab-${tabIndex}`} hidden={activeTab !== tabIndex}>
+                        <ul className="sm-submenu-list">
+                            {tab.links.map((link) => (
+                                <li key={link.href}>
+                                    <a href={link.href} onClick={onNavigate}>
+                                        <span>{link.label}</span>
+                                        <ChevronRight size={20} aria-hidden="true" />
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+        </>
+    );
+}
 
 export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     colors = ["#FFF8DC", "#F5C518"],
@@ -239,6 +318,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             }
         }
 
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) tl.duration(0);
         openTlRef.current = tl;
         return tl;
     }, []);
@@ -282,7 +362,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         closeTweenRef.current = gsap.to(all, {
             x: 0,
             xPercent: 100,
-            duration: 0.32,
+            duration: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 0.32,
             ease: "power3.in",
             overwrite: "auto",
             onComplete: () => {
@@ -358,7 +438,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         }
 
         restoreFocusRef.current = true;
-        panelRef.current?.querySelector<HTMLAnchorElement>("a[href]")?.focus();
+        panelRef.current?.querySelector<HTMLElement>("a[href], button")?.focus({ preventScroll: true });
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === "Escape") {
                 event.preventDefault();
@@ -366,9 +446,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             } else if (event.key === "Tab") {
                 const controls = [
                     toggleBtnRef.current,
-                    ...Array.from(panelRef.current?.querySelectorAll<HTMLAnchorElement>("a[href]") ?? []),
-                ].filter((element): element is HTMLButtonElement | HTMLAnchorElement => element !== null);
-                const index = controls.indexOf(document.activeElement as HTMLAnchorElement);
+                    ...Array.from(panelRef.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? []),
+                ].filter((element): element is HTMLElement => element !== null && element.tabIndex >= 0 && element.getClientRects().length > 0);
+                const index = controls.indexOf(document.activeElement as HTMLElement);
                 // The toggle lives in a separate portal, so use an explicit order.
                 event.preventDefault();
                 const nextIndex = index < 0 ? 0 : (index + (event.shiftKey ? -1 : 1) + controls.length) % controls.length;
@@ -452,6 +532,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 aria-hidden={!open}
                 inert={!open}
                 aria-label="Navegação principal"
+                data-lenis-prevent
             >
                 <div className="sm-panel-inner">
                     {/* Menu Items */}
@@ -463,17 +544,21 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                         {items && items.length ? (
                             items.map((it, idx) => (
                                 <li className="sm-panel-itemWrap" key={it.label + idx}>
+                                    {it.tabs?.length ? (
+                                        <TabbedMenuItem item={it} index={idx + 1} numbered={displayItemNumbering} onNavigate={closeMenu} />
+                                    ) : (
                                     <a
                                         className="sm-panel-item"
                                         href={it.link}
                                         aria-label={it.ariaLabel}
-                                        data-index={idx + 1}
+                                        data-index={String(idx + 1).padStart(2, "0")}
                                         onClick={closeMenu}
                                     >
                                         <span className="sm-panel-itemLabel">
                                             {it.label}
                                         </span>
                                     </a>
+                                    )}
                                 </li>
                             ))
                         ) : (
