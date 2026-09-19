@@ -5,12 +5,20 @@ import test from "node:test";
 const readSource = (path) =>
   readFile(new URL(path, import.meta.url), "utf8").catch(() => "");
 
-const [pageSource, clientSource, trackerSource, actionLinkSource, socialImageSource] = await Promise.all([
+const [
+  pageSource,
+  clientSource,
+  trackerSource,
+  actionLinkSource,
+  socialImageSource,
+  htaccessSource,
+] = await Promise.all([
   readSource("../src/app/eca-digital/page.tsx"),
   readSource("../src/app/eca-digital/eca-digital-client.tsx"),
   readSource("../src/components/analytics/industry-marketing-tracker.tsx"),
   readSource("../src/components/ui/site-primitives.tsx"),
   readSource("../src/app/eca-digital/opengraph-image.tsx"),
+  readSource("../public/.htaccess"),
 ]);
 
 test("includes ECA Digital in the shared marketing tracker", () => {
@@ -66,6 +74,13 @@ test("publishes concise metadata and Service structured data for ECA Digital", (
   assert.match(socialImageSource, /new ImageResponse/);
   assert.match(socialImageSource, /width:\s*1200/);
   assert.match(socialImageSource, /height:\s*630/);
+});
+
+test("serves the extensionless social image with an explicit PNG content type", () => {
+  assert.match(
+    htaccessSource,
+    /<Files\s+["']opengraph-image["']>[\s\S]*?ForceType\s+image\/png[\s\S]*?<\/Files>/,
+  );
 });
 
 test("uses clear, supportable ECA Digital copy", () => {

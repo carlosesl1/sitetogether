@@ -1,5 +1,11 @@
 DirectoryIndex index.html index.php
 
+# Next.js exports generated Open Graph images without a file extension.
+# Force the correct media type so social crawlers accept the image preview.
+<Files "opengraph-image">
+ForceType image/png
+</Files>
+
 # BEGIN All In One WP Security
 #AIOWPS_BASIC_HTACCESS_RULES_START
 <Files .htaccess>
