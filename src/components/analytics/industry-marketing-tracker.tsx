@@ -10,6 +10,7 @@ const TRACKED_ROUTES: Record<string, string> = {
   "/solucoes/privacidade-transporte-fracionado": "transporte_fracionado",
   "/solucoes/privacidade-transporte-lotacao": "transporte_lotacao",
   "/solucoes/privacidade-gestao-de-rodovias": "gestao_de_rodovias",
+  "/eca-digital": "eca_digital",
 };
 
 function normalizePathname(pathname: string) {
@@ -101,7 +102,8 @@ export function IndustryMarketingTracker() {
 
       const isContactCta =
         url.origin === window.location.origin &&
-        (normalizePathname(url.pathname) === "/contato" ||
+        (link.hasAttribute("data-analytics-cta") ||
+          normalizePathname(url.pathname) === "/contato" ||
           url.hash === "#contato" ||
           url.hash.startsWith("#contato-") ||
           url.hash === "#cta");

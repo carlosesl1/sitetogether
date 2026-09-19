@@ -45,6 +45,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
 import { ActionLink, SectionPill } from "@/components/ui/site-primitives";
 import ScrollStack, { ScrollStackItem } from "@/components/ui/scroll-stack";
+import { pushFormErrorEvent, pushLeadConversionEvent } from "@/lib/analytics";
 import { submitContact } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
@@ -115,8 +116,8 @@ const urgencyItems: UrgencyItem[] = [
   {
     icon: ClipboardCheck,
     title: "Auditorias e due diligences",
-    text: "Grandes empresas, investidores e parceiros já avaliam conformidade com o ECA Digital.",
-    evidence: "Questionários e Diligências em andamento",
+    text: "Grandes empresas, investidores e parceiros podem incluir o tema em questionários e diligências.",
+    evidence: "Questionários e diligências",
   },
 ];
 
@@ -374,10 +375,25 @@ function HeroSection() {
               transition={{ delay: 0.16, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
               className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap 2xl:flex-nowrap"
             >
-              <ActionLink href="#diagnostico-eca" size="xl" fullWidth className="sm:w-auto xl:px-7 xl:text-xs 2xl:px-10 2xl:text-sm">
+              <ActionLink
+                href="#diagnostico-eca"
+                size="xl"
+                fullWidth
+                analyticsCta
+                analyticsLocation="hero-diagnostico"
+                className="sm:w-auto xl:px-7 xl:text-xs 2xl:px-10 2xl:text-sm"
+              >
                 Agendar Diagnóstico
               </ActionLink>
-              <ActionLink href="#aplicabilidade" size="xl" variant="dark" fullWidth className="sm:w-auto xl:px-7 xl:text-xs 2xl:px-10 2xl:text-sm">
+              <ActionLink
+                href="#aplicabilidade"
+                size="xl"
+                variant="dark"
+                fullWidth
+                analyticsCta
+                analyticsLocation="hero-aplicabilidade"
+                className="sm:w-auto xl:px-7 xl:text-xs 2xl:px-10 2xl:text-sm"
+              >
                 Entender Aplicabilidade
               </ActionLink>
             </motion.div>
@@ -499,13 +515,12 @@ function DiagnosticPanel() {
                 Entenda onde sua empresa precisa agir com prioridade.
               </p>
             </div>
-            <button
-              type="button"
-              aria-label="Baixar diagnóstico"
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-neutral-200 bg-white text-neutral-500 shadow-sm transition-colors hover:border-brand-400 hover:text-neutral-900"
+            <span
+              aria-hidden="true"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-neutral-200 bg-white text-neutral-500 shadow-sm"
             >
               <Download className="h-4 w-4" />
-            </button>
+            </span>
           </div>
 
           <div className="overflow-hidden rounded-[1.45rem] bg-neutral-950 p-4 text-white shadow-2xl shadow-neutral-950/20 md:p-5">
@@ -751,7 +766,7 @@ function ApplicabilitySection() {
                         Primeira pergunta
                       </p>
                       <h3 className="mt-4 text-3xl font-bold leading-tight text-white md:text-[2.5rem]">
-                        Menores podem ser impactados pelo o que a sua empresa faz?
+                        Crianças ou adolescentes podem ser impactados pelo que a sua empresa faz?
                       </h3>
                       <p className="mt-5 max-w-2xl text-base font-medium leading-relaxed text-neutral-400 md:text-lg">
                         O ponto é se crianças ou adolescentes conseguem acessar, interagir, criar
@@ -804,7 +819,7 @@ function ApplicabilitySection() {
                   <div className="mt-7 grid gap-6 xl:grid-cols-[minmax(0,0.38fr)_minmax(0,0.62fr)] xl:items-start">
                     <div>
                       <h3 className="text-3xl font-bold leading-tight text-white md:text-[2.35rem]">
-                        Se sua empresa tem um ou mais desses pontos?
+                          Sua empresa tem um ou mais desses pontos?
                       </h3>
                       <p className="mt-4 text-base font-medium leading-relaxed text-neutral-400">
                         Um item não confirma obrigação. Ele apenas indica que o tema não deve ser
@@ -884,7 +899,14 @@ function ApplicabilitySection() {
                         </p>
                       </div>
                     </div>
-                    <ActionLink href="#diagnostico-eca" size="lg" variant="dark" className="mt-6 w-full md:mt-0 md:w-auto">
+                    <ActionLink
+                      href="#diagnostico-eca"
+                      size="lg"
+                      variant="dark"
+                      analyticsCta
+                      analyticsLocation="aplicabilidade"
+                      className="mt-6 w-full md:mt-0 md:w-auto"
+                    >
                       Solicitar avaliação
                     </ActionLink>
                   </div>
@@ -1154,7 +1176,13 @@ function DeliverablesSection() {
                   </div>
                 ))}
               </div>
-              <ActionLink href="#diagnostico-eca" size="lg" className="w-full">
+              <ActionLink
+                href="#diagnostico-eca"
+                size="lg"
+                analyticsCta
+                analyticsLocation="entregaveis"
+                className="w-full"
+              >
                 Agendar diagnóstico
               </ActionLink>
             </div>
@@ -1404,9 +1432,20 @@ function EcaContactForm() {
         source: "Diagnóstico ECA Digital",
       });
 
+      pushLeadConversionEvent({
+        formId: "eca-digital-diagnostico",
+        formName: "Diagnóstico ECA Digital",
+        formSource: "eca-digital",
+      });
       form.reset();
       setIsSubmitted(true);
     } catch (error) {
+      pushFormErrorEvent({
+        formId: "eca-digital-diagnostico",
+        formName: "Diagnóstico ECA Digital",
+        formSource: "eca-digital",
+        errorType: "submission_failed",
+      });
       setSubmitError(
         error instanceof Error
           ? error.message
@@ -1442,7 +1481,13 @@ function EcaContactForm() {
             </Button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="relative z-10 space-y-6">
+          <form
+            onSubmit={handleSubmit}
+            data-analytics-form-id="eca-digital-diagnostico"
+            data-analytics-form-name="Diagnóstico ECA Digital"
+            data-analytics-form-source="eca-digital"
+            className="relative z-10 space-y-6"
+          >
             <div>
               <p className="text-[10px] font-black uppercase tracking-[0.22em] text-brand-600">
                 Formulário rápido

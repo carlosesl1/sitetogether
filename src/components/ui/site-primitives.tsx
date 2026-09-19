@@ -34,6 +34,8 @@ export type ActionLinkProps = {
     fullWidth?: boolean;
     className?: string;
     onClick?: MouseEventHandler<HTMLAnchorElement>;
+    analyticsCta?: boolean;
+    analyticsLocation?: string;
 };
 
 export function ActionLink({
@@ -43,12 +45,16 @@ export function ActionLink({
     size = "md",
     fullWidth = false,
     className,
-    onClick
+    onClick,
+    analyticsCta = false,
+    analyticsLocation,
 }: ActionLinkProps) {
     return (
         <Link
             href={href}
             onClick={onClick}
+            data-analytics-cta={analyticsCta ? "true" : undefined}
+            data-analytics-location={analyticsLocation}
             className={cn(
                 "group inline-flex max-w-full items-center justify-center gap-3 whitespace-normal text-center font-bold uppercase leading-tight tracking-[0.14em] transition-all duration-200 active:scale-[0.98] sm:whitespace-nowrap sm:tracking-[0.16em]",
                 fullWidth && "w-full",
