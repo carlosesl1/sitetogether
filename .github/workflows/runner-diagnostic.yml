@@ -9,17 +9,23 @@ permissions:
   contents: read
 
 jobs:
-  plain-runner:
-    name: Plain runner
+  ubuntu-24:
+    name: Ubuntu 24 runner
     runs-on: ubuntu-24.04
     steps:
       - name: Runner started
-        run: echo "plain runner started"
+        run: echo "ubuntu 24 runner started"
 
-  hostinger-environment-runner:
-    name: Hostinger environment runner
-    runs-on: ubuntu-24.04
-    environment: hostinger
+  ubuntu-26:
+    name: Ubuntu 26 runner
+    runs-on: ubuntu-26.04
     steps:
       - name: Runner started
-        run: echo "hostinger environment runner started"
+        run: echo "ubuntu 26 runner started"
+
+  windows:
+    name: Windows runner
+    runs-on: windows-latest
+    steps:
+      - name: Runner started
+        run: echo "windows runner started"
