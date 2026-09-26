@@ -1,0 +1,25 @@
+name: Runner diagnostic
+
+on:
+  push:
+    paths:
+      - ".github/workflows/runner-diagnostic.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  plain-runner:
+    name: Plain runner
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Runner started
+        run: echo "plain runner started"
+
+  hostinger-environment-runner:
+    name: Hostinger environment runner
+    runs-on: ubuntu-24.04
+    environment: hostinger
+    steps:
+      - name: Runner started
+        run: echo "hostinger environment runner started"
