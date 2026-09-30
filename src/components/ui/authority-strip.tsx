@@ -4,14 +4,14 @@ import { SectionPill } from "@/components/ui/site-primitives";
 
 const logos = [
     {
-        name: "Pinheiro Guimaraes",
+        name: "Axia Energia",
         src: "/logos/partners/pinheiro-guimaraes.svg",
         width: 595,
         height: 57,
         className: "h-5 lg:h-7 w-[200px] lg:w-[260px]",
     },
     {
-        name: "Camara de Comercio Arabe Brasileira",
+        name: "Mercado Bitcoin",
         src: "/logos/partners/camara-comercio-arabe-brasileira.svg",
         width: 409,
         height: 142,
