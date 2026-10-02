@@ -29,7 +29,7 @@
 .breadcrumb a:hover { text-decoration: underline; }
 .heroGrid { display: grid; grid-template-columns: 1.35fr .9fr; align-items: center; gap: 60px; }
 .heroCopy h1 { max-width: 860px; margin-top: 33px !important; }
-.heroCopy .accent { display: block; }
+.heroPhrase { white-space: nowrap; }
 .page .lead { margin-top: 27px; font-size: 1.2rem; line-height: 1.75; max-width: 725px; }
 .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 25px; margin-top: 37px; }
 .page .heroNote { font-size: .79rem; margin-top: 19px; max-width: 560px; }

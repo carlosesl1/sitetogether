@@ -91,7 +91,7 @@ export default function DpoAsAService() {
                         <div className={styles.heroGrid}>
                             <div className={styles.heroCopy}>
                                 <SectionPill>DPO as a Service</SectionPill>
-                                <h1 id="dpo-title">DPO as a Service para a LGPD <span className={styles.accent}>funcionar no dia a dia.</span></h1>
+                                <h1 id="dpo-title">DPO as a Service para a LGPD <span className={styles.accent}>funcionar no <span className={styles.heroPhrase}>dia a dia.</span></span></h1>
                                 <p className={styles.lead}>Uma equipe especializada para assumir a rotina de privacidade da sua empresa. A TOGETHER conecta jurídico, tecnologia e processos, como DPO externo ou apoiando o seu DPO interno.</p>
                                 <div className={styles.actions}>
                                     <ActionLink href="/contato" size="xl">Solicitar proposta</ActionLink>
