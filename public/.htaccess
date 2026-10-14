@@ -1,5 +1,23 @@
 DirectoryIndex index.html index.php
 
+# BEGIN TOGETHER Static Cache Policy
+# Revalidate HTML and navigation/data files on every request. ETag/Last-Modified
+# allow conditional responses without retaining an obsolete release for days.
+<IfModule mod_headers.c>
+<FilesMatch "\.(html?|txt|json|xml)$">
+Header unset Cache-Control
+Header always set Cache-Control "public, max-age=0, must-revalidate"
+Header unset Expires
+Header always unset Expires
+</FilesMatch>
+# Content hashes change with each version, so these files can remain cached.
+<FilesMatch "(^|[-.])[0-9a-f]{8,64}\.(js|css|woff2?)$">
+Header unset Cache-Control
+Header always set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+</IfModule>
+# END TOGETHER Static Cache Policy
+
 # Next.js exports generated Open Graph images without a file extension.
 # Force the correct media type so social crawlers accept the image preview.
 <Files "opengraph-image">

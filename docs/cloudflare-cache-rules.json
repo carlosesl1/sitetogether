@@ -1,0 +1,25 @@
+{
+  "description": "TOGETHER: respect origin cache headers and exclude dynamic requests",
+  "rules": [
+    {
+      "ref": "together_origin_cache_policy",
+      "description": "Public site respects origin freshness and browser cache headers",
+      "expression": "http.host in {\"togetherprivacy.tech\" \"www.togetherprivacy.tech\"}",
+      "action": "set_cache_settings",
+      "action_parameters": {
+        "cache": true,
+        "browser_ttl": { "mode": "respect_origin" },
+        "edge_ttl": { "mode": "respect_origin" }
+      },
+      "enabled": true
+    },
+    {
+      "ref": "together_dynamic_cache_bypass",
+      "description": "Never cache writes, WordPress APIs/admin, tracking or authenticated previews",
+      "expression": "(http.host in {\"togetherprivacy.tech\" \"www.togetherprivacy.tech\"}) and (not http.request.method in {\"GET\" \"HEAD\"} or starts_with(http.request.uri.path, \"/wp-json\") or starts_with(http.request.uri.path, \"/wp-admin\") or starts_with(http.request.uri.path, \"/h8ny\") or ends_with(http.request.uri.path, \".php\") or http.request.uri.query contains \"rest_route=\" or http.request.uri.query contains \"preview=\" or http.cookie contains \"wordpress_logged_in_\" or http.cookie contains \"wp-postpass_\")",
+      "action": "set_cache_settings",
+      "action_parameters": { "cache": false },
+      "enabled": true
+    }
+  ]
+}

@@ -10,19 +10,20 @@ const deferredThirdPartiesSource = await readFile(
   new URL("../src/components/analytics/deferred-third-parties.tsx", import.meta.url),
   "utf8",
 );
+const tagManagerSource = await readFile(new URL("../src/lib/google-tag-manager.ts", import.meta.url), "utf8");
 
 test("loads GTM immediately while keeping Leadster deferred", () => {
   assert.match(layoutSource, /DeferredThirdParties/);
-  assert.match(deferredThirdPartiesSource, /googletagmanager\.com\/gtm\.js/);
+  assert.match(tagManagerSource, /googletagmanager\.com\/gtm\.js/);
   assert.match(layoutSource, /googletagmanager\.com\/ns\.html\?id=GTM-NRXBFNQN/);
   assert.equal(
-    `${layoutSource}\n${deferredThirdPartiesSource}`.match(/GTM-NRXBFNQN/g)?.length,
+    `${layoutSource}\n${tagManagerSource}`.match(/GTM-NRXBFNQN/g)?.length,
     2,
   );
   assert.doesNotMatch(layoutSource, /strategy="beforeInteractive"/);
   assert.match(
     deferredThirdPartiesSource,
-    /useEffect\(\(\)\s*=>\s*\{\s*loadGoogleTagManager\(\);/,
+    /useEffect\(\(\)\s*=>\s*\{\s*const stopWaitingForGoogleTagManager = initializeGoogleTagManager\(\);/,
   );
   assert.doesNotMatch(deferredThirdPartiesSource, /THIRD_PARTY_FALLBACK_DELAY_MS/);
   assert.match(deferredThirdPartiesSource, /LEADSTER_FALLBACK_DELAY_MS\s*=\s*12_000/);

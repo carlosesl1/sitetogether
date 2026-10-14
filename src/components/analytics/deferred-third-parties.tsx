@@ -1,40 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
+import { initializeGoogleTagManager } from "@/lib/google-tag-manager";
 
 const LEADSTER_FALLBACK_DELAY_MS = 12_000;
 const LEADSTER_STAGGER_DELAY_MS = 1_000;
-const GTM_CONTAINER_ID = "GTM-NRXBFNQN";
 const LEADSTER_ID = "SdTbxs4BtXBoE0Bl0XDU5cUcz";
 
 type MarketingWindow = Window & {
-  dataLayer?: Array<Record<string, unknown>>;
   neuroleadId?: string;
 };
-
-function appendExternalScript(id: string, src: string) {
-  if (document.getElementById(id)) return;
-
-  const script = document.createElement("script");
-  script.id = id;
-  script.src = src;
-  script.async = true;
-  document.head.appendChild(script);
-}
-
-function loadGoogleTagManager() {
-  const marketingWindow = window as MarketingWindow;
-  marketingWindow.dataLayer = marketingWindow.dataLayer ?? [];
-  marketingWindow.dataLayer.push({
-    "gtm.start": Date.now(),
-    event: "gtm.js",
-  });
-
-  appendExternalScript(
-    "google-tag-manager",
-    `https://www.googletagmanager.com/gtm.js?id=${GTM_CONTAINER_ID}`,
-  );
-}
 
 function loadLeadster() {
   const marketingWindow = window as MarketingWindow;
@@ -52,7 +27,7 @@ function loadLeadster() {
 
 export function DeferredThirdParties() {
   useEffect(() => {
-    loadGoogleTagManager();
+    const stopWaitingForGoogleTagManager = initializeGoogleTagManager();
 
     let hasStartedLeadster = false;
     let leadsterTimer: number | null = null;
@@ -87,6 +62,7 @@ export function DeferredThirdParties() {
     );
 
     return () => {
+      stopWaitingForGoogleTagManager();
       removeIntentListeners();
       window.clearTimeout(fallbackTimer);
 
