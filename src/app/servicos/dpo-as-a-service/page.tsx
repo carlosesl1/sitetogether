@@ -1,11 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowDown, ArrowRight, ArrowUpRight, BadgeCheck, BriefcaseBusiness, Check, ChevronDown, FileCheck2, GraduationCap, Layers3, Route, Scale, Search, Settings2, ShieldCheck, Sparkles, TrendingUp, Truck, Users, Workflow } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, BadgeCheck, BriefcaseBusiness, Check, ChevronDown, FileCheck2, GraduationCap, Layers3, Route, Scale, Search, Settings2, ShieldCheck, TrendingUp, Truck, Users, Workflow } from "lucide-react";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
 import { AuthorityStrip } from "@/components/ui/authority-strip";
 import { ActionLink, SectionPill } from "@/components/ui/site-primitives";
 import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
+import { DpoProposalForm } from "./proposal-form";
 import { DpoScopeExplorer } from "./dpo-scope-explorer";
 import styles from "./dpo-service.module.css";
 
@@ -25,8 +26,8 @@ const differences = [
 ];
 
 const models = [
-    { tag: "Preciso de um encarregado", title: "DPO externo", description: "Para empresas que querem contratar a função de encarregado com suporte especializado para a operação de privacidade.", items: ["Atuação como encarregado", "Acompanhamento da rotina de LGPD", "Interface com suas áreas internas"], action: "Conversar sobre DPO externo", href: "/contato" },
-    { tag: "Já tenho um encarregado", title: "Apoio ao DPO interno", description: "Para empresas que já têm um responsável e precisam de capacidade técnica e operacional para executar as demandas.", items: ["Apoio ao profissional já nomeado", "Execução das atividades acordadas", "Gestão de plataformas e evidências"], action: "Conversar sobre apoio ao DPO", href: "/contato" },
+    { tag: "Preciso de um encarregado", title: "DPO externo", description: "Para empresas que querem contratar a função de encarregado com suporte especializado para a operação de privacidade.", items: ["Atuação como encarregado", "Acompanhamento da rotina de LGPD", "Interface com suas áreas internas"], action: "Conversar sobre DPO externo", href: "#solicitar-proposta" },
+    { tag: "Já tenho um encarregado", title: "Apoio ao DPO interno", description: "Para empresas que já têm um responsável e precisam de capacidade técnica e operacional para executar as demandas.", items: ["Apoio ao profissional já nomeado", "Execução das atividades acordadas", "Gestão de plataformas e evidências"], action: "Conversar sobre apoio ao DPO", href: "#solicitar-proposta" },
     { tag: "Preciso estruturar a base", title: "Projeto de adequação", description: "Para empresas que precisam mapear lacunas e organizar processos, documentos e controles em um projeto com escopo definido.", items: ["Diagnóstico e plano de adequação", "Estruturação do programa de LGPD", "Possibilidade de continuidade com DPO"], action: "Conhecer a consultoria LGPD", href: "/servicos/consultoria-adequacao" },
 ];
 
@@ -79,7 +80,7 @@ export default function DpoAsAService() {
     return (
         <div className={styles.page}>
             <a href="#conteudo-dpo" className={styles.skipLink}>Ir para o conteúdo</a>
-            <Navbar />
+            <Navbar prefetch={false} ctaHref="#solicitar-proposta" ctaLabel="Solicitar proposta" />
             <main id="conteudo-dpo">
                 <section className={styles.hero} aria-labelledby="dpo-title">
                     <PixelDecor placement="right" mask="right" opacity={0.26} />
@@ -90,14 +91,14 @@ export default function DpoAsAService() {
                         </nav>
                         <div className={styles.heroGrid}>
                             <div className={styles.heroCopy}>
-                                <SectionPill>DPO as a Service</SectionPill>
-                                <h1 id="dpo-title">DPO as a Service para a LGPD <span className={styles.accent}>funcionar no <span className={styles.heroPhrase}>dia a dia.</span></span></h1>
-                                <p className={styles.lead}>Uma equipe especializada para assumir a rotina de privacidade da sua empresa. A TOGETHER conecta jurídico, tecnologia e processos, como DPO externo ou apoiando o seu DPO interno.</p>
+                                <SectionPill>DPO as a Service para empresas</SectionPill>
+                                <h1 id="dpo-title">DPO terceirizado <span className={styles.accent}>para a sua empresa.</span></h1>
+                                <p className={styles.lead}>Contrate um DPO externo ou apoio ao seu DPO interno. A TOGETHER conecta jurídico, tecnologia e operação para atender titulares, organizar documentos e acompanhar a rotina de privacidade.</p>
                                 <div className={styles.actions}>
-                                    <ActionLink href="/contato" size="xl">Solicitar proposta</ActionLink>
+                                    <ActionLink href="#solicitar-proposta" size="xl">Solicitar proposta</ActionLink>
                                     <a className={styles.textLink} href="#escopo">Conhecer as entregas <ArrowDown size={17} aria-hidden="true" /></a>
                                 </div>
-                                <p className={styles.heroNote}>DPO externo ou apoio ao seu DPO. O ponto de partida é o seu cenário.</p>
+                                <p className={styles.heroNote}>Conte sua necessidade no formulário. Nosso time retorna para alinhar o modelo de atuação, o escopo e o investimento.</p>
                             </div>
                             <aside className={styles.serviceMap} aria-label="Frentes de atuação da TOGETHER">
                                 <div className={styles.mapHeading}><span className={styles.iconTile}><ShieldCheck aria-hidden="true" /></span><div><span className={styles.micro}>Sua operação de privacidade</span><h2>Um time. Três frentes.</h2></div></div>
@@ -114,7 +115,7 @@ export default function DpoAsAService() {
 
                 <div className={styles.clients}><AuthorityStrip title="Clientes que confiam na TOGETHER" /></div>
                 <nav className={styles.sectionNav} aria-label="Nesta página">
-                    <div className={styles.container}><span>Nesta página</span><a href="#escopo">Entregas</a><a href="#por-que-together">Por que TOGETHER</a><a href="#modelos">Modelos de atuação</a><a href="#investimento">Investimento</a><a href="#duvidas">Dúvidas</a></div>
+                    <div className={styles.container}><span>Nesta página</span><a href="#escopo">Entregas</a><a href="#por-que-together">Por que TOGETHER</a><a href="#modelos">Modelos de atuação</a><a href="#investimento">Investimento</a><a href="#duvidas">Dúvidas</a><a href="#solicitar-proposta">Solicitar proposta</a></div>
                 </nav>
 
                 <section className={styles.section} aria-labelledby="o-que-e">
@@ -123,7 +124,7 @@ export default function DpoAsAService() {
                         <div>
                             <SectionPill>Entenda o serviço</SectionPill>
                             <h2 id="o-que-e">O que é <span className={styles.accent}>DPO as a Service?</span></h2>
-                            <p>DPO as a Service é a contratação de um encarregado de proteção de dados externo. Ele orienta a organização e atua como canal de comunicação com os titulares de dados pessoais e a ANPD.</p>
+                            <p>DPO as a Service, também chamado de DPO terceirizado ou DPO externo, é a contratação do serviço de encarregado de proteção de dados. Ele orienta a organização e atua como canal de comunicação com os titulares de dados pessoais e a ANPD.</p>
                             <p>Com a TOGETHER, essa atuação se conecta à execução: processos acompanhados, documentos atualizados e apoio especializado às demandas que chegam à sua empresa.</p>
                         </div>
                         <div className={styles.fitGrid}>
@@ -141,7 +142,7 @@ export default function DpoAsAService() {
                             <p>Explore as frentes que podem compor o serviço. O escopo é construído a partir do que sua empresa precisa.</p>
                         </div>
                         <DpoScopeExplorer items={scope} />
-                        <div className={styles.scopeFooter}><p>Atividades, frequência, canais e prazos de atendimento ficam definidos na proposta.</p><ActionLink href="/contato" size="lg">Conversar sobre meu escopo</ActionLink></div>
+                        <div className={styles.scopeFooter}><p>Atividades, frequência, canais e prazos de atendimento ficam definidos na proposta.</p><ActionLink href="#solicitar-proposta" size="lg">Conversar sobre meu escopo</ActionLink></div>
                     </div>
                 </section>
 
@@ -183,7 +184,7 @@ export default function DpoAsAService() {
                 <section id="modelos" className={styles.section + " " + styles.soft} aria-labelledby="modelos-title">
                     <PixelDecor placement="bottomRight" mask="bottomRight" opacity={0.18} />
                     <div className={styles.container}>
-                        <div className={styles.centerHeading}><SectionPill>O apoio certo para seu momento</SectionPill><h2 id="modelos-title">Dois caminhos. <span className={styles.accent}>A mesma equipe ao seu lado.</span></h2><p>Você pode contratar um DPO externo ou ampliar a capacidade de quem já cuida da privacidade.</p></div>
+                        <div className={styles.centerHeading}><SectionPill>O apoio certo para seu momento</SectionPill><h2 id="modelos-title">Contratar um DPO externo <span className={styles.accent}>ou apoiar o seu DPO?</span></h2><p>Você pode contratar um DPO externo ou ampliar a capacidade de quem já cuida da privacidade.</p></div>
                         <div className={styles.models}>
                             {models.slice(0,2).map((model, index) => { const Icon = index === 0 ? ShieldCheck : Users; return (
                                 <article key={model.title} className={index === 0 ? styles.externalModel : styles.internalModel}>
@@ -204,7 +205,7 @@ export default function DpoAsAService() {
                         <div className={styles.sectionHeader}><div><SectionPill>Como funciona a contratação</SectionPill><h2 id="processo-title">Do primeiro contato <span className={styles.accent}>à rotina em movimento.</span></h2></div><p>Um início organizado, com responsabilidades e prioridades alinhadas à sua operação.</p></div>
                         <ol className={styles.steps}>{steps.map((step, index) => { const Icon = processIcons[index]; return <li key={step.title}><div className={styles.stepIcon}><Icon aria-hidden="true" /><span aria-hidden="true">{String(index+1).padStart(2,"0")}</span></div><h3>{step.title}</h3><p>{step.text}</p></li>; })}</ol>
                         <div id="investimento" className={styles.investment}>
-                            <div className={styles.investmentCopy}><SectionPill tone="brand">Investimento</SectionPill><h2>Quanto custa <span>DPO as a Service?</span></h2><p>O valor depende do trabalho que precisa ser feito. A proposta considera a estrutura, o volume de demandas e o nível de apoio necessário.</p><ActionLink href="/contato" variant="dark" size="lg">Solicitar proposta</ActionLink></div>
+                            <div className={styles.investmentCopy}><SectionPill tone="brand">Investimento</SectionPill><h2>Quanto custa <span>DPO as a Service?</span></h2><p>O valor depende do trabalho que precisa ser feito. A proposta considera a estrutura, o volume de demandas e o nível de apoio necessário.</p><ActionLink href="#solicitar-proposta" variant="dark" size="lg">Solicitar proposta</ActionLink></div>
                             <div className={styles.quoteGuide}><span className={styles.micro}>Uma proposta construída com você</span><h3>Seu cenário define o escopo.</h3><dl>
                                 <div><dt><span aria-hidden="true">01</span>Sua operação</dt><dd>Áreas envolvidas, processos com dados pessoais e complexidade do negócio.</dd></div>
                                 <div><dt><span aria-hidden="true">02</span>A demanda de trabalho</dt><dd>Solicitações, contratos, fornecedores, auditorias e prioridades atuais.</dd></div>
@@ -217,7 +218,7 @@ export default function DpoAsAService() {
                 <section id="duvidas" className={styles.section + " " + styles.faqSection} aria-labelledby="faq-title">
                     <PixelDecor placement="topRight" mask="topRight" opacity={0.13} />
                     <div className={styles.container + " " + styles.faqGrid}>
-                        <div className={styles.faqIntro}><SectionPill>Antes de contratar</SectionPill><h2 id="faq-title">Perguntas sobre <span className={styles.accent}>DPO as a Service.</span></h2><p>Respostas para comparar opções e conversar com nosso time com mais clareza.</p><div className={styles.faqContact}><strong>Vamos conversar sobre sua empresa?</strong><ActionLink href="/contato" variant="dark">Falar com a TOGETHER</ActionLink></div></div>
+                        <div className={styles.faqIntro}><SectionPill>Antes de contratar</SectionPill><h2 id="faq-title">Perguntas sobre <span className={styles.accent}>DPO as a Service.</span></h2><p>Respostas para comparar opções e conversar com nosso time com mais clareza.</p><div className={styles.faqContact}><strong>Vamos conversar sobre sua empresa?</strong><ActionLink href="#solicitar-proposta" variant="dark">Falar com a TOGETHER</ActionLink></div></div>
                         <div className={styles.faqList}>
                             {faqs.map((faq,index) => <details key={faq.question} open={index===0}><summary>{faq.question}<span><ChevronDown size={21} aria-hidden="true" /></span></summary><p>{faq.answer}</p></details>)}
                             <p className={styles.source}>Referência sobre a atuação do encarregado: <a href="https://www.gov.br/anpd/pt-br/centrais-de-conteudo/materiais-educativos-e-publicacoes/guia_da_atuacao_do_encarregado_anpd.pdf" target="_blank" rel="noopener noreferrer">Guia orientativo da ANPD <span className={styles.srOnly}>(abre em nova aba)</span></a>.</p>
@@ -228,8 +229,14 @@ export default function DpoAsAService() {
                 <section className={styles.finalSection} aria-labelledby="contato-title">
                     <div className={styles.container}><div className={styles.finalFrame}>
                         <PixelDecor placement="topRight" mask="topRight" opacity={0.23} />
-                        <div className={styles.finalCopy}><SectionPill tone="dark">Dê continuidade à sua privacidade</SectionPill><h2 id="contato-title">Sua próxima etapa: <span className={styles.accent}>um time para colocar a LGPD em prática.</span></h2><p>Conte à TOGETHER o que sua empresa precisa resolver. Vamos avaliar as frentes de atuação e preparar uma proposta para o seu cenário.</p><ActionLink href="/contato" size="xl">Solicitar proposta</ActionLink></div>
-                        <aside className={styles.nextConversation}><span className={styles.nextIcon}><Sparkles aria-hidden="true" /></span><h3>Uma conversa.<br />Um próximo passo claro.</h3><ul className={styles.checkList}><li><Check aria-hidden="true" />Sua estrutura atual de privacidade</li><li><Check aria-hidden="true" />As demandas que pedem atenção</li><li><Check aria-hidden="true" />O modelo de apoio para sua empresa</li></ul><span className={styles.nextNote}>DPO externo ou apoio ao DPO interno.</span></aside>
+                        <div className={styles.finalCopy}><SectionPill tone="dark">Vamos definir seu escopo</SectionPill><h2 id="contato-title">Sua proposta de DPO <span className={styles.accent}>começa aqui.</span></h2><p>Conte se sua empresa precisa de um DPO externo ou de apoio ao responsável interno. Nosso time retorna para entender a operação e alinhar a contratação.</p>
+                            <ol className={styles.contactSteps}>
+                                <li><span>01</span><div><strong>Entendemos a sua demanda</strong><p>Estrutura atual, ferramentas e prioridades da empresa.</p></div></li>
+                                <li><span>02</span><div><strong>Definimos o serviço</strong><p>Atividades, responsáveis, frequência e canais de atendimento.</p></div></li>
+                                <li><span>03</span><div><strong>Apresentamos a proposta</strong><p>Escopo, condições de atendimento e investimento para você avaliar.</p></div></li>
+                            </ol>
+                        </div>
+                        <DpoProposalForm />
                     </div></div>
                 </section>
             </main>

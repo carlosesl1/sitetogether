@@ -147,7 +147,7 @@ export default function ConsultoriaAdequacao() {
                         <div className={styles.proofGrid}>
                             <div className={styles.proofCopy}><SectionPill>Por que escolher a TOGETHER</SectionPill><h2 id="diferenciais-title">Conhecimento técnico. <span className={styles.accent}>Aplicação prática.</span></h2><p>Uma consultoria que conecta as exigências da LGPD à realidade da sua empresa.</p><div className={styles.proofPoints}>
                                 <article><BadgeCheck size={25} aria-hidden="true" /><div><h3>Especialistas certificados</h3><p>Equipe com certificações nas principais plataformas de privacidade do mercado para apoiar decisões e o uso das ferramentas.</p></div></article>
-                                <article><Layers3 size={25} aria-hidden="true" /><div><h3>Uma solução validada</h3><p>Aplicamos uma solução já validada, reunindo jurídico, tecnologia e processos em um projeto de adequação estruturado.</p></div></article>
+                                <article><Layers3 size={25} aria-hidden="true" /><div><h3>Entregas para a sua operação</h3><p>Plano de ação, inventário de dados, políticas e fluxos de privacidade. Os materiais e as responsabilidades ficam definidos no escopo contratado.</p></div></article>
                                 <article><ShieldCheck size={25} aria-hidden="true" /><div><h3>Experiência em diferentes mercados</h3><p>Adaptamos o trabalho aos tipos de dados, às relações comerciais e às rotinas de cada negócio.</p></div></article>
                             </div></div>
                             <aside className={styles.platformPanel} aria-labelledby="plataformas-title"><span className={styles.platformSymbol} aria-hidden="true"><Layers3 size={32} /></span><h3 id="plataformas-title">Tecnologia a serviço <span>da adequação.</span></h3><p>Avaliamos a estrutura que sua empresa já utiliza para conectar o projeto aos seus processos e ferramentas.</p><div className={styles.platforms}><span className={styles.micro}>Plataformas com as quais trabalhamos</span><ul>{platforms.map((platform) => <li key={platform.name}><Image src={platform.src} alt={platform.name} width={140} height={40} className={platform.whiteLogo ? styles.whiteLogo : undefined} /></li>)}</ul></div><p className={styles.platformNote}>A necessidade de ferramentas e licenças é avaliada no escopo do projeto.</p></aside>
@@ -169,7 +169,15 @@ export default function ConsultoriaAdequacao() {
 
                 <section className={styles.finalSection} aria-labelledby="proposta-title"><div className={styles.container}><div className={styles.finalFrame}>
                     <PixelDecor placement="topRight" mask="topRight" opacity={0.22} />
-                    <div className={styles.finalCopy}><SectionPill tone="dark">Seu próximo passo</SectionPill><h2 id="proposta-title">Sua adequação começa <span className={styles.accent}>com uma conversa.</span></h2><p>Conte o momento da sua empresa para construirmos uma proposta de consultoria LGPD.</p><ol className={styles.contactSteps}><li><span>01</span><div><strong>Você conta sua necessidade</strong><p>Informe seu contato e, se quiser, o desafio ou prazo do projeto.</p></div></li><li><span>02</span><div><strong>Nosso time retorna</strong><p>Conversamos sobre a operação, as prioridades e o que já foi feito.</p></div></li><li><span>03</span><div><strong>Alinhamos a proposta</strong><p>Entregas, responsabilidades, cronograma e investimento definidos para o seu cenário.</p></div></li></ol></div>
+                    <div className={styles.finalCopy}><SectionPill tone="dark">Da proposta à entrega</SectionPill><h2 id="proposta-title">Saiba o que contratar. <span className={styles.accent}>E o que receber.</span></h2><p>Na conversa inicial, alinhamos as prioridades da sua empresa e quais destas entregas farão parte do projeto:</p>
+                        <ul className={styles.proposalDeliverables}>
+                            <li><FileCheck2 aria-hidden="true" /><div><strong>Diagnóstico e plano de ação</strong><span>Lacunas, prioridades, etapas e responsáveis.</span></div></li>
+                            <li><FolderOpen aria-hidden="true" /><div><strong>Inventário e documentação</strong><span>Mapeamento de dados, políticas e orientações contratuais.</span></div></li>
+                            <li><Layers3 aria-hidden="true" /><div><strong>Rotinas e equipe orientada</strong><span>Fluxos de privacidade, treinamento e próximos passos.</span></div></li>
+                        </ul>
+                        <div className={styles.projectLeadership}><h3>Quem conduz o projeto</h3><p>Os consultores da TOGETHER conduzem o diagnóstico, a estruturação dos materiais e o acompanhamento do plano. Sua equipe participa com informações, validações e decisões sobre a operação.</p></div>
+                        <p className={styles.proposalExpectation}>Depois do envio, nosso time retorna para alinhar entregas, cronograma e investimento. O escopo é definido na proposta.</p>
+                    </div>
                     <ProposalForm />
                 </div></div></section>
             </main>

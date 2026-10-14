@@ -14,7 +14,7 @@
 .page main p { color: var(--dpo-muted); font-size: 1.1rem; line-height: 1.8; }
 .page main p + p { margin-top: 18px; }
 .page main h2 + p, .page main h3 + p { margin-top: 25px; }
-.page .accent { font-weight: 300; font-style: italic; color: var(--color-brand-500); }
+.page .accent { font-weight: 300; font-style: italic; color: #886600; }
 .page a:focus-visible, .page button:focus-visible, .page summary:focus-visible, .page [role="tabpanel"]:focus-visible { outline: 3px solid var(--color-brand-700); outline-offset: 5px; border-radius: 8px; }
 .page main section, .investment { scroll-margin-top: 105px; }
 .skipLink { position: fixed; z-index: 1000; top: 10px; left: 10px; transform: translateY(-160%); padding: 15px 22px; border-radius: 12px; background: var(--dpo-yellow); font-weight: 700; }
@@ -199,7 +199,7 @@
 .page .source { font-size: .76rem; line-height: 1.7; margin-top: 26px; }
 .source a { text-decoration: underline; text-underline-offset: 3px; }
 .finalSection { padding: 0 0 100px; }
-.finalFrame { position: relative; overflow: hidden; border-radius: 40px; background: #0a0a0a; color: white; padding: 60px; display: grid; grid-template-columns: 1.3fr .8fr; gap: 70px; align-items: center; }
+.finalFrame { position: relative; overflow: hidden; border-radius: 40px; background: #0a0a0a; color: white; padding: 60px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; align-items: start; }
 .finalCopy, .nextConversation { position: relative; z-index: 1; }
 .page .finalFrame h2 { font-size: clamp(2.5rem,3.8vw,3.6rem); }
 .page .finalCopy p { color: #b2b2b2; font-size: 1.05rem; max-width: 670px; }
@@ -384,3 +384,11 @@
     .page a:hover, .page a:hover svg, .page a:active { transform: none !important; }
     .clients :global(.animate-marquee) { animation: none; }
 }
+
+.page .dark .accent, .page .finalFrame .accent { color: var(--dpo-yellow); }
+.page main .contactSteps { display: grid; gap: 25px; margin: 36px 0 0; padding: 0; list-style: none; }
+.contactSteps li { display: flex; align-items: start; gap: 16px; }
+.contactSteps li > span { display: grid; place-items: center; flex-shrink: 0; width: 34px; height: 34px; border: 1px solid #ffffff30; border-radius: 10px; color: var(--dpo-yellow); font-size: .75rem; }
+.contactSteps strong { font-size: 1rem; }
+.page .contactSteps p { font-size: .9rem; margin-top: 8px; line-height: 1.7; color: #b7b7b7; }
+@media (max-width: 640px) { .finalFrame { padding: 26px 20px; } }

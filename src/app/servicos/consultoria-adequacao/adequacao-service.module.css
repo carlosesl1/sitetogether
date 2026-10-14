@@ -199,32 +199,6 @@
 .contactSteps li > span { display: grid; place-items: center; flex-shrink: 0; width: 34px; height: 34px; border: 1px solid #ffffff30; border-radius: 10px; color: var(--yellow); font-size: .75rem; }
 .contactSteps strong { font-size: 1rem; }
 .page .contactSteps p { font-size: .9rem; margin-top: 8px; line-height: 1.7; }
-.proposalForm { position: relative; z-index: 1; min-width: 0; scroll-margin-top: 100px; padding: 32px; border-radius: 24px; background: white; color: var(--ink); }
-.proposalForm:focus { outline: none; }
-.proposalForm:focus-visible { outline: 3px solid var(--yellow); outline-offset: 5px; }
-.page .proposalForm h3 { font-size: 1.8rem; }
-.page .proposalForm .formHelp { margin-top: 12px; margin-bottom: 24px; color: var(--muted); font-size: .94rem; line-height: 1.65; }
-.proposalForm fieldset { min-width: 0; border: 0; margin: 0; padding: 0; display: grid; gap: 18px; }
-.formRow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.proposalForm label { display: block; min-width: 0; font-size: .875rem; font-weight: 650; line-height: 1.6; }
-.optional { font-size: .8rem; font-weight: 400; color: var(--muted); }
-.proposalForm input, .proposalForm textarea { display: block; width: 100%; min-width: 0; margin-top: 6px; border: 1px solid #92969b; border-radius: 10px; padding: 12px 14px; background: #fff; color: var(--ink); font: inherit; font-size: 16px; font-weight: 400; line-height: 1.5; }
-.proposalForm input { min-height: 48px; }
-.proposalForm input[type="hidden"] { display: none; }
-.proposalForm textarea { resize: vertical; min-height: 100px; }
-.proposalForm textarea::placeholder { color: #626870; }
-.proposalForm input:focus-visible, .proposalForm textarea:focus-visible, .proposalForm button:focus-visible { outline: 3px solid #886600; outline-offset: 3px; }
-.proposalForm fieldset:disabled { opacity: .65; }
-.submitButton { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 54px; padding: 14px 20px; border: 0; border-radius: 12px; background: var(--yellow); color: #171717; font-size: .95rem; font-weight: 750; cursor: pointer; }
-.submitButton:hover { background: #f5c000; }
-.submitButton svg { flex-shrink: 0; }
-.proposalForm fieldset:disabled button { cursor: wait; }
-.page .proposalForm .formPrivacy { margin-top: 18px; font-size: .78rem; line-height: 1.75; color: #626870; }
-.proposalForm a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
-.page .proposalForm .formError { margin-top: 18px; padding: 14px; background: #fff0f0; color: #8c1616; font-size: .9rem; line-height: 1.65; border-radius: 10px; }
-.formSuccess { padding-block: 30px; }
-.formSuccess > svg { margin-bottom: 24px; color: #226542; }
-.page .formSuccess p { margin-block: 20px; color: var(--muted); font-size: 1rem; }
 @media (min-width: 1024px) { .container { padding-inline: 48px; } }
 @media (min-width: 1440px) { .container { padding-inline: 32px; } }
 @media (max-width: 1199px) {
@@ -389,10 +363,6 @@
     .page .nextStep h3 { font-size: 1.55rem; }
     .nextStep li { font-size: .78rem; }
     .finalFrame { padding: 26px 20px; }
-    .proposalForm { padding: 22px 18px; border-radius: 18px; scroll-margin-top: 96px; }
-    .page .proposalForm h3 { font-size: 1.6rem; }
-    .page .proposalForm .formHelp { font-size: .9rem; }
-    .formRow { grid-template-columns: 1fr; gap: 18px; }
     .page .contactSteps p { font-size: .88rem; }
     .page .heroNote { font-size: .8rem; }
 }
@@ -414,3 +384,13 @@
     .page a:hover, .page a:hover svg, .page a:active { transform: none !important; }
     .clients :global(.animate-marquee) { animation: none; }
 }
+
+.page main .proposalDeliverables { list-style: none; padding: 0; margin: 30px 0 0; display: grid; gap: 0; }
+.proposalDeliverables li { display: flex; gap: 16px; padding-block: 20px; border-top: 1px solid #ffffff25; }
+.proposalDeliverables svg { flex-shrink: 0; width: 22px; color: var(--yellow); }
+.proposalDeliverables strong { display: block; font-size: 1rem; line-height: 1.5; }
+.proposalDeliverables span { display: block; margin-top: 5px; font-size: .9rem; line-height: 1.7; color: #b7b7b7; }
+.projectLeadership { padding-top: 22px; border-top: 1px solid #ffffff25; }
+.page .projectLeadership h3 { font-size: 1.15rem; letter-spacing: -.01em; }
+.page .projectLeadership p { font-size: .9rem; line-height: 1.8; margin-top: 12px; }
+.page .finalCopy .proposalExpectation { margin-top: 24px; font-size: .85rem; color: #d2d2d2; }
