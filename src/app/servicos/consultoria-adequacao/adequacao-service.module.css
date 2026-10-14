@@ -13,7 +13,8 @@
 .page main h3 { font-size: 1.6rem; font-weight: 700; line-height: 1.2; letter-spacing: -.03em; }
 .page main p { font-size: 1.1rem; line-height: 1.8; color: var(--muted); }
 .page main h2 + p, .page main h3 + p { margin-top: 24px; }
-.page .accent { color: var(--color-brand-500); font-weight: 300; font-style: italic; }
+.page .accent { color: #886600; font-weight: 300; font-style: italic; }
+.page .dark .accent, .page .continuity .accent, .page .finalFrame .accent { color: var(--color-brand-400); }
 .page a:focus-visible, .page summary:focus-visible { outline: 3px solid var(--color-brand-700); outline-offset: 5px; border-radius: 8px; }
 .page main section { scroll-margin-top: 105px; }
 .page main ul, .page main ol { margin: 0; padding: 0; list-style: none; }
@@ -180,7 +181,7 @@
 .page .source { font-size: .73rem; line-height: 1.8; margin-top: 27px; }
 .source a { text-decoration: underline; text-underline-offset: 3px; }
 .finalSection { padding-bottom: 100px; }
-.finalFrame { position: relative; overflow: hidden; display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 70px; padding: 60px; border-radius: 40px; background: #0a0a0a; color: white; }
+.finalFrame { position: relative; overflow: hidden; display: grid; grid-template-columns: .9fr 1.1fr; align-items: start; gap: 60px; padding: 48px; border-radius: 40px; background: #0a0a0a; color: white; }
 .finalCopy, .nextStep { position: relative; z-index: 1; }
 .page .finalCopy h2 { font-size: clamp(2.5rem, 3.8vw, 3.6rem); }
 .page .finalCopy p { color: #b7b7b7; font-size: 1.03rem; }
@@ -193,6 +194,37 @@
 .nextStep li { display: flex; gap: 11px; align-items: start; font-size: .84rem; line-height: 1.75; color: #cbcbcb; }
 .nextStep li svg { flex-shrink: 0; color: var(--yellow); margin-top: 3px; }
 .nextStepNote { display: block; border-top: 1px solid #ffffff20; padding-top: 22px; font-size: .73rem; line-height: 1.7; color: #a5a5a5; }
+.page main .contactSteps { display: grid; gap: 25px; margin-top: 36px; }
+.contactSteps li { display: flex; align-items: start; gap: 16px; }
+.contactSteps li > span { display: grid; place-items: center; flex-shrink: 0; width: 34px; height: 34px; border: 1px solid #ffffff30; border-radius: 10px; color: var(--yellow); font-size: .75rem; }
+.contactSteps strong { font-size: 1rem; }
+.page .contactSteps p { font-size: .9rem; margin-top: 8px; line-height: 1.7; }
+.proposalForm { position: relative; z-index: 1; min-width: 0; scroll-margin-top: 100px; padding: 32px; border-radius: 24px; background: white; color: var(--ink); }
+.proposalForm:focus { outline: none; }
+.proposalForm:focus-visible { outline: 3px solid var(--yellow); outline-offset: 5px; }
+.page .proposalForm h3 { font-size: 1.8rem; }
+.page .proposalForm .formHelp { margin-top: 12px; margin-bottom: 24px; color: var(--muted); font-size: .94rem; line-height: 1.65; }
+.proposalForm fieldset { min-width: 0; border: 0; margin: 0; padding: 0; display: grid; gap: 18px; }
+.formRow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.proposalForm label { display: block; min-width: 0; font-size: .875rem; font-weight: 650; line-height: 1.6; }
+.optional { font-size: .8rem; font-weight: 400; color: var(--muted); }
+.proposalForm input, .proposalForm textarea { display: block; width: 100%; min-width: 0; margin-top: 6px; border: 1px solid #92969b; border-radius: 10px; padding: 12px 14px; background: #fff; color: var(--ink); font: inherit; font-size: 16px; font-weight: 400; line-height: 1.5; }
+.proposalForm input { min-height: 48px; }
+.proposalForm input[type="hidden"] { display: none; }
+.proposalForm textarea { resize: vertical; min-height: 100px; }
+.proposalForm textarea::placeholder { color: #626870; }
+.proposalForm input:focus-visible, .proposalForm textarea:focus-visible, .proposalForm button:focus-visible { outline: 3px solid #886600; outline-offset: 3px; }
+.proposalForm fieldset:disabled { opacity: .65; }
+.submitButton { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 54px; padding: 14px 20px; border: 0; border-radius: 12px; background: var(--yellow); color: #171717; font-size: .95rem; font-weight: 750; cursor: pointer; }
+.submitButton:hover { background: #f5c000; }
+.submitButton svg { flex-shrink: 0; }
+.proposalForm fieldset:disabled button { cursor: wait; }
+.page .proposalForm .formPrivacy { margin-top: 18px; font-size: .78rem; line-height: 1.75; color: #626870; }
+.proposalForm a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.page .proposalForm .formError { margin-top: 18px; padding: 14px; background: #fff0f0; color: #8c1616; font-size: .9rem; line-height: 1.65; border-radius: 10px; }
+.formSuccess { padding-block: 30px; }
+.formSuccess > svg { margin-bottom: 24px; color: #226542; }
+.page .formSuccess p { margin-block: 20px; color: var(--muted); font-size: 1rem; }
 @media (min-width: 1024px) { .container { padding-inline: 48px; } }
 @media (min-width: 1440px) { .container { padding-inline: 32px; } }
 @media (max-width: 1199px) {
@@ -251,7 +283,7 @@
     .page main h2 { font-size: 2.65rem; }
     .page main p { font-size: 1rem; line-height: 1.8; }
     .heroCopy h1 { margin-top: 25px !important; }
-    .page .lead { font-size: 1.02rem; margin-top: 24px; }
+    .page .lead { font-size: 1.02rem; margin-top: 20px; line-height: 1.7; }
     .actions { gap: 16px; margin-top: 29px; }
     .actions > a:first-child { width: 100%; }
     .page .heroNote { font-size: .73rem; margin-top: 14px; }
@@ -356,6 +388,13 @@
     .nextStep .micro { font-size: .59rem; }
     .page .nextStep h3 { font-size: 1.55rem; }
     .nextStep li { font-size: .78rem; }
+    .finalFrame { padding: 26px 20px; }
+    .proposalForm { padding: 22px 18px; border-radius: 18px; scroll-margin-top: 96px; }
+    .page .proposalForm h3 { font-size: 1.6rem; }
+    .page .proposalForm .formHelp { font-size: .9rem; }
+    .formRow { grid-template-columns: 1fr; gap: 18px; }
+    .page .contactSteps p { font-size: .88rem; }
+    .page .heroNote { font-size: .8rem; }
 }
 @media (max-width: 370px) {
     .container { padding-inline: 16px; }

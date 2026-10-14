@@ -70,8 +70,9 @@ test("mobile Leadster invitation cannot cover primary page actions", () => {
 
 test("desktop navbar CTA exposes one interactive element", () => {
   assert.match(navbarSource, /<Button\s+asChild/);
-  assert.match(navbarSource, /<Link href="\/contato">/);
-  assert.doesNotMatch(navbarSource, /<Link href="\/contato">\s*<Button/);
+  assert.match(navbarSource, /ctaHref = "\/contato"/);
+  assert.match(navbarSource, /<Link[^>]+href=\{ctaHref\}>/);
+  assert.doesNotMatch(navbarSource, /<Link[^>]+href=\{ctaHref\}>\s*<Button/);
 });
 
 test("road content declares six unique campaign anchors", () => {

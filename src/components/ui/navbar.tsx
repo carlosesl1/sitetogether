@@ -28,9 +28,12 @@ import {
 type NavbarProps = {
     includeAbout?: boolean;
     showCtaArrow?: boolean;
+    prefetch?: boolean;
+    ctaHref?: string;
+    ctaLabel?: string;
 };
 
-export function Navbar({ includeAbout = false, showCtaArrow = false }: NavbarProps) {
+export function Navbar({ includeAbout = false, showCtaArrow = false, prefetch, ctaHref = "/contato", ctaLabel = "Agendar uma Conversa" }: NavbarProps) {
     const { getLenis } = useSmoothScroll();
     const [isServicesOpen, setIsServicesOpen] = useState(false);
     const servicesButtonRef = useRef<HTMLButtonElement>(null);
@@ -164,7 +167,7 @@ export function Navbar({ includeAbout = false, showCtaArrow = false }: NavbarPro
         >
             <div className="container flex h-20 items-center justify-between px-4 md:px-6 2xl:h-[88px]">
                 {/* Logo */}
-                <Link href="/" className="flex items-center space-x-2">
+                <Link prefetch={prefetch} href="/" className="flex items-center space-x-2">
                     <Image
                         src="/logo-black.svg"
                         alt="TOGETHER Logo"
@@ -221,7 +224,7 @@ export function Navbar({ includeAbout = false, showCtaArrow = false }: NavbarPro
                         />
                     </button>
                     {navItems.map((item) => (
-                        <Link
+                        <Link prefetch={prefetch}
                             key={item.label}
                             href={item.href}
                             className="text-sm font-medium text-neutral-600 transition-colors hover:text-brand-600 hover:bg-brand-50 rounded-md px-3 py-2 2xl:text-base"
@@ -236,8 +239,8 @@ export function Navbar({ includeAbout = false, showCtaArrow = false }: NavbarPro
                 <div className="hidden xl:flex items-center gap-4">
                     <LanguageSwitcher />
                     <Button asChild size="default" className="text-xs font-bold shadow-md hover:shadow-lg transition-all 2xl:text-sm">
-                        <Link href="/contato">
-                            Agendar uma Conversa
+                        <Link prefetch={prefetch} href={ctaHref}>
+                            {ctaLabel}
                             {showCtaArrow ? <ArrowUpRight className="ml-1 h-4 w-4" /> : null}
                         </Link>
                     </Button>
@@ -252,8 +255,8 @@ export function Navbar({ includeAbout = false, showCtaArrow = false }: NavbarPro
                         displayItemNumbering={true}
                         colors={["#FFF8DC", "#F5C518"]}
                         accentColor="#F5C518"
-                        ctaLabel="Agendar uma Conversa"
-                        ctaLink="/contato"
+                        ctaLabel={ctaLabel}
+                        ctaLink={ctaHref}
                         onMenuOpen={() => getLenis()?.stop()}
                         onMenuClose={() => getLenis()?.start()}
                     />
@@ -310,7 +313,7 @@ export function Navbar({ includeAbout = false, showCtaArrow = false }: NavbarPro
                                         const Icon = item.icon;
 
                                         return (
-                                            <Link
+                                            <Link prefetch={prefetch}
                                                 ref={index === 0 ? firstServiceLinkRef : undefined}
                                                 key={item.label}
                                                 href={item.href}
@@ -354,7 +357,7 @@ export function Navbar({ includeAbout = false, showCtaArrow = false }: NavbarPro
                                         const Icon = item.icon;
 
                                         return (
-                                            <Link
+                                            <Link prefetch={prefetch}
                                                 key={item.label}
                                                 href={item.href}
                                                 className="group flex min-h-14 items-center gap-3 rounded-[10px] border border-neutral-200 bg-white px-3 py-3 text-xs font-medium text-neutral-800 transition-colors duration-200 hover:border-brand-400 hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 2xl:min-h-16 2xl:px-4 2xl:text-[15px]"
@@ -370,7 +373,7 @@ export function Navbar({ includeAbout = false, showCtaArrow = false }: NavbarPro
                             </div>
 
                             <div className="border-l border-neutral-200 pl-5 2xl:pl-6">
-                            <Link
+                            <Link prefetch={prefetch}
                                 href="/eca-digital"
                                 className="group relative flex h-full min-h-[324px] overflow-hidden rounded-xl bg-[#080808] px-6 py-10 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 2xl:px-8 2xl:py-12"
                                 onClick={() => setIsServicesOpen(false)}

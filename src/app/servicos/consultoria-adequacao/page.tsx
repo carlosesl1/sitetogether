@@ -6,6 +6,7 @@ import { Footer } from "@/components/ui/footer";
 import { AuthorityStrip } from "@/components/ui/authority-strip";
 import { ActionLink, SectionPill } from "@/components/ui/site-primitives";
 import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
+import { ProposalForm } from "./proposal-form";
 import styles from "./adequacao-service.module.css";
 
 const deliverables = [
@@ -74,7 +75,7 @@ export default function ConsultoriaAdequacao() {
     return (
         <div className={styles.page}>
             <a href="#conteudo-adequacao" className={styles.skipLink}>Ir para o conteúdo</a>
-            <Navbar />
+            <Navbar prefetch={false} ctaHref="#solicitar-proposta" ctaLabel="Solicitar proposta" />
             <main id="conteudo-adequacao">
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema).replace(/</g, "\\u003c") }} />
                 <section className={styles.hero} aria-labelledby="adequacao-title">
@@ -86,9 +87,9 @@ export default function ConsultoriaAdequacao() {
                             <div className={styles.heroCopy}>
                                 <SectionPill>Consultoria LGPD para empresas</SectionPill>
                                 <h1 id="adequacao-title">Adequação à LGPD <span className={styles.accent}>do plano à prática.</span></h1>
-                                <p className={styles.lead}>A TOGETHER conduz a adequação da sua empresa: diagnóstico, mapeamento de dados, documentos, processos e treinamento. Um projeto estruturado para transformar exigências de privacidade em ações na sua operação.</p>
-                                <div className={styles.actions}><ActionLink href="/contato" size="xl">Solicitar proposta</ActionLink><a href="#escopo" className={styles.textLink}>Conhecer as entregas <ArrowDown size={17} aria-hidden="true" /></a></div>
-                                <p className={styles.heroNote}>Escopo, etapas e responsabilidades definidos para o seu cenário.</p>
+                                <p className={styles.lead}>Diagnóstico, mapeamento de dados, documentos e treinamento em um projeto para sua empresa. A TOGETHER conecta jurídico, tecnologia e processos para colocar a LGPD em prática.</p>
+                                <div className={styles.actions}><ActionLink href="#solicitar-proposta" size="xl">Solicitar proposta</ActionLink><a href="#escopo" className={styles.textLink}>Conhecer as entregas <ArrowDown size={17} aria-hidden="true" /></a></div>
+                                <p className={styles.heroNote}>Conte sua necessidade no formulário. Nosso time retorna para alinhar escopo, prazo e investimento.</p>
                             </div>
                             <aside className={styles.projectFolder} aria-label="Visão geral do projeto de adequação">
                                 <div className={styles.folderTab}><FolderOpen size={17} aria-hidden="true" />Seu projeto de adequação</div>
@@ -128,7 +129,7 @@ export default function ConsultoriaAdequacao() {
                                 <div className={styles.deliveryBody}><div><span className={styles.micro}>Como trabalhamos</span><p>{item.work}</p></div><div className={styles.deliveryOutputs}><span className={styles.micro}>Na sua empresa</span><ul>{item.outputs.map((output) => <li key={output}><Check size={18} aria-hidden="true" />{output}</li>)}</ul></div></div>
                             </details>)}
                         </div>
-                        <div className={styles.scopeFooter}><p>As entregas aplicáveis, os limites do escopo e as responsabilidades de cada parte são alinhados na proposta.</p><ActionLink href="/contato" size="lg">Solicitar proposta</ActionLink></div>
+                        <div className={styles.scopeFooter}><p>As entregas aplicáveis, os limites do escopo e as responsabilidades de cada parte são alinhados na proposta.</p><ActionLink href="#solicitar-proposta" size="lg">Solicitar proposta</ActionLink></div>
                     </div>
                 </section>
 
@@ -157,19 +158,19 @@ export default function ConsultoriaAdequacao() {
 
                 <section id="investimento" className={styles.section} aria-labelledby="investimento-title">
                     <div className={styles.container}>
-                        <div className={styles.investmentFrame}><div className={styles.investmentCopy}><SectionPill>Prazo e investimento</SectionPill><h2 id="investimento-title">A proposta começa <span className={styles.accent}>pelo seu cenário.</span></h2><p>O tamanho da operação, o estágio atual da LGPD e as prioridades definem o trabalho necessário. A proposta apresenta as entregas, o cronograma e o investimento para a sua empresa.</p><ActionLink href="/contato" variant="dark" size="lg">Solicitar proposta</ActionLink></div><div className={styles.proposalGuide}><span className={styles.micro}>Para uma conversa mais objetiva</span><h3>Conte o que precisa acontecer.</h3><ol><li><span>01</span><div><strong>Como sua empresa opera</strong><p>Setor, áreas envolvidas e principais processos com dados pessoais.</p></div></li><li><span>02</span><div><strong>O que já está organizado</strong><p>Documentos, responsáveis, ferramentas e iniciativas anteriores.</p></div></li><li><span>03</span><div><strong>Qual é a sua prioridade</strong><p>Começar a adequação, avançar um projeto ou atender a uma exigência com prazo.</p></div></li></ol><div className={styles.deadlineNote}><strong>Tem uma auditoria ou negociação em andamento?</strong><p>Traga os requisitos e a data para avaliarmos as prioridades e a viabilidade das entregas.</p></div></div></div>
+                        <div className={styles.investmentFrame}><div className={styles.investmentCopy}><SectionPill>Prazo e investimento</SectionPill><h2 id="investimento-title">A proposta começa <span className={styles.accent}>pelo seu cenário.</span></h2><p>O tamanho da operação, o estágio atual da LGPD e as prioridades definem o trabalho necessário. A proposta apresenta as entregas, o cronograma e o investimento para a sua empresa.</p><ActionLink href="#solicitar-proposta" variant="dark" size="lg">Solicitar proposta</ActionLink></div><div className={styles.proposalGuide}><span className={styles.micro}>Para uma conversa mais objetiva</span><h3>Conte o que precisa acontecer.</h3><ol><li><span>01</span><div><strong>Como sua empresa opera</strong><p>Setor, áreas envolvidas e principais processos com dados pessoais.</p></div></li><li><span>02</span><div><strong>O que já está organizado</strong><p>Documentos, responsáveis, ferramentas e iniciativas anteriores.</p></div></li><li><span>03</span><div><strong>Qual é a sua prioridade</strong><p>Começar a adequação, avançar um projeto ou atender a uma exigência com prazo.</p></div></li></ol><div className={styles.deadlineNote}><strong>Tem uma auditoria ou negociação em andamento?</strong><p>Traga os requisitos e a data para avaliarmos as prioridades e a viabilidade das entregas.</p></div></div></div>
                         <div className={styles.continuity}><div><span className={styles.micro}>E depois da implantação?</span><h3>A adequação constrói a base.<br /><span className={styles.accent}>O DPO acompanha a rotina.</span></h3></div><div><p>Se sua empresa também precisa de acompanhamento contínuo, conheça o DPO as a Service. Os serviços podem se complementar na evolução do programa.</p><Link href="/servicos/dpo-as-a-service" className={styles.textLink}>Conhecer DPO as a Service <ArrowRight size={17} aria-hidden="true" /></Link></div></div>
                     </div>
                 </section>
 
                 <section id="duvidas" className={styles.section + " " + styles.faqSection} aria-labelledby="faq-title">
-                    <div className={styles.container + " " + styles.faqGrid}><div className={styles.faqIntro}><SectionPill>Antes de contratar</SectionPill><h2 id="faq-title">Perguntas sobre <span className={styles.accent}>adequação à LGPD.</span></h2><p>O que você precisa saber para dar o próximo passo com clareza.</p><div className={styles.faqContact}><strong>Vamos conversar sobre sua empresa?</strong><ActionLink href="/contato" variant="dark">Falar com a TOGETHER</ActionLink></div></div><div className={styles.faqList}>{faqs.map((faq, index) => <details key={faq.question} open={index === 0}><summary>{faq.question}<span><ChevronDown size={21} aria-hidden="true" /></span></summary><p>{faq.answer}</p></details>)}<p className={styles.source}>Para conhecer os conceitos de proteção de dados, consulte as <a href="https://www.gov.br/anpd/pt-br/acesso-a-informacao/perguntas-frequentes" target="_blank" rel="noopener noreferrer">perguntas frequentes da ANPD<span className={styles.srOnly}> (abre em nova aba)</span></a>.</p></div></div>
+                    <div className={styles.container + " " + styles.faqGrid}><div className={styles.faqIntro}><SectionPill>Antes de contratar</SectionPill><h2 id="faq-title">Perguntas sobre <span className={styles.accent}>adequação à LGPD.</span></h2><p>O que você precisa saber para dar o próximo passo com clareza.</p><div className={styles.faqContact}><strong>Vamos conversar sobre sua empresa?</strong><ActionLink href="#solicitar-proposta" variant="dark">Falar com a TOGETHER</ActionLink></div></div><div className={styles.faqList}>{faqs.map((faq, index) => <details key={faq.question} open={index === 0}><summary>{faq.question}<span><ChevronDown size={21} aria-hidden="true" /></span></summary><p>{faq.answer}</p></details>)}<p className={styles.source}>Para conhecer os conceitos de proteção de dados, consulte as <a href="https://www.gov.br/anpd/pt-br/acesso-a-informacao/perguntas-frequentes" target="_blank" rel="noopener noreferrer">perguntas frequentes da ANPD<span className={styles.srOnly}> (abre em nova aba)</span></a>.</p></div></div>
                 </section>
 
                 <section className={styles.finalSection} aria-labelledby="proposta-title"><div className={styles.container}><div className={styles.finalFrame}>
                     <PixelDecor placement="topRight" mask="topRight" opacity={0.22} />
-                    <div className={styles.finalCopy}><SectionPill tone="dark">Seu próximo passo</SectionPill><h2 id="proposta-title">Vamos colocar a adequação <span className={styles.accent}>em movimento?</span></h2><p>Conte o momento da sua empresa. A TOGETHER ajuda a transformar sua necessidade em um projeto com prioridades, entregas e próximos passos definidos.</p><ActionLink href="/contato" size="xl">Solicitar proposta</ActionLink></div>
-                    <aside className={styles.nextStep}><span className={styles.micro}>Na conversa com nosso time</span><h3>Seu contexto.<br />Um plano para avançar.</h3><ul><li><Check size={19} aria-hidden="true" />Entendemos sua operação</li><li><Check size={19} aria-hidden="true" />Alinhamos o escopo necessário</li><li><Check size={19} aria-hidden="true" />Preparamos a proposta do projeto</li></ul><span className={styles.nextStepNote}>Do primeiro diagnóstico à continuidade.</span></aside>
+                    <div className={styles.finalCopy}><SectionPill tone="dark">Seu próximo passo</SectionPill><h2 id="proposta-title">Sua adequação começa <span className={styles.accent}>com uma conversa.</span></h2><p>Conte o momento da sua empresa para construirmos uma proposta de consultoria LGPD.</p><ol className={styles.contactSteps}><li><span>01</span><div><strong>Você conta sua necessidade</strong><p>Informe seu contato e, se quiser, o desafio ou prazo do projeto.</p></div></li><li><span>02</span><div><strong>Nosso time retorna</strong><p>Conversamos sobre a operação, as prioridades e o que já foi feito.</p></div></li><li><span>03</span><div><strong>Alinhamos a proposta</strong><p>Entregas, responsabilidades, cronograma e investimento definidos para o seu cenário.</p></div></li></ol></div>
+                    <ProposalForm />
                 </div></div></section>
             </main>
             <Footer />

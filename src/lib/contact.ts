@@ -60,7 +60,7 @@ export async function submitContact(
     data = null;
   }
 
-  if (!response.ok || data?.ok === false) {
+  if (!response.ok || data?.ok !== true) {
     throw new Error(
       data?.message ||
       "Nao foi possivel enviar sua solicitacao. Tente novamente em alguns instantes.",
@@ -86,5 +86,5 @@ export async function submitContact(
     }
   }
 
-  return data ?? { ok: true };
+  return data;
 }

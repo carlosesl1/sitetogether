@@ -43,3 +43,11 @@ test('outros formulários não recebem evento duplicado e falha de analytics nã
   const broken = setup(async () => reply({ ok: true }), { push() { throw new Error('analytics unavailable'); } });
   assert.equal((await broken.submit(payload, conversion)).ok, true);
 });
+
+test('resposta sem confirmação explícita não pode apresentar sucesso ao visitante', async () => {
+  for (const data of [{}, null, { ok: 'true' }]) {
+    const { submit, layer } = setup(async () => reply(data));
+    await assert.rejects(submit(payload, conversion));
+    assert.equal(layer.length, 0);
+  }
+});
