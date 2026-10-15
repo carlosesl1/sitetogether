@@ -4,6 +4,7 @@ import { ArrowDown, ArrowRight, ArrowUpRight, BadgeCheck, BriefcaseBusiness, Che
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
 import { AuthorityStrip } from "@/components/ui/authority-strip";
+import { IndustryContactLogoStrip } from "@/components/industry/industry-contact-logo-strip";
 import { ActionLink, SectionPill } from "@/components/ui/site-primitives";
 import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
 import { DpoProposalForm } from "./proposal-form";
@@ -227,14 +228,15 @@ export default function DpoAsAService() {
                 </section>
 
                 <section className={styles.finalSection} aria-labelledby="contato-title">
+                    <PixelDecor placement="topRight" mask="topRight" opacity={0.18} />
                     <div className={styles.container}><div className={styles.finalFrame}>
-                        <PixelDecor placement="topRight" mask="topRight" opacity={0.23} />
-                        <div className={styles.finalCopy}><SectionPill tone="dark">Vamos definir seu escopo</SectionPill><h2 id="contato-title">Sua proposta de DPO <span className={styles.accent}>começa aqui.</span></h2><p>Conte se sua empresa precisa de um DPO externo ou de apoio ao responsável interno. Nosso time retorna para entender a operação e alinhar a contratação.</p>
-                            <ol className={styles.contactSteps}>
-                                <li><span>01</span><div><strong>Entendemos a sua demanda</strong><p>Estrutura atual, ferramentas e prioridades da empresa.</p></div></li>
-                                <li><span>02</span><div><strong>Definimos o serviço</strong><p>Atividades, responsáveis, frequência e canais de atendimento.</p></div></li>
-                                <li><span>03</span><div><strong>Apresentamos a proposta</strong><p>Escopo, condições de atendimento e investimento para você avaliar.</p></div></li>
-                            </ol>
+                        <div className={styles.finalCopy}>
+                            <SectionPill>Vamos definir seu escopo</SectionPill>
+                            <h2 id="contato-title">Sua proposta de DPO <span className={styles.accent}>começa aqui.</span></h2>
+                            <p>Conte se sua empresa precisa de um DPO externo ou de apoio ao responsável interno. Nosso time retorna para entender a operação e alinhar a contratação.</p>
+                            <p className={styles.proposalNextStep}>A primeira conversa serve para entender sua demanda e definir o modelo de atuação.</p>
+                            <p className={styles.proposalSummary}>Atividades, responsáveis, frequência e canais de atendimento: a proposta define o escopo do serviço, as condições e o investimento para sua empresa.</p>
+                            <div className={styles.contactLogos}><IndustryContactLogoStrip /></div>
                         </div>
                         <DpoProposalForm />
                     </div></div>
