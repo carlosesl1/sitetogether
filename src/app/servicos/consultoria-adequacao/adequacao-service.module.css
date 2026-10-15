@@ -14,7 +14,7 @@
 .page main p { font-size: 1.1rem; line-height: 1.8; color: var(--muted); }
 .page main h2 + p, .page main h3 + p { margin-top: 24px; }
 .page .accent { color: #886600; font-weight: 300; font-style: italic; }
-.page .dark .accent, .page .continuity .accent, .page .finalFrame .accent { color: var(--color-brand-400); }
+.page .dark .accent, .page .continuity .accent { color: var(--color-brand-400); }
 .page a:focus-visible, .page summary:focus-visible { outline: 3px solid var(--color-brand-700); outline-offset: 5px; border-radius: 8px; }
 .page main section { scroll-margin-top: 105px; }
 .page main ul, .page main ol { margin: 0; padding: 0; list-style: none; }
@@ -180,13 +180,15 @@
 .page .faqList details p { font-size: .98rem; border-left: 2px solid var(--yellow); padding-left: 24px; margin: 0 0 29px; }
 .page .source { font-size: .73rem; line-height: 1.8; margin-top: 27px; }
 .source a { text-decoration: underline; text-underline-offset: 3px; }
-.finalSection { padding-bottom: 100px; }
-.finalFrame { position: relative; overflow: hidden; display: grid; grid-template-columns: .9fr 1.1fr; align-items: start; gap: 60px; padding: 48px; border-radius: 40px; background: #0a0a0a; color: white; }
+.finalSection { position: relative; overflow: hidden; padding-block: 112px 128px; background: radial-gradient(circle at 18% 12%, rgba(245,192,0,.12), transparent 28%), radial-gradient(circle at 86% 20%, rgba(0,0,0,.035), transparent 24%), white; }
+.finalSection .container { max-width: 1280px; }
+.finalFrame { position: relative; display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,.8fr); align-items: start; gap: 64px; color: var(--ink); }
 .finalCopy, .nextStep { position: relative; z-index: 1; }
-.page .finalCopy h2 { font-size: clamp(2.5rem, 3.8vw, 3.6rem); }
-.page .finalCopy p { color: #b7b7b7; font-size: 1.03rem; }
+.finalCopy { min-width: 0; }
+.page .finalCopy h2 { font-size: clamp(2.55rem, 4.2vw, 3.75rem); line-height: 1.05; letter-spacing: -.035em; }
+.page .finalCopy p { max-width: 560px; color: var(--muted); font-size: 1.125rem; line-height: 1.75; }
 .finalCopy > a { margin-top: 32px; }
-.finalFrame a:focus-visible { outline-color: var(--yellow); }
+.finalFrame a:focus-visible { outline-color: #886600; }
 .nextStep { border: 1px solid #ffffff1c; border-radius: 28px; padding: 33px; background: #ffffff04; }
 .nextStep .micro { color: #b3b3b3; }
 .page .nextStep h3 { margin-top: 24px; font-size: 1.9rem; }
@@ -212,7 +214,7 @@
     .platformPanel { padding: 30px; }
     .investmentFrame { gap: 30px; padding: 36px; }
     .proposalGuide { padding-left: 30px; }
-    .finalFrame { padding: 45px; gap: 40px; }
+    .finalFrame { gap: 40px; }
     .nextStep { padding: 27px; }
 }
 @media (max-width: 1023px) {
@@ -353,16 +355,15 @@
     .faqList summary { font-size: 1.12rem; gap: 17px; padding-block: 25px; }
     .faqList summary > span { width: 35px; height: 35px; }
     .page .faqList details p { font-size: .93rem; padding-left: 18px; }
-    .finalSection { padding-bottom: 60px; }
-    .finalFrame { padding: 30px 25px; border-radius: 28px; gap: 30px; }
-    .page .finalCopy h2 { font-size: 2.5rem; }
-    .page .finalCopy p { font-size: .95rem; }
+    .finalSection { padding-block: 72px 80px; }
+    .finalFrame { gap: 40px; }
+    .page .finalCopy h2 { font-size: 2.55rem; }
+    .page .finalCopy p { font-size: 1.05rem; }
     .finalCopy > a { width: 100%; padding-inline: 18px; }
     .nextStep { padding: 25px; border-radius: 21px; }
     .nextStep .micro { font-size: .59rem; }
     .page .nextStep h3 { font-size: 1.55rem; }
     .nextStep li { font-size: .78rem; }
-    .finalFrame { padding: 26px 20px; }
     .page .contactSteps p { font-size: .88rem; }
     .page .heroNote { font-size: .8rem; }
 }
@@ -385,12 +386,7 @@
     .clients :global(.animate-marquee) { animation: none; }
 }
 
-.page main .proposalDeliverables { list-style: none; padding: 0; margin: 30px 0 0; display: grid; gap: 0; }
-.proposalDeliverables li { display: flex; gap: 16px; padding-block: 20px; border-top: 1px solid #ffffff25; }
-.proposalDeliverables svg { flex-shrink: 0; width: 22px; color: var(--yellow); }
-.proposalDeliverables strong { display: block; font-size: 1rem; line-height: 1.5; }
-.proposalDeliverables span { display: block; margin-top: 5px; font-size: .9rem; line-height: 1.7; color: #b7b7b7; }
-.projectLeadership { padding-top: 22px; border-top: 1px solid #ffffff25; }
-.page .projectLeadership h3 { font-size: 1.15rem; letter-spacing: -.01em; }
-.page .projectLeadership p { font-size: .9rem; line-height: 1.8; margin-top: 12px; }
-.page .finalCopy .proposalExpectation { margin-top: 24px; font-size: .85rem; color: #d2d2d2; }
+.page .finalCopy .proposalNextStep { margin-top: 32px; max-width: 510px; border-left: 2px solid var(--yellow); padding-left: 20px; color: var(--ink); font-size: 1rem; font-weight: 650; line-height: 1.65; }
+.page .finalCopy .proposalSummary { margin-top: 24px; font-size: .9rem; line-height: 1.8; }
+.page .contactLogos p { margin: 0 0 12px; font-size: 10px; font-weight: 800; line-height: 1.6; letter-spacing: .22em; text-transform: uppercase; color: #626870; }
+@media (max-width: 1023px) { .finalFrame { grid-template-columns: minmax(0,1fr); gap: 48px; } }

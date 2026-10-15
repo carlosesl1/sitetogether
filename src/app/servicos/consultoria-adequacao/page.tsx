@@ -4,6 +4,7 @@ import { ArrowDown, ArrowRight, ArrowUpRight, BadgeCheck, Check, ChevronDown, Fi
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
 import { AuthorityStrip } from "@/components/ui/authority-strip";
+import { IndustryContactLogoStrip } from "@/components/industry/industry-contact-logo-strip";
 import { ActionLink, SectionPill } from "@/components/ui/site-primitives";
 import { PixelDecor } from "@/components/ui/backgrounds/pixel-decor";
 import { ProposalForm } from "./proposal-form";
@@ -167,16 +168,16 @@ export default function ConsultoriaAdequacao() {
                     <div className={styles.container + " " + styles.faqGrid}><div className={styles.faqIntro}><SectionPill>Antes de contratar</SectionPill><h2 id="faq-title">Perguntas sobre <span className={styles.accent}>adequação à LGPD.</span></h2><p>O que você precisa saber para dar o próximo passo com clareza.</p><div className={styles.faqContact}><strong>Vamos conversar sobre sua empresa?</strong><ActionLink href="#solicitar-proposta" variant="dark">Falar com a TOGETHER</ActionLink></div></div><div className={styles.faqList}>{faqs.map((faq, index) => <details key={faq.question} open={index === 0}><summary>{faq.question}<span><ChevronDown size={21} aria-hidden="true" /></span></summary><p>{faq.answer}</p></details>)}<p className={styles.source}>Para conhecer os conceitos de proteção de dados, consulte as <a href="https://www.gov.br/anpd/pt-br/acesso-a-informacao/perguntas-frequentes" target="_blank" rel="noopener noreferrer">perguntas frequentes da ANPD<span className={styles.srOnly}> (abre em nova aba)</span></a>.</p></div></div>
                 </section>
 
-                <section className={styles.finalSection} aria-labelledby="proposta-title"><div className={styles.container}><div className={styles.finalFrame}>
-                    <PixelDecor placement="topRight" mask="topRight" opacity={0.22} />
-                    <div className={styles.finalCopy}><SectionPill tone="dark">Da proposta à entrega</SectionPill><h2 id="proposta-title">Saiba o que contratar. <span className={styles.accent}>E o que receber.</span></h2><p>Na conversa inicial, alinhamos as prioridades da sua empresa e quais destas entregas farão parte do projeto:</p>
-                        <ul className={styles.proposalDeliverables}>
-                            <li><FileCheck2 aria-hidden="true" /><div><strong>Diagnóstico e plano de ação</strong><span>Lacunas, prioridades, etapas e responsáveis.</span></div></li>
-                            <li><FolderOpen aria-hidden="true" /><div><strong>Inventário e documentação</strong><span>Mapeamento de dados, políticas e orientações contratuais.</span></div></li>
-                            <li><Layers3 aria-hidden="true" /><div><strong>Rotinas e equipe orientada</strong><span>Fluxos de privacidade, treinamento e próximos passos.</span></div></li>
-                        </ul>
-                        <div className={styles.projectLeadership}><h3>Quem conduz o projeto</h3><p>Os consultores da TOGETHER conduzem o diagnóstico, a estruturação dos materiais e o acompanhamento do plano. Sua equipe participa com informações, validações e decisões sobre a operação.</p></div>
-                        <p className={styles.proposalExpectation}>Depois do envio, nosso time retorna para alinhar entregas, cronograma e investimento. O escopo é definido na proposta.</p>
+                <section className={styles.finalSection} aria-labelledby="proposta-title">
+                    <PixelDecor placement="topRight" mask="topRight" opacity={0.18} />
+                    <div className={styles.container}><div className={styles.finalFrame}>
+                    <div className={styles.finalCopy}>
+                        <SectionPill>Seu próximo passo na LGPD</SectionPill>
+                        <h2 id="proposta-title">Comece a adequar sua empresa <span className={styles.accent}>à LGPD.</span></h2>
+                        <p>Conte o momento da sua empresa. Nosso time vai entender as prioridades e alinhar as entregas, o prazo e o investimento do projeto.</p>
+                        <p className={styles.proposalNextStep}>A primeira conversa serve para entender sua necessidade e definir o escopo da proposta.</p>
+                        <p className={styles.proposalSummary}>Diagnóstico, plano de ação, inventário de dados, documentos e treinamento: a proposta define quais entregas sua empresa recebe e como a TOGETHER conduz o trabalho.</p>
+                        <div className={styles.contactLogos}><IndustryContactLogoStrip /></div>
                     </div>
                     <ProposalForm />
                 </div></div></section>

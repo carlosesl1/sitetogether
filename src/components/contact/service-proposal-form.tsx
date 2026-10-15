@@ -13,9 +13,11 @@ type ServiceProposalFormProps = {
     help: string;
     messagePlaceholder: string;
     successMessage: string;
+    appearance?: "default" | "sector";
+    eyebrow?: string;
 };
 
-export function ServiceProposalForm({ formId, formName, formSource, title, help, messagePlaceholder, successMessage }: ServiceProposalFormProps) {
+export function ServiceProposalForm({ formId, formName, formSource, title, help, messagePlaceholder, successMessage, appearance = "default", eyebrow }: ServiceProposalFormProps) {
     const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
     const [error, setError] = useState<string | null>(null);
     const sending = useRef(false);
@@ -64,7 +66,7 @@ export function ServiceProposalForm({ formId, formName, formSource, title, help,
     }
 
     return (
-        <div id="solicitar-proposta" className={styles.proposalForm} tabIndex={-1}>
+        <div id="solicitar-proposta" className={`${styles.proposalForm}${appearance === "sector" ? ` ${styles.sector}` : ""}`} tabIndex={-1}>
             {status === "success" ? (
                 <div className={styles.formSuccess} role="status">
                     <CheckCircle2 size={40} aria-hidden="true" />
@@ -74,18 +76,19 @@ export function ServiceProposalForm({ formId, formName, formSource, title, help,
                 </div>
             ) : (
                 <form method="post" onSubmit={handleSubmit} aria-labelledby="form-proposta-title" aria-describedby="form-proposta-help" aria-busy={status === "sending"}>
+                    {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
                     <h3 id="form-proposta-title">{title}</h3>
                     <p id="form-proposta-help" className={styles.formHelp}>{help}</p>
                     <fieldset disabled={status === "sending"}>
                         <legend className={styles.srOnly}>Seus dados de contato</legend>
                         <input name="website" type="hidden" tabIndex={-1} autoComplete="off" />
                         <div className={styles.formRow}>
-                            <label>Nome <span aria-hidden="true">*</span><input name="firstName" autoComplete="given-name" required maxLength={100} /></label>
-                            <label>Sobrenome <span aria-hidden="true">*</span><input name="lastName" autoComplete="family-name" required maxLength={100} /></label>
+                            <label>Nome <span aria-hidden="true">*</span><input name="firstName" autoComplete="given-name" required maxLength={100} placeholder={appearance === "sector" ? "Ex.: Carlos" : undefined} /></label>
+                            <label>Sobrenome <span aria-hidden="true">*</span><input name="lastName" autoComplete="family-name" required maxLength={100} placeholder={appearance === "sector" ? "Ex.: Santos" : undefined} /></label>
                         </div>
-                        <label>E-mail de trabalho <span aria-hidden="true">*</span><input name="email" type="email" inputMode="email" autoComplete="email" required maxLength={254} /></label>
-                        <label>Empresa <span aria-hidden="true">*</span><input name="company" autoComplete="organization" required maxLength={200} /></label>
-                        <label>Telefone <span className={styles.optional}>(opcional)</span><input name="phone" type="tel" inputMode="tel" autoComplete="tel" maxLength={30} /></label>
+                        <label>E-mail de trabalho <span aria-hidden="true">*</span><input name="email" type="email" inputMode="email" autoComplete="email" required maxLength={254} placeholder={appearance === "sector" ? "voce@empresa.com.br" : undefined} /></label>
+                        <label>Empresa <span aria-hidden="true">*</span><input name="company" autoComplete="organization" required maxLength={200} placeholder={appearance === "sector" ? "Nome da sua empresa" : undefined} /></label>
+                        <label>Telefone <span className={styles.optional}>(opcional)</span><input name="phone" type="tel" inputMode="tel" autoComplete="tel" maxLength={30} placeholder={appearance === "sector" ? "(00) 00000-0000" : undefined} /></label>
                         <label>O que sua empresa precisa resolver? <span className={styles.optional}>(opcional)</span><textarea name="message" rows={3} maxLength={5000} placeholder={messagePlaceholder} /></label>
                         <button type="submit" className={styles.submitButton}>{status === "sending" ? "Enviando solicitação…" : "Solicitar proposta"}<ArrowRight size={18} aria-hidden="true" /></button>
                     </fieldset>
