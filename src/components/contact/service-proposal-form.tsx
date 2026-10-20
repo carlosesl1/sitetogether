@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { submitContact } from "@/lib/contact";
+import { pushAnalyticsEvent, pushFormErrorEvent } from "@/lib/analytics";
 import styles from "./service-proposal-form.module.css";
 
 type ServiceProposalFormProps = {
@@ -21,6 +22,7 @@ export function ServiceProposalForm({ formId, formName, formSource, title, help,
     const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
     const [error, setError] = useState<string | null>(null);
     const sending = useRef(false);
+    const started = useRef(false);
     const confirmation = useRef<HTMLHeadingElement>(null);
     const errorMessage = useRef<HTMLParagraphElement>(null);
 
@@ -58,6 +60,7 @@ export function ServiceProposalForm({ formId, formName, formSource, title, help,
             form.reset();
             setStatus("success");
         } catch (cause) {
+            try { pushFormErrorEvent({ formId, formName, formSource, errorType: 'submission_failed' }); } catch { /* Telemetry must not block retry. */ }
             setError(cause instanceof Error ? cause.message : "Não foi possível enviar. Tente novamente.");
             setStatus("idle");
         } finally {
@@ -75,7 +78,13 @@ export function ServiceProposalForm({ formId, formName, formSource, title, help,
                     <a href="#escopo" className={styles.textLink}>Rever as entregas do serviço <ArrowRight size={17} aria-hidden="true" /></a>
                 </div>
             ) : (
-                <form method="post" onSubmit={handleSubmit} aria-labelledby="form-proposta-title" aria-describedby="form-proposta-help" aria-busy={status === "sending"}>
+                <form method="post" onSubmit={handleSubmit} onFocusCapture={() => {
+                    if (started.current) return;
+                    started.current = true;
+                    try { pushAnalyticsEvent('form_start', { form_id: formId, form_name: formName, form_source: formSource, page_path: window.location.pathname }); } catch { /* Telemetry is optional. */ }
+                }} onInvalidCapture={() => {
+                    try { pushFormErrorEvent({ formId, formName, formSource, errorType: 'validation' }); } catch { /* Keep native validation. */ }
+                }} aria-labelledby="form-proposta-title" aria-describedby="form-proposta-help" aria-busy={status === "sending"}>
                     {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
                     <h3 id="form-proposta-title">{title}</h3>
                     <p id="form-proposta-help" className={styles.formHelp}>{help}</p>

@@ -9,7 +9,7 @@ const compiled = ts.transpileModule(source, { compilerOptions: { module: ts.Modu
 const payload = { firstName: 'Teste', lastName: 'Local', email: 'local@example.invalid', company: 'Teste local', phone: '000', message: 'Somente teste local', source: 'Formulario de contato', pageUrl: 'https://example.invalid/contato?private=secret', website: '' };
 const conversion = { formId: 'contact', formName: 'Formulario de contato', formSource: 'Formulario de contato' };
 function setup(fetch, dataLayer = []) {
-  const sandbox = { exports: {}, process: { env: {} }, fetch, window: { dataLayer, location: { pathname: '/contato' } } };
+  const sandbox = { exports: {}, require: () => ({ captureLeadAttribution: () => undefined, enhancedLeadData: async () => undefined }), process: { env: {} }, fetch, window: { dataLayer, location: { pathname: '/contato' } } };
   vm.runInNewContext(compiled, sandbox);
   return { submit: sandbox.exports.submitContact, layer: dataLayer };
 }
@@ -22,7 +22,8 @@ test('fila uma conversão apenas depois da confirmação da API, sem dados pesso
   assert.equal(layer.length, 0);
   release(reply({ ok: true, leadId: 42 }));
   await pending;
-  assert.deepEqual(JSON.parse(JSON.stringify(layer)), [{ event: 'generate_lead', form_id: 'contact', form_name: 'Formulario de contato', form_source: 'Formulario de contato', page_path: '/contato' }]);
+  assert.deepEqual(JSON.parse(JSON.stringify(layer.filter(entry => entry.event))), [{ event: 'generate_lead', form_id: 'contact', form_name: 'Formulario de contato', form_source: 'Formulario de contato', page_path: '/contato', transaction_id: 'together-42' }]);
+  assert.equal(layer.at(-1).transaction_id, null);
 });
 
 test('falhas da API, resultado ambíguo e honeypot não geram conversão', async () => {

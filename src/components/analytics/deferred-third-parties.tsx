@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { initializeGoogleTagManager } from "@/lib/google-tag-manager";
+import { captureLeadAttribution } from "@/lib/lead-attribution";
 
 const LEADSTER_FALLBACK_DELAY_MS = 12_000;
 const LEADSTER_STAGGER_DELAY_MS = 1_000;
@@ -28,6 +29,7 @@ function loadLeadster() {
 export function DeferredThirdParties() {
   useEffect(() => {
     const stopWaitingForGoogleTagManager = initializeGoogleTagManager();
+    captureLeadAttribution();
 
     let hasStartedLeadster = false;
     let leadsterTimer: number | null = null;

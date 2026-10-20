@@ -1,3 +1,5 @@
+import { captureLeadAttribution, enhancedLeadData } from './lead-attribution';
+
 export type ContactPayload = {
   firstName: string;
   lastName: string;
@@ -25,6 +27,7 @@ export type ContactConversion = {
 
 const DEFAULT_CONTACT_ENDPOINT =
   "https://togetherprivacy.tech/wp-json/together/v1/contact";
+const reportedLeads = new Set<number>();
 
 function getContactEndpoint() {
   return (
@@ -43,7 +46,7 @@ export async function submitContact(
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({ ...payload, attribution: captureLeadAttribution() }),
   });
 
   const contentType = response.headers.get("content-type") || "";
@@ -70,6 +73,9 @@ export async function submitContact(
   // Existing forms keep their own tracking unless they explicitly opt in here.
   if (conversion && data?.ok === true && !payload.website?.trim() && typeof window !== "undefined") {
     try {
+      const leadId = data.leadId ?? data.id;
+      if (typeof leadId === 'number' && reportedLeads.has(leadId)) return data;
+      if (typeof leadId === 'number') reportedLeads.add(leadId);
       const analyticsWindow = window as Window & {
         dataLayer?: Array<Record<string, unknown>>;
       };
@@ -80,7 +86,16 @@ export async function submitContact(
         form_name: conversion.formName,
         form_source: conversion.formSource,
         page_path: window.location.pathname,
+        transaction_id: typeof leadId === 'number' ? `together-${leadId}` : undefined,
       });
+      // Do not let an industry form without an ID inherit this transaction in GTM.
+      analyticsWindow.dataLayer.push({ transaction_id: null });
+      // Separate event: hashes must never become GA4 event parameters.
+      const userData = await enhancedLeadData(payload.email);
+      if (userData) {
+        analyticsWindow.dataLayer.push({ event: 'together_ads_user_data', together_ads_user_data: userData });
+        analyticsWindow.dataLayer.push({ together_ads_user_data: null });
+      }
     } catch {
       // Analytics must not turn an accepted contact into a failed submission.
     }

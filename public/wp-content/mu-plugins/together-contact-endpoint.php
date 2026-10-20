@@ -81,6 +81,7 @@ function together_render_contact_meta_box(WP_Post $post): void
         'Telefone' => get_post_meta($post->ID, '_together_phone', true),
         'Origem' => get_post_meta($post->ID, '_together_source', true),
         'Pagina' => get_post_meta($post->ID, '_together_page_url', true),
+        'Origem do anuncio (declarada pelo navegador)' => wp_json_encode(get_post_meta($post->ID, '_together_attribution', true), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
         'E-mail enviado' => get_post_meta($post->ID, '_together_mail_sent', true) === 'yes' ? 'Sim' : 'Nao',
         'Destinatarios' => get_post_meta($post->ID, '_together_mail_recipients', true),
         'Enviado em' => get_post_meta($post->ID, '_together_mail_sent_at', true),
@@ -171,6 +172,36 @@ function together_is_allowed_origin(string $origin): bool
     return false;
 }
 
+function together_sanitize_lead_attribution($input): array
+{
+    if (!is_array($input)) return [];
+    $result = [];
+    foreach (['gclid', 'gbraid', 'wbraid'] as $key) {
+        $value = $input[$key] ?? null;
+        if (is_string($value) && preg_match('/^[A-Za-z0-9_-]{1,512}$/D', $value)) $result[$key] = $value;
+    }
+    foreach (['utm_source', 'utm_medium', 'utm_campaign', 'utm_id', 'utm_term', 'utm_content'] as $key) {
+        $value = $input[$key] ?? null;
+        if (is_string($value) && strlen($value) <= 800 && !preg_match('/[<>@\r\n]/', $value)) {
+            $result[$key] = sanitize_text_field($value);
+        }
+    }
+    if (!$result) return [];
+    $path = $input['landing_path'] ?? '';
+    if (is_string($path) && preg_match('~^/(?!/)~', $path)) {
+        $result['landing_path'] = sanitize_text_field(substr(preg_split('/[?#]/', $path)[0], 0, 500));
+    }
+    $date = $input['captured_at'] ?? '';
+    if (is_string($date) && preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/D', $date)) {
+        $timestamp = strtotime($date);
+        if ($timestamp !== false && $timestamp <= time() + 60 && $timestamp >= time() - 86400) {
+            $result['captured_at'] = gmdate('c', $timestamp);
+        }
+    }
+    // Client-supplied attribution is evidence to review, not proof of a qualified lead.
+    return $result;
+}
+
 function together_handle_contact_request(WP_REST_Request $request)
 {
     $payload = $request->get_json_params();
@@ -208,6 +239,7 @@ function together_handle_contact_request(WP_REST_Request $request)
     $message = sanitize_textarea_field((string) ($payload['message'] ?? ''));
     $pageUrl = esc_url_raw((string) ($payload['pageUrl'] ?? ''));
     $source = sanitize_text_field((string) ($payload['source'] ?? 'Site TOGETHER'));
+    $attribution = together_sanitize_lead_attribution($payload['attribution'] ?? null);
 
     if ($firstName === '' || $lastName === '' || $company === '' || !is_email($email)) {
         return new WP_REST_Response(
@@ -259,6 +291,7 @@ function together_handle_contact_request(WP_REST_Request $request)
     update_post_meta($postId, '_together_phone', $phone);
     update_post_meta($postId, '_together_page_url', $pageUrl);
     update_post_meta($postId, '_together_source', $source);
+    update_post_meta($postId, '_together_attribution', $attribution);
     update_post_meta($postId, '_together_ip_hash', wp_hash($ip));
     update_post_meta($postId, '_together_user_agent', sanitize_text_field((string) ($_SERVER['HTTP_USER_AGENT'] ?? '')));
     update_post_meta($postId, '_together_submitted_at', current_time('mysql'));
@@ -272,6 +305,7 @@ function together_handle_contact_request(WP_REST_Request $request)
         'message' => $message,
         'pageUrl' => $pageUrl,
         'source' => $source,
+        'attribution' => $attribution,
     ]);
 
     update_post_meta($postId, '_together_mail_sent', $mail['sent'] ? 'yes' : 'no');
@@ -686,6 +720,7 @@ function together_send_contact_email(int $postId, array $lead): array
         $lead['message'] ?: '-',
         '',
         'Registro no WordPress: #' . $postId,
+        'Origem do anuncio (dados do navegador, conferir antes de importar): ' . json_encode($lead['attribution'] ?? [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),
     ]);
     $headers = together_get_contact_mail_headers($lead['firstName'] . ' ' . $lead['lastName'], $lead['email']);
 
