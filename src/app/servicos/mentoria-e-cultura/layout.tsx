@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { socialImages } from "@/lib/social-images";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
@@ -10,11 +11,13 @@ export const metadata: Metadata = {
         locale: "pt_BR",
         siteName: "TOGETHER Privacy & Tech",
         url: "/servicos/mentoria-e-cultura",
+        images: [socialImages.mentoria],
         title: "Treinamentos LGPD e Mentoria para Empresas | TOGETHER",
         description: "Conhecimento que vira prática. Capacitação por área, mentoria para equipes de privacidade e formação de multiplicadores.",
     },
     twitter: {
-        card: "summary",
+        card: "summary_large_image",
+        images: [socialImages.mentoria],
         title: "Treinamentos LGPD e Mentoria | TOGETHER",
         description: "Prepare seu time para aplicar a privacidade na rotina. Conheça os programas e solicite uma proposta.",
     },

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { socialImages } from "@/lib/social-images";
 import localFont from "next/font/local";
 import { DeferredThirdParties } from "@/components/analytics/deferred-third-parties";
 import { IndustryMarketingTracker } from "@/components/analytics/industry-marketing-tracker";
@@ -41,6 +42,7 @@ export const metadata: Metadata = {
     siteName: "TOGETHER Privacy & Tech",
     title: "TOGETHER Privacy & Tech",
     description: siteDescription,
+    images: [socialImages.home],
   },
   robots: {
     index: true,

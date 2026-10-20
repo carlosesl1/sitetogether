@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { socialImages } from "@/lib/social-images";
 import type { ReactNode } from "react";
 
 const title = "Escritórios de Advocacia | Parceria LGPD";
@@ -17,6 +18,13 @@ export const metadata: Metadata = {
     url: "/solucoes/escritorios-de-advocacia",
     title,
     description,
+    images: [socialImages.advocacia],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [socialImages.advocacia],
   },
 };
 

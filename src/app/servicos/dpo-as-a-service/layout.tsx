@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { socialImages } from "@/lib/social-images";
 
 export const metadata: Metadata = {
     title: { absolute: "DPO as a Service: DPO Terceirizado para Empresas | TOGETHER" },
@@ -10,11 +11,13 @@ export const metadata: Metadata = {
         locale: "pt_BR",
         siteName: "TOGETHER Privacy & Tech",
         url: "/servicos/dpo-as-a-service",
+        images: [socialImages.dpo],
         title: "DPO as a Service para Empresas | TOGETHER",
         description: "Jurídico, tecnologia e operação de privacidade na mesma equipe. Conheça as entregas, os modelos de atuação e solicite uma proposta.",
     },
     twitter: {
-        card: "summary",
+        card: "summary_large_image",
+        images: [socialImages.dpo],
         title: "DPO as a Service para Empresas | TOGETHER",
         description: "DPO externo ou apoio ao DPO interno. Uma equipe para colocar a LGPD em prática.",
     },

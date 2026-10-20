@@ -1,4 +1,6 @@
 import { Navbar } from "@/components/ui/navbar";
+import type { Metadata } from "next";
+import { socialImages } from "@/lib/social-images";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { toResourceArticle } from "@/lib/resource-article";
@@ -15,6 +17,15 @@ import { CTASection } from "@/components/ui/cta-section";
 import { Footer } from "@/components/ui/footer";
 
 import { HeroV17 } from "@/components/ui/hero-v17";
+
+export const metadata: Metadata = {
+  twitter: {
+    card: "summary_large_image",
+    title: "TOGETHER Privacy & Tech",
+    description: "Privacidade, LGPD e DPO as a Service para empresas.",
+    images: [socialImages.home],
+  },
+};
 
 export default async function Home() {
   const wpPosts = await getAllPosts(3);
