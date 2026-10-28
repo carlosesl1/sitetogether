@@ -11,6 +11,8 @@ const TRACKED_ROUTES: Record<string, string> = {
   "/solucoes/privacidade-transporte-lotacao": "transporte_lotacao",
   "/solucoes/privacidade-gestao-de-rodovias": "gestao_de_rodovias",
   "/eca-digital": "eca_digital",
+  "/servicos/consultoria-adequacao": "consultoria_adequacao",
+  "/servicos/dpo-as-a-service": "dpo_as_a_service",
 };
 
 function normalizePathname(pathname: string) {

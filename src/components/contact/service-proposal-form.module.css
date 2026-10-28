@@ -4,7 +4,6 @@
 .proposalForm.proposalForm h3 { font-size: 1.8rem; }
 .proposalForm.proposalForm .formHelp { margin-top: 12px; margin-bottom: 24px; color: var(--muted); font-size: .94rem; line-height: 1.65; }
 .proposalForm fieldset { min-width: 0; border: 0; margin: 0; padding: 0; display: grid; gap: 18px; }
-.formRow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .proposalForm label { display: block; min-width: 0; font-size: .875rem; font-weight: 650; line-height: 1.6; }
 .optional { font-size: .8rem; font-weight: 400; color: var(--muted); }
 .proposalForm input, .proposalForm textarea { display: block; width: 100%; min-width: 0; margin-top: 6px; border: 1px solid #92969b; border-radius: 10px; padding: 12px 14px; background: #fff; color: var(--ink); font: inherit; font-size: 16px; font-weight: 400; line-height: 1.5; }
@@ -43,7 +42,16 @@
     .proposalForm { padding: 22px 18px; border-radius: 18px; scroll-margin-top: 96px; }
     .proposalForm.proposalForm h3 { font-size: 1.6rem; }
     .proposalForm.proposalForm .formHelp { font-size: .9rem; }
-    .formRow { grid-template-columns: 1fr; gap: 18px; }
     .sector.proposalForm { padding: 28px 24px; border-radius: 32px; }
     .sector.proposalForm h3 { font-size: 1.5rem; }
 }
+.hero.proposalForm { max-width: 520px; padding: 30px 32px; border-radius: 28px; }
+.hero.proposalForm h3 { font-size: 1.35rem; }
+.hero.proposalForm .formHelp { margin-bottom: 20px; }
+.hero.proposalForm fieldset { gap: 16px; }
+.hero.proposalForm input { min-height: 50px; padding-block: 11px; }
+.hero.proposalForm textarea { min-height: 76px; }
+.hero.proposalForm .formPrivacy { margin-top: 14px; font-size: .72rem; line-height: 1.6; }
+@media (max-width: 767px) { .hero.proposalForm { padding: 24px 20px; border-radius: 24px; } }
+.secondaryAction { margin-top: 12px; }
+.secondaryAction > a { width: 100%; }

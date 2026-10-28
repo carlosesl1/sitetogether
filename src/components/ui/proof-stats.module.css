@@ -1,0 +1,11 @@
+.stats.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; border-top: 1px solid #ebe5cf; }
+.stats > div { min-width: 0; padding: 22px 20px 0 0; }
+.stats > div + div { padding-left: 20px; border-left: 1px solid #ebe5cf; }
+.stats dt { font-size: 1.9rem; font-weight: 700; line-height: 1.1; letter-spacing: -.04em; color: var(--color-neutral-900); }
+.stats dd { margin: 8px 0 0; font-size: .8rem; font-weight: 600; line-height: 1.5; color: #626870; }
+@media (max-width: 639px) {
+    .stats > div { padding: 18px 10px 0 0; }
+    .stats > div + div { padding-left: 12px; }
+    .stats dt { font-size: 1.35rem; }
+    .stats dd { font-size: .72rem; }
+}
