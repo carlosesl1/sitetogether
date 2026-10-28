@@ -40,7 +40,7 @@
 .sectionHeader h2, .proofCopy h2, .faqIntro h2, .finalCopy h2 { margin-top: 30px !important; }
 .sectionHeader h2 .accent { display: block; }
 .page .sectionHeader > p { border-left: 2px solid var(--yellow); padding-left: 26px; max-width: 450px; }
-.situations { display: grid; grid-template-columns: repeat(3, 1fr); gap: 42px; }
+.situations { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 36px; }
 .situations article { border-top: 1px solid var(--line); padding-top: 28px; }
 .situationMark { width: 43px; height: 43px; display: grid; place-items: center; border-radius: 14px; background: var(--color-neutral-50); margin-bottom: 24px; }
 .situations article:first-child .situationMark { background: var(--yellow); }
@@ -134,7 +134,7 @@
     .section { padding-block: 80px; }
     .sectionHeader { grid-template-columns: 1fr; gap: 28px; margin-bottom: 42px; }
     .page .sectionHeader > p { max-width: 680px; }
-    .situations { gap: 28px; }
+    .situations { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
     .page .situations h3 { font-size: 1.3rem; }
     .phases { grid-template-columns: 1fr 1fr; gap: 40px 32px; }
     .phaseTop { max-width: 220px; }
